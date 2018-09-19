@@ -1,4 +1,4 @@
-package com.teamname.takenoko;
+package com.raccoon.takenoko;
 
 public class Test {
 
