@@ -2,7 +2,8 @@ package com.raccoon.takenoko.Game;
 
 import java.awt.Point;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +14,7 @@ public class BasicObjectiveTest {
 
 	private Board hashBoard;
 
-	@Before
+	@BeforeAll
 	public void initialize() {
 
 		firstTile = new BasicTile(new Point(0, 0));
@@ -24,6 +25,7 @@ public class BasicObjectiveTest {
 	}
 
 	@Test
+	@DisplayName("assert true when basic objective is completed")
 	public void testCheckIfCompleted() {
 
 		Objective objective = new BasicObjective();
