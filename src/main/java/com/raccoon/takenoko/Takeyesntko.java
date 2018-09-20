@@ -9,8 +9,12 @@ public class Takeyesntko {
 
         Game game = new Game();
 
-        System.out.println("Angry Raccoons presents");
-        System.out.println("TAKENOKO");
+        System.out.println(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
+        System.out.println("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
+        System.out.println("   |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | ");
+        System.out.println("   |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | ");
+        System.out.println("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
+        System.out.println("                                                         Presented by Angry Raccoons");
         game.start();
 
     }
@@ -27,3 +31,10 @@ public class Takeyesntko {
     }
 
 }
+
+
+//  ________      _       __   __   ______    __    __   ________   __   __   ________  
+// |__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | 
+//    |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | 
+//    |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | 
+//    |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| 
