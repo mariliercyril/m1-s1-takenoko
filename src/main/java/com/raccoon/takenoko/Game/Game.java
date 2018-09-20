@@ -32,5 +32,12 @@ public class Game {
     public Board getBoard() {
         return board;
     }
-    
+
+    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9
+        for (Player p : players) {
+            if (p.getScore() >= 9) return true;
+        }
+
+        return false;
+    }
 }
