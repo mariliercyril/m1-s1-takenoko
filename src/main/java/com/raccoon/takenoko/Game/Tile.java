@@ -7,6 +7,6 @@ public interface Tile {
 
     public Point getPosition();
     public void setPosition(Point position);
-    public List<Point> getFreeBorders();
+    public int getFreeBorders();
 
 }
