@@ -1,8 +1,8 @@
-package com.raccoon.takenoko.Player;
+package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.Game.Board;
-import com.raccoon.takenoko.Game.Game;
-import com.raccoon.takenoko.Game.Tile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
 
 import java.awt.*;

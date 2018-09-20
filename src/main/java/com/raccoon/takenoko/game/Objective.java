@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.Game;
+package com.raccoon.takenoko.game;
 
 /**
  * This interface provides methods for checking, among others, that an Objective is completed.

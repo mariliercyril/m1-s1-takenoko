@@ -1,7 +1,6 @@
-package com.raccoon.takenoko.Game;
+package com.raccoon.takenoko.game;
 
 import java.awt.Point;
-import java.util.List;
 
 public interface Tile {
 

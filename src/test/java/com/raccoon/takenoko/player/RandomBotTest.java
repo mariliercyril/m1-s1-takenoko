@@ -1,9 +1,8 @@
-package com.raccoon.takenoko.Player;
+package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.Game.Game;
+import com.raccoon.takenoko.game.Game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

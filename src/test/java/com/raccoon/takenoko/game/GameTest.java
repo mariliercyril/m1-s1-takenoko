@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.Game;
+package com.raccoon.takenoko.game;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ class GameTest {
     private Game game;
 
     @BeforeEach
-    public void build() {
+    void build() {
         game = new Game();
     }
 
