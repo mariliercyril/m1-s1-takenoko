@@ -40,4 +40,18 @@ public class Game {
 
         return false;
     }
+
+    public void start() {           // Starts the game: while the game isn't over, each player plays
+        int i = 0;
+        while (!gameOver()) {
+            players.get(i).play(this);
+            i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
+        }
+    }
+
+    public Tile[] getTile() {       // For picking tiles
+        Tile[] res = new Tile[1];
+        res[0] = new StubTile();
+        return res;
+    }
 }
