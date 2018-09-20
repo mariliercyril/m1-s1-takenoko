@@ -8,10 +8,10 @@ public class Takeyesntko {
     public static void main(String[] args) {
 
         Game game = new Game();
-        game.start();
 
         System.out.println("Angry Raccoons presents");
         System.out.println("TAKENOKO");
+        game.start();
 
     }
 
