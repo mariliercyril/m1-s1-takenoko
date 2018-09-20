@@ -17,12 +17,12 @@ public class Game {
     public Game() {                 // Default constructor: 1v1 game
         this.players = new ArrayList<>();
         for (int i = 0; i < 2; i++) players.add(new RandomBot());
-        //todo : instanciate the board
+        board = new HashBoard();
     }
 
     public Game(List<Player> players) {
         this.players = players;
-        //todo : instanciate the board
+        board = new HashBoard();
     }
 
     public List<Player> getPlayers() {
