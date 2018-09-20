@@ -4,12 +4,12 @@ import com.raccoon.takenoko.Game.Game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RandomBotTest {
     private Player p;

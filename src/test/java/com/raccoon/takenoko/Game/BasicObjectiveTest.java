@@ -2,7 +2,7 @@ package com.raccoon.takenoko.Game;
 
 import java.awt.Point;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +13,7 @@ public class BasicObjectiveTest {
 
 	private Board hashBoard;
 
-	@BeforeAll
+	@Before
 	public void initialize() {
 
 		firstTile = new BasicTile(new Point(0, 0));
