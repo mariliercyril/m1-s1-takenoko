@@ -4,6 +4,7 @@ import com.raccoon.takenoko.Game.Game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ public class RandomBotTest {
     private Player p;
     private Game g;
 
-    @Before
+    @BeforeEach
     public void build() {
         Takeyesntko.VERBOSE = false;
 
