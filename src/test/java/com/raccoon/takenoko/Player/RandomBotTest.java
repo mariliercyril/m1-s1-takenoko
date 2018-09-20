@@ -2,6 +2,7 @@ package com.raccoon.takenoko.Player;
 
 import com.raccoon.takenoko.Game.Game;
 
+import com.raccoon.takenoko.Takeyesntko;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,8 @@ public class RandomBotTest {
 
     @Before
     public void build() {
+        Takeyesntko.VERBOSE = false;
+
         g = new Game();
         p = new RandomBot();
     }

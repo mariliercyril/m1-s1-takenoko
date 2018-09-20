@@ -25,6 +25,7 @@ public class RandomBot extends Player {
     protected void putDownTile(Game game, Tile t) {
         Board b = game.getBoard();
         if (Objects.isNull(b)) {
+            Takeyesntko.print("Caution : board does not exist. Player can't put down a tile, for it would fall into the void.");
             return;
         }
         List availablePositions = b.getAvailablePositions();
@@ -36,6 +37,8 @@ public class RandomBot extends Player {
             playingPos = (Point) availablePositions.get(0);
             Takeyesntko.print("I will put down the tile at " + playingPos.toString());
             b.set(playingPos, t);
+        } else {
+            Takeyesntko.print("Can't play, keeping tile");
         }
     }
 }
