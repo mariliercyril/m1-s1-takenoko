@@ -27,4 +27,12 @@ class GameTest {
         assertNotNull(game.getBoard().get(new Point(0,0)));     // As good as it gets for now
     }
 
+    @Test
+    void getWinner() {
+        for (int i = 0; i <= 9; i++) {
+            game.getPlayers().get(0).play(game);
+        }
+        assertNotNull(game.getWinner());
+        assertSame(game.getWinner(), game.getPlayers().get(0));
+    }
 }
