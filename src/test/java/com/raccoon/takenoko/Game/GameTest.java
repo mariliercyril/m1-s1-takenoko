@@ -1,6 +1,6 @@
 package com.raccoon.takenoko.Game;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameTest {
     private Game game;
 
-    @Before
+    @BeforeEach
     public void build() {
         game = new Game();
     }
