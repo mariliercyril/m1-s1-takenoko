@@ -12,7 +12,7 @@ public class BasicObjective implements Objective {
 
 	private boolean isCompleted;
 
-	BasicObjective() {
+	public BasicObjective() {
 
 		isCompleted = false;
 	}

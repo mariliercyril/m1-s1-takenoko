@@ -10,9 +10,14 @@ public class BasicTile implements Tile {
 	private Point position;
 	private int numberOfFreeNumbers;
 
-	BasicTile(Point position) {
+	public BasicTile() {
 
 		numberOfFreeNumbers = 0;
+	}
+
+	public BasicTile(Point position) {
+
+		this();
 		this.position = position;
 	}
 
