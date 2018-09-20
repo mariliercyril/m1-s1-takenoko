@@ -1,4 +1,4 @@
-package com.raccoon.takenoko;
+package com.raccoon.takenoko.Player;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to

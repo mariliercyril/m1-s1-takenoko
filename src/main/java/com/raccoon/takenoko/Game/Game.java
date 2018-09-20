@@ -1,4 +1,6 @@
-package com.raccoon.takenoko;
+package com.raccoon.takenoko.Game;
+
+import com.raccoon.takenoko.Player.Player;
 
 import java.util.List;
 

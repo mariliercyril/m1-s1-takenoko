@@ -1,4 +1,4 @@
-package com.raccoon.takenoko;
+package com.raccoon.takenoko.Player;
 
 public class RandomBot extends Player {
 
