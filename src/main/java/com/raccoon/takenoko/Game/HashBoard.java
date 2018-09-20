@@ -56,7 +56,27 @@ public class HashBoard implements Board {
 
         ArrayList<Point> availablePositions = new ArrayList<Point>();
 
+        Point[] vectors = new Point[6];
+        vectors[0] = new Point(-1,0);
+        vectors[1] = new Point(-1,1);
+        vectors[2] = new Point(0,-1);
+        vectors[3] = new Point(0,1);
+        vectors[4] = new Point(1,-1);
+        vectors[5] = new Point(1,0);
 
+        Point tempPoint;
+
+        for (Tile tile : neighbouringTiles) {
+            for (Point vector : vectors) {
+
+                tempPoint = new Point(tile.getPosition().x + vector.x, tile.getPosition().y + vector.y);
+
+                if (!board.containsKey(tempPoint)) {
+                    availablePositions.add(tempPoint);
+                }
+
+            }
+        }
 
         return  availablePositions;
     }
