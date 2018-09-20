@@ -5,12 +5,31 @@ import java.util.List;
 
 public interface Board {
 
-    public Tile get(Point position);
+    /**
+     * Get the tile on a position.
+     * @param position The position where to look for the Tile
+     * @return The tile in this position
+     */
+    Tile get(Point position);
 
-    public void set(Point position, Tile tile);
+    /**
+     * Put a Tile on the board on a specific position.
+     * @param position Where to put it
+     * @param tile The Tile to put
+     */
+    void set(Point position, Tile tile);
 
-    public List<Point> getAvailablePositions();
+    /**
+     * Analyse the board to look for all the positions where it is possible to put a Tile
+     * @return The list of available positions
+     */
+    List<Point> getAvailablePositions();
 
-    public List<Tile> getNeighbours(Point position);
+    /**
+     * Allows to acces all the Tiles neighbouring a position.
+     * @param position The position around which to search
+     * @return The list of Tile neighbouring this position
+     */
+    List<Tile> getNeighbours(Point position);
 
 }
