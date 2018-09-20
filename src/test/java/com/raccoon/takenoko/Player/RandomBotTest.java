@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.Player;
 
 import com.raccoon.takenoko.Game.Game;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +35,6 @@ public class RandomBotTest {
     public void testPlayIncidenceOnBoard() {
         p.play(g);
         // we test that the starting tile has at least one neighbour
-        assertTrue(g.getBoard().getNeighbours(new Point(0,0)).size() > 0);
+        assertTrue(g.getBoard().getNeighbours(new Point(0, 0)).size() > 0);
     }
 }

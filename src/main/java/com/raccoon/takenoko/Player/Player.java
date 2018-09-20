@@ -1,6 +1,8 @@
 package com.raccoon.takenoko.Player;
 
 import com.raccoon.takenoko.Game.Game;
+import com.raccoon.takenoko.Game.Tile;
+import com.raccoon.takenoko.Takeyesntko;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to
@@ -27,9 +29,13 @@ public abstract class Player {
      * @param game the game in which the player is playing
      */
     public void play(Game game) {
-        this.putDownTile(game);
+        Tile t = game.getTile()[0];
+        this.putDownTile(game, t);
+
+        Takeyesntko.print("Player has played, score is increasing (no score computation yet)");
+        Takeyesntko.print("Player's current score : " + getScore());
         score++;
     }
 
-    protected abstract void putDownTile(Game game);
+    protected abstract void putDownTile(Game game, Tile t);
 }
