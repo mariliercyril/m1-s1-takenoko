@@ -11,6 +11,6 @@ public interface Board {
 
     public List<Point> getAvailablePositions();
 
-    public List<Tile> getNeighbours();
+    public List<Tile> getNeighbours(Point position);
 
 }
