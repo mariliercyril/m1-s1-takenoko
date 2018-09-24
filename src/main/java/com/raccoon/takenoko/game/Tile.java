@@ -8,5 +8,5 @@ public interface Tile {
     public void setPosition(Point position);
     public int getFreeBorders();
     public void setFreeBorders(int numberOfFreeNumbers);
-
+    public Color getColor();
 }

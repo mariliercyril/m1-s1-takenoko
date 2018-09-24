@@ -6,9 +6,10 @@ import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
 
 import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Collections;
-import java.util.Objects;
+
+import static java.lang.Math.abs;
 
 public class RandomBot extends Player {
 
@@ -35,10 +36,24 @@ public class RandomBot extends Player {
         Point playingPos;
         if (availablePositions.size() > 0) {
             playingPos = (Point) availablePositions.get(0);
-            Takeyesntko.print("I will put down the tile at " + playingPos.toString());
+            Takeyesntko.print("I will put down a " + t.getColor()+ " tile at " + playingPos.toString());
             b.set(playingPos, t);
         } else {
             Takeyesntko.print("Can't play, keeping tile");
         }
+    }
+
+    @Override
+    protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
+
+        Random rand = new Random();
+        ArrayList<Tile> tiles = game.getTiles();
+        int choice = abs(rand.nextInt()) % tiles.size();
+        for (int i = 0; i < tiles.size(); i++) {       // The players put the tiles he doesnt want back in the deck
+            if (i != choice) {
+                game.putBackTile(tiles.get(i));
+            }
+        }
+        return tiles.get(choice);
     }
 }

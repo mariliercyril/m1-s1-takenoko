@@ -1,6 +1,5 @@
 package com.raccoon.takenoko.game;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,11 +17,11 @@ import static org.mockito.Mockito.verify;
 public class HashBoardTest {
 
     @Mock
-    StubTile tile0;
+    BasicTile tile0;
     @Mock
-    StubTile tile1;
+    BasicTile tile1;
     @Mock
-    StubTile tile2;
+    BasicTile tile2;
 
     /*
     @BeforeEach
@@ -42,6 +41,20 @@ public class HashBoardTest {
 
         verify(tile1).setPosition(eq(new Point(0,1)));  // Check that the tile coordinates has been set here again
 
+        assertEquals(board.get(new Point(0,1)), tile1);
+
+    }
+    @Test
+    public void TestGetNeighbours() {
+
+        HashBoard board = new HashBoard(tile0);
+
+        board.set(new Point(0,1), tile1);
+        board.set(new Point(1,0), tile2);
+
+        assertTrue(board.getAvailablePositions().contains(new Point(1,1)));
+        assertFalse(board.getAvailablePositions().contains(new Point(1,2)));
+        assertFalse(board.getAvailablePositions().contains(new Point(0,1)));
 
     }
 }

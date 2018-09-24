@@ -3,8 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class representing the games, and allowing to interract with it
@@ -12,17 +11,20 @@ import java.util.List;
 public class Game {
 
     private List<Player> players;   // The Players participating the game
+    private LinkedList<Tile> deck;  // The deck in which players get the tiles
     private Board board;            // The game board, with all the tiles
 
     public Game() {                 // Default constructor: 1v1 game
         this.players = new ArrayList<>();
         for (int i = 0; i < 2; i++) players.add(new RandomBot());
-        board = new HashBoard(new StubTile());
+        board = new HashBoard(new BasicTile());
+        initDeck();
     }
 
     public Game(List<Player> players) {
         this.players = players;
-        board = new HashBoard(new StubTile());
+        board = new HashBoard(new BasicTile());
+        initDeck();
     }
 
     public List<Player> getPlayers() {
@@ -33,9 +35,9 @@ public class Game {
         return board;
     }
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9
+    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the deck is empty
         for (Player p : players) {
-            if (p.getScore() >= 9) return true;
+            if (p.getScore() >= 9 || deck.isEmpty()) return true;
         }
 
         return false;
@@ -49,9 +51,51 @@ public class Game {
         }
     }
 
-    public Tile[] getTile() {       // For picking tiles
-        Tile[] res = new Tile[1];
-        res[0] = new StubTile();
-        return res;
+    public Tile getTile() {         //  Takes a tile from the deck
+        return deck.poll();
+    }
+
+    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the deck
+
+        int nbrTiles = 3;           //  Number of tiles to choose from
+        ArrayList<Tile> tiles = new ArrayList<>();
+        Tile candidate;
+        for (int i = 0; i < nbrTiles; i++) {
+            candidate = getTile();
+            if (candidate != null) {
+                tiles.add(candidate);
+            }
+        }
+        return tiles;
+    }
+
+    public void putBackTile(Tile tile){
+        deck.add(tile);
+    }
+
+    public Player getWinner() {
+        for (Player p : players) {
+            if (p.getScore() >= 9) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    // used only by this class
+    void initDeck() {
+        deck = new LinkedList<>();
+        Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
+
+        for (Color c : colors) {
+            for (int i = 0; i < c.getQuantite(); i++) {
+                deck.push(new BasicTile(c));
+            }
+        }
+        Collections.shuffle(deck);
+    }
+
+    protected List getDeck() {
+        return deck;
     }
 }

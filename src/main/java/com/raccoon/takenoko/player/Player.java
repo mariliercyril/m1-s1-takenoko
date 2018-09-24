@@ -1,6 +1,8 @@
 package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.BasicObjective;
+import com.raccoon.takenoko.game.ColorObjective;
+import com.raccoon.takenoko.game.Objective;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
@@ -30,13 +32,13 @@ public abstract class Player {
      * @param game the game in which the player is playing
      */
     public void play(Game game) {
-        Tile t = game.getTile()[0];
+        Tile t = this.chooseTile(game);
         this.putDownTile(game, t);
 
         Takeyesntko.print("Player's current score : " + getScore());
-        BasicObjective objective = new BasicObjective();
+        Objective objective = new ColorObjective();
 
-        if(objective.checkIfCompleted(t, game.getBoard())){
+        if(objective.isCompleted(t, game.getBoard())){
             Takeyesntko.print("Player has completed an objective !");
         }
 
@@ -45,4 +47,5 @@ public abstract class Player {
     }
 
     protected abstract void putDownTile(Game game, Tile t);
+    protected abstract Tile chooseTile(Game game);
 }

@@ -2,6 +2,7 @@ package com.raccoon.takenoko.game;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,8 +11,8 @@ public class HashBoard implements Board {
     /*
      ******** Fields ********
      */
-    private HashMap<Point, Tile> board;     // The actual representation of the board, which is an HashMap in this implementation
-    private List<Tile> neighbouringTiles;   // the list of the tiles with a free border
+    private HashMap<Point, Tile> board;         // The actual representation of the board, which is an HashMap in this implementation
+    private List<Point> availablePositions;     // the list of the tiles with a free border
 
     /*
      ******** Constructor ********
@@ -28,7 +29,10 @@ public class HashBoard implements Board {
     public HashBoard(Tile firstTile) {
 
         this.board = new HashMap<>();
-        this.neighbouringTiles = new ArrayList<>();
+
+        Point firstPosition = new Point(0,0);
+
+        this.availablePositions = new ArrayList<>(Arrays.asList(this.getNeighboursPrivate(firstPosition)));
 
         this.set(new Point(0,0), firstTile);
         firstTile.setPosition(new Point(0, 0));
@@ -40,6 +44,52 @@ public class HashBoard implements Board {
      ******** Methods ********
      */
 
+    /*
+     **** Private ****
+     */
+
+    private Point[] getNeighboursPrivate(Point position) {
+        /*
+        Returns an array with the coordinates of all the neighbours position
+        of the specified position
+         */
+
+        Point[] vectors = new Point[6];
+        vectors[0] = new Point(position.x -1, position.y);
+        vectors[1] = new Point(position.x -1,position.y + 1);
+        vectors[2] = new Point(position.x,position.y - 1);
+        vectors[3] = new Point(position.x,position.y + 1);
+        vectors[4] = new Point(position.x +1,position.y - 1);
+        vectors[5] = new Point(position.x +1,position.y);
+
+        return vectors;
+
+    }
+
+
+    private List<Point> getFreeNeighbouringPositions(Point position) {
+        /*
+        Returns the free positions on the board adjacent to the given position
+         */
+        List<Point> neighboursAvailable = new ArrayList<>();
+
+        Point[] neighbours  = this.getNeighboursPrivate(position);
+
+        for (Point point : neighbours) {
+
+            if (!board.containsKey(point)) {
+                neighboursAvailable.add(point);
+            }
+
+        }
+        neighboursAvailable.remove(position);
+
+        return neighboursAvailable;
+    }
+
+    /*
+     **** Public ****
+     */
 
     @Override
     public Tile get(Point position) {
@@ -51,77 +101,42 @@ public class HashBoard implements Board {
     @Override
     public void set(Point position, Tile tile) {
 
+        this.availablePositions.remove(position);    // We remove our position from the list (will crash if this position was not available…)
 
-        /*
-        **********************************************************
-        * This code is related to the neighbouringTiles list,
-        * which is not maintained yet in this version
-        **********************************************************
+        board.put(position, tile);      // We simply put the tile in the HashMap with the right key
 
-        List<Tile> neighbourgs = this.getNeighbours(position);
+        List<Point> neighbourPositions = this.getFreeNeighbouringPositions(position);   // We get the list of the free positions adjacent to one of the new tile
 
-        for (Tile emptyNeighbourTile : neighbouringTiles) {
-            if (neighbourgs.contains(emptyNeighbourTile)) {
-
-                emptyNeighbourTile.setFreeBorders(emptyNeighbourTile.getFreeBorders() - 1);
-
-                if (emptyNeighbourTile.getFreeBorders() <= 0) {
-                    this.neighbouringTiles.remove(emptyNeighbourTile);
-                }
-
+        for (Point emptyPosition : neighbourPositions) {        // For each empty position
+            if (this.getNeighbours(emptyPosition).size() >= 2 && !availablePositions.contains(emptyPosition)) {
+                this.availablePositions.add(emptyPosition);     // We add it to the available positions if 2 tiles at least are adjacent
+                                                                // and if it's not there yet
             }
         }
 
 
-        tile.setFreeBorders(4);     // CAUTION !!! Temporary, be careful has to be changed SOON !
-        this.neighbouringTiles.add(tile);*/
-
-        board.put(position, tile);      // We simply put the tile in the HashMap with the right key
-        tile.setPosition(position);     // we indicate its coordinates to the tile
+        tile.setPosition(position);     // we indicate its coordinates to the tile -- MAYBE USELESS ?--
 
     }
 
     @Override
     public List<Point> getAvailablePositions() {
 
-        ArrayList<Point> availablePositions = new ArrayList<>();
+        return  this.availablePositions;
 
-        Point tempPoint;    // We use this to remember each point we create, so when we are done looking
-                            // for a position we still have it
-
-        // The 'y' component of the coordinate
-        int y = 0;
-
-        // We start from the (0, 0) position, and we look in a straight line for the first position without a tile
-        while(board.containsKey(tempPoint = new Point(0, y++)));
-
-        // This position is added to the (partial) list of available positions
-        availablePositions.add(tempPoint);
-
-        // We return it
-        return  availablePositions;
     }
 
     @Override
     public List<Tile> getNeighbours(Point position) {
 
         ArrayList<Tile> neighbours = new ArrayList<>();
-        Point tempPoint;
 
-        Point[] vectors = new Point[6];
-        vectors[0] = new Point(-1,0);
-        vectors[1] = new Point(-1,1);
-        vectors[2] = new Point(0,-1);
-        vectors[3] = new Point(0,1);
-        vectors[4] = new Point(1,-1);
-        vectors[5] = new Point(1,0);
+        Point[] points  = this.getNeighboursPrivate(position);
 
-        for (Point vector : vectors) {
+        for (Point point : points) {
 
-            tempPoint = new Point(position.x + vector.x, position.y + vector.y);
-
-            if (board.containsKey(tempPoint)) {
-                neighbours.add(this.get(tempPoint));
+            if (board.containsKey(point)) {
+                neighbours.add(this.get(point));
             }
 
         }
@@ -129,4 +144,5 @@ public class HashBoard implements Board {
 
         return neighbours;
     }
+
 }

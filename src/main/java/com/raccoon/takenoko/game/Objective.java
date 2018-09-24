@@ -5,8 +5,10 @@ package com.raccoon.takenoko.game;
  */
 public interface Objective {
 
-	// TODO: To rename the method "checkIfCompleted" into "isCompleted".
-    public boolean checkIfCompleted(Tile basicTile, Board hashBoard);
+	/**
+	 * Check if the basic objective is completed.
+	 */
+    public boolean isCompleted(Tile basicTile, Board hashBoard);
 
     public int getScore();
 }
