@@ -130,7 +130,6 @@ public class HashBoard implements Board {
     public List<Tile> getNeighbours(Point position) {
 
         ArrayList<Tile> neighbours = new ArrayList<>();
-        Point tempPoint;
 
         Point[] points  = this.getNeighboursPrivate(position);
 

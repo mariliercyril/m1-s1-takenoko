@@ -41,6 +41,20 @@ public class HashBoardTest {
 
         verify(tile1).setPosition(eq(new Point(0,1)));  // Check that the tile coordinates has been set here again
 
+        assertEquals(board.get(new Point(0,1)), tile1);
+
+    }
+    @Test
+    public void TestGetNeighbours() {
+
+        HashBoard board = new HashBoard(tile0);
+
+        board.set(new Point(0,1), tile1);
+        board.set(new Point(1,0), tile2);
+
+        assertTrue(board.getAvailablePositions().contains(new Point(1,1)));
+        assertFalse(board.getAvailablePositions().contains(new Point(1,2)));
+        assertFalse(board.getAvailablePositions().contains(new Point(0,1)));
 
     }
 }
