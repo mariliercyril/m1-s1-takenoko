@@ -17,12 +17,12 @@ public class Game {
     public Game() {                 // Default constructor: 1v1 game
         this.players = new ArrayList<>();
         for (int i = 0; i < 2; i++) players.add(new RandomBot());
-        board = new HashBoard(new StubTile());
+        board = new HashBoard(new BasicTile());
     }
 
     public Game(List<Player> players) {
         this.players = players;
-        board = new HashBoard(new StubTile());
+        board = new HashBoard(new BasicTile());
     }
 
     public List<Player> getPlayers() {
@@ -51,7 +51,16 @@ public class Game {
 
     public Tile[] getTile() {       // For picking tiles
         Tile[] res = new Tile[1];
-        res[0] = new StubTile();
+        res[0] = new BasicTile();
         return res;
+    }
+
+    public Player getWinner() {
+            for (Player p : players) {
+                if (p.getScore() >= 9) {
+                    return p;
+                }
+            }
+            return null;
     }
 }
