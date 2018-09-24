@@ -1,6 +1,5 @@
 package com.raccoon.takenoko.game;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
