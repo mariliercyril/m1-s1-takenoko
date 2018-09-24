@@ -17,11 +17,11 @@ import static org.mockito.Mockito.verify;
 public class HashBoardTest {
 
     @Mock
-    StubTile tile0;
+    BasicTile tile0;
     @Mock
-    StubTile tile1;
+    BasicTile tile1;
     @Mock
-    StubTile tile2;
+    BasicTile tile2;
 
     /*
     @BeforeEach
