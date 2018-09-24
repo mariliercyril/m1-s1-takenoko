@@ -59,9 +59,11 @@ public class Game {
 
         int nbrTiles = 3;           //  Number of tiles to choose from
         ArrayList<Tile> tiles = new ArrayList<>();
+        Tile candidate;
         for (int i = 0; i < nbrTiles; i++) {
-            if (deck.element() != null) {
-                tiles.add(getTile());
+            candidate = getTile();
+            if (candidate != null) {
+                tiles.add(candidate);
             }
         }
         return tiles;

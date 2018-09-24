@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,5 +52,19 @@ class GameTest {
         game.putBackTile(test);
 
         assertTrue(game.getDeck().contains(test));
+    }
+
+    @Test
+    void getTilesTest() {
+        ArrayList<Tile> threeTiles = game.getTiles();   // Check that we actually pick three tiles
+        assertEquals(3, threeTiles.size());
+        while (game.getDeck().size() > 0) {
+            game.getTile(); //  Removes three tiles
+        }
+        game.putBackTile(threeTiles.get(0));
+        game.putBackTile(threeTiles.get(1));
+        assertEquals(2, game.getDeck().size()); // There should only be two tiles picked since there were only two in the deck
+        ArrayList<Tile> twoTiles = game.getTiles();
+        assertEquals(2, twoTiles.size());
     }
 }
