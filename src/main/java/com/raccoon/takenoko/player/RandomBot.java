@@ -6,10 +6,8 @@ import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
 
 import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 
@@ -49,13 +47,13 @@ public class RandomBot extends Player {
     protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
 
         Random rand = new Random();
-        int choice = abs(rand.nextInt()) % 3;
-        Tile[] tiles = game.getTiles();
-        for (int i = 0; i < 3; i++) {       // The players put the tiles he doesnt want back in the deck
+        ArrayList<Tile> tiles = game.getTiles();
+        int choice = abs(rand.nextInt()) % tiles.size();
+        for (int i = 0; i < tiles.size(); i++) {       // The players put the tiles he doesnt want back in the deck
             if (i != choice) {
-                game.putBackTile(tiles[i]);
+                game.putBackTile(tiles.get(i));
             }
         }
-        return tiles[choice];
+        return tiles.get(choice);
     }
 }
