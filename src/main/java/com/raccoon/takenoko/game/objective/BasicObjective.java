@@ -1,12 +1,15 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko.game.objective;
 
 import java.awt.Point;
 
 import java.util.List;
 
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Tile;
+
 /**
- * This class allows to define a basic (first) objective as follows:
- * To place two tiles in an adjacent way.
+ * This class allows to satisfy the following objective:
+ * Place two tiles in an adjacent way.
  */
 public class BasicObjective implements Objective {
 
@@ -20,7 +23,7 @@ public class BasicObjective implements Objective {
 	@Override
 	public boolean isCompleted(Tile basicTile, Board hashBoard) {
 
-		// Gets the position of the tile to be placed
+		// Gets the position of the basic tile
 		Point position = basicTile.getPosition();
 
 		// Gets the tiles which are in the neighbourhood of the tile to be placed

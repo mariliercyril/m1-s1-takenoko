@@ -1,10 +1,10 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.BasicObjective;
-import com.raccoon.takenoko.game.ColorObjective;
-import com.raccoon.takenoko.game.Objective;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.objective.BasicObjective;
+import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
 
 /**

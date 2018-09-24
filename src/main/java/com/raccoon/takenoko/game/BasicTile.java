@@ -3,7 +3,7 @@ package com.raccoon.takenoko.game;
 import java.awt.Point;
 
 /**
- * This class allows to define a basic (first) tile.
+ * This class allows to define a basic tile.
  */
 public class BasicTile implements Tile {
 

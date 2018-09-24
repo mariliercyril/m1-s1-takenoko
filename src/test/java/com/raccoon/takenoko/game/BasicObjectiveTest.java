@@ -5,13 +5,16 @@ import java.awt.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.raccoon.takenoko.game.objective.BasicObjective;
+import com.raccoon.takenoko.game.objective.Objective;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BasicObjectiveTest {
 
 	@Test
 	@DisplayName("assert true when basic objective is completed")
-	public void testCheckIfCompleted() {
+	public void testIsCompleted() {
 
 		Objective objective = new BasicObjective();
 
