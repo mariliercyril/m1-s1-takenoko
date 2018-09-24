@@ -35,4 +35,9 @@ class GameTest {
         assertNotNull(game.getWinner());
         assertSame(game.getWinner(), game.getPlayers().get(0));
     }
+
+    @Test
+    void initDeck(){
+
+    }
 }
