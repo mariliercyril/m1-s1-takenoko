@@ -35,9 +35,9 @@ public class Game {
         return board;
     }
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9
+    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the deck is empty
         for (Player p : players) {
-            if (p.getScore() >= 9) return true;
+            if (p.getScore() >= 9 || deck.isEmpty()) return true;
         }
 
         return false;
@@ -65,8 +65,8 @@ public class Game {
         return tiles;
     }
 
-    public void putBackTiles(Tile[] tiles){
-        deck.addAll(Arrays.asList(tiles));
+    public void putBackTile(Tile tile){
+        deck.add(tile);
     }
 
     public Player getWinner() {

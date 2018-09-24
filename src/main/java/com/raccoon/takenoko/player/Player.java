@@ -30,7 +30,7 @@ public abstract class Player {
      * @param game the game in which the player is playing
      */
     public void play(Game game) {
-        Tile t = game.getTiles()[0];
+        Tile t = this.chooseTile(game);
         this.putDownTile(game, t);
 
         Takeyesntko.print("Player's current score : " + getScore());
@@ -45,4 +45,5 @@ public abstract class Player {
     }
 
     protected abstract void putDownTile(Game game, Tile t);
+    protected abstract Tile chooseTile(Game game);
 }
