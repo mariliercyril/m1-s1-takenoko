@@ -52,6 +52,7 @@ public class BasicTile implements Tile {
 		this.numberOfFreeNumbers = numberOfFreeNumbers;
 	}
 
+	@Override
 	public Color getColor() {	// Returns the color of the tile
 		return color;
 	}

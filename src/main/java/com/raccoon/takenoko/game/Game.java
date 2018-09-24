@@ -5,6 +5,7 @@ import com.raccoon.takenoko.player.RandomBot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Class representing the games, and allowing to interract with it
@@ -12,17 +13,25 @@ import java.util.List;
 public class Game {
 
     private List<Player> players;   // The Players participating the game
+    private Queue<Tile> deck;
     private Board board;            // The game board, with all the tiles
 
     public Game() {                 // Default constructor: 1v1 game
         this.players = new ArrayList<>();
         for (int i = 0; i < 2; i++) players.add(new RandomBot());
         board = new HashBoard(new BasicTile());
+        deck = initDeck();
+    }
+
+    private Queue<Tile> initDeck() {
+
+        return null;
     }
 
     public Game(List<Player> players) {
         this.players = players;
         board = new HashBoard(new BasicTile());
+        deck = initDeck();
     }
 
     public List<Player> getPlayers() {
@@ -56,11 +65,11 @@ public class Game {
     }
 
     public Player getWinner() {
-            for (Player p : players) {
-                if (p.getScore() >= 9) {
-                    return p;
-                }
+        for (Player p : players) {
+            if (p.getScore() >= 9) {
+                return p;
             }
-            return null;
+        }
+        return null;
     }
 }
