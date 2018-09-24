@@ -1,6 +1,6 @@
 package com.raccoon.takenoko;
 
-import com.raccoon.takenoko.Game.Game;
+import com.raccoon.takenoko.game.Game;
 
 public class Takeyesntko {
     public static boolean VERBOSE = true;

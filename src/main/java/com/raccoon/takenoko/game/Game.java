@@ -1,7 +1,7 @@
-package com.raccoon.takenoko.Game;
+package com.raccoon.takenoko.game;
 
-import com.raccoon.takenoko.Player.Player;
-import com.raccoon.takenoko.Player.RandomBot;
+import com.raccoon.takenoko.player.Player;
+import com.raccoon.takenoko.player.RandomBot;
 
 import java.util.ArrayList;
 import java.util.List;
