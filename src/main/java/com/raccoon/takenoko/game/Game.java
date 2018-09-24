@@ -3,8 +3,9 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
-import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 public class Game {
 
     private List<Player> players;   // The Players participating the game
-    private ArrayDeque<Tile> deck;  // The deck in which players get the tiles
+    private LinkedList<Tile> deck;  // The deck in which players get the tiles
     private Board board;            // The game board, with all the tiles
 
     public Game() {                 // Default constructor: 1v1 game
@@ -54,7 +55,7 @@ public class Game {
     }
 
     public Tile getTile() {         //  Takes a tile from the deck
-        return deck.remove();
+        return deck.poll();
     }
 
     public Tile[] getTiles() {       // Takes n (three) tiles from the deck
@@ -78,7 +79,7 @@ public class Game {
 
     // used only by this class
     void initDeck() {
-        deck = new ArrayDeque<>();
+        deck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
 
         for (Color c : colors) {
@@ -86,5 +87,6 @@ public class Game {
                 deck.push(new BasicTile(c));
             }
         }
+        Collections.shuffle(deck);
     }
 }
