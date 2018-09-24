@@ -40,6 +40,15 @@ class GameTest {
 
     @Test
     void initDeck(){
-        assertEquals(3, game.getTiles().length);
+        assertEquals(27, game.getDeck().size());
+    }
+
+    @Test
+    void putBackTileTest() {
+        Tile test = game.getTile();
+        assertFalse(game.getDeck().contains(test));
+        game.putBackTile(test);
+
+        assertTrue(game.getDeck().contains(test));
     }
 }

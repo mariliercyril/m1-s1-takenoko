@@ -55,12 +55,14 @@ public class Game {
         return deck.poll();
     }
 
-    public Tile[] getTiles() {       // Takes n (three) tiles from the deck
+    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the deck
 
         int nbrTiles = 3;           //  Number of tiles to choose from
-        Tile[] tiles = new Tile[3];
+        ArrayList<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < nbrTiles; i++) {
-            tiles[i] = getTile();
+            if (deck.element() != null) {
+                tiles.add(getTile());
+            }
         }
         return tiles;
     }
@@ -89,5 +91,9 @@ public class Game {
             }
         }
         Collections.shuffle(deck);
+    }
+
+    protected List getDeck() {
+        return deck;
     }
 }
