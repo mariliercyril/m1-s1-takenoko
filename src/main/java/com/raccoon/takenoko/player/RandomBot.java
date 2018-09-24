@@ -38,7 +38,7 @@ public class RandomBot extends Player {
         Point playingPos;
         if (availablePositions.size() > 0) {
             playingPos = (Point) availablePositions.get(0);
-            Takeyesntko.print("I will put down the tile at " + playingPos.toString());
+            Takeyesntko.print("I will put down a " + t.getColor()+ " tile at " + playingPos.toString());
             b.set(playingPos, t);
         } else {
             Takeyesntko.print("Can't play, keeping tile");
