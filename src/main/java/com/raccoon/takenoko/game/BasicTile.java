@@ -9,10 +9,17 @@ public class BasicTile implements Tile {
 
 	private Point position;
 	private int numberOfFreeNumbers;
+	private Color color;
 
 	public BasicTile() {
 
 		numberOfFreeNumbers = 0;
+	}
+
+	public BasicTile(Color color) {
+
+		this();
+		this.color = color;
 	}
 
 	public BasicTile(Point position) {
@@ -43,5 +50,9 @@ public class BasicTile implements Tile {
 	public void setFreeBorders(int numberOfFreeNumbers) {
 
 		this.numberOfFreeNumbers = numberOfFreeNumbers;
+	}
+
+	public Color getColor() {	// Returns the color of the tile
+		return color;
 	}
 }
