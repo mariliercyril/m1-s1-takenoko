@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ class GameTest {
     @BeforeEach
     void build() {
         game = new Game();
+        Takeyesntko.VERBOSE = false;
     }
 
     @Test
@@ -34,5 +36,10 @@ class GameTest {
         }
         assertNotNull(game.getWinner());
         assertSame(game.getWinner(), game.getPlayers().get(0));
+    }
+
+    @Test
+    void initDeck(){
+        assertEquals(3, game.getTiles().length);
     }
 }

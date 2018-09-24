@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.List;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Random;
+
+import static java.lang.Math.abs;
 
 public class RandomBot extends Player {
 
@@ -40,5 +43,19 @@ public class RandomBot extends Player {
         } else {
             Takeyesntko.print("Can't play, keeping tile");
         }
+    }
+
+    @Override
+    protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
+
+        Random rand = new Random();
+        int choice = abs(rand.nextInt()) % 3;
+        Tile[] tiles = game.getTiles();
+        for (int i = 0; i < 3; i++) {       // The players put the tiles he doesnt want back in the deck
+            if (i != choice) {
+                game.putBackTile(tiles[i]);
+            }
+        }
+        return tiles[choice];
     }
 }
