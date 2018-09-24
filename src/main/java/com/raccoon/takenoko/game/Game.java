@@ -3,10 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
-import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class representing the games, and allowing to interract with it
@@ -66,6 +63,10 @@ public class Game {
             tiles[i] = getTile();
         }
         return tiles;
+    }
+
+    public void putBackTiles(Tile[] tiles){
+        deck.addAll(Arrays.asList(tiles));
     }
 
     public Player getWinner() {

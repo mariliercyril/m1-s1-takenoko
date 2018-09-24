@@ -41,6 +41,5 @@ class GameTest {
     @Test
     void initDeck(){
         assertEquals(3, game.getTiles().length);
-        assertNotNull(game.getTile());
     }
 }
