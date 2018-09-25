@@ -14,9 +14,13 @@ import com.raccoon.takenoko.Takeyesntko;
  */
 public abstract class Player {
     private int score;
+    private int id;
+    private static int counter = 0;
 
     public Player() {
         score = 0;
+        counter++;
+        id = counter;
     }
 
     public int getScore() {
@@ -51,4 +55,8 @@ public abstract class Player {
 
     protected abstract void putDownTile(Game game, Tile t);
     protected abstract Tile chooseTile(Game game);
+
+    public int getId() {
+        return id;
+    }
 }
