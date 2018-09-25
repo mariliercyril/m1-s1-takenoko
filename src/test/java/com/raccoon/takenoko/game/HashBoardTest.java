@@ -72,10 +72,10 @@ public class HashBoardTest {
         board.set(new Point(1,2), test_dry);
         assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());*/
     }
-    @Ignore
+    //@Ignore
     @Test
     public void accessiblePositionsTest() {
-        HashBoard board = new HashBoard(tile0);
+        Board board = new HashBoard(tile0);
 
         Point start = new Point(0,0);
 
