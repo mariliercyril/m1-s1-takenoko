@@ -7,7 +7,7 @@ import java.util.List;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.tool.UnitVector;
+
 import com.raccoon.takenoko.tool.Vector;
 
 /**
@@ -45,15 +45,7 @@ public class ColorObjective implements Objective {
 				// Gets the position of third tile
 				positions[2] = thirdTile.getPosition();
 
-				Point[] vectors = new Point[3];
-/*
-				vectors[0] = new Point(0, 1);
-				vectors[1] = new Point(-1, 1);
-				vectors[2] = new Point(-1, 0);
-*/
-				vectors[0] = (UnitVector.I).get();
-				vectors[1] = (UnitVector.J).get();
-				vectors[2] = Vector.sum((UnitVector.I).get(), (UnitVector.J).get());
+				Point[] vectors = Vector.UNITS;
 				for (Point vector : vectors) {
 					if (areAligned(positions, vector.x, vector.y)) {
 						Color[] colors = new Color[3];

@@ -12,13 +12,8 @@ public final class Vector extends Point {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// The unit Vector I and the unit Vector J
-	public static final Vector I = new Vector(1, 0);
-	public static final Vector J = new Vector(0, 1);
-
-	// A third Vector to facilitate the location of objects on the board (Tile, etc.)
-	// (Can get it with the unit vectors!)
-	public static final Vector K = new Vector(1, 1);
+	// The unit Vector I and the unit Vector J (we can get the third Vector with the vectors I and J)
+	public static final Vector[] UNITS = { new Vector(1, 0), new Vector(0, 1), new Vector(1, 1) };
 
 	private int x;
 	private int y;
