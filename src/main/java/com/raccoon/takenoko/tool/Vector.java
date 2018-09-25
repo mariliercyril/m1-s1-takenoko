@@ -15,9 +15,6 @@ public final class Vector extends Point {
 	// The unit Vector I and the unit Vector J (we can get the third Vector with the vectors I and J)
 	public static final Vector[] UNITS = { new Vector(1, 0), new Vector(0, 1), new Vector(1, 1) };
 
-	private int x;
-	private int y;
-
 	public Vector(int x, int y) {
 
 		super(x, y);
