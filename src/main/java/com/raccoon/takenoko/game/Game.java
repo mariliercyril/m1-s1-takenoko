@@ -51,6 +51,7 @@ public class Game {
             players.get(i).play(this);
             i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
         }
+        printRanking();
     }
 
     public Tile getTile() {         //  Takes a tile from the deck
@@ -71,17 +72,14 @@ public class Game {
         return tiles;
     }
 
-    public void putBackTile(Tile tile){
+    public void putBackTile(Tile tile) {
         deck.add(tile);
     }
 
     public Player getWinner() {
-        for (Player p : players) {
-            if (p.getScore() >= 9) {
-                return p;
-            }
-        }
-        return null;
+        players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
+
+        return players.get(0);
     }
 
     // used only by this class
@@ -95,6 +93,14 @@ public class Game {
             }
         }
         Collections.shuffle(deck);
+    }
+
+    private void printRanking() {
+        players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
+        Takeyesntko.print("\n RANKING");
+        for (int i = 0; i < players.size(); i++) {
+            Takeyesntko.print("Player " + i + " has " + players.get(i).getScore() + " points.");
+        }
     }
 
     protected List getDeck() {
