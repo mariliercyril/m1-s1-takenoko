@@ -45,8 +45,7 @@ public class ColorObjective implements Objective {
 				// Gets the position of third tile
 				positions[2] = thirdTile.getPosition();
 
-				Point[] vectors = Vector.UNITS;
-				for (Point vector : vectors) {
+				for (Point vector : Vector.UNITS) {
 					if (areAligned(positions, vector.x, vector.y)) {
 						Color[] colors = new Color[3];
 						for (int i = 0; i < 3; i++) {
