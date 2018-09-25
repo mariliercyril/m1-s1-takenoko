@@ -7,7 +7,9 @@ import java.awt.Point;
  */
 public interface Tile {
 
-    public Point getPosition();
-    public void setPosition(Point position);
-    public Color getColor();
+    int getBambooSize();
+    void increaseBambooSize(int bambooSize);
+    Point getPosition();
+    void setPosition(Point position);
+    Color getColor();
 }

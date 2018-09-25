@@ -9,9 +9,14 @@ public class BasicTile implements Tile {
 
 	private Point position;
 
+
+
+    private int bambooSize;
 	private Color color;
 
 	public BasicTile() {
+
+	    bambooSize = 0;
 
 	}
 
@@ -26,6 +31,18 @@ public class BasicTile implements Tile {
 		this();
 		this.position = position;
 	}
+
+	@Override
+    public int getBambooSize() {
+        return bambooSize;
+    }
+
+    @Override
+    public void increaseBambooSize(int bambooSize) {
+	    if (this.getBambooSize() < 4) {
+	        this.bambooSize ++;
+        }
+    }
 
 	@Override
 	public Point getPosition() {
