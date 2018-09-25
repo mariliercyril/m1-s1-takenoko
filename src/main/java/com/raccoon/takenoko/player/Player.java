@@ -1,10 +1,10 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.BasicObjective;
-import com.raccoon.takenoko.game.ColorObjective;
-import com.raccoon.takenoko.game.Objective;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.objective.BasicObjective;
+import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
 
 /**
@@ -33,17 +33,20 @@ public abstract class Player {
      */
     public void play(Game game) {
         Tile t = this.chooseTile(game);
+
+        // player puts down a tile according to its algorithm
         this.putDownTile(game, t);
 
-        Takeyesntko.print("Player's current score : " + getScore());
+        // check for objective completion
         Objective objective = new ColorObjective();
 
         if(objective.isCompleted(t, game.getBoard())){
-            Takeyesntko.print("Player has completed an objective !");
+            Takeyesntko.print("Player has completed an objective ! 1 point to the player !");
+            score++;
         }
 
-        Takeyesntko.print("Player has played, score is increasing (no score computation yet)");
-        score++;
+        Takeyesntko.print("Player has played. Current score : " + getScore());
+
     }
 
     protected abstract void putDownTile(Game game, Tile t);

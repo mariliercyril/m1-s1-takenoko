@@ -3,18 +3,17 @@ package com.raccoon.takenoko.game;
 import java.awt.Point;
 
 /**
- * This class allows to define a basic (first) tile.
+ * This class allows to define a basic tile.
  */
 public class BasicTile implements Tile {
 
 	private Point position;
-	private int numberOfFreeNumbers;
+
 	private Color color;
 	private boolean irrigated;
 
 	public BasicTile() {
 
-		numberOfFreeNumbers = 0;
 		irrigated = true;	// todo : change to false when the players have to irrigate the tiles themselves
 	}
 
@@ -40,18 +39,6 @@ public class BasicTile implements Tile {
 	public void setPosition(Point position) {
 
 		this.position = position;
-	}
-
-	@Override
-	public int getFreeBorders() {
-
-		return numberOfFreeNumbers;
-	}
-
-	@Override
-	public void setFreeBorders(int numberOfFreeNumbers) {
-
-		this.numberOfFreeNumbers = numberOfFreeNumbers;
 	}
 
 	@Override
