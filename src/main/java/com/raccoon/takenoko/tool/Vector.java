@@ -3,14 +3,22 @@ package com.raccoon.takenoko.tool;
 import java.awt.Point;
 
 /**
- * This class allows to define a vector (as a Point) and several operations (such as the sum).
+ * This class allows to define a vector (as a Point) and several operations (such as the opposite).
  */
-public class Vector extends Point {
+public final class Vector extends Point {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	// The unit Vector I and the unit Vector J
+	public static final Vector I = new Vector(1, 0);
+	public static final Vector J = new Vector(0, 1);
+
+	// A third Vector to facilitate the location of objects on the board (Tile, etc.)
+	// (Can get it with the unit vectors!)
+	public static final Vector K = new Vector(1, 1);
 
 	private int x;
 	private int y;
@@ -21,18 +29,16 @@ public class Vector extends Point {
 	}
 
 	/**
-	 * Performs the sum of (two) vectors.
+	 * Applies a Vector on a Point.
 	 * 
-	 * @param v1
-	 *        A first vector
-	 * @param v2
-	 *        A second vector
+	 * @param point
+	 *        A point for applying
 	 * 
-	 * @return The sum vector
+	 * @return The point by the translation
 	 */
-	public static Vector sum(Vector v1, Vector v2) {
+	public Point apply(Point point) {
 
-		return new Vector(v1.x + v2.x, v1.y + v2.y);
+		return new Point(point.x + this.x, point.y + this.y);
 	}
 
 	/**
@@ -43,8 +49,9 @@ public class Vector extends Point {
 	 * 
 	 * @return The opposite vector
 	 */
-	public Vector opposite(Vector v) {
+	public Vector opposite(Vector vector) {
 
-		return new Vector(-v.x, -v.y);
+		return new Vector(-vector.x, -vector.y);
 	}
+
 }
