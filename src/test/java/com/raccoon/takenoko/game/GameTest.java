@@ -15,8 +15,8 @@ class GameTest {
 
     @BeforeEach
     void build() {
-        game = new Game();
         Takeyesntko.VERBOSE = false;
+        game = new Game();
     }
 
     @Test
@@ -28,7 +28,7 @@ class GameTest {
     @Test
     void start() {
         game.start();
-        assertNotNull(game.getBoard().get(new Point(0,0)));     // As good as it gets for now
+        assertNotNull(game.getBoard().get(new Point(0, 0)));     // As good as it gets for now
     }
 
     @Disabled("Method evolved, TODO mock it")
@@ -42,7 +42,7 @@ class GameTest {
     }
 
     @Test
-    void initDeck(){
+    void initDeck() {
         assertEquals(27, game.getDeck().size());
     }
 
@@ -67,5 +67,19 @@ class GameTest {
         assertEquals(2, game.getDeck().size()); // There should only be two tiles picked since there were only two in the deck
         ArrayList<Tile> twoTiles = game.getTiles();
         assertEquals(2, twoTiles.size());
+    }
+
+    @Test
+    void irrigatedFirstTile(){
+        Tile t = game.getTile();
+        game.getBoard().set(new Point(0, 1), t);
+        assertTrue(t.isIrrigated());
+    }
+
+    @Test
+    void bambooSizeOnTileTest() {
+        Tile t = game.getTile();
+        game.getBoard().set(new Point(0, 1), t);
+        assertTrue(t.getBambooSize() > 0);
     }
 }
