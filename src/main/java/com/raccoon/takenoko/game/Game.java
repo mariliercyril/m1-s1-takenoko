@@ -16,8 +16,9 @@ public class Game {
     private Board board;            // The game board, with all the tiles
 
     public Game() {                 // Default constructor: 1v1 game
+        int numberOfPlayers = 4;
         this.players = new ArrayList<>();
-        for (int i = 0; i < 2; i++) players.add(new RandomBot());
+        for (int i = 0; i < numberOfPlayers; i++) players.add(new RandomBot());
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
@@ -47,7 +48,7 @@ public class Game {
     public void start() {           // Starts the game: while the game isn't over, each player plays
         int i = 0;
         while (!gameOver()) {
-            Takeyesntko.print("\nPlayer " + i + " is playing now.");
+            Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " is playing now.");
             players.get(i).play(this);
             i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
         }
@@ -98,8 +99,8 @@ public class Game {
     private void printRanking() {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
         Takeyesntko.print("\n RANKING");
-        for (int i = 0; i < players.size(); i++) {
-            Takeyesntko.print("Player " + i + " has " + players.get(i).getScore() + " points.");
+        for (Player pl : players) {
+            Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points.");
         }
     }
 
