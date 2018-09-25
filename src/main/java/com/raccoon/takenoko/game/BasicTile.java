@@ -8,12 +8,11 @@ import java.awt.Point;
 public class BasicTile implements Tile {
 
 	private Point position;
-	private int numberOfFreeNumbers;
+
 	private Color color;
 
 	public BasicTile() {
 
-		numberOfFreeNumbers = 0;
 	}
 
 	public BasicTile(Color color) {
@@ -38,18 +37,6 @@ public class BasicTile implements Tile {
 	public void setPosition(Point position) {
 
 		this.position = position;
-	}
-
-	@Override
-	public int getFreeBorders() {
-
-		return numberOfFreeNumbers;
-	}
-
-	@Override
-	public void setFreeBorders(int numberOfFreeNumbers) {
-
-		this.numberOfFreeNumbers = numberOfFreeNumbers;
 	}
 
 	@Override

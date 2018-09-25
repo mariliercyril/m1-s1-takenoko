@@ -36,7 +36,6 @@ public class HashBoard implements Board {
 
         this.set(new Point(0,0), firstTile);
         firstTile.setPosition(new Point(0, 0));
-        firstTile.setFreeBorders(6);
 
     }
 
