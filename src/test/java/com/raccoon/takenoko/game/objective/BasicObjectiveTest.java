@@ -1,17 +1,25 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko.game.objective;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Point;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.HashBoard;
+import com.raccoon.takenoko.game.Tile;
+
+import com.raccoon.takenoko.game.objective.BasicObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 
 public class BasicObjectiveTest {
 
 	@Test
 	@DisplayName("assert true when basic objective is completed")
-	public void testCheckIfCompleted() {
+	public void testIsCompleted() {
 
 		Objective objective = new BasicObjective();
 
@@ -21,4 +29,5 @@ public class BasicObjectiveTest {
 		hashBoard.set(new Point(0, 1), new BasicTile());
 		assertTrue(objective.isCompleted(firstTile, hashBoard));
 	}
+
 }

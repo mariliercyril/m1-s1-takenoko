@@ -1,11 +1,11 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,49 +15,50 @@ class GameTest {
 
     @BeforeEach
     void build() {
-        game = new Game();
         Takeyesntko.VERBOSE = false;
+        game = new Game();
     }
 
     @Test
     void gameOver() {
         game.start();                   // Play one game
-        assertTrue(game.gameOver());    // When the game ends, it should be over
+        assertTrue(game.gameOver(), "Game never ends");    // When the game ends, it should be over
     }
 
     @Test
     void start() {
         game.start();
-        assertNotNull(game.getBoard().get(new Point(0,0)));     // As good as it gets for now
+        assertNotNull(game.getBoard().get(new Point(0, 0)), "There is noooooo board~");     // As good as it gets for now
     }
 
+    // @Disabled("Method evolved, mock it")
     @Test
     void getWinner() {
         for (int i = 0; i <= 9; i++) {
             game.getPlayers().get(0).play(game);
         }
-        assertNotNull(game.getWinner());
-        assertSame(game.getWinner(), game.getPlayers().get(0));
+        assertNotNull(game.getWinner(), "The winner does not exist");
+        assertTrue(game.getPlayers().get(0).getScore() >= game.getPlayers().get(1).getScore(), "Second player seems to be better than first player");
     }
 
     @Test
-    void initDeck(){
-        assertEquals(27, game.getDeck().size());
+    void initDeck() {
+        assertEquals(27, game.getDeck().size(), "Full deck has not been initialized");
     }
 
     @Test
     void putBackTileTest() {
         Tile test = game.getTile();
-        assertFalse(game.getDeck().contains(test));
+        assertFalse(game.getDeck().contains(test), "Deck still contains taken tile");
         game.putBackTile(test);
 
-        assertTrue(game.getDeck().contains(test));
+        assertTrue(game.getDeck().contains(test), "Desk doesn't contain put back tile");
     }
 
     @Test
     void getTilesTest() {
         ArrayList<Tile> threeTiles = game.getTiles();   // Check that we actually pick three tiles
-        assertEquals(3, threeTiles.size());
+        assertEquals(3, threeTiles.size(), "Player hasn't taken 3 tiles");
         while (game.getDeck().size() > 0) {
             game.getTile(); //  Removes three tiles
         }
@@ -66,5 +67,23 @@ class GameTest {
         assertEquals(2, game.getDeck().size()); // There should only be two tiles picked since there were only two in the deck
         ArrayList<Tile> twoTiles = game.getTiles();
         assertEquals(2, twoTiles.size());
+    }
+
+    @Test
+    void irrigatedFirstTile(){
+        Tile t = game.getTile();
+        game.getBoard().set(new Point(0, 1), t);
+        assertTrue(t.isIrrigated(), "Tile next to lake is not irrigated");
+    }
+
+    @Test
+    void bambooSizeOnTileTest() {
+        Tile t = game.getTile();
+        game.getBoard().set(new Point(0, 1), t);
+        if(t.isIrrigated()){
+            assertTrue(t.getBambooSize() > 0, "Tile is irrigated but bamboo didn't grow");
+        }else{
+            assertFalse(t.getBambooSize() > 0, "Tile is dry but bamboo grew");
+        }
     }
 }

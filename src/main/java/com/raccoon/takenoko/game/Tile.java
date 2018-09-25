@@ -2,11 +2,16 @@ package com.raccoon.takenoko.game;
 
 import java.awt.Point;
 
+/**
+ * This interface provides methods for Tile.
+ */
 public interface Tile {
 
-    public Point getPosition();
-    public void setPosition(Point position);
-    public int getFreeBorders();
-    public void setFreeBorders(int numberOfFreeNumbers);
-    public Color getColor();
+    int getBambooSize();
+    void increaseBambooSize(int bambooSize);
+    Point getPosition();
+    void setPosition(Point position);
+    Color getColor();
+    public boolean isIrrigated();
+    public void irrigate();
 }
