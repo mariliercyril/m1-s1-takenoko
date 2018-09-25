@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
@@ -46,6 +47,7 @@ public class Game {
     public void start() {           // Starts the game: while the game isn't over, each player plays
         int i = 0;
         while (!gameOver()) {
+            Takeyesntko.print("\nPlayer " + i + " is playing now.");
             players.get(i).play(this);
             i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
         }
