@@ -1,10 +1,14 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko.game.objective;
 
 import java.awt.Point;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.HashBoard;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.BasicObjective;
 import com.raccoon.takenoko.game.objective.Objective;
 

@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko.game.objective;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +8,11 @@ import java.awt.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.HashBoard;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.ColorObjective;
 import com.raccoon.takenoko.game.objective.Objective;
 
