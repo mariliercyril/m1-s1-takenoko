@@ -158,7 +158,7 @@ public class HashBoard implements Board {
         ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
 
         Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
-                                                //
+                                                // using the UNIT vectors.
 
         while(this.board.containsKey(tempPoint = Vector.UNITS[0].apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
