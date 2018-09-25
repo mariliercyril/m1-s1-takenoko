@@ -1,9 +1,9 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
+
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 
 public class HashBoard implements Board {
@@ -30,11 +30,11 @@ public class HashBoard implements Board {
 
         this.board = new HashMap<>();
 
-        Point firstPosition = new Point(0,0);
+        Point firstPosition = new Point(0, 0);
 
         this.availablePositions = new ArrayList<>(Arrays.asList(this.getNeighboursPrivate(firstPosition)));
 
-        this.set(new Point(0,0), firstTile);
+        this.set(new Point(0, 0), firstTile);
         firstTile.setPosition(new Point(0, 0));
 
     }
@@ -54,12 +54,12 @@ public class HashBoard implements Board {
          */
 
         Point[] vectors = new Point[6];
-        vectors[0] = new Point(position.x -1, position.y);
-        vectors[1] = new Point(position.x -1,position.y + 1);
-        vectors[2] = new Point(position.x,position.y - 1);
-        vectors[3] = new Point(position.x,position.y + 1);
-        vectors[4] = new Point(position.x +1,position.y - 1);
-        vectors[5] = new Point(position.x +1,position.y);
+        vectors[0] = new Point(position.x - 1, position.y);
+        vectors[1] = new Point(position.x - 1, position.y + 1);
+        vectors[2] = new Point(position.x, position.y - 1);
+        vectors[3] = new Point(position.x, position.y + 1);
+        vectors[4] = new Point(position.x + 1, position.y - 1);
+        vectors[5] = new Point(position.x + 1, position.y);
 
         return vectors;
 
@@ -72,7 +72,7 @@ public class HashBoard implements Board {
          */
         List<Point> neighboursAvailable = new ArrayList<>();
 
-        Point[] neighbours  = this.getNeighboursPrivate(position);
+        Point[] neighbours = this.getNeighboursPrivate(position);
 
         for (Point point : neighbours) {
 
@@ -109,19 +109,24 @@ public class HashBoard implements Board {
         for (Point emptyPosition : neighbourPositions) {        // For each empty position
             if (this.getNeighbours(emptyPosition).size() >= 2 && !availablePositions.contains(emptyPosition)) {
                 this.availablePositions.add(emptyPosition);     // We add it to the available positions if 2 tiles at least are adjacent
-                                                                // and if it's not there yet
+                // and if it's not there yet
             }
         }
 
-
         tile.setPosition(position);     // we indicate its coordinates to the tile -- MAYBE USELESS ?--
+        Takeyesntko.print("A tile has been placed at " + position + ".");
+
+        if (!Objects.isNull(tile.getColor()) && tile.isIrrigated()) {
+            tile.increaseBambooSize(1);
+            Takeyesntko.print("A bamboo grew on the tile.");
+        }
 
     }
 
     @Override
     public List<Point> getAvailablePositions() {
 
-        return  this.availablePositions;
+        return this.availablePositions;
 
     }
 
@@ -130,7 +135,7 @@ public class HashBoard implements Board {
 
         ArrayList<Tile> neighbours = new ArrayList<>();
 
-        Point[] points  = this.getNeighboursPrivate(position);
+        Point[] points = this.getNeighboursPrivate(position);
 
         for (Point point : points) {
 
