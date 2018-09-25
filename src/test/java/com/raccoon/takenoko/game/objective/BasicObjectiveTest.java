@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game.objective;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Point;
 
 import org.junit.jupiter.api.DisplayName;
@@ -9,10 +11,9 @@ import com.raccoon.takenoko.game.BasicTile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
+
 import com.raccoon.takenoko.game.objective.BasicObjective;
 import com.raccoon.takenoko.game.objective.Objective;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BasicObjectiveTest {
 
@@ -28,4 +29,5 @@ public class BasicObjectiveTest {
 		hashBoard.set(new Point(0, 1), new BasicTile());
 		assertTrue(objective.isCompleted(firstTile, hashBoard));
 	}
+
 }
