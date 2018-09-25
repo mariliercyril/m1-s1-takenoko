@@ -32,4 +32,10 @@ public interface Board {
      */
     List<Tile> getNeighbours(Point position);
 
+    /**
+     * Returns the list of positions accessible on the board from the one given in parameters
+     * @param initialPosition  The position to start looking from
+     * @return  The list of positions accessible
+     */
+    List<Point> getAccessiblePositions(Point initialPosition);
 }

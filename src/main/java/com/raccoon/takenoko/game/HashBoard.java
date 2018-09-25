@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.*;
 import java.util.*;
@@ -53,12 +54,14 @@ public class HashBoard implements Board {
         of the specified position
          */
 
+
+
         Point[] vectors = new Point[6];
         vectors[0] = new Point(position.x - 1, position.y);
-        vectors[1] = new Point(position.x - 1, position.y + 1);
+        vectors[1] = new Point(position.x - 1, position.y - 1);
         vectors[2] = new Point(position.x, position.y - 1);
         vectors[3] = new Point(position.x, position.y + 1);
-        vectors[4] = new Point(position.x + 1, position.y - 1);
+        vectors[4] = new Point(position.x + 1, position.y + 1);
         vectors[5] = new Point(position.x + 1, position.y);
 
         return vectors;
@@ -147,6 +150,52 @@ public class HashBoard implements Board {
         neighbours.remove(this.get(position));
 
         return neighbours;
+    }
+
+    @Override
+    public List<Point> getAccessiblePositions(Point initialPosition) {
+
+        ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
+
+        Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
+                                                // using the UNIT vectors.
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[0].apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+        tempPoint = initialPosition;
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[1].apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+        tempPoint = initialPosition;
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[2].apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+        tempPoint = initialPosition;
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[0].opposite().apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+        tempPoint = initialPosition;
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[1].opposite().apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+        tempPoint = initialPosition;
+
+        while(this.board.containsKey(tempPoint = Vector.UNITS[2].opposite().apply(tempPoint))) {
+            accessiblePositions.add(tempPoint);
+        }
+
+
+        return accessiblePositions;
     }
 
 }
