@@ -39,14 +39,11 @@ public final class Vector extends Point {
 	/**
 	 * Allows to get the opposite of a vector.
 	 * 
-	 * @param v
-	 *        A vector
-	 * 
 	 * @return The opposite vector
 	 */
-	public Vector opposite(Vector vector) {
+	public Vector opposite() {
 
-		return new Vector(-vector.x, -vector.y);
+		return new Vector(-this.x, -this.y);
 	}
 
 }
