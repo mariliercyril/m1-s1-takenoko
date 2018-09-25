@@ -57,4 +57,17 @@ public class HashBoardTest {
         assertFalse(board.getAvailablePositions().contains(new Point(0,1)));
 
     }
+
+    @Test
+    public void irrigationTest() {
+        HashBoard board = new HashBoard(tile0);
+        Tile test_wet = new BasicTile();
+        board.set(new Point(0,1), test_wet);
+        board.set(new Point(1,0), tile1);   // We need a tile here to put another one in (1, 1) for the next test
+        assertTrue("The tile should be irrigated because it's adjacent to the pond", test_wet.isIrrigated());
+        /* todo : uncomment this test once the tiles can not be irrigated
+        Tile test_dry = new BasicTile();
+        board.set(new Point(1,1), test_dry);
+        assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());*/
+    }
 }
