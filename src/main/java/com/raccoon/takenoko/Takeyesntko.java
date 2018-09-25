@@ -8,13 +8,6 @@ public class Takeyesntko {
     public static void main(String[] args) {
 
         Game game = new Game();
-
-        System.out.println(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
-        System.out.println("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
-        System.out.println("   |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | ");
-        System.out.println("   |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | ");
-        System.out.println("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
-        System.out.println("                                                         Presented by Angry Raccoons");
         game.start();
 
     }
