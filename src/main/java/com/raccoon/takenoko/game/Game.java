@@ -18,7 +18,7 @@ public class Game {
     public Game() {                 // Default constructor: 1v1 game
         this.players = new ArrayList<>();
         for (int i = 0; i < 2; i++) players.add(new RandomBot());
-        board = new HashBoard(new BasicTile());
+        board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
 
