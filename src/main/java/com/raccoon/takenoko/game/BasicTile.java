@@ -10,10 +10,12 @@ public class BasicTile implements Tile {
 	private Point position;
 	private int numberOfFreeNumbers;
 	private Color color;
+	private boolean irrigated;
 
 	public BasicTile() {
 
 		numberOfFreeNumbers = 0;
+		irrigated = true;	// todo : change to false when the players have to irrigate the tiles themselves
 	}
 
 	public BasicTile(Color color) {
@@ -55,5 +57,13 @@ public class BasicTile implements Tile {
 	@Override
 	public Color getColor() {	// Returns the color of the tile
 		return color;
+	}
+
+	public boolean isIrrigated() {
+		return irrigated;
+	}
+
+	public void irrigate() {
+		this.irrigated = true;
 	}
 }

@@ -9,4 +9,6 @@ public interface Tile {
     public int getFreeBorders();
     public void setFreeBorders(int numberOfFreeNumbers);
     public Color getColor();
+    public boolean isIrrigated();
+    public void irrigate();
 }
