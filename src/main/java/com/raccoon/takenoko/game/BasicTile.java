@@ -9,12 +9,16 @@ public class BasicTile implements Tile {
 
 	private Point position;
 
+
+
+    private int bambooSize;
 	private Color color;
 	private boolean irrigated;
 
 	public BasicTile() {
 
 		irrigated = true;	// todo : change to false when the players have to irrigate the tiles themselves
+	    bambooSize = 0;
 	}
 
 	public BasicTile(Color color) {
@@ -28,6 +32,18 @@ public class BasicTile implements Tile {
 		this();
 		this.position = position;
 	}
+
+	@Override
+    public int getBambooSize() {
+        return bambooSize;
+    }
+
+    @Override
+    public void increaseBambooSize(int bambooSize) {
+	    if (this.getBambooSize() < 4) {
+	        this.bambooSize ++;
+        }
+    }
 
 	@Override
 	public Point getPosition() {
