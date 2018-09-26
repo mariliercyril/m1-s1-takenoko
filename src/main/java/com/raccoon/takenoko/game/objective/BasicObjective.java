@@ -22,6 +22,7 @@ public class BasicObjective implements Objective {
 
 	@Override
 	public boolean isCompleted() {
+
 		return isCompleted;
 	}
 

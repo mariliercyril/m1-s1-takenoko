@@ -28,6 +28,7 @@ public class ColorObjective implements Objective {
 
 	@Override
 	public boolean isCompleted() {
+
 		return isCompleted;
 	}
 
