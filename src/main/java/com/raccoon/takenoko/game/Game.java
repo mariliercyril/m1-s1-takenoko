@@ -4,7 +4,9 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
@@ -113,5 +115,9 @@ public class Game {
 
     public Gardener getGardener() {
         return gardener;
+    }
+
+    public void MoveGardener(Point position) {
+        
     }
 }
