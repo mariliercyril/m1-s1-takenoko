@@ -1,7 +1,7 @@
 # Takenoko releases
 
 
-#1.0.0 : First iteration
+# 1.0.0 : First iteration
 First draft of the game : minimal representation 
 ### What's been done
 * Basic game engine handling tile placing
