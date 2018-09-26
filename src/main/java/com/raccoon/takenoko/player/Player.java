@@ -2,10 +2,10 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.game.objective.BasicObjective;
-import com.raccoon.takenoko.game.objective.ColorObjective;
-import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
+
+import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to
@@ -27,6 +27,10 @@ public abstract class Player {
         return score;
     }
 
+    public int getId() {
+        return id;
+    }
+
     /**
      * This method will be the one called by the game to give their turn to the players/
      * It will be calling the methods for the players to play their turn.
@@ -35,7 +39,8 @@ public abstract class Player {
      *
      * @param game the game in which the player is playing
      */
-    public void play(Game game) {
+    public final void play(Game game) {
+        /*
         Tile t = this.chooseTile(game);
 
         // player puts down a tile according to its algorithm
@@ -51,12 +56,65 @@ public abstract class Player {
 
         Takeyesntko.print("Player has played. Current score : " + getScore());
 
+        */
+
+        // 1st step : ask bot to plan actions
+        Action[] plannedActions = planActions(game);
+
+        // check if the actions are compatible (exactly 2 costly actions)
+        int validityCheck = 0;
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) ;
+        if (validityCheck != 2) {
+            Takeyesntko.print("Player can't play these actions. Player tried to cheat. Player's turn is cancelled.");
+            return;
+        }
+        Takeyesntko.print("Choosen actions : " + Arrays.toString(plannedActions));
+
+        // step 2 : execute all actions
+        for (Action a : plannedActions) {
+            execute(a, game);
+        }
+
+
+        Takeyesntko.print("Player has played. Current score : " + getScore());
+
     }
 
-    protected abstract void putDownTile(Game game, Tile t);
+    /**
+     * BOT CAN'T ACCESS THIS METHOD
+     * Used to enforce a honest behavior
+     * @param a action to play
+     * @param game current game
+     */
+    private void execute(Action a, Game game) {
+        Takeyesntko.print("PLAYING " + a);
+        switch (a) {
+            case PUT_DOWN_TILE:
+                Tile t = this.chooseTile(game);
+                Point choice = this.whereToPutDownTile(game, t);
+                t.setPosition(choice);
+                this.putDownTile(game, t);
+                break;
+            case MOVE_GARDENER:
+            case VALID_OBJECTIVE:
+            default:
+                Takeyesntko.print(a + " UNSUPPORTED");
+        }
+    }
+
+    /**
+     * BOT CAN'T ACCESS THIS METHOD
+     * Used by the player to actually put down the tile the player has chosen to put down
+     * @param game current game
+     * @param t tile to put down
+     */
+    private void putDownTile(Game game, Tile t) {
+        game.getBoard().set(t.getPosition(), t);
+    }
+
+    protected abstract Action[] planActions(Game game);
+
+    protected abstract Point whereToPutDownTile(Game game, Tile t);
+
     protected abstract Tile chooseTile(Game game);
-
-    public int getId() {
-        return id;
-    }
 }
