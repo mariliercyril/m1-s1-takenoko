@@ -83,7 +83,7 @@ public class ColorObjective implements Objective {
 		/*
 		 * THE COLOR (if alignment is completed)
 		 */
-		if (isCompleted) {
+		if (isCompleted && positions.length == 3) {
 			Color[] colors = new Color[3];
 			// Gets the color of each Tile
 			for (int i = 0; i < 3; i++) {
