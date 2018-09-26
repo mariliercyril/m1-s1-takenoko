@@ -4,6 +4,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.objective.Objective;
 
 import java.awt.*;
 import java.util.*;
@@ -68,5 +69,20 @@ public class RandomBot extends Player {
     @Override
     protected Action[] planActions(Game game) {
         return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
+    }
+
+    @Override
+    protected Objective chooseObjectiveToValidate() {
+
+        for (Objective objective : this.getObjectives()) {  // We go through all the objectives
+
+            if(objective.isCompleted()) {   // If we find one completed,
+                return objective;           // we return it
+            }
+
+        }
+
+        return null;    // If no objective is completed, we just return null
+
     }
 }

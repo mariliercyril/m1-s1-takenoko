@@ -1,6 +1,8 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
@@ -17,12 +19,21 @@ public class Game {
     private LinkedList<Tile> deck;  // The deck in which players get the tiles
     private Board board;            // The game board, with all the tiles
     private Gardener gardener;      // The gardener (obviously)
+    private List<Objective> objectives;
 
     public Game() {                 // Default constructor: 1v1 game
+
+        objectives = new ArrayList<>();
+        objectives.add(new ColorObjective());
+
         this.gardener = new Gardener();
         int numberOfPlayers = 4;
         this.players = new ArrayList<>();
-        for (int i = 0; i < numberOfPlayers; i++) players.add(new RandomBot());
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Player newPlayer = new RandomBot();
+            newPlayer.addObjective(objectives.get(0));
+            players.add(newPlayer);
+        }
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
@@ -32,6 +43,10 @@ public class Game {
         this.players = players;
         board = new HashBoard(new BasicTile());
         initDeck();
+    }
+
+    public List<Objective> getObjectives() {
+        return objectives;
     }
 
     public List<Player> getPlayers() {

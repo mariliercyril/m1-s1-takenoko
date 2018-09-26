@@ -3,8 +3,10 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.objective.Objective;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,14 +16,17 @@ import java.util.List;
  * Will provide all the attributes and methods common to all players.
  */
 public abstract class Player {
+
     private int score;
     private int id;
+    private List<Objective> objectives;
     private static int counter = 0;
 
     public Player() {
         score = 0;
         counter++;
         id = counter;
+        objectives = new ArrayList<>();
     }
 
     public int getScore() {
@@ -30,6 +35,14 @@ public abstract class Player {
 
     public int getId() {
         return id;
+    }
+
+    public List<Objective> getObjectives() {
+        return objectives;
+    }
+
+    public void addObjective(Objective objective) {
+        this.objectives.add(objective);
     }
 
     /**
@@ -102,6 +115,12 @@ public abstract class Player {
                 game.getGardener().move(game.getBoard(), whereToMove);
                 break;
             case VALID_OBJECTIVE:
+                Objective objective = this.chooseObjectiveToValidate();
+                if (objective != null) {
+                    Takeyesntko.print("Player has completed an objective ! 1 point to the player !");
+                    this.score++;
+                }
+                break;
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
         }
@@ -115,6 +134,9 @@ public abstract class Player {
      */
     private void putDownTile(Game game, Tile t) {
         game.getBoard().set(t.getPosition(), t);
+        for (Objective objective : game.getObjectives()) {
+            objective.checkIfCompleted(t, game.getBoard());
+        }
     }
 
     protected abstract Action[] planActions(Game game);
@@ -124,4 +146,6 @@ public abstract class Player {
     protected abstract Tile chooseTile(Game game);
 
     protected abstract Point whereToMoveGardener(List<Point> available);
+
+    protected abstract Objective chooseObjectiveToValidate();
 }
