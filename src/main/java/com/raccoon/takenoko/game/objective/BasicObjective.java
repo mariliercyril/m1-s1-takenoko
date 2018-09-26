@@ -21,7 +21,12 @@ public class BasicObjective implements Objective {
 	}
 
 	@Override
-	public boolean isCompleted(Tile basicTile, Board hashBoard) {
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+
+	@Override
+	public boolean checkIfCompleted(Tile basicTile, Board hashBoard) {
 
 		// Gets the position of the basic tile
 		Point position = basicTile.getPosition();

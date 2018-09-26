@@ -8,7 +8,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -37,7 +36,7 @@ public class RandomBotTest {
         g = new Game();
         p = new RandomBot();
 
-        when(mockObjective.isCompleted(any(), any())).thenReturn(true);
+        when(mockObjective.checkIfCompleted(any(), any())).thenReturn(true);
     }
 
     @Test

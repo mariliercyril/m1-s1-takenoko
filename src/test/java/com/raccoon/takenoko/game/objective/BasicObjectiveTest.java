@@ -15,9 +15,6 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
 
-import com.raccoon.takenoko.game.objective.BasicObjective;
-import com.raccoon.takenoko.game.objective.Objective;
-
 public class BasicObjectiveTest {
 
 	private static Tile pondTile;
@@ -50,14 +47,14 @@ public class BasicObjectiveTest {
 	@DisplayName("assert true when basic objective is completed, 1st case: from the \"pond\" Tile to the initial Tile")
 	public void testIsCompleted_truePondToInitialCase() {
 
-		assertTrue(basicObjective.isCompleted(pondTile, hashBoard));
+		assertTrue(basicObjective.checkIfCompleted(pondTile, hashBoard));
 	}
 
 	@Test
 	@DisplayName("assert true when basic objective is completed, 2nd case: from the initial Tile to the \"pond\" Tile")
 	public void testIsCompleted_trueInitialToPondCase() {
 
-		assertTrue(basicObjective.isCompleted(initialTile, hashBoard));
+		assertTrue(basicObjective.checkIfCompleted(initialTile, hashBoard));
 	}
 
 	@Test
@@ -65,7 +62,7 @@ public class BasicObjectiveTest {
 	public void testIsCompleted_trueInitialToAnotherCase() {
 
 		hashBoard.set(new Point(2, 2), new BasicTile());
-		assertTrue(basicObjective.isCompleted(initialTile, hashBoard));
+		assertTrue(basicObjective.checkIfCompleted(initialTile, hashBoard));
 	}
 
 	@Test
@@ -76,7 +73,7 @@ public class BasicObjectiveTest {
 		hashBoard.set(new Point(3, 3), anotherTile);
 		// A lambda Tile
 		hashBoard.set(new Point(-1, -1), new BasicTile());
-		assertFalse(basicObjective.isCompleted(anotherTile, hashBoard));
+		assertFalse(basicObjective.checkIfCompleted(anotherTile, hashBoard));
 	}
 
 }

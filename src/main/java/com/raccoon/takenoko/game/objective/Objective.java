@@ -11,7 +11,9 @@ public interface Objective {
 	/**
 	 * Check if the basic objective is completed.
 	 */
-    public boolean isCompleted(Tile basicTile, Board hashBoard);
+	public boolean isCompleted();
+
+    public boolean checkIfCompleted(Tile basicTile, Board hashBoard);
 
     public int getScore();
 

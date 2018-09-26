@@ -50,7 +50,7 @@ public abstract class Player {
         // check for objective completion
         Objective objective = new ColorObjective();
 
-        if(objective.isCompleted(t, game.getBoard())){
+        if(objective.checkIfCompleted(t, game.getBoard())){
             Takeyesntko.print("Player has completed an objective ! 1 point to the player !");
             score++;
         }
