@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
+
 import java.awt.Point;
 
 /**
@@ -42,6 +44,7 @@ public class BasicTile implements Tile {
     public void increaseBambooSize(int bambooSize) {
 	    if (this.getBambooSize() < 4 && this.irrigated) {
 	        this.bambooSize ++;
+			Takeyesntko.print("Bamboo on " + this.toString() + " increases to " + bambooSize + " chunks.");
         }
     }
 
@@ -60,6 +63,10 @@ public class BasicTile implements Tile {
 	@Override
 	public Color getColor() {	// Returns the color of the tile
 		return color;
+	}
+
+	public String toString(){
+		return "Tile " + this.getColor() + " at " + this.getPosition();
 	}
 
 	public boolean isIrrigated() {

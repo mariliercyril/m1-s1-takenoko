@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
+
 import java.awt.*;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Gardener {
      * @param position The location where we want the gardener to go
      */
     public void move(Board board, Point position) {
+        Takeyesntko.print("Gardener moves from " + this.position + " to " + position);
         this.position = position;
         board.get(this.position).increaseBambooSize(1); //  Grow the bamboo where the gardener is
         this.grow(board.getNeighbours(this.position), board.get(this.position).getColor()); // ... And on the surrounding tiles of the same color

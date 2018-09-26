@@ -120,7 +120,6 @@ public class HashBoard implements Board {
 
         if (!Objects.isNull(tile.getColor())) {
             tile.increaseBambooSize(1);
-            Takeyesntko.print("A bamboo grew on the tile.");
         }
 
     }

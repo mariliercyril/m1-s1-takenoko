@@ -59,7 +59,14 @@ public class RandomBot extends Player {
     }
 
     @Override
+    protected Point whereToMoveGardener(List<Point> available) {
+        Collections.shuffle(available);
+        return available.get(0);
+
+    }
+
+    @Override
     protected Action[] planActions(Game game) {
-        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER};
+        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
     }
 }

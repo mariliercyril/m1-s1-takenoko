@@ -4,8 +4,9 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.Takeyesntko;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to
@@ -96,6 +97,10 @@ public abstract class Player {
                 this.putDownTile(game, t);
                 break;
             case MOVE_GARDENER:
+                Point whereToMove = whereToMoveGardener(game.getBoard().getAccessiblePositions(game.getGardener().getPosition()));
+                // check that point is in available points array
+                game.getGardener().move(game.getBoard(), whereToMove);
+                break;
             case VALID_OBJECTIVE:
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
@@ -117,4 +122,6 @@ public abstract class Player {
     protected abstract Point whereToPutDownTile(Game game, Tile t);
 
     protected abstract Tile chooseTile(Game game);
+
+    protected abstract Point whereToMoveGardener(List<Point> available);
 }
