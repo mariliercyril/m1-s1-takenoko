@@ -4,16 +4,19 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.*;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,10 +24,10 @@ import static org.mockito.Mockito.when;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RandomBotTest {
@@ -63,13 +66,21 @@ public class RandomBotTest {
     @Ignore("Objective completion not testable yet, TODO")
     @Test
     public void testObjectiveIncidenceOnScore() {
-        p.play(g);
+        try {
+            p.play(g);
+        } catch (ForbiddenActionException e) {
+            fail("Player's turn threw an exception");
+        }
         assertEquals(p.getScore(), 1);
     }
 
     @Test
     public void testPlayIncidenceOnBoard() {
-        p.play(g);
+        try {
+            p.play(g);
+        } catch (ForbiddenActionException e) {
+            Assertions.assertNotNull(null, "Player's turn threw an exception.");
+        }
         // we test that the starting tile has at least one neighbour
         assertTrue(g.getBoard().getNeighbours(new Point(0, 0)).size() > 0);
     }
@@ -88,10 +99,34 @@ public class RandomBotTest {
         Point beforePoint = g.getGardener().getPosition();
         List<Point> av = g.getBoard().getAvailablePositions();
 
-        mockedBot.play(g);
+        try {
+            mockedBot.play(g);
+            fail("Expected an ForbiddenActionException to be thrown");
+        } catch (Exception e) {
+            assertEquals(ForbiddenActionException.class, e.getClass());
+        }
 
         // for this test, we test that the player has had no impact on the board
         assertSame(beforePoint, g.getGardener().getPosition());
         assertSame(av, g.getBoard().getAvailablePositions());
+    }
+
+    @Test
+    public void failingMovingGardener(){
+        g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
+
+        when(mockedBot.whereToMoveGardener(any())).thenReturn(new Point(2, 1));
+        // planActions returns null if we don't add this line.
+        when(mockedBot.planActions(any())).thenReturn(new Action[]{Action.MOVE_GARDENER, Action.VALID_OBJECTIVE});
+
+        try {
+            mockedBot.play(g);
+            fail("Expected an ForbiddenActionException to be thrown");
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            assertEquals(ForbiddenActionException.class, e.getClass());
+        }
+
     }
 }

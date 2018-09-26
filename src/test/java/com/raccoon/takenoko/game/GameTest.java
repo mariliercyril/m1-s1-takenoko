@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,11 @@ class GameTest {
     @Test
     void getWinner() {
         for (int i = 0; i <= 9; i++) {
-            game.getPlayers().get(0).play(game);
+            try {
+                game.getPlayers().get(0).play(game);
+            } catch (ForbiddenActionException e) {
+                assertNotNull(null, "Player's turn threw an exception.");
+            }
         }
         assertNotNull(game.getWinner(), "The winner does not exist");
         assertTrue(game.getPlayers().get(0).getScore() >= game.getPlayers().get(1).getScore(), "Second player seems to be better than first player");
@@ -70,7 +75,7 @@ class GameTest {
     }
 
     @Test
-    void irrigatedFirstTile(){
+    void irrigatedFirstTile() {
         Tile t = game.getTile();
         game.getBoard().set(new Point(0, 1), t);
         assertTrue(t.isIrrigated(), "Tile next to lake is not irrigated");
@@ -80,9 +85,9 @@ class GameTest {
     void bambooSizeOnTileTest() {
         Tile t = game.getTile();
         game.getBoard().set(new Point(0, 1), t);
-        if(t.isIrrigated()){
+        if (t.isIrrigated()) {
             assertTrue(t.getBambooSize() > 0, "Tile is irrigated but bamboo didn't grow");
-        }else{
+        } else {
             assertFalse(t.getBambooSize() > 0, "Tile is dry but bamboo grew");
         }
     }

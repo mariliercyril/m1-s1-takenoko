@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.objective.ColorObjective;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.*;
 import java.util.*;
@@ -69,7 +70,11 @@ public class Game {
         int i = 0;
         while (!gameOver()) {
             Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " is playing now.");
-            players.get(i).play(this);
+            try {
+                players.get(i).play(this);
+            } catch (ForbiddenActionException e){
+                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" +  players.get(i).getId() + "!");
+            }
             i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
         }
         printRanking();
