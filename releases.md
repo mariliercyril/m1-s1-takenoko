@@ -10,7 +10,7 @@ First draft of the game : minimal representation
 * The game ends when a player is at 9 points
 * Basic objective : returns that an objective is completed when 2 tiles are aligned
 
-#SEP24 : Colors
+# SEP24 : Colors
 Tiles can now have colors, and the player and the objectives are updated accordingly
 ### What's been done
 * Added colors to tiles
