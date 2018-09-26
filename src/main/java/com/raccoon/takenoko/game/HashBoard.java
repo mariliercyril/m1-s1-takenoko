@@ -14,7 +14,6 @@ public class HashBoard implements Board {
      */
     private HashMap<Point, Tile> board;         // The actual representation of the board, which is an HashMap in this implementation
     private List<Point> availablePositions;     // the list of the tiles with a free border
-
     /*
      ******** Constructor ********
      */
