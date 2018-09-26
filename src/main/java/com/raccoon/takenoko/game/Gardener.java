@@ -29,7 +29,7 @@ public class Gardener {
      * @param tiles The tiles surrounding the gardener
      * @param color The color of the tiles that can grow
      */
-    public void grow(List<Tile> tiles, Color color) {
+    private void grow(List<Tile> tiles, Color color) {
         for (Tile t : tiles) {
             if (t.getColor() == color) {
                 t.increaseBambooSize(1);
