@@ -4,7 +4,9 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
@@ -14,8 +16,10 @@ public class Game {
     private List<Player> players;   // The Players participating the game
     private LinkedList<Tile> deck;  // The deck in which players get the tiles
     private Board board;            // The game board, with all the tiles
+    private Gardener gardener;      // The gardener (obviously)
 
     public Game() {                 // Default constructor: 1v1 game
+        this.gardener = new Gardener();
         int numberOfPlayers = 4;
         this.players = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) players.add(new RandomBot());
@@ -24,6 +28,7 @@ public class Game {
     }
 
     public Game(List<Player> players) {
+        this.gardener = new Gardener();
         this.players = players;
         board = new HashBoard(new BasicTile());
         initDeck();
@@ -106,5 +111,13 @@ public class Game {
 
     protected List getDeck() {
         return deck;
+    }
+
+    public Gardener getGardener() {
+        return gardener;
+    }
+
+    public void MoveGardener(Point position) {
+        
     }
 }

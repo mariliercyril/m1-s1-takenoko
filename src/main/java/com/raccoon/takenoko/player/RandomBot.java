@@ -23,23 +23,24 @@ public class RandomBot extends Player {
      * @param game the game in which the player is playing
      */
     @Override
-    protected void putDownTile(Game game, Tile t) {
+    protected Point whereToPutDownTile(Game game, Tile t) {
         Board b = game.getBoard();
         if (Objects.isNull(b)) {
             Takeyesntko.print("Caution : board does not exist. Player can't put down a tile, for it would fall into the void.");
-            return;
+            // TODO certainly throw exception to catch in the abstract parent class
+            return new Point(0, 0);
         }
         List availablePositions = b.getAvailablePositions();
         Collections.shuffle(availablePositions);
-        Takeyesntko.print("There are " + availablePositions.size() + " available positions");
 
         Point playingPos;
         if (availablePositions.size() > 0) {
             playingPos = (Point) availablePositions.get(0);
-            Takeyesntko.print("I will put down a " + t.getColor()+ " tile at " + playingPos.toString());
-            b.set(playingPos, t);
+            return playingPos;
         } else {
             Takeyesntko.print("Can't play, keeping tile");
+            // TODO certainly throw exception to catch in the abstract parent class
+            return new Point(0, 0);
         }
     }
 
@@ -55,5 +56,17 @@ public class RandomBot extends Player {
             }
         }
         return tiles.get(choice);
+    }
+
+    @Override
+    protected Point whereToMoveGardener(List<Point> available) {
+        Collections.shuffle(available);
+        return available.get(0);
+
+    }
+
+    @Override
+    protected Action[] planActions(Game game) {
+        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
     }
 }

@@ -14,7 +14,6 @@ public class HashBoard implements Board {
      */
     private HashMap<Point, Tile> board;         // The actual representation of the board, which is an HashMap in this implementation
     private List<Point> availablePositions;     // the list of the tiles with a free border
-
     /*
      ******** Constructor ********
      */
@@ -119,9 +118,8 @@ public class HashBoard implements Board {
         tile.setPosition(position);     // we indicate its coordinates to the tile -- MAYBE USELESS ?--
         Takeyesntko.print("A tile has been placed at " + position + ".");
 
-        if (!Objects.isNull(tile.getColor()) && tile.isIrrigated()) {
+        if (!Objects.isNull(tile.getColor())) {
             tile.increaseBambooSize(1);
-            Takeyesntko.print("A bamboo grew on the tile.");
         }
 
     }

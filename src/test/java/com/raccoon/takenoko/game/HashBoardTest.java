@@ -86,6 +86,17 @@ public class HashBoardTest {
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -1)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(1,0)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(1,-1)));
-        assertFalse(board.getAccessiblePositions(start).contains(new Point(1,-2)));
+        assertFalse(board.getAccessiblePositions(start).contains(new Point(-1,-2)));
+
+        board.set(new Point(-1, -1), new BasicTile());
+        board.set(new Point(-1, -2), new BasicTile());
+        board.set(new Point(-2, -2), new BasicTile());
+        board.set(new Point(0, -2), new BasicTile());
+        board.set(new Point(2, 0), new BasicTile());
+
+        assertTrue(board.getAccessiblePositions(start).contains(new Point(-2,-2)));
+        assertTrue(board.getAccessiblePositions(start).contains(new Point(2, 0)));
+        assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -2)));
+        assertFalse(board.getAccessiblePositions(start).contains(new Point(-1, -2)));
     }
 }
