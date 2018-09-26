@@ -2,6 +2,7 @@ package com.raccoon.takenoko.game.objective;
 
 import java.awt.Point;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.raccoon.takenoko.game.Board;
@@ -26,67 +27,76 @@ public class ColorObjective implements Objective {
 	}
 
 	@Override
-	public boolean isCompleted(Tile basicTile, Board hashBoard) {
+	public boolean isCompleted() {
+
+		return isCompleted;
+	}
+
+	@Override
+	public boolean checkIfCompleted(Tile basicTile, Board hashBoard) {
 
 		Point[] positions = new Point[3];
 
-		// Gets the position of the basic tile
+		/*
+		 * THE ALIGNMENT
+		 */
+		// Gets the position of the basic Tile
 		positions[0] = basicTile.getPosition();
-		// Gets the neighbours of the basic tile
-		List<Tile> basicTileNeighbours = hashBoard.getNeighbours(positions[0]);
+		// Gets the neighbours of the basic Tile
+		List<Tile> basicTileNeighboursList = hashBoard.getNeighbours(positions[0]);
+		// Converts the List into array
+		Tile[] basicTileNeighbours = new Tile[basicTileNeighboursList.size()];
+		basicTileNeighbours = basicTileNeighboursList.toArray(basicTileNeighbours);
+		for (int i = 0; !isCompleted && i < basicTileNeighbours.length; i++) {
+			// Gets the position of neighbour of the basic Tile
+			positions[1] = basicTileNeighbours[i].getPosition();
+			// Gets the translation Vector
+			Vector translation = new Vector(positions[0], positions[1]);
+			// Parses the neighbours of the basic Tile again
+			for (int j = 0; j < basicTileNeighbours.length; j++) {
+				Point temporaryPosition = basicTileNeighbours[j].getPosition();
 
-		// Checking...
-		for (Tile secondTile : basicTileNeighbours) {
-			// Gets the position of second tile
-			positions[1] = secondTile.getPosition();
-			// Gets the neighbours of neighbour of the basic tile
-			List<Tile> secondTileNeighbours = hashBoard.getNeighbours(positions[1]);
-			for (Tile thirdTile : secondTileNeighbours) {
-				// Gets the position of third tile
-				positions[2] = thirdTile.getPosition();
+				// Checking...
+				if (j != i) {
+					if (new Vector(temporaryPosition, positions[0]).equals(translation)) {
+						positions[2] = temporaryPosition;
+						isCompleted = true;
+					}
+				}
+			}
+			if (!isCompleted) {
+				// Gets the neighbours of each neighbour of the basic Tile
+				List<Tile> secondTileNeighboursList = hashBoard.getNeighbours(positions[1]);
+				// Parses the neighbours of each neighbour of the basic Tile
+				for (Tile thirdTile : secondTileNeighboursList) {
+					Point temporaryPosition = thirdTile.getPosition();
 
-				for (Point vector : Vector.UNITS) {
-					if (areAligned(positions, vector.x, vector.y)) {
-						Color[] colors = new Color[3];
-						for (int i = 0; i < 3; i++) {
-							colors[i] = (hashBoard.get(positions[i])).getColor();
-						}
-						if ((colors[0] != null) && (colors[1] != null) && colors[2] != null) {
-							isCompleted = colors[1].equals(colors[0]) && colors[2].equals(colors[1]);
-						}
+					// Checking...
+					if (new Vector(positions[1], temporaryPosition).equals(translation)) {
+						positions[2] = temporaryPosition;
+						isCompleted = true;
 					}
 				}
 			}
 		}
 
+		/*
+		 * THE COLOR (if alignment is completed)
+		 */
+		if (isCompleted && !((Arrays.asList(positions)).contains(null))) {
+			Color[] colors = new Color[3];
+			// Gets the color of each Tile
+			for (int i = 0; i < 3; i++) {
+				colors[i] = (hashBoard.get(positions[i])).getColor();
+			}
+
+			// Checking...
+			if (!((Arrays.asList(colors)).contains(null))) {
+				isCompleted = colors[1].equals(colors[0]) && colors[2].equals(colors[1]);
+			}
+		}
+
 		return isCompleted;
-	}
-
-	/**
-	 * Returns true if three tiles are aligned.
-	 * 
-	 * @param positions
-	 *        Three positions
-	 * @param dx
-	 *        The x of the translation vector
-	 * @param dy
-	 *        The y of the translation vector
-	 * 
-	 * @return If the three tiles in question are aligned
-	 */
-	private boolean areAligned(Point[] positions, int dx, int dy) {
-
-		Point firstPosition = positions[0];
-		Point secondPosition = positions[1];
-		Point thirdPosition = positions[2];
-
-		Point firstPoint = new Point(firstPosition);
-		firstPoint.translate(dx, dy);
-
-		Point secondPoint = new Point(secondPosition);
-		secondPoint.translate(dx, dy);
-
-		return (secondPosition.equals(firstPoint) && thirdPosition.equals(secondPoint));
 	}
 
     // TODO: To define.
@@ -95,4 +105,5 @@ public class ColorObjective implements Objective {
 
 		return 0;
 	}
+
 }

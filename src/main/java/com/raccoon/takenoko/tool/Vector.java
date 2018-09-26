@@ -12,12 +12,21 @@ public final class Vector extends Point {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// The unit Vector I and the unit Vector J (we can get the third Vector with the vectors I and J)
-	public static final Vector[] UNITS = { new Vector(1, 0), new Vector(0, 1), new Vector(1, 1) };
+	// The unit Vector I and the unit Vector J
+	public static final Vector I = new Vector(1, 0);
+	public static final Vector J = new Vector(0, 1);
+	// The Vector K (can be gotten with I and J)
+	public static final Vector K = new Vector(1, 1);
+	public static final Vector[] UNITS = { I, J, K };
 
 	public Vector(int x, int y) {
 
 		super(x, y);
+	}
+
+	public Vector(Point startPoint, Point endPoint) {
+
+		super(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
 	}
 
 	/**
