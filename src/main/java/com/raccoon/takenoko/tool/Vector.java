@@ -20,6 +20,11 @@ public final class Vector extends Point {
 		super(x, y);
 	}
 
+	public Vector(Point startPoint, Point endPoint) {
+
+		super(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+	}
+
 	/**
 	 * Applies a Vector on a Point.
 	 * 
