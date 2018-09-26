@@ -119,7 +119,7 @@ public class HashBoard implements Board {
         tile.setPosition(position);     // we indicate its coordinates to the tile -- MAYBE USELESS ?--
         Takeyesntko.print("A tile has been placed at " + position + ".");
 
-        if (!Objects.isNull(tile.getColor()) && tile.isIrrigated()) {
+        if (!Objects.isNull(tile.getColor())) {
             tile.increaseBambooSize(1);
             Takeyesntko.print("A bamboo grew on the tile.");
         }

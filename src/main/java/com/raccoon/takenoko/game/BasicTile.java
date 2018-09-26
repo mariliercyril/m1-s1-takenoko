@@ -40,7 +40,7 @@ public class BasicTile implements Tile {
 
     @Override
     public void increaseBambooSize(int bambooSize) {
-	    if (this.getBambooSize() < 4) {
+	    if (this.getBambooSize() < 4 && this.irrigated) {
 	        this.bambooSize ++;
         }
     }
