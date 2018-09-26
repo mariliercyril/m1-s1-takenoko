@@ -24,7 +24,7 @@ As it was a small iteration, we also did a bit of refactoring.
 ### What's been done
 * A bamboo grows on a tile when placed on the board
 * The bamboo can grow (not used in this iteration)
-* Make all tiles irrigated (and take the flag in account to grow a bamboo)
+* Make all tiles irrigated (and take the flag into account to grow a bamboo)
 * [refact] Score is now computed based on objective completion
 * [refact] Players now have an unique ID (int increasing in the order in which they were created)
 
