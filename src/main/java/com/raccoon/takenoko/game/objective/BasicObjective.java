@@ -41,4 +41,5 @@ public class BasicObjective implements Objective {
 
 		return 0;
 	}
+
 }

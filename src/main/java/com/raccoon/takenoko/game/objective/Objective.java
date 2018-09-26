@@ -14,4 +14,5 @@ public interface Objective {
     public boolean isCompleted(Tile basicTile, Board hashBoard);
 
     public int getScore();
+
 }
