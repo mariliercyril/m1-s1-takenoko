@@ -117,7 +117,7 @@ public class Game {
         return gardener;
     }
 
-    public void MoveGardener(Point position) {
-        
+    public void moveGardener(Point position) {
+        gardener.move(board, position);
     }
 }
