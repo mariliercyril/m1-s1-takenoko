@@ -20,24 +20,24 @@ public class VectorTest {
 	}
 
 	@Test
-	@DisplayName("assert true when the translation is OK")
+	@DisplayName("assert true when a Vector (X, Y) allows to have a translation from P (x, x) to P' (x + X, y + Y)")
 	public void testApply() {
 
 		assertTrue((vector.apply(new Point(1, 2))).equals(new Point(2, 3)));
 	}
 
 	@Test
-	@DisplayName("assert true when the opposite of the Vector (x, y) has the coordinates -x and -y")
+	@DisplayName("assert true when the opposite of the Vector (X, Y) has the coordinates -X and -Y")
 	public void testOpposite_true() {
 
-		assertTrue((vector.opposite()).equals(new Point(-1, -1)));
+		assertTrue((vector.getOpposite()).equals(new Point(-1, -1)));
 	}
 
 	@Test
 	@DisplayName("assert false when opposite of the Vector is the Vector")
 	public void testOpposite_false() {
 
-		assertFalse((vector.opposite()).equals(new Point(1, 1)));
+		assertFalse((vector.getOpposite()).equals(new Point(1, 1)));
 	}
 
 }

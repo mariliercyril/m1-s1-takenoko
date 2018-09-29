@@ -176,19 +176,19 @@ public class HashBoard implements Board {
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[0].opposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = Vector.UNITS[0].getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[1].opposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = Vector.UNITS[1].getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[2].opposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = Vector.UNITS[2].getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 

@@ -55,7 +55,8 @@ public class RandomBotTest {
         g.getBoard().set(new Point(1,1), pinkTile0);
         g.getBoard().set(new Point(1,2), greenTile1);
 
-        when(mockObjective.checkIfCompleted(any(), any())).thenReturn(true);
+        mockObjective.checkIfCompleted(any(), any());
+        when(mockObjective.isCompleted()).thenReturn(true);
     }
 
     @Test

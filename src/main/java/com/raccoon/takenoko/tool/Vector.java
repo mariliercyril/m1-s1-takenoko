@@ -47,7 +47,7 @@ public final class Vector extends Point {
 	 * 
 	 * @return The opposite vector
 	 */
-	public Vector opposite() {
+	public Vector getOpposite() {
 
 		return new Vector(-this.x, -this.y);
 	}

@@ -9,11 +9,16 @@ import com.raccoon.takenoko.game.Tile;
 public interface Objective {
 
 	/**
-	 * Check if the basic objective is completed.
+	 * Gets if the basic objective is completed.
+	 * 
+	 * @return <b>true</b> if it is completed, <b>false</b> if not
 	 */
 	public boolean isCompleted();
 
-    public boolean checkIfCompleted(Tile basicTile, Board hashBoard);
+	/**
+	 * Checks if the basic objective is completed.
+	 */
+    public void checkIfCompleted(Tile tile, Board board);
 
     public int getScore();
 
