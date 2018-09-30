@@ -36,7 +36,7 @@ public class BasicObjective implements Objective {
 		List<Tile> tiles = hashBoard.getNeighbours(position);
 
 		// Is completed if the tile to be placed has at least one neighbour tile
-		isCompleted = (tiles.size() > 0);
+		isCompleted = (!(tiles.isEmpty()));
 	}
 
     // TODO: To define.

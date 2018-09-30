@@ -52,15 +52,15 @@ public final class Vector extends Point {
 	 */
 	public static Vector sum(Vector... vectors) {
 
-		int X = 0;
-		int Y = 0;
+		int x = 0;
+		int y = 0;
 
 		for (Vector vector : vectors) {
-			X += vector.x;
-			Y += vector.y;
+			x += vector.x;
+			y += vector.y;
 		}
 
-		return new Vector(X, Y);
+		return new Vector(x, y);
 	}
 
 }

@@ -53,30 +53,28 @@ public class ColorObjective implements Objective {
 				// The Vector of translation, from the Tile to be placed to a second Tile, for alignment...
 				Vector translationVector = new Vector(tileToBePlaced.getPosition(), secondTile.getPosition());
 				// Parses the neighbours of the Tile to be placed, in order to find the third Tile for alignment
-				while (tileToBePlacedNeighboursIterator.hasNext()) {
+				while (tileToBePlacedNeighboursIterator.hasNext() && !areAligned) {
 					Tile thirdTile = tileToBePlacedNeighboursIterator.next();
 					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(new Point(0, 0)))) {
-						if ((new Vector(tileToBePlaced.getPosition(), thirdTile.getPosition())).equals(translationVector.getOpposite())) {
-							tiles.add(secondTile);
-							tiles.add(thirdTile);
-							areAligned = true;
-						}
+					if (!(thirdTilePosition.equals(new Point(0, 0)))
+							&& (new Vector(tileToBePlaced.getPosition(), thirdTile.getPosition())).equals(translationVector.getOpposite())) {
+						tiles.add(secondTile);
+						tiles.add(thirdTile);
+						areAligned = true;
 					}
 				}
 				// Gets the neighbours of each neighbour of the Tile to be placed
 				List<Tile> secondTileNeighbours = hashBoard.getNeighbours(secondTile.getPosition());
 				Iterator<Tile> secondTileNeighboursIterator = secondTileNeighbours.iterator();
 				// Parses the neighbours of each neighbour of the Tile to be placed, in order to find the third Tile for alignment
-				while (secondTileNeighboursIterator.hasNext()) {
+				while (secondTileNeighboursIterator.hasNext() && !areAligned) {
 					Tile thirdTile = secondTileNeighboursIterator.next();
 					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(new Point(0, 0)))) {
-						if ((new Vector(secondTile.getPosition(), thirdTile.getPosition())).equals(translationVector)) {
-							tiles.add(secondTile);
-							tiles.add(thirdTile);
-							areAligned = true;
-						}
+					if (!(thirdTilePosition.equals(new Point(0, 0)))
+							&& (new Vector(secondTile.getPosition(), thirdTile.getPosition())).equals(translationVector)) {
+						tiles.add(secondTile);
+						tiles.add(thirdTile);
+						areAligned = true;
 					}
 				}
 			}
