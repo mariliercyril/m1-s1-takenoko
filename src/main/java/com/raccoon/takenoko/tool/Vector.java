@@ -12,13 +12,6 @@ public final class Vector extends Point {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// The unit Vector I and the unit Vector J
-	public static final Vector I = new Vector(1, 0);
-	public static final Vector J = new Vector(0, 1);
-	// The Vector K (can be gotten with I and J)
-	public static final Vector K = new Vector(1, 1);
-	public static final Vector[] UNITS = { I, J, K };
-
 	public Vector(int x, int y) {
 
 		super(x, y);
@@ -30,7 +23,7 @@ public final class Vector extends Point {
 	}
 
 	/**
-	 * Applies a Vector on a Point.
+	 * Applies a vector on a point.
 	 * 
 	 * @param point
 	 *        A point for applying
@@ -43,13 +36,31 @@ public final class Vector extends Point {
 	}
 
 	/**
-	 * Allows to get the opposite of a vector.
+	 * Gets the opposite of a vector.
 	 * 
-	 * @return The opposite vector
+	 * @return The opposite Vector
 	 */
 	public Vector getOpposite() {
 
 		return new Vector(-this.x, -this.y);
+	}
+
+	/**
+	 * Gets the sum of vectors.
+	 * 
+	 * @return The sum Vector
+	 */
+	public static Vector sum(Vector... vectors) {
+
+		int X = 0;
+		int Y = 0;
+
+		for (Vector vector : vectors) {
+			X += vector.x;
+			Y += vector.y;
+		}
+
+		return new Vector(X, Y);
 	}
 
 }

@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * This class allows to perform unit tests of the methods of the class {@code Vector}.
+ */
 public class VectorTest {
 
 	private static Vector vector;
@@ -38,6 +41,17 @@ public class VectorTest {
 	public void testOpposite_false() {
 
 		assertFalse((vector.getOpposite()).equals(new Point(1, 1)));
+	}
+
+	@Test
+	@DisplayName("assert true when the sum of Vector (X1, Y1), (X2, Y2), ... , (Xn, Yn) equals the Vector (X1 + X2 + ... + Xn, Y1 + Y2 + ... + Yn)")
+	public void testSum_true() {
+
+		Vector v1 = new Vector(1, 0);
+		Vector v2 = new Vector(1, 1);
+		Vector vn = new Vector(0, 1);
+
+		assertTrue((Vector.sum(v1, v2, vn)).equals(new Point(2, 2)));
 	}
 
 }

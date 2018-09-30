@@ -1,7 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.tool.Vector;
+import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.*;
 import java.util.*;
@@ -158,37 +158,37 @@ public class HashBoard implements Board {
         Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
                                                 // using the UNIT vectors.
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[0].apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.I.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[1].apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.J.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[2].apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.K.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[0].getOpposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.I.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[1].getOpposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.J.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = Vector.UNITS[2].getOpposite().apply(tempPoint))) {
+        while(this.board.containsKey(tempPoint = UnitVector.K.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
