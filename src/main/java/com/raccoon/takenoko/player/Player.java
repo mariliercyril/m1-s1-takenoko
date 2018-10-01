@@ -90,7 +90,7 @@ public abstract class Player {
                 Tile t = this.chooseTile(game);
                 Point choice = this.whereToPutDownTile(game, t);
                 t.setPosition(choice);
-                this.putDownTile(game, t);
+                game.putDownTile(t);
                 break;
             case MOVE_GARDENER:
                 List<Point> accessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
@@ -105,6 +105,7 @@ public abstract class Player {
                 Objective objective = this.chooseObjectiveToValidate();
                 if (objective != null) {
                     Takeyesntko.print("Player has completed an objective ! 1 point to the player !");
+                    this.objectives.remove(objective);
                     this.score++;
                 }
                 break;
@@ -125,9 +126,6 @@ public abstract class Player {
      */
     private void putDownTile(Game game, Tile t) {
         game.getBoard().set(t.getPosition(), t);
-        for (Objective objective : game.getObjectivesDeck()) {
-            objective.checkIfCompleted(t, game.getBoard());
-        }
     }
 
     protected abstract Action[] planActions(Game game);

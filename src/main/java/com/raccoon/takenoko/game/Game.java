@@ -17,18 +17,14 @@ import java.util.List;
 public class Game {
 
     private List<Player> players;           // The Players participating the game
-    private LinkedList<Tile> tilesDeck;          // The tilesDeck in which players get the tiles
+    private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
-    private List<Objective> objectivesDeck; // The list of
+    //private List<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private List<Objective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
 
-        objectivesDeck = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {      // We add 10 objectives in the deck
-            objectivesDeck.add(new ColorObjective());
-        }
 
         this.gardener = new Gardener();
         int numberOfPlayers = 4;
@@ -39,6 +35,8 @@ public class Game {
             players.add(newPlayer);
         }
 
+        patternObjectives = new ArrayList<>();
+
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
@@ -48,10 +46,6 @@ public class Game {
         this.players = players;
         board = new HashBoard(new BasicTile());
         initDeck();
-    }
-
-    public List<Objective> getObjectivesDeck() {
-        return objectivesDeck;
     }
 
     public List<Player> getPlayers() {
@@ -141,14 +135,32 @@ public class Game {
         return gardener;
     }
 
-    public void MoveGardener(Point position) {
-        
+    /**
+     * Allow a player to put down a tile on the board. It also check for the completion of the
+     * objectives that might be changed by this action.
+     * @param tile The tile to put down, with its position attribute set
+     */
+    public void putDownTile(Tile tile) {
+        this.board.set(tile.getPosition(), tile);
+        for (Objective objective : this.patternObjectives) {
+            objective.checkIfCompleted(tile, this.board);
+        }
     }
 
+    /**
+     * Allows a player to draw an objective card
+     * @return the first objective card of the deck
+     */
     public Objective drawObjective() {
+
         Objective objective = new ColorObjective();
 
-
+        /*
+        We add the drawn objective to the adequate list of objective, to maintain its completion.
+        Here, we just have one type of objective, which is not even drawn but created on demand,
+        so non need to check its type we can jsut add it to the pattern list
+         */
+        this.patternObjectives.add(objective);
 
         return objective;
     }
