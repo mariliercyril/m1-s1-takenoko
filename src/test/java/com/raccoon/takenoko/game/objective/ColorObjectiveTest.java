@@ -178,6 +178,17 @@ public class ColorObjectiveTest {
 		assertFalse(colorObjective.isCompleted());
 	}
 
+	@Test
+	@DisplayName("assert false when are not aligned (with the initial Tile in the middle)")
+	public void testIsCompleted_trueEighthCase() {
+
+		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
+		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
+
+		colorObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(colorObjective.isCompleted());
+	}
+
 	/*
 	 * When color objective is not completed (the three tiles in question ARE NOT ALIGNED, HAVE NOT SAME COLOR)
 	 */
