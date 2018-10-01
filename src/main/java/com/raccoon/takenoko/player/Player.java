@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
@@ -9,6 +10,7 @@ import com.raccoon.takenoko.tool.ForbiddenActionException;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ public abstract class Player {
     private int id;
     private List<Objective> objectives;
     private static int counter = 0;
+    private HashMap<Color, Integer> stomach;
 
     public Player() {
         score = 0;
@@ -44,6 +47,10 @@ public abstract class Player {
 
     public void addObjective(Objective objective) {
         this.objectives.add(objective);
+    }
+
+    public HashMap<Color, Integer> getStomach() {
+        return stomach;
     }
 
     /**
