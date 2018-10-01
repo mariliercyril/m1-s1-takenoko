@@ -16,25 +16,29 @@ import java.util.List;
  */
 public class Game {
 
-    private List<Player> players;   // The Players participating the game
-    private LinkedList<Tile> deck;  // The deck in which players get the tiles
-    private Board board;            // The game board, with all the tiles
-    private Gardener gardener;      // The gardener (obviously)
-    private List<Objective> objectives;
+    private List<Player> players;           // The Players participating the game
+    private LinkedList<Tile> tilesDeck;          // The tilesDeck in which players get the tiles
+    private Board board;                    // The game board, with all the tiles
+    private Gardener gardener;              // The gardener (obviously)
+    private List<Objective> objectivesDeck; // The list of
 
     public Game() {                 // Default constructor: 1v1 game
 
-        objectives = new ArrayList<>();
-        objectives.add(new ColorObjective());
+        objectivesDeck = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {      // We add 10 objectives in the deck
+            objectivesDeck.add(new ColorObjective());
+        }
 
         this.gardener = new Gardener();
         int numberOfPlayers = 4;
         this.players = new ArrayList<>();
+
         for (int i = 0; i < numberOfPlayers; i++) {
             Player newPlayer = new RandomBot();
-            newPlayer.addObjective(objectives.get(0));
             players.add(newPlayer);
         }
+
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
@@ -46,8 +50,8 @@ public class Game {
         initDeck();
     }
 
-    public List<Objective> getObjectives() {
-        return objectives;
+    public List<Objective> getObjectivesDeck() {
+        return objectivesDeck;
     }
 
     public List<Player> getPlayers() {
@@ -58,9 +62,9 @@ public class Game {
         return board;
     }
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the deck is empty
+    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         for (Player p : players) {
-            if (p.getScore() >= 9 || deck.isEmpty()) return true;
+            if (p.getScore() >= 9 || tilesDeck.isEmpty()) return true;
         }
 
         return false;
@@ -80,11 +84,11 @@ public class Game {
         printRanking();
     }
 
-    public Tile getTile() {         //  Takes a tile from the deck
-        return deck.poll();
+    public Tile getTile() {         //  Takes a tile from the tilesDeck
+        return tilesDeck.poll();
     }
 
-    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the deck
+    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the tilesDeck
 
         int nbrTiles = 3;           //  Number of tiles to choose from
         ArrayList<Tile> tiles = new ArrayList<>();
@@ -99,7 +103,7 @@ public class Game {
     }
 
     public void putBackTile(Tile tile) {
-        deck.add(tile);
+        tilesDeck.add(tile);
     }
 
     public Player getWinner() {
@@ -110,15 +114,15 @@ public class Game {
 
     // used only by this class
     void initDeck() {
-        deck = new LinkedList<>();
+        tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
 
         for (Color c : colors) {
             for (int i = 0; i < c.getQuantite(); i++) {
-                deck.push(new BasicTile(c));
+                tilesDeck.push(new BasicTile(c));
             }
         }
-        Collections.shuffle(deck);
+        Collections.shuffle(tilesDeck);
     }
 
     private void printRanking() {
@@ -129,8 +133,8 @@ public class Game {
         }
     }
 
-    protected List getDeck() {
-        return deck;
+    protected List getTilesDeck() {
+        return tilesDeck;
     }
 
     public Gardener getGardener() {
@@ -139,5 +143,13 @@ public class Game {
 
     public void MoveGardener(Point position) {
         
+    }
+
+    public Objective drawObjective() {
+        Objective objective = new ColorObjective();
+
+
+
+        return objective;
     }
 }

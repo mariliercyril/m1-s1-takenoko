@@ -108,6 +108,9 @@ public abstract class Player {
                     this.score++;
                 }
                 break;
+            case DRAW_OBJECTIVE:
+                objectives.add(game.drawObjective());
+                break;
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
         }
@@ -122,7 +125,7 @@ public abstract class Player {
      */
     private void putDownTile(Game game, Tile t) {
         game.getBoard().set(t.getPosition(), t);
-        for (Objective objective : game.getObjectives()) {
+        for (Objective objective : game.getObjectivesDeck()) {
             objective.checkIfCompleted(t, game.getBoard());
         }
     }

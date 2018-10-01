@@ -55,6 +55,11 @@ public class RandomBot extends Player {
 
     @Override
     protected Action[] planActions(Game game) {
+        if(this.getObjectives().isEmpty()) {    // If we don't have any objective in our hand
+            // we draw one
+            return new Action[]{Action.DRAW_OBJECTIVE, Action.PUT_DOWN_TILE, Action.VALID_OBJECTIVE};
+        }
+        // Else we return a simple action set
         return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
     }
 
