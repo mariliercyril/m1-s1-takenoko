@@ -173,4 +173,10 @@ public class Game {
 
         return objective;
     }
+
+    public void purge(){
+        board = new HashBoard(new BasicTile());
+        initTileDeck();
+        Player.reinitCounter();
+    }
 }
