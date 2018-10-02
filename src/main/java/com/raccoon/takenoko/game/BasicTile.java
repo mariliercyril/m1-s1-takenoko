@@ -76,4 +76,10 @@ public class BasicTile implements Tile {
 	public void irrigate() {
 		this.irrigated = true;
 	}
+
+	public void decreaseBambooSize() {
+		if (this.bambooSize > 0) {
+			this.bambooSize--;
+		}
+	}
 }
