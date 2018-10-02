@@ -7,7 +7,6 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -20,11 +19,10 @@ public class Game {
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
-    //private List<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private Stack<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
     private List<Objective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
-
 
         this.gardener = new Gardener();
         int numberOfPlayers = 4;
@@ -38,14 +36,16 @@ public class Game {
         patternObjectives = new ArrayList<>();
 
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
-        initDeck();
+        initTileDeck();
+        initObjectiveDeck();
     }
 
     public Game(List<Player> players) {
         this.gardener = new Gardener();
         this.players = players;
         board = new HashBoard(new BasicTile());
-        initDeck();
+        initTileDeck();
+        initObjectiveDeck();
     }
 
     public List<Player> getPlayers() {
@@ -107,7 +107,7 @@ public class Game {
     }
 
     // used only by this class
-    void initDeck() {
+    private void initTileDeck() {
         tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
 
@@ -117,6 +117,15 @@ public class Game {
             }
         }
         Collections.shuffle(tilesDeck);
+    }
+
+    private void initObjectiveDeck() {
+
+        objectivesDeck = new Stack<>();
+
+        for (int i = 0; i < 30; i++) {
+            objectivesDeck.push(new ColorObjective());
+        }
     }
 
     private void printRanking() {
@@ -153,7 +162,7 @@ public class Game {
      */
     public Objective drawObjective() {
 
-        Objective objective = new ColorObjective();
+        Objective objective = objectivesDeck.pop();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
