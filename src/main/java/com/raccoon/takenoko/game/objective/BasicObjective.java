@@ -27,7 +27,7 @@ public class BasicObjective implements Objective {
 	}
 
 	@Override
-	public boolean checkIfCompleted(Tile basicTile, Board hashBoard) {
+	public void checkIfCompleted(Tile basicTile, Board hashBoard) {
 
 		// Gets the position of the basic tile
 		Point position = basicTile.getPosition();
@@ -36,9 +36,7 @@ public class BasicObjective implements Objective {
 		List<Tile> tiles = hashBoard.getNeighbours(position);
 
 		// Is completed if the tile to be placed has at least one neighbour tile
-		isCompleted = (tiles.size() > 0);
-
-		return isCompleted;
+		isCompleted = (!(tiles.isEmpty()));
 	}
 
     // TODO: To define.

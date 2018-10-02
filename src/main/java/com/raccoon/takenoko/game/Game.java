@@ -1,8 +1,11 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.*;
 import java.util.*;
@@ -13,16 +16,27 @@ import java.util.List;
  */
 public class Game {
 
-    private List<Player> players;   // The Players participating the game
-    private LinkedList<Tile> deck;  // The deck in which players get the tiles
-    private Board board;            // The game board, with all the tiles
-    private Gardener gardener;      // The gardener (obviously)
+    private List<Player> players;           // The Players participating the game
+    private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
+    private Board board;                    // The game board, with all the tiles
+    private Gardener gardener;              // The gardener (obviously)
+    //private List<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private List<Objective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
+
+
         this.gardener = new Gardener();
         int numberOfPlayers = 4;
         this.players = new ArrayList<>();
-        for (int i = 0; i < numberOfPlayers; i++) players.add(new RandomBot());
+
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Player newPlayer = new RandomBot();
+            players.add(newPlayer);
+        }
+
+        patternObjectives = new ArrayList<>();
+
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initDeck();
     }
@@ -42,9 +56,9 @@ public class Game {
         return board;
     }
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the deck is empty
+    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         for (Player p : players) {
-            if (p.getScore() >= 9 || deck.isEmpty()) return true;
+            if (p.getScore() >= 9 || tilesDeck.isEmpty()) return true;
         }
 
         return false;
@@ -54,17 +68,21 @@ public class Game {
         int i = 0;
         while (!gameOver()) {
             Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " is playing now.");
-            players.get(i).play(this);
+            try {
+                players.get(i).play(this);
+            } catch (ForbiddenActionException e){
+                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" +  players.get(i).getId() + "!");
+            }
             i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
         }
         printRanking();
     }
 
-    public Tile getTile() {         //  Takes a tile from the deck
-        return deck.poll();
+    public Tile getTile() {         //  Takes a tile from the tilesDeck
+        return tilesDeck.poll();
     }
 
-    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the deck
+    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the tilesDeck
 
         int nbrTiles = 3;           //  Number of tiles to choose from
         ArrayList<Tile> tiles = new ArrayList<>();
@@ -79,7 +97,7 @@ public class Game {
     }
 
     public void putBackTile(Tile tile) {
-        deck.add(tile);
+        tilesDeck.add(tile);
     }
 
     public Player getWinner() {
@@ -90,15 +108,15 @@ public class Game {
 
     // used only by this class
     void initDeck() {
-        deck = new LinkedList<>();
+        tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
 
         for (Color c : colors) {
             for (int i = 0; i < c.getQuantite(); i++) {
-                deck.push(new BasicTile(c));
+                tilesDeck.push(new BasicTile(c));
             }
         }
-        Collections.shuffle(deck);
+        Collections.shuffle(tilesDeck);
     }
 
     private void printRanking() {
@@ -109,15 +127,41 @@ public class Game {
         }
     }
 
-    protected List getDeck() {
-        return deck;
+    protected List getTilesDeck() {
+        return tilesDeck;
     }
 
     public Gardener getGardener() {
         return gardener;
     }
 
-    public void moveGardener(Point position) {
-        gardener.move(board, position);
+    /**
+     * Allow a player to put down a tile on the board. It also check for the completion of the
+     * objectives that might be changed by this action.
+     * @param tile The tile to put down, with its position attribute set
+     */
+    public void putDownTile(Tile tile) {
+        this.board.set(tile.getPosition(), tile);
+        for (Objective objective : this.patternObjectives) {
+            objective.checkIfCompleted(tile, this.board);
+        }
+    }
+
+    /**
+     * Allows a player to draw an objective card
+     * @return the first objective card of the deck
+     */
+    public Objective drawObjective() {
+
+        Objective objective = new ColorObjective();
+
+        /*
+        We add the drawn objective to the adequate list of objective, to maintain its completion.
+        Here, we just have one type of objective, which is not even drawn but created on demand,
+        so non need to check its type we can jsut add it to the pattern list
+         */
+        this.patternObjectives.add(objective);
+
+        return objective;
     }
 }

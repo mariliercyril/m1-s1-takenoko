@@ -44,7 +44,7 @@ public class BasicTile implements Tile {
     public void increaseBambooSize(int bambooSize) {
 	    if (this.getBambooSize() < 4 && this.irrigated) {
 	        this.bambooSize ++;
-			Takeyesntko.print("Bamboo on " + this.toString() + " increases to " + bambooSize + " chunks.");
+			Takeyesntko.print("Bamboo on " + this.toString() + " increases to " + this.bambooSize + " chunks.");
         }
     }
 

@@ -3,6 +3,7 @@ package com.raccoon.takenoko.player;
 public enum Action {
     PUT_DOWN_TILE(1),
     MOVE_GARDENER(1),
+    DRAW_OBJECTIVE(1),
     VALID_OBJECTIVE(0);
 
     Action(int cost) {
