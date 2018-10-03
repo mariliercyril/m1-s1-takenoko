@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game.objective;
+package com.raccoon.takenoko.game.objective.parcel;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,17 +16,17 @@ import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
 
 /**
- * This class allows to perform unit tests of the methods (apart from "get()" and "set()")
- * of the class {@code BasicObjective}.
+ * This class allows to perform unit tests of the method "checkIfCompleted()"
+ * of the class {@code BasicParcelObjective}.
  */
-public class BasicObjectiveTest {
+public class BasicParcelObjectiveTest {
 
 	private static Tile pondTile;
-
-	private static Tile initialTile;
 	private Board hashBoard;
 
-	private Objective basicObjective;
+	private static Tile initialTile;
+
+	private BasicParcelObjective basicParcelObjective;
 
 	@BeforeAll
 	public static void constructPondTile() {
@@ -44,23 +44,23 @@ public class BasicObjectiveTest {
 		// Places the initial Tile (the first plot)
 		hashBoard.set(new Point(1, 1), initialTile);
 
-		basicObjective = new BasicObjective();
+		basicParcelObjective = new BasicParcelObjective();
 	}
 
 	@Test
 	@DisplayName("assert true when basic objective is completed, 1st case: from the \"pond\" Tile to the initial Tile")
 	public void testIsCompleted_truePondToInitialCase() {
 
-		basicObjective.checkIfCompleted(pondTile, hashBoard);
-		assertTrue(basicObjective.isCompleted());
+		basicParcelObjective.checkIfCompleted(pondTile, hashBoard);
+		assertTrue(basicParcelObjective.isCompleted());
 	}
 
 	@Test
 	@DisplayName("assert true when basic objective is completed, 2nd case: from the initial Tile to the \"pond\" Tile")
 	public void testIsCompleted_trueInitialToPondCase() {
 
-		basicObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(basicObjective.isCompleted());
+		basicParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(basicParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -69,8 +69,8 @@ public class BasicObjectiveTest {
 
 		hashBoard.set(new Point(2, 2), new BasicTile());
 
-		basicObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(basicObjective.isCompleted());
+		basicParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(basicParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class BasicObjectiveTest {
 		// A lambda Tile
 		hashBoard.set(new Point(-1, -1), new BasicTile());
 
-		basicObjective.checkIfCompleted(anotherTile, hashBoard);
-		assertFalse(basicObjective.isCompleted());
+		basicParcelObjective.checkIfCompleted(anotherTile, hashBoard);
+		assertFalse(basicParcelObjective.isCompleted());
 	}
 
 }

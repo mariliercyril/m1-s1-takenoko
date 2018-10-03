@@ -40,6 +40,7 @@ public class BasicTile implements Tile {
         return bambooSize;
     }
 
+	// TODO: To remove the parameter (in the method "increaseBambooSize()") or use it.
     @Override
     public void increaseBambooSize(int bambooSize) {
         if (this.getBambooSize() < 4 && this.irrigated && Objects.nonNull(this.color)) {

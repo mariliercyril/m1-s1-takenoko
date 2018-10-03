@@ -3,7 +3,7 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.*;
 import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -35,7 +35,7 @@ public class RandomBotTest {
     private Game g;
 
     @Mock
-    ColorObjective mockObjective;
+    AlignmentParcelObjective mockObjective;
 
     @Mock
     RandomBot mockedBot;
@@ -101,6 +101,7 @@ public class RandomBotTest {
         List<Point> av = g.getBoard().getAvailablePositions();
 
         try {
+        	
             mockedBot.play(g);
             fail("Expected an ForbiddenActionException to be thrown");
         } catch (Exception e) {
