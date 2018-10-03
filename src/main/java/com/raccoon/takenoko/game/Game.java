@@ -139,7 +139,7 @@ public class Game {
         Takeyesntko.print("\n RANKING");
         for (Player pl : players) {
             Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points.");
-            Takeyesntko.print("Player #" + pl.getId() + " stomach : " + pl.getStomach());
+            // Takeyesntko.print("Player #" + pl.getId() + " stomach : " + pl.getStomach());
         }
     }
 
