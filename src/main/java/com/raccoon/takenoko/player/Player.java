@@ -157,6 +157,9 @@ public abstract class Player {
 
     protected abstract Tile chooseTile(Game game);
 
+    public static void reinitCounter() {
+        counter = 0;
+    }
     protected abstract Point whereToMoveGardener(List<Point> available);
 
     protected abstract Point whereToMovePanda(List<Point> available);
