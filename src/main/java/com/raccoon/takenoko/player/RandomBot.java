@@ -4,6 +4,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
 import java.util.*;
@@ -61,7 +62,8 @@ public class RandomBot extends Player {
 
     @Override
     protected Action[] planActions(Game game) {
-        if (this.getObjectives().isEmpty()) {    // If we don't have any objective in our hand
+        // If we don't have as much objectives as we can in our hand
+        if (this.getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {
             // we draw one
             return new Action[]{Action.DRAW_OBJECTIVE, Action.PUT_DOWN_TILE, Action.VALID_OBJECTIVE};
         }
