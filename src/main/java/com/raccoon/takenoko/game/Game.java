@@ -37,9 +37,10 @@ public class Game {
 
         this.gardener = new Gardener();
         this.panda = new Panda();
-        int numberOfPlayers = 2;
+        int numberOfPlayers = 4;
         this.players = new ArrayList<>();
 
+        Player.reinitCounter();
         for (int i = 0; i < numberOfPlayers; i++) {
             Player newPlayer = new RandomBot();
             players.add(newPlayer);

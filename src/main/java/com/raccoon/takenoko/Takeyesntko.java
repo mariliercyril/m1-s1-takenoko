@@ -8,16 +8,16 @@ public class Takeyesntko {
 
     public static void main(String[] args) {
 
-        System.out.println(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
-        System.out.println("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
-        System.out.println("   |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | ");
-        System.out.println("   |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | ");
-        System.out.println("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
-        System.out.println("                                                         Presented by angry raccoons\n");
+        print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
+        print("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
+        print("   |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | ");
+        print("   |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | ");
+        print("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
+        print("                                                         Presented by angry raccoons\n");
 
         // comment either one or the other instruction
-        launch1gameNoJutsu();
-        // launch1000gamesNoJutsu();
+        // launch1gameNoJutsu();
+        launch1000gamesNoJutsu();
     }
 
     /**
@@ -34,7 +34,7 @@ public class Takeyesntko {
     /**
      * Launches the game, verbose mode
      */
-    private static void launch1gameNoJutsu() {
+    public static void launch1gameNoJutsu() {
         Takeyesntko.VERBOSE = true;
         Game game = new Game();
         game.start();
@@ -43,7 +43,7 @@ public class Takeyesntko {
     /**
      * Launches 1000 games and prints out the output
      */
-    private static void launch1000gamesNoJutsu() {
+    public static int launch1000gamesNoJutsu() {
         VERBOSE = false;
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
@@ -81,24 +81,23 @@ public class Takeyesntko {
             game.purge();
         }
 
-
+        // this is why we need a log level instead of a boolean
         // printing out results
-        System.out.println(" -- Launched 1000 games!");
-        System.out.println("|\tPlayer\t|\t\tType\t|\tVictories\t|\tPoints\t|");
+        print(" -- Launched 1000 games!");
+        print("|\tPlayer\t|\t\tType\t|\tVictories\t|\tPoints\t|");
         for (int i = 0; i < wins.length; i++) {
-            // System.out.println(String.format("Player %d won %d times and accumulated %d points total.", ( i + 1 ), wins[i], scores[i]));
-            System.out.println(String.format("|\t\t#%d\t|\t%s\t|\t\t\t%d\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
+            // print(String.format("Player %d won %d times and accumulated %d points total.", ( i + 1 ), wins[i], scores[i]));
+            print(String.format("|\t\t#%d\t|\t%s\t|\t\t\t%d\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
         }
-        System.out.println(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
+        print(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
 
         // Checksum : if the checksum is not 1000, points were badly distributed
-        /*
         int totalGames = 0;
         for (int w : wins) {
             totalGames += w;
         }
-        System.out.println(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)\n", totalGames + voidedGames));
-        */
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)\n", totalGames + voidedGames));
+        return totalGames + voidedGames;
     }
 
 }
