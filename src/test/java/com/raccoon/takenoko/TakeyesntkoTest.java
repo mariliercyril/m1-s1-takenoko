@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.Takeyesntko;
 import org.junit.Before;
@@ -26,7 +26,6 @@ public class TakeyesntkoTest {
         }
     }
 
-    @Ignore
     @Test
     public void gameGoesWell() {
         try {

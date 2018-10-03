@@ -2,7 +2,6 @@ package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
@@ -72,7 +71,7 @@ public class Game {
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         for (Player p : players) {
-            if (p.getScore() >= 9 || tilesDeck.isEmpty()) return true;
+            if (p.getScore() >= 9 || tilesDeck.isEmpty()) { return true; }
         }
 
         return false;
@@ -84,10 +83,10 @@ public class Game {
             Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " is playing now.");
             try {
                 players.get(i).play(this);
-            } catch (ForbiddenActionException e){
-                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" +  players.get(i).getId() + "!");
+            } catch (ForbiddenActionException e) {
+                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(i).getId() + "!");
             }
-            i = (i + 1) % players.size();   // To keep i between 0 and the size of the list of players
+            i = ( i + 1 ) % players.size();   // To keep i between 0 and the size of the list of players
         }
         printRanking();
     }
@@ -142,9 +141,9 @@ public class Game {
         this.objectivesDeck = new Stack<>();
 
         for (int i = 0; i < 10; i++) {
-        	for (Color color : Color.values()) {
-        		this.objectivesDeck.push(new AlignmentParcelObjective(color));
-        	}
+            for (Color color : Color.values()) {
+                this.objectivesDeck.push(new AlignmentParcelObjective(color));
+            }
         }
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
@@ -175,6 +174,7 @@ public class Game {
     /**
      * Allow a player to put down a tile on the board. It also check for the completion of the
      * objectives that might be changed by this action.
+     *
      * @param tile The tile to put down, with its position attribute set
      */
     public void putDownTile(Tile tile) {
@@ -186,6 +186,7 @@ public class Game {
 
     /**
      * Allows a player to draw an objective card
+     *
      * @return the first objective card of the deck
      */
     public Objective drawObjective() {
@@ -208,7 +209,7 @@ public class Game {
         return panda;
     }
 
-    public void purge(){
+    public void purge() {
         board = new HashBoard(new BasicTile());
         initTileDeck();
         Player.reinitCounter();
