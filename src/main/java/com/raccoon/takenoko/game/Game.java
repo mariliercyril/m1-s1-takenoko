@@ -20,7 +20,7 @@ public class Game {
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
-    private Stack<AbstractObjective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private Stack<AbstractObjective> objectivesDeck; // The deck of objective cards
     private Panda panda;                    // Probably the panda
     private List<AbstractObjective> patternObjectives;
 
@@ -173,10 +173,12 @@ public class Game {
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
-        Here, we just have one type of objective, which is not even drawn but created on demand,
-        so non need to check its type we can jsut add it to the pattern list
+        Here, we just have one objective of the type pattern, the alignment.
+        Could be replaced by an observer design pattern.
          */
-        this.patternObjectives.add(objective);
+        if (objective instanceof AlignmentParcelObjective) {
+            this.patternObjectives.add(objective);
+        }
 
         return objective;
     }
