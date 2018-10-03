@@ -1,8 +1,9 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.AbstractObjective;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
@@ -19,9 +20,9 @@ public class Game {
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
-    private Stack<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private Stack<AbstractObjective> objectivesDeck; // The deck of objective cards. Not used yet.
     private Panda panda;                    // Probably the panda
-    private List<Objective> patternObjectives;
+    private List<AbstractObjective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
 
@@ -127,7 +128,9 @@ public class Game {
         objectivesDeck = new Stack<>();
 
         for (int i = 0; i < 30; i++) {
-            objectivesDeck.push(new ColorObjective());
+        	for (Color color : Color.values()) {
+        		objectivesDeck.push(new AlignmentParcelObjective(color));
+        	}
         }
     }
 
@@ -154,7 +157,7 @@ public class Game {
      */
     public void putDownTile(Tile tile) {
         this.board.set(tile.getPosition(), tile);
-        for (Objective objective : this.patternObjectives) {
+        for (AbstractObjective objective : this.patternObjectives) {
             objective.checkIfCompleted(tile, this.board);
         }
     }
@@ -165,7 +168,7 @@ public class Game {
      */
     public Objective drawObjective() {
 
-        Objective objective = objectivesDeck.pop();
+        AbstractObjective objective = objectivesDeck.pop();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
