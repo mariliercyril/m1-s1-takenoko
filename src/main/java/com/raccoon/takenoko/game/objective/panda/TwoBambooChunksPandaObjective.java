@@ -15,8 +15,6 @@ import com.raccoon.takenoko.player.Player;
  */
 public class TwoBambooChunksPandaObjective extends Objective {
 
-	private Color color;
-
 	public TwoBambooChunksPandaObjective(Color color) {
 
 		super();
@@ -48,12 +46,6 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		if (stomach.entrySet().stream().anyMatch(b -> ((b.getKey()).equals(color) && (b.getValue()) >= 2))) {
 			isCompleted = true;
 		}
-	}
-
-	@Override
-	public void checkIfCompleted(Tile finalTile, Board hashBoard) throws UnsupportedOperationException {
-
-		new UnsupportedOperationException();
 	}
 
 }

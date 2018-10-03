@@ -22,8 +22,6 @@ import com.raccoon.takenoko.tool.Vector;
  */
 public class AlignmentParcelObjective extends Objective {
 
-	private Color color;
-
 	public AlignmentParcelObjective(Color color) {
 
 		super();
@@ -99,12 +97,6 @@ public class AlignmentParcelObjective extends Objective {
 		if (areAligned && ((tiles.stream()).allMatch(t -> (t.getColor()).equals(color)))) {
 			isCompleted = true;
 		}
-	}
-
-	@Override
-	public void checkIfCompleted(Player player) throws UnsupportedOperationException {
-
-		new UnsupportedOperationException();
 	}
 
 }

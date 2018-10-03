@@ -37,10 +37,4 @@ public class BasicParcelObjective extends Objective {
 		isCompleted = (!(tiles.isEmpty()));
 	}
 
-	@Override
-	public void checkIfCompleted(Player player) throws UnsupportedOperationException {
-
-		new UnsupportedOperationException();
-	}
-
 }

@@ -51,9 +51,9 @@ public class RandomBotTest {
         Tile greenTile1 = new BasicTile(Color.GREEN);
         Tile pinkTile0 = new BasicTile(Color.PINK);
 
-        g.getBoard().set(new Point(0,1), greenTile0);
-        g.getBoard().set(new Point(1,1), pinkTile0);
-        g.getBoard().set(new Point(1,2), greenTile1);
+        g.getBoard().set(new Point(0, 1), greenTile0);
+        g.getBoard().set(new Point(1, 1), pinkTile0);
+        g.getBoard().set(new Point(1, 2), greenTile1);
 
         mockObjective.checkIfCompleted(any(), any());
         when(mockObjective.isCompleted()).thenReturn(true);
@@ -87,7 +87,7 @@ public class RandomBotTest {
     }
 
     @Test
-    public void testWhereToPutGardener(){
+    public void testWhereToPutGardener() {
         List<Point> accessiblePositions = g.getBoard().getAccessiblePositions(g.getGardener().getPosition());
 
         assertNotNull(p.whereToMoveGardener(accessiblePositions));
@@ -95,13 +95,12 @@ public class RandomBotTest {
     }
 
     @Test
-    public void failingPlannedActions(){
+    public void failingPlannedActions() {
         when(mockedBot.planActions(any())).thenReturn(new Action[]{});
         Point beforePoint = g.getGardener().getPosition();
         List<Point> av = g.getBoard().getAvailablePositions();
 
         try {
-        	
             mockedBot.play(g);
             fail("Expected an ForbiddenActionException to be thrown");
         } catch (Exception e) {
@@ -114,7 +113,7 @@ public class RandomBotTest {
     }
 
     @Test
-    public void failingMovingGardener(){
+    public void failingMovingGardener() {
         g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
         g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
 
@@ -126,7 +125,6 @@ public class RandomBotTest {
             mockedBot.play(g);
             fail("Expected an ForbiddenActionException to be thrown");
         } catch (Exception e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
             assertEquals(ForbiddenActionException.class, e.getClass());
         }
 

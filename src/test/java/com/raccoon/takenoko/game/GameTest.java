@@ -101,4 +101,12 @@ class GameTest {
         assertNull(game.getBoard().get(new Point(1,0)));
         assertEquals(27, game.getTilesDeck().size());
     }
+
+    @Test
+    public void purgeGame() {
+        Board b = game.getBoard();
+        game.purge();
+        assertNotSame(b, game.getBoard(), "Board has not been reinitialized.");
+        assertEquals(27, game.getTilesDeck().size(), "Tile dech has not been reinitialized.");
+    }
 }

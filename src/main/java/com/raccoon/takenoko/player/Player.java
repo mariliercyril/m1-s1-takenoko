@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
@@ -116,9 +117,9 @@ public abstract class Player {
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
                 if (objective != null) {
-                    Takeyesntko.print("Player has completed an objective ! 1 point to the player !");
+                    Takeyesntko.print("Player has completed an objective ! 1 point to the player !" + objective);
                     this.objectives.remove(objective);
-                    this.score++;
+                    this.score += objective.getScore();
                 }
                 break;
             case DRAW_OBJECTIVE:
@@ -138,6 +139,11 @@ public abstract class Player {
 
                 if (destinationHadBamboo) {
                     eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
+                }
+                for (Objective pandaObjective : objectives) {
+                    if(pandaObjective instanceof TwoBambooChunksPandaObjective) {
+                        pandaObjective.checkIfCompleted(this);
+                    }
                 }
                 break;
             default:
