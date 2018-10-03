@@ -38,7 +38,10 @@ public class RandomBot extends Player {
     protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
         Random rand = new Random();
         ArrayList<Tile> tiles = game.getTiles();
-        int choice = abs(rand.nextInt()) % tiles.size();
+        int choice = rand.nextInt() % tiles.size();
+        if (choice < 0) {
+            choice *= -1;
+        }
         for (int i = 0; i < tiles.size(); i++) {       // The players put the tiles he doesnt want back in the deck
             if (i != choice) {
                 game.putBackTile(tiles.get(i));
