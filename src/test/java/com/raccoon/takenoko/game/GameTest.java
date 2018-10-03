@@ -90,4 +90,15 @@ class GameTest {
             assertFalse(t.getBambooSize() > 0, "Tile is dry but bamboo grew");
         }
     }
+
+    @Test
+    void purgeTest() {
+        game.getBoard().set(new Point(0, 1), game.getTile());
+        game.getBoard().set(new Point(1,0), game.getTile());
+        assertEquals(25, game.getTilesDeck().size());
+        game.purge();
+        assertNull(game.getBoard().get(new Point(0,1)));
+        assertNull(game.getBoard().get(new Point(1,0)));
+        assertEquals(27, game.getTilesDeck().size());
+    }
 }
