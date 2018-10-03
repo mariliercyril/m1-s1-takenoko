@@ -64,17 +64,6 @@ public class RandomBotTest {
         assertEquals(p.getScore(), 0);
     }
 
-    @Ignore("Objective completion not testable yet, TODO")
-    @Test
-    public void testObjectiveIncidenceOnScore() {
-        try {
-            p.play(g);
-        } catch (ForbiddenActionException e) {
-            fail("Player's turn threw an exception");
-        }
-        assertEquals(p.getScore(), 1);
-    }
-
     @Test
     public void testPlayIncidenceOnBoard() {
         try {

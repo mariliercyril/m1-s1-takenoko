@@ -3,7 +3,6 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 
 import java.awt.*;
-import java.util.List;
 
 public class Panda {
     private Point position;
@@ -18,6 +17,7 @@ public class Panda {
 
     /**
      * This methods allows us to tell the gardener to move to a given location
+     *
      * @param position The location where we want the panda to go
      */
     public void move(Board board, Point position) {
