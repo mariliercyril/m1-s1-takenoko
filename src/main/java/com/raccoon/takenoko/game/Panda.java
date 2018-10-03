@@ -3,7 +3,6 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 
 import java.awt.*;
-import java.util.List;
 
 public class Panda {
     private Point position;
