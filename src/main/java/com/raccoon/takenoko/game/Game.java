@@ -3,9 +3,11 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.AbstractObjective;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.util.*;
@@ -16,15 +18,22 @@ import java.util.List;
  */
 public class Game {
 
-    private List<Player> players;           // The Players participating the game
-    private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
-    private Gardener gardener;              // The gardener (obviously)
+    private List<Player> players;           // The Players participating the game
+
+    private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Stack<AbstractObjective> objectivesDeck; // The deck of objective cards
+
     private Panda panda;                    // Probably the panda
+    private Gardener gardener;              // The gardener (obviously)
+
+    // Used to keep track of the objectives involving the tiles handed to the players
     private List<AbstractObjective> patternObjectives;
 
-    public Game() {                 // Default constructor: 1v1 game
+    /**
+     * Default constructor creating a 1 vs 1 game
+     */
+    public Game() {
 
         this.gardener = new Gardener();
         this.panda = new Panda();
@@ -88,10 +97,9 @@ public class Game {
 
     public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the tilesDeck
 
-        int nbrTiles = 3;           //  Number of tiles to choose from
         ArrayList<Tile> tiles = new ArrayList<>();
         Tile candidate;
-        for (int i = 0; i < nbrTiles; i++) {
+        for (int i = 0; i < Constants.NUMBER_OF_TILES_TO_DRAW; i++) {
             candidate = getTile();
             if (candidate != null) {
                 tiles.add(candidate);
@@ -124,14 +132,26 @@ public class Game {
     }
 
     private void initObjectiveDeck() {
+        /*
+        Initialisation of the deck of objectives cards.
+        First version, we fill it with the objectives we have, each time with the three colors it exists in.
+        Will evolve in a factory pattern with the amount of each card matching the rules.
+         */
 
-        objectivesDeck = new Stack<>();
+        this.objectivesDeck = new Stack<>();
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
         	for (Color color : Color.values()) {
-        		objectivesDeck.push(new AlignmentParcelObjective(color));
+        		this.objectivesDeck.push(new AlignmentParcelObjective(color));
         	}
         }
+        for (int i = 0; i < 10; i++) {
+            for (Color color : Color.values()) {
+                this.objectivesDeck.push(new TwoBambooChunksPandaObjective(color));
+            }
+        }
+
+        Collections.shuffle(objectivesDeck);
     }
 
     private void printRanking() {
