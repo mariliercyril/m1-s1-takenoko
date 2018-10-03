@@ -27,7 +27,7 @@ public class Game {
 
         this.gardener = new Gardener();
         this.panda = new Panda();
-        int numberOfPlayers = 4;
+        int numberOfPlayers = 2;
         this.players = new ArrayList<>();
 
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -136,6 +136,7 @@ public class Game {
         Takeyesntko.print("\n RANKING");
         for (Player pl : players) {
             Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points.");
+            Takeyesntko.print("Player #" + pl.getId() + " stomach : " + pl.getStomach());
         }
     }
 

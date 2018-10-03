@@ -34,3 +34,12 @@ We now have a gardener that can move on the board ! It grows a bamboo on the til
 * The gardener can move in a straight line
 * Where the gardener moves, a bamboo grows, as well as on the compatible neighbour tiles (color + irrigation).
 * **[refact]** Players now can choose an indefinite amount of actions (some of which have a cost) and play them in indefinite order.
+
+## OCT03 : Panda
+We now have a moving and eating panda !
+### What's been done
+* The panda can move in a straight direction
+* Where the panda moves, he eats a chunk of banboo
+* The player takes the eaten bamboo in its stomach
+* You can now launch 1000 games at the same time to display stats ! 
+* **[refact]** Constants file for all the fame constants

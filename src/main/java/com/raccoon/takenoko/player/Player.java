@@ -8,10 +8,7 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to
@@ -31,6 +28,10 @@ public abstract class Player {
         counter++;
         id = counter;
         objectives = new ArrayList<>();
+        stomach = new HashMap<>();
+        stomach.put(Color.GREEN, 0);
+        stomach.put(Color.YELLOW, 0);
+        stomach.put(Color.PINK, 0);
     }
 
     public int getScore() {
@@ -140,17 +141,6 @@ public abstract class Player {
         }
     }
 
-    /**
-     * BOT CAN'T ACCESS THIS METHOD
-     * Used by the player to actually put down the tile the player has chosen to put down
-     *
-     * @param game current game
-     * @param t    tile to put down
-     */
-    private void putDownTile(Game game, Tile t) {
-        game.getBoard().set(t.getPosition(), t);
-    }
-
     protected abstract Action[] planActions(Game game);
 
     protected abstract Point whereToPutDownTile(Game game, Tile t);
@@ -160,12 +150,16 @@ public abstract class Player {
     public static void reinitCounter() {
         counter = 0;
     }
+
     protected abstract Point whereToMoveGardener(List<Point> available);
 
     protected abstract Point whereToMovePanda(List<Point> available);
 
     protected void eatBamboo(Color color) {
-
+        if(Objects.nonNull(color)){
+            stomach.put(color, stomach.get(color) + 1);
+            Takeyesntko.print(String.format("Player has eaten a %s bamboo ! He now has %d %s bamboo(s) in his stomach", color, stomach.get(color), color));
+        }
     }
 
     protected abstract Objective chooseObjectiveToValidate();

@@ -21,7 +21,7 @@ public class Panda {
      * @param position The location where we want the panda to go
      */
     public void move(Board board, Point position) {
-        Takeyesntko.print("Gardener moves from " + this.position + " to " + position);
+        Takeyesntko.print("Panda moves from " + this.position + " to " + position);
         this.position = position;
         this.eat(board, this.position); // Eat the bamboo where the panda lands
     }
