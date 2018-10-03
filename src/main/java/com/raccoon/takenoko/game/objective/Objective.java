@@ -10,47 +10,51 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
-	protected boolean isCompleted;
-	protected int score;
+    protected boolean isCompleted;
+    protected int score;
 
-	public Objective() {
+    public Objective() {
 
-		isCompleted = false;
-	}
+        isCompleted = false;
+    }
 
-	/**
-	 * Gets if the objective is completed.
-	 * 
-	 * @return <b>true</b> if it is completed, <b>false</b> if not
-	 */
-	public boolean isCompleted() {
+    /**
+     * Gets if the objective is completed.
+     *
+     * @return <b>true</b> if it is completed, <b>false</b> if not
+     */
+    public boolean isCompleted() {
 
-		return isCompleted;
-	}
+        return isCompleted;
+    }
 
-	/**
-	 * Checks if a Parcel Objective is completed.
-	 * 
-	 * @param basicTile
-	 * @param hashBoard
-	 */
-	public abstract void checkIfCompleted(Tile basicTile, Board hashBoard) throws UnsupportedOperationException;
+    /**
+     * Checks if a Parcel Objective is completed.
+     *
+     * @param basicTile
+     * @param hashBoard
+     */
+    public void checkIfCompleted(Tile basicTile, Board hashBoard) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
 
-	/**
-	 * Checks if a Panda Objective is completed.
-	 * 
-	 * @param player
-	 */
-	public abstract void checkIfCompleted(Player player) throws UnsupportedOperationException;
+    /**
+     * Checks if a Panda Objective is completed.
+     *
+     * @param player
+     */
+    public void checkIfCompleted(Player player) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Gets the score of the objective in question.
-     * 
+     *
      * @return A positive score if the score is completed
      */
-	public int getScore() {
+    public int getScore() {
 
-		return score;
-	}
+        return score;
+    }
 
 }

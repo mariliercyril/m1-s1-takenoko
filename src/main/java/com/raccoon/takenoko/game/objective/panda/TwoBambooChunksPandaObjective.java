@@ -51,10 +51,4 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		}
 	}
 
-	@Override
-	public void checkIfCompleted(Tile finalTile, Board hashBoard) throws UnsupportedOperationException {
-
-		new UnsupportedOperationException();
-	}
-
 }
