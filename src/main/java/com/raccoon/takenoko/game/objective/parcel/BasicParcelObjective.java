@@ -38,6 +38,9 @@ public class BasicParcelObjective extends Objective {
 	}
 
 	@Override
-	public void checkIfCompleted(Player player) throws UnsupportedOperationException {}
+	public void checkIfCompleted(Player player) throws UnsupportedOperationException {
+
+		new UnsupportedOperationException();
+	}
 
 }
