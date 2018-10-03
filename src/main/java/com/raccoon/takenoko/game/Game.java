@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.ColorObjective;
-import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.parcel.BasicParcelObjective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
@@ -21,7 +21,7 @@ public class Game {
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
     //private List<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
-    private List<Objective> patternObjectives;
+    private List<AbstractObjective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
 
@@ -142,7 +142,7 @@ public class Game {
      */
     public void putDownTile(Tile tile) {
         this.board.set(tile.getPosition(), tile);
-        for (Objective objective : this.patternObjectives) {
+        for (AbstractObjective objective : this.patternObjectives) {
             objective.checkIfCompleted(tile, this.board);
         }
     }
@@ -151,9 +151,10 @@ public class Game {
      * Allows a player to draw an objective card
      * @return the first objective card of the deck
      */
-    public Objective drawObjective() {
+    public AbstractObjective drawObjective() {
 
-        Objective objective = new ColorObjective();
+    	// TODO: To integrate the color for a new AlignmentParcelObjective
+    	AbstractObjective objective = new BasicParcelObjective();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.

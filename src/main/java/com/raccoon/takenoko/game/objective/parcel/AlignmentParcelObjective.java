@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game.objective;
+package com.raccoon.takenoko.game.objective.parcel;
 
 import java.awt.Point;
 
@@ -10,25 +10,22 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
+import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.Vector;
 
 /**
  * This class allows to satisfy the following objective:
  * Align three tiles of the same color.
  */
-public class ColorObjective implements Objective {
+public class AlignmentParcelObjective extends AbstractObjective {
 
-	private boolean isCompleted;
+	private Color color;
 
-	public ColorObjective() {
+	public AlignmentParcelObjective(Color color) {
 
-		isCompleted = false;
-	}
-
-	@Override
-	public boolean isCompleted() {
-
-		return isCompleted;
+		super();
+		this.color = color;
 	}
 
 	@Override
@@ -83,21 +80,28 @@ public class ColorObjective implements Objective {
 		/*
 		 * HAVE SAME COLOR (if are aligned)
 		 */
-		if (areAligned) {
-			boolean haveSameColor = false;
-			for (Color color : Color.values()) {
-				haveSameColor |= tiles.stream().allMatch(t -> (t.getColor()).equals(color));
-			}
+		if (areAligned && ((tiles.stream()).allMatch(t -> (t.getColor()).equals(color)))) {
+			isCompleted = true;
+		}
 
-			isCompleted = haveSameColor;
+		if (isCompleted) {
+			switch (color) {
+				case GREEN:
+					score = 2;
+					break;
+				case YELLOW:
+					score = 3;
+					break;
+				case PINK:
+					score = 4;
+					break;
+				default:
+					// Do nothing
+			}
 		}
 	}
 
-    // TODO: To define.
 	@Override
-	public int getScore() {
-
-		return 0;
-	}
+	public void checkIfCompleted(Player player) throws UnsupportedOperationException {}
 
 }

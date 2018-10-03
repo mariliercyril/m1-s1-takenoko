@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game.objective;
+package com.raccoon.takenoko.game.objective.parcel;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,17 +17,17 @@ import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
 
 /**
- * This class allows to perform unit tests of the methods (apart from "get()" and "set()")
- * of the class {@code ColorObjective}.
+ * This class allows to perform unit tests of the method "checkIfCompleted()"
+ * of the class {@code AlignmentParcelObjective}.
  */
-public class ColorObjectiveTest {
+public class AlignmentParcelObjectiveTest {
 
 	private static Tile pondTile;
-
-	private static Tile initialTile;
 	private Board hashBoard;
 
-	private Objective colorObjective;
+	private static Tile initialTile;
+
+	private AlignmentParcelObjective alignmentParcelObjective;
 
 	@BeforeAll
 	public static void constructPondTile() {
@@ -45,7 +45,7 @@ public class ColorObjectiveTest {
 		// Places the initial Tile (the first plot)
 		hashBoard.set(new Point(1, 1), initialTile);
 
-		colorObjective = new ColorObjective();
+		alignmentParcelObjective = new AlignmentParcelObjective(Color.GREEN);
 	}
 
 	/*
@@ -58,8 +58,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(2, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -69,8 +69,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -80,8 +80,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(2, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 3), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -91,8 +91,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(-1, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -102,8 +102,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 0), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, -1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -113,8 +113,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(2, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 3), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -124,8 +124,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(2, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertTrue(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
@@ -138,8 +138,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -149,8 +149,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.PINK));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -160,8 +160,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.PINK));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
@@ -174,8 +174,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
@@ -188,8 +188,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
@@ -202,8 +202,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
@@ -216,8 +216,8 @@ public class ColorObjectiveTest {
 		hashBoard.set(new Point(0, 0), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(-1, -1), new BasicTile(Color.GREEN));
 
-		colorObjective.checkIfCompleted(initialTile, hashBoard);
-		assertFalse(colorObjective.isCompleted());
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 }
