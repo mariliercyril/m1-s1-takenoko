@@ -70,8 +70,7 @@ public abstract class Player {
 
         // check if the actions are compatible (exactly 2 costly actions)
         int validityCheck = 0;
-        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) {
-        }
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost());
         if (validityCheck != 2) {
             throw new ForbiddenActionException("Player tried to play an incorrect number of actions.");
         }

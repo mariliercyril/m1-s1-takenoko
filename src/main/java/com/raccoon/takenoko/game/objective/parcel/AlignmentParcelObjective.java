@@ -28,11 +28,11 @@ public class AlignmentParcelObjective extends Objective {
 		this.color = color;
 
 		switch (color) {
-			case GREEN:
-				score = 2;
-				break;
 			case YELLOW:
 				score = 3;
+				break;
+			case GREEN:
+				score = 2;
 				break;
 			case PINK:
 				score = 4;

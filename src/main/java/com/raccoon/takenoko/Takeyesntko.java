@@ -86,7 +86,6 @@ public class Takeyesntko {
         print(" -- Launched 1000 games!");
         print("|\tPlayer\t|\t\tType\t|\tVictories\t|\tPoints\t|");
         for (int i = 0; i < wins.length; i++) {
-            // print(String.format("Player %d won %d times and accumulated %d points total.", ( i + 1 ), wins[i], scores[i]));
             print(String.format("|\t\t#%d\t|\t%s\t|\t\t\t%d\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
@@ -96,15 +95,8 @@ public class Takeyesntko {
         for (int w : wins) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)\n", totalGames + voidedGames));
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)%n", totalGames + voidedGames));
         return totalGames + voidedGames;
     }
 
 }
-
-
-//  ________      _       __   __   ______    __    __   ________   __   __   ________  
-// |__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | 
-//    |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | 
-//    |  |    / _____ \\  |     <   |   __|_  |  | \\|  | |  |__|  | |     <   |  |__|  | 
-//    |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| 

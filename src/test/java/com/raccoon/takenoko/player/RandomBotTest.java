@@ -6,14 +6,10 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
@@ -23,8 +19,6 @@ import static org.mockito.Mockito.when;
 
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -79,8 +73,8 @@ public class RandomBotTest {
     public void testWhereToPutGardener() {
         List<Point> accessiblePositions = g.getBoard().getAccessiblePositions(g.getGardener().getPosition());
 
-        assertNotNull(p.whereToMoveGardener(accessiblePositions));
-        assertTrue(accessiblePositions.contains(p.whereToMoveGardener(accessiblePositions)));
+        assertNotNull(p.whereToMovePawn(accessiblePositions));
+        assertTrue(accessiblePositions.contains(p.whereToMovePawn(accessiblePositions)));
     }
 
     @Test
@@ -106,7 +100,7 @@ public class RandomBotTest {
         g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
         g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
 
-        when(mockedBot.whereToMoveGardener(any())).thenReturn(new Point(2, 1));
+        when(mockedBot.whereToMovePawn(any())).thenReturn(new Point(2, 1));
         // planActions returns null if we don't add this line.
         when(mockedBot.planActions(any())).thenReturn(new Action[]{Action.MOVE_GARDENER, Action.VALID_OBJECTIVE});
 
