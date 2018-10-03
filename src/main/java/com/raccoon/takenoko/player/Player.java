@@ -115,11 +115,7 @@ public abstract class Player {
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
-                if (objective != null) {
-                    Takeyesntko.print("Player has completed an objective ! 1 point to the player !" + objective);
-                    this.objectives.remove(objective);
-                    this.score += objective.getScore();
-                }
+                validateObjective(objective);
                 break;
             case DRAW_OBJECTIVE:
                 if(objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
@@ -139,14 +135,39 @@ public abstract class Player {
                 if (destinationHadBamboo) {
                     eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
                 }
-                for (Objective pandaObjective : objectives) {
-                    if(pandaObjective instanceof TwoBambooChunksPandaObjective) {
-                        pandaObjective.checkIfCompleted(this);
-                    }
-                }
+                this.updatePandaObjectiveCompletion();
                 break;
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
+        }
+    }
+
+    private void validateObjective(Objective objective) {
+        if (objective != null) {
+            Takeyesntko.print("Player has completed an objective ! " + objective);
+            this.objectives.remove(objective);
+            this.score += objective.getScore();
+
+            if (objective instanceof TwoBambooChunksPandaObjective) {
+                /* Be careful, the number here has to be changed when we'll have objective involving a
+                   different amount of bamboos. This action could be managed by th objectives themselves
+                   or by the Game maybe.
+                 */
+                this.stomach.put(objective.getColor(), this.stomach.get(objective.getColor()) - 2);
+                this.updatePandaObjectiveCompletion();
+            }
+        }
+    }
+
+    private void updatePandaObjectiveCompletion() {
+        /*
+        Goes through the objectives we have in hand
+        to check for the panda objectives' completion.
+         */
+        for (Objective pandaObjective : this.objectives) {
+            if(pandaObjective instanceof TwoBambooChunksPandaObjective) {
+                pandaObjective.checkIfCompleted(this);
+            }
         }
     }
 

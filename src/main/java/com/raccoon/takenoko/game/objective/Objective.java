@@ -33,8 +33,8 @@ public abstract class Objective {
     /**
      * Checks if a Parcel Objective is completed.
      *
-     * @param basicTile
-     * @param hashBoard
+     * @param basicTile The tile from which we check
+     * @param hashBoard The game board on which we look for the pattern
      */
     public void checkIfCompleted(Tile basicTile, Board hashBoard) {
         throw new UnsupportedOperationException();
@@ -43,7 +43,7 @@ public abstract class Objective {
     /**
      * Checks if a Panda Objective is completed.
      *
-     * @param player
+     * @param player The player in which to look for the bamboo chunks
      */
     public void checkIfCompleted(Player player) {
         throw new UnsupportedOperationException();
@@ -57,6 +57,14 @@ public abstract class Objective {
     public int getScore() {
 
         return score;
+    }
+
+    /**
+     * Get the color of the objective
+     * @return the color of the objective
+     */
+    public Color getColor() {
+        return color;
     }
 
 }
