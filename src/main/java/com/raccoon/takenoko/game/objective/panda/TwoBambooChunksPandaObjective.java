@@ -12,7 +12,7 @@ import com.raccoon.takenoko.player.Player;
 
 /**
  * This class allows to satisfy the following objective:
- * Eat two bamboo chunks of which color is an expected color.
+ * Have eaten (at least) two bamboo chunks of which color is an expected color.
  */
 public class TwoBambooChunksPandaObjective extends AbstractObjective {
 
@@ -34,7 +34,7 @@ public class TwoBambooChunksPandaObjective extends AbstractObjective {
 				score = 5;
 				break;
 			default:
-				// Do nothing (score remains at 0)
+				// Do nothing
 		}
 	}
 
@@ -46,7 +46,7 @@ public class TwoBambooChunksPandaObjective extends AbstractObjective {
 
 		// Is completed if the size of the bamboo which is on the final tile is at least equal to 2
 		// and the color is the expected color (color of Objective)
-		if (stomach.entrySet().stream().anyMatch(e -> ((e.getKey()).equals(color) && (e.getValue()) >= 2))) {
+		if (stomach.entrySet().stream().anyMatch(b -> ((b.getKey()).equals(color) && (b.getValue()) >= 2))) {
 			isCompleted = true;
 		}
 	}

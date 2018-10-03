@@ -11,7 +11,9 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.game.objective.AbstractObjective;
+
 import com.raccoon.takenoko.player.Player;
+
 import com.raccoon.takenoko.tool.Vector;
 
 /**
@@ -26,6 +28,20 @@ public class AlignmentParcelObjective extends AbstractObjective {
 
 		super();
 		this.color = color;
+
+		switch (color) {
+			case GREEN:
+				score = 2;
+				break;
+			case YELLOW:
+				score = 3;
+				break;
+			case PINK:
+				score = 4;
+				break;
+			default:
+				// Do nothing
+		}
 	}
 
 	@Override
@@ -82,22 +98,6 @@ public class AlignmentParcelObjective extends AbstractObjective {
 		 */
 		if (areAligned && ((tiles.stream()).allMatch(t -> (t.getColor()).equals(color)))) {
 			isCompleted = true;
-		}
-
-		if (isCompleted) {
-			switch (color) {
-				case GREEN:
-					score = 2;
-					break;
-				case YELLOW:
-					score = 3;
-					break;
-				case PINK:
-					score = 4;
-					break;
-				default:
-					// Do nothing
-			}
 		}
 	}
 

@@ -5,6 +5,9 @@ import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.player.Player;
 
+/**
+ * This abstract class allows to define the Objective classes (ParcelObjective, GardenerObjective, PandaObjective).
+ */
 public abstract class AbstractObjective implements Objective {
 
 	protected boolean isCompleted;
@@ -13,7 +16,6 @@ public abstract class AbstractObjective implements Objective {
 	public AbstractObjective() {
 
 		isCompleted = false;
-		score = 0;
 	}
 
 	@Override

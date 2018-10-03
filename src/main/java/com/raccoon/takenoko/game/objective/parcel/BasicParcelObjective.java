@@ -8,6 +8,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.game.objective.AbstractObjective;
+
 import com.raccoon.takenoko.player.Player;
 
 /**
@@ -19,6 +20,8 @@ public class BasicParcelObjective extends AbstractObjective {
 	public BasicParcelObjective() {
 
 		super();
+
+		score = 1;
 	}
 
 	@Override
@@ -32,7 +35,6 @@ public class BasicParcelObjective extends AbstractObjective {
 
 		// Is completed if the tile to be placed has at least one neighbour tile
 		isCompleted = (!(tiles.isEmpty()));
-		score = 1;
 	}
 
 	@Override
