@@ -4,7 +4,8 @@ public enum Action {
     PUT_DOWN_TILE(1),
     MOVE_GARDENER(1),
     DRAW_OBJECTIVE(1),
-    VALID_OBJECTIVE(0);
+    VALID_OBJECTIVE(0),
+    MOVE_PANDA(1);
 
     Action(int cost) {
         this.cost = cost;

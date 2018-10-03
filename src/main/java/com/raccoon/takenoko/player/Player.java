@@ -67,7 +67,8 @@ public abstract class Player {
 
         // check if the actions are compatible (exactly 2 costly actions)
         int validityCheck = 0;
-        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) {  }
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) {
+        }
         if (validityCheck != 2) {
             throw new ForbiddenActionException("Player tried to play an incorrect number of actions.");
         }
@@ -91,6 +92,8 @@ public abstract class Player {
      */
     private void execute(Action a, Game game) throws ForbiddenActionException {
         Takeyesntko.print("PLAYING " + a);
+
+
         switch (a) {
             case PUT_DOWN_TILE:
                 // refactorable : chooseTile can return a tile with the chosen position in it.
@@ -100,13 +103,13 @@ public abstract class Player {
                 game.putDownTile(t);
                 break;
             case MOVE_GARDENER:
-                List<Point> accessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
-                Point whereToMove = whereToMoveGardener(accessible);
+                List<Point> gardenerAccessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
+                Point whereToMoveGardener = whereToMoveGardener(gardenerAccessible);
                 // check that point is in available points array
-                if (!accessible.contains(whereToMove)) {
+                if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
                 }
-                game.getGardener().move(game.getBoard(), whereToMove);
+                game.getGardener().move(game.getBoard(), whereToMoveGardener);
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
@@ -118,6 +121,19 @@ public abstract class Player {
                 break;
             case DRAW_OBJECTIVE:
                 objectives.add(game.drawObjective());
+                break;
+            case MOVE_PANDA: // Works the same way as MOVE_GARDENER except it's a panda
+                List<Point> pandaAccessible = game.getBoard().getAccessiblePositions(game.getPanda().getPosition());
+                Point whereToMovePanda = whereToMovePanda(pandaAccessible);
+                if (!pandaAccessible.contains(whereToMovePanda)) {
+                    throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
+                }
+                boolean destinationHadBamboo = game.getBoard().get(whereToMovePanda).getBambooSize() > 0; // Checks if there is bamboo on the destination tile
+                game.getPanda().move(game.getBoard(), whereToMovePanda);
+
+                if (destinationHadBamboo) {
+                    eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
+                }
                 break;
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
@@ -142,6 +158,12 @@ public abstract class Player {
     protected abstract Tile chooseTile(Game game);
 
     protected abstract Point whereToMoveGardener(List<Point> available);
+
+    protected abstract Point whereToMovePanda(List<Point> available);
+
+    protected void eatBamboo(Color color) {
+
+    }
 
     protected abstract Objective chooseObjectiveToValidate();
 }
