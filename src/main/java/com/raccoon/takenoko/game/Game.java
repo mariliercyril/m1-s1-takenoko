@@ -1,13 +1,12 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.AbstractObjective;
-import com.raccoon.takenoko.game.objective.parcel.BasicParcelObjective;
+import com.raccoon.takenoko.game.objective.ColorObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -20,13 +19,14 @@ public class Game {
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
     private Board board;                    // The game board, with all the tiles
     private Gardener gardener;              // The gardener (obviously)
-    //private List<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
-    private List<AbstractObjective> patternObjectives;
+    private Stack<Objective> objectivesDeck; // The deck of objective cards. Not used yet.
+    private Panda panda;                    // Probably the panda
+    private List<Objective> patternObjectives;
 
     public Game() {                 // Default constructor: 1v1 game
 
-
         this.gardener = new Gardener();
+        this.panda = new Panda();
         int numberOfPlayers = 4;
         this.players = new ArrayList<>();
 
@@ -38,14 +38,17 @@ public class Game {
         patternObjectives = new ArrayList<>();
 
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
-        initDeck();
+        initTileDeck();
+        initObjectiveDeck();
     }
 
     public Game(List<Player> players) {
         this.gardener = new Gardener();
+        this.panda = new Panda();
         this.players = players;
         board = new HashBoard(new BasicTile());
-        initDeck();
+        initTileDeck();
+        initObjectiveDeck();
     }
 
     public List<Player> getPlayers() {
@@ -107,7 +110,7 @@ public class Game {
     }
 
     // used only by this class
-    void initDeck() {
+    private void initTileDeck() {
         tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
 
@@ -117,6 +120,15 @@ public class Game {
             }
         }
         Collections.shuffle(tilesDeck);
+    }
+
+    private void initObjectiveDeck() {
+
+        objectivesDeck = new Stack<>();
+
+        for (int i = 0; i < 30; i++) {
+            objectivesDeck.push(new ColorObjective());
+        }
     }
 
     private void printRanking() {
@@ -142,7 +154,7 @@ public class Game {
      */
     public void putDownTile(Tile tile) {
         this.board.set(tile.getPosition(), tile);
-        for (AbstractObjective objective : this.patternObjectives) {
+        for (Objective objective : this.patternObjectives) {
             objective.checkIfCompleted(tile, this.board);
         }
     }
@@ -151,10 +163,9 @@ public class Game {
      * Allows a player to draw an objective card
      * @return the first objective card of the deck
      */
-    public AbstractObjective drawObjective() {
+    public Objective drawObjective() {
 
-    	// TODO: To integrate the color for a new AlignmentParcelObjective
-    	AbstractObjective objective = new BasicParcelObjective();
+        Objective objective = objectivesDeck.pop();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
@@ -164,5 +175,15 @@ public class Game {
         this.patternObjectives.add(objective);
 
         return objective;
+    }
+
+    public Panda getPanda() {
+        return panda;
+    }
+
+    public void purge(){
+        board = new HashBoard(new BasicTile());
+        initTileDeck();
+        Player.reinitCounter();
     }
 }

@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
-    <version>0.0.1-SNAPSHOT</version> <!-- CHANGE ME -->
+    <version>OCT23-SNAPSHOT</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -14,18 +14,6 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>2.7.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.5.0.1254</version>
-            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

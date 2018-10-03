@@ -54,6 +54,12 @@ public class RandomBot extends Player {
     }
 
     @Override
+    protected Point whereToMovePanda(List<Point> available) {
+        Collections.shuffle(available);
+        return available.get(0);
+    }
+
+    @Override
     protected Action[] planActions(Game game) {
         if(this.getObjectives().isEmpty()) {    // If we don't have any objective in our hand
             // we draw one
