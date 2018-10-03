@@ -16,8 +16,6 @@ import com.raccoon.takenoko.player.Player;
  */
 public class TwoBambooChunksPandaObjective extends Objective {
 
-	private Color color;
-
 	public TwoBambooChunksPandaObjective(Color color) {
 
 		super();

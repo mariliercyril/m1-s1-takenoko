@@ -22,8 +22,6 @@ import com.raccoon.takenoko.tool.Vector;
  */
 public class AlignmentParcelObjective extends Objective {
 
-	private Color color;
-
 	public AlignmentParcelObjective(Color color) {
 
 		super();
