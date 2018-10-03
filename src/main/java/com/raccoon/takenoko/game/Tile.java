@@ -14,4 +14,6 @@ public interface Tile {
     Color getColor();
     public boolean isIrrigated();
     public void irrigate();
+
+    void decreaseBambooSize();
 }

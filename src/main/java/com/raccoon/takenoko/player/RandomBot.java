@@ -3,8 +3,8 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
 import java.util.*;
@@ -26,31 +26,22 @@ public class RandomBot extends Player {
     @Override
     protected Point whereToPutDownTile(Game game, Tile t) {
         Board b = game.getBoard();
-        if (Objects.isNull(b)) {
-            Takeyesntko.print("Caution : board does not exist. Player can't put down a tile, for it would fall into the void.");
-            // TODO certainly throw exception to catch in the abstract parent class
-            return new Point(0, 0);
-        }
         List availablePositions = b.getAvailablePositions();
         Collections.shuffle(availablePositions);
 
         Point playingPos;
-        if (availablePositions.size() > 0) {
-            playingPos = (Point) availablePositions.get(0);
-            return playingPos;
-        } else {
-            Takeyesntko.print("Can't play, keeping tile");
-            // TODO certainly throw exception to catch in the abstract parent class
-            return new Point(0, 0);
-        }
+        playingPos = (Point) availablePositions.get(0);
+        return playingPos;
     }
 
     @Override
     protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
-
         Random rand = new Random();
-        ArrayList<Tile> tiles = game.getTiles();
-        int choice = abs(rand.nextInt()) % tiles.size();
+        List<Tile> tiles = game.getTiles();
+        int choice = rand.nextInt() % tiles.size();
+        if (choice < 0) {
+            choice *= -1;
+        }
         for (int i = 0; i < tiles.size(); i++) {       // The players put the tiles he doesnt want back in the deck
             if (i != choice) {
                 game.putBackTile(tiles.get(i));
@@ -67,8 +58,23 @@ public class RandomBot extends Player {
     }
 
     @Override
+    protected Point whereToMovePanda(List<Point> available) {
+        Collections.shuffle(available);
+        return available.get(0);
+    }
+
+    @Override
     protected Action[] planActions(Game game) {
-        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
+        // If we don't have as much objectives as we can in our hand
+        if (this.getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {
+            // we draw one
+            return new Action[]{Action.DRAW_OBJECTIVE, Action.PUT_DOWN_TILE, Action.VALID_OBJECTIVE};
+        }
+        // Else we return a simple action set
+        if(new Random().nextBoolean()){
+            return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
+        }
+        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_PANDA, Action.VALID_OBJECTIVE};
     }
 
     @Override
@@ -76,7 +82,7 @@ public class RandomBot extends Player {
 
         for (Objective objective : this.getObjectives()) {  // We go through all the objectives
 
-            if(objective.isCompleted()) {   // If we find one completed,
+            if (objective.isCompleted()) {   // If we find one completed,
                 return objective;           // we return it
             }
 

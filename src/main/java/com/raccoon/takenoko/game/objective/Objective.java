@@ -1,20 +1,70 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
+import com.raccoon.takenoko.player.Player;
+
 /**
- * This interface provides methods for checking, among others, that an Objective is completed.
+ * This abstract class allows to define the Objective classes (ParcelObjective, GardenerObjective, PandaObjective).
  */
-public interface Objective {
+public abstract class Objective {
 
-	/**
-	 * Check if the basic objective is completed.
-	 */
-	public boolean isCompleted();
+	protected boolean isCompleted;
+	protected int score;
+	protected Color color;
 
-    public boolean checkIfCompleted(Tile basicTile, Board hashBoard);
+    public Objective() {
 
-    public int getScore();
+        isCompleted = false;
+    }
+
+    /**
+     * Gets if the objective is completed.
+     *
+     * @return <b>true</b> if it is completed, <b>false</b> if not
+     */
+    public boolean isCompleted() {
+
+        return isCompleted;
+    }
+
+    /**
+     * Checks if a Parcel Objective is completed.
+     *
+     * @param basicTile The tile from which we check
+     * @param hashBoard The game board on which we look for the pattern
+     */
+    public void checkIfCompleted(Tile basicTile, Board hashBoard) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Checks if a Panda Objective is completed.
+     *
+     * @param player The player in which to look for the bamboo chunks
+     */
+    public void checkIfCompleted(Player player) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Gets the score of the objective in question.
+     *
+     * @return A positive score if the score is completed
+     */
+    public int getScore() {
+
+        return score;
+    }
+
+    /**
+     * Get the color of the objective
+     * @return the color of the objective
+     */
+    public Color getColor() {
+        return color;
+    }
 
 }

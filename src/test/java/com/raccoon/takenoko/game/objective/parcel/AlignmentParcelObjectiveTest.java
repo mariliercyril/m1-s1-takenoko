@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game.objective;
+package com.raccoon.takenoko.game.objective.parcel;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,17 +17,17 @@ import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
 
 /**
- * This class allows to perform unit tests of the methods (apart from "get()" and "set()")
- * of the class {@code ColorObjective}.
+ * This class allows to perform unit tests of the method "checkIfCompleted()"
+ * of the class {@code AlignmentParcelObjective}.
  */
-public class ColorObjectiveTest {
+public class AlignmentParcelObjectiveTest {
 
 	private static Tile pondTile;
-
-	private static Tile initialTile;
 	private Board hashBoard;
 
-	private Objective colorObjective;
+	private static Tile initialTile;
+
+	private AlignmentParcelObjective alignmentParcelObjective;
 
 	@BeforeAll
 	public static void constructPondTile() {
@@ -45,11 +45,11 @@ public class ColorObjectiveTest {
 		// Places the initial Tile (the first plot)
 		hashBoard.set(new Point(1, 1), initialTile);
 
-		colorObjective = new ColorObjective();
+		alignmentParcelObjective = new AlignmentParcelObjective(Color.GREEN);
 	}
 
 	/*
-	 * When color objective is completed
+	 * When color objective is completed (the three tiles in question ARE ALIGNED and HAVE SAME COLOR)
 	 */
 	@Test
 	@DisplayName("assert true when color objective is completed, 1st case: by I")
@@ -57,7 +57,9 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(2, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -66,7 +68,9 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -75,7 +79,9 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(2, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 3), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -84,7 +90,9 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(-1, 1), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -93,16 +101,20 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(1, 0), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, -1), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
 	@DisplayName("assert true when color objective is completed, 6th case: by -K")
 	public void testIsCompleted_trueSixthCase() {
 
-		hashBoard.set(new Point(0, 0), new BasicTile(Color.GREEN));
-		hashBoard.set(new Point(-1, -1), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+		hashBoard.set(new Point(2, 2), new BasicTile(Color.GREEN));
+		hashBoard.set(new Point(3, 3), new BasicTile(Color.GREEN));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
@@ -111,73 +123,101 @@ public class ColorObjectiveTest {
 
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(2, 1), new BasicTile(Color.GREEN));
-		assertTrue(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertTrue(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
-	 * When color is not satisfied
+	 * When color objective is not completed (the three tiles in question ARE ALIGNED but HAVE NOT SAME COLOR)
 	 */
 	@Test
-	@DisplayName("assert false when color is not satisfied, 1st case: by I")
+	@DisplayName("assert false when have not same color, 1st case: the second Tile has not same color")
 	public void testIsCompleted_falseColorFirstCase() {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.GREEN));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
-	@DisplayName("assert false when color is not satisfied, 2nd case: by J")
+	@DisplayName("assert false when have not same color, 2nd case: the third Tile has not same color")
 	public void testIsCompleted_falseColorSecondCase() {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.PINK));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	@Test
-	@DisplayName("assert false when color is not satisfied, 3rd case: by K")
+	@DisplayName("assert false when have not same color, 3rd case: have not same color")
 	public void testIsCompleted_falseColorThirdCase() {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(1, 3), new BasicTile(Color.PINK));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
-	 * When alignment is not satisfied
+	 * When color objective is not completed (the three tiles in question ARE NOT ALIGNED although HAVE SAME COLOR)
 	 */
 	@Test
-	@DisplayName("assert false when alignment is not satisfied")
-	public void testIsCompleted_falseAlignment() {
+	@DisplayName("assert false when are not aligned")
+	public void testIsCompleted_falseAlignmentFirstCase() {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
-	 * When neither color nor alignment are satisfied
+	 * When color objective is not completed (the three tiles in question ARE NOT ALIGNED, HAVE NOT SAME COLOR)
 	 */
 	@Test
-	@DisplayName("assert false when neither color nor alignment are satisfied")
-	public void testIsCompleted_falseColorAlignment() {
+	@DisplayName("assert false when are not aligned & have not same color")
+	public void testIsCompleted_falseColorAndAlignment() {
 
 		hashBoard.set(new Point(1, 2), new BasicTile(Color.YELLOW));
 		hashBoard.set(new Point(3, 1), new BasicTile(Color.GREEN));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 	/*
-	 * When two tiles have the same position
+	 * When two tiles have same position
 	 */
 	@Test
-	@DisplayName("assert false when the color is completed, but two tiles have the same position (normally unfeasible case)")
+	@DisplayName("assert false when have same color, but at least two tiles have same position (normally unfeasible case)")
 	public void testIsCompleted_falseSamePositionCase() {
 
 		hashBoard.set(new Point(0, 1), new BasicTile(Color.GREEN));
 		hashBoard.set(new Point(1, 1), new BasicTile(Color.GREEN));
-		assertFalse(colorObjective.checkIfCompleted(initialTile, hashBoard));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
+	}
+
+	/*
+	 * When the "pond" Tile is considered to complete the (color) objective
+	 */
+	@Test
+	@DisplayName("assert false when the \"pond\" Tile is considered to complete the (color) objective (normally unfeasible case)")
+	public void testIsCompleted_falsePondTileCase() {
+
+		hashBoard.set(new Point(0, 0), new BasicTile(Color.GREEN));
+		hashBoard.set(new Point(-1, -1), new BasicTile(Color.GREEN));
+
+		alignmentParcelObjective.checkIfCompleted(initialTile, hashBoard);
+		assertFalse(alignmentParcelObjective.isCompleted());
 	}
 
 }
