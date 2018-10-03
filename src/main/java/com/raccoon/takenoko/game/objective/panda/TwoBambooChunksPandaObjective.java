@@ -7,7 +7,6 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.game.objective.Objective;
-
 import com.raccoon.takenoko.player.Player;
 
 /**
@@ -15,8 +14,6 @@ import com.raccoon.takenoko.player.Player;
  * Have eaten (at least) two bamboo chunks of which color is an expected color.
  */
 public class TwoBambooChunksPandaObjective extends Objective {
-
-	private Color color;
 
 	public TwoBambooChunksPandaObjective(Color color) {
 

@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.player.Player;
@@ -10,8 +11,9 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
-    protected boolean isCompleted;
-    protected int score;
+	protected boolean isCompleted;
+	protected int score;
+	protected Color color;
 
     public Objective() {
 
