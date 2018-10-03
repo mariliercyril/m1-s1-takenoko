@@ -36,7 +36,7 @@ public abstract class Objective {
      * @param basicTile
      * @param hashBoard
      */
-    public void checkIfCompleted(Tile basicTile, Board hashBoard) throws UnsupportedOperationException {
+    public void checkIfCompleted(Tile basicTile, Board hashBoard) {
         throw new UnsupportedOperationException();
     }
 
@@ -45,7 +45,7 @@ public abstract class Objective {
      *
      * @param player
      */
-    public void checkIfCompleted(Player player) throws UnsupportedOperationException {
+    public void checkIfCompleted(Player player) {
         throw new UnsupportedOperationException();
     }
 

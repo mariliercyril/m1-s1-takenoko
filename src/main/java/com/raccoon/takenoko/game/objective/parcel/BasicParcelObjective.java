@@ -9,8 +9,6 @@ import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.game.objective.Objective;
 
-import com.raccoon.takenoko.player.Player;
-
 /**
  * This class allows to satisfy the following objective:
  * Place two tiles in an adjacent way.

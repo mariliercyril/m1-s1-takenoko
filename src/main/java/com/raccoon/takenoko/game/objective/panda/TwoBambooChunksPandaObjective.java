@@ -2,10 +2,7 @@ package com.raccoon.takenoko.game.objective.panda;
 
 import java.util.HashMap;
 
-import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.Tile;
-
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 

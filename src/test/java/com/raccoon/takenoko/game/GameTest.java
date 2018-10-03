@@ -61,7 +61,7 @@ class GameTest {
 
     @Test
     void getTilesTest() {
-        ArrayList<Tile> threeTiles = game.getTiles();   // Check that we actually pick three tiles
+        java.util.List<Tile> threeTiles = game.getTiles();   // Check that we actually pick three tiles
         assertEquals(3, threeTiles.size(), "Player hasn't taken 3 tiles");
         while (game.getTilesDeck().size() > 0) {
             game.getTile(); //  Removes three tiles
@@ -69,7 +69,7 @@ class GameTest {
         game.putBackTile(threeTiles.get(0));
         game.putBackTile(threeTiles.get(1));
         assertEquals(2, game.getTilesDeck().size()); // There should only be two tiles picked since there were only two in the deck
-        ArrayList<Tile> twoTiles = game.getTiles();
+        java.util.List<Tile> twoTiles = game.getTiles();
         assertEquals(2, twoTiles.size());
     }
 

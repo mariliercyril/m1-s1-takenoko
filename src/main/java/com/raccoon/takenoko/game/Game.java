@@ -95,7 +95,7 @@ public class Game {
         return tilesDeck.poll();
     }
 
-    public ArrayList<Tile> getTiles() {       // Takes n (three) tiles from the tilesDeck
+    public List<Tile> getTiles() {       // Takes n (three) tiles from the tilesDeck
 
         ArrayList<Tile> tiles = new ArrayList<>();
         Tile candidate;

@@ -12,8 +12,6 @@ import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.game.objective.Objective;
 
-import com.raccoon.takenoko.player.Player;
-
 import com.raccoon.takenoko.tool.Vector;
 
 /**

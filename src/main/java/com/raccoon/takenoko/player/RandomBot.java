@@ -37,7 +37,7 @@ public class RandomBot extends Player {
     @Override
     protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
         Random rand = new Random();
-        ArrayList<Tile> tiles = game.getTiles();
+        List<Tile> tiles = game.getTiles();
         int choice = rand.nextInt() % tiles.size();
         if (choice < 0) {
             choice *= -1;

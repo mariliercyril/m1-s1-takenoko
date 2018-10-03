@@ -55,7 +55,7 @@ public class RandomBotTest {
 
     @Test
     public void testCreation() {
-        assertEquals(p.getScore(), 0);
+        assertEquals(0, p.getScore());
     }
 
     @Test

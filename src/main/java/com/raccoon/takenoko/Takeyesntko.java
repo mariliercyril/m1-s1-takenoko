@@ -35,7 +35,7 @@ public class Takeyesntko {
      * Launches the game, verbose mode
      */
     public static void launch1gameNoJutsu() {
-        Takeyesntko.VERBOSE = true;
+
         Game game = new Game();
         game.start();
     }
@@ -49,7 +49,7 @@ public class Takeyesntko {
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
         int voidedGames = 0;
-        String playersTypes[] = new String[nbPlayers];
+        String[] playersTypes = new String[nbPlayers];
 
         for (int i = 0; i < 1000; i++) {
             Game game = new Game();
