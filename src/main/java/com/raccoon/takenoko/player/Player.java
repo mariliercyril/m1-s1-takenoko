@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.Point;
@@ -121,13 +122,16 @@ public abstract class Player {
                 }
                 break;
             case DRAW_OBJECTIVE:
+                if(objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
+                    throw new ForbiddenActionException("Player tried to draw an objective with a full hand already");
+                }
                 objectives.add(game.drawObjective());
                 break;
             case MOVE_PANDA: // Works the same way as MOVE_GARDENER except it's a panda
                 List<Point> pandaAccessible = game.getBoard().getAccessiblePositions(game.getPanda().getPosition());
                 Point whereToMovePanda = whereToMovePanda(pandaAccessible);
                 if (!pandaAccessible.contains(whereToMovePanda)) {
-                    throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
+                    throw new ForbiddenActionException("Player tried to put the panda in a non accessible position.");
                 }
                 boolean destinationHadBamboo = game.getBoard().get(whereToMovePanda).getBambooSize() > 0; // Checks if there is bamboo on the destination tile
                 game.getPanda().move(game.getBoard(), whereToMovePanda);

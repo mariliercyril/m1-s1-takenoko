@@ -7,18 +7,21 @@ import java.util.List;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Tile;
 
-import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.Objective;
+
 import com.raccoon.takenoko.player.Player;
 
 /**
  * This class allows to satisfy the following objective:
  * Place two tiles in an adjacent way.
  */
-public class BasicParcelObjective extends AbstractObjective {
+public class BasicParcelObjective extends Objective {
 
 	public BasicParcelObjective() {
 
 		super();
+
+		score = 1;
 	}
 
 	@Override
@@ -32,10 +35,12 @@ public class BasicParcelObjective extends AbstractObjective {
 
 		// Is completed if the tile to be placed has at least one neighbour tile
 		isCompleted = (!(tiles.isEmpty()));
-		score = 1;
 	}
 
 	@Override
-	public void checkIfCompleted(Player player) throws UnsupportedOperationException {}
+	public void checkIfCompleted(Player player) throws UnsupportedOperationException {
+
+		new UnsupportedOperationException();
+	}
 
 }
