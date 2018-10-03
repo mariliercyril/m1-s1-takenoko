@@ -45,4 +45,12 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		}
 	}
 
+    @Override
+    public String toString() {
+        return "TwoBambooChunksPandaObjective{" +
+                "isCompleted=" + isCompleted +
+                ", score=" + score +
+                ", color=" + color +
+                '}';
+    }
 }

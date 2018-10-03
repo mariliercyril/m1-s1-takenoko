@@ -97,4 +97,12 @@ public class AlignmentParcelObjective extends Objective {
 		}
 	}
 
+    @Override
+    public String toString() {
+        return "AlignmentParcelObjective{" +
+                "isCompleted=" + isCompleted +
+                ", score=" + score +
+                ", color=" + color +
+                '}';
+    }
 }
