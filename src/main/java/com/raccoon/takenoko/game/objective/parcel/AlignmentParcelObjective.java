@@ -10,7 +10,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
-import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -20,7 +20,7 @@ import com.raccoon.takenoko.tool.Vector;
  * This class allows to satisfy the following objective:
  * Align three tiles of the same color.
  */
-public class AlignmentParcelObjective extends AbstractObjective {
+public class AlignmentParcelObjective extends Objective {
 
 	private Color color;
 

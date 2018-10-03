@@ -7,7 +7,7 @@ import java.util.List;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Tile;
 
-import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -15,7 +15,7 @@ import com.raccoon.takenoko.player.Player;
  * This class allows to satisfy the following objective:
  * Place two tiles in an adjacent way.
  */
-public class BasicParcelObjective extends AbstractObjective {
+public class BasicParcelObjective extends Objective {
 
 	public BasicParcelObjective() {
 

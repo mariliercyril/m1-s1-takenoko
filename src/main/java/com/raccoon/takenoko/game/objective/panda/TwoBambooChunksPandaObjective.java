@@ -6,7 +6,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
 
-import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -14,7 +14,7 @@ import com.raccoon.takenoko.player.Player;
  * This class allows to satisfy the following objective:
  * Have eaten (at least) two bamboo chunks of which color is an expected color.
  */
-public class TwoBambooChunksPandaObjective extends AbstractObjective {
+public class TwoBambooChunksPandaObjective extends Objective {
 
 	private Color color;
 

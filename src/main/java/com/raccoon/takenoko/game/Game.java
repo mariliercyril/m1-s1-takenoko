@@ -1,7 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.AbstractObjective;
+import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
@@ -22,13 +22,13 @@ public class Game {
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
-    private Stack<AbstractObjective> objectivesDeck; // The deck of objective cards
+    private Stack<Objective> objectivesDeck; // The deck of objective cards
 
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
 
     // Used to keep track of the objectives involving the tiles handed to the players
-    private List<AbstractObjective> patternObjectives;
+    private List<Objective> patternObjectives;
 
     /**
      * Default constructor creating a 1 vs 1 game
@@ -178,7 +178,7 @@ public class Game {
      */
     public void putDownTile(Tile tile) {
         this.board.set(tile.getPosition(), tile);
-        for (AbstractObjective objective : this.patternObjectives) {
+        for (Objective objective : this.patternObjectives) {
             objective.checkIfCompleted(tile, this.board);
         }
     }
@@ -189,7 +189,7 @@ public class Game {
      */
     public Objective drawObjective() {
 
-        AbstractObjective objective = objectivesDeck.pop();
+        Objective objective = objectivesDeck.pop();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
