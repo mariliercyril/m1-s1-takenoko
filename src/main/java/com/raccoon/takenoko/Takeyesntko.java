@@ -16,8 +16,8 @@ public class Takeyesntko {
         print("                                                         Presented by angry raccoons\n");
 
         // comment either one or the other instruction
-        // launch1gameNoJutsu();
-        launch1000gamesNoJutsu();
+        launch1gameNoJutsu();
+        // launch1000gamesNoJutsu();
     }
 
     /**
