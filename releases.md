@@ -41,5 +41,7 @@ We now have a moving and eating panda !
 * The panda can move in a straight direction
 * Where the panda moves, he eats a chunk of banboo
 * The player takes the eaten bamboo in its stomach
-* You can now launch 1000 games at the same time to display stats ! 
+* You can now launch 1000 games at the same time to display stats !
+* The player can now validate two different types of objectives : "three bamboo of the same color align" and "eating 2 bamboos of the same color"
+* Each objective is worth a certain amount of points according to the rules of the game
 * **[refact]** Constants file for all the fame constants
