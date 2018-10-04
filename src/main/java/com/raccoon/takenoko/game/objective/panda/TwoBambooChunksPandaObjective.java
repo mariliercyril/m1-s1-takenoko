@@ -3,7 +3,9 @@ package com.raccoon.takenoko.game.objective.panda;
 import java.util.HashMap;
 
 import com.raccoon.takenoko.game.Color;
+
 import com.raccoon.takenoko.game.objective.Objective;
+
 import com.raccoon.takenoko.player.Player;
 
 /**
@@ -12,24 +14,13 @@ import com.raccoon.takenoko.player.Player;
  */
 public class TwoBambooChunksPandaObjective extends Objective {
 
+	private static final int SCORE_BASE = 3;
+
 	public TwoBambooChunksPandaObjective(Color color) {
 
 		super();
 		this.color = color;
-
-		switch (color) {
-			case GREEN:
-				score = 3;
-				break;
-			case YELLOW:
-				score = 4;
-				break;
-			case PINK:
-				score = 5;
-				break;
-			default:
-				// Do nothing
-		}
+		setScore(color);
 	}
 
 	@Override
@@ -45,12 +36,14 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		}
 	}
 
-    @Override
-    public String toString() {
-        return "TwoBambooChunksPandaObjective{" +
-                "isCompleted=" + isCompleted +
-                ", score=" + score +
-                ", color=" + color +
-                '}';
-    }
+	/**
+	 * Sets the score according to the color.
+	 * 
+	 * @param color
+	 */
+	private void setScore(Color color) {
+
+		score = SCORE_BASE + color.ordinal();
+	}
+
 }

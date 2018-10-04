@@ -20,24 +20,13 @@ import com.raccoon.takenoko.tool.Vector;
  */
 public class AlignmentParcelObjective extends Objective {
 
+	private static final int SCORE_BASE = 2;
+
 	public AlignmentParcelObjective(Color color) {
 
 		super();
 		this.color = color;
-
-		switch (color) {
-			case YELLOW:
-				score = 3;
-				break;
-			case GREEN:
-				score = 2;
-				break;
-			case PINK:
-				score = 4;
-				break;
-			default:
-				// Do nothing
-		}
+		setScore(color);
 	}
 
 	@Override
@@ -97,12 +86,14 @@ public class AlignmentParcelObjective extends Objective {
 		}
 	}
 
-    @Override
-    public String toString() {
-        return "AlignmentParcelObjective{" +
-                "isCompleted=" + isCompleted +
-                ", score=" + score +
-                ", color=" + color +
-                '}';
-    }
+	/**
+	 * Sets the score according to the color.
+	 * 
+	 * @param color
+	 */
+	private void setScore(Color color) {
+
+		score = SCORE_BASE + color.ordinal();
+	}
+
 }

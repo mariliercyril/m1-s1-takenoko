@@ -11,6 +11,8 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
+	private static final String RESULT_FORMAT = "{isCompleted=%b, score=%d, color=%s}";
+
 	protected boolean isCompleted;
 	protected int score;
 	protected Color color;
@@ -37,6 +39,7 @@ public abstract class Objective {
      * @param hashBoard The game board on which we look for the pattern
      */
     public void checkIfCompleted(Tile basicTile, Board hashBoard) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -46,6 +49,7 @@ public abstract class Objective {
      * @param player The player in which to look for the bamboo chunks
      */
     public void checkIfCompleted(Player player) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -60,11 +64,23 @@ public abstract class Objective {
     }
 
     /**
-     * Get the color of the objective
-     * @return the color of the objective
+     * Gets the color of the objective.
+     * 
+     * @return The color of the objective
      */
     public Color getColor() {
+
         return color;
+    }
+
+    /**
+     * Redefines the method "toString()".
+     * 
+     * @return A {@code String} with values of the objective
+     */
+    public String toString() {
+
+        return (this.getClass()).getSimpleName() + String.format(RESULT_FORMAT, isCompleted, score, color);
     }
 
 }

@@ -18,7 +18,6 @@ public class BasicParcelObjective extends Objective {
 	public BasicParcelObjective() {
 
 		super();
-
 		score = 1;
 	}
 
