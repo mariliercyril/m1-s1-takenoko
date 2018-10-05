@@ -40,8 +40,9 @@ public class AlignmentParcelObjective extends Objective {
 		 * ARE ALIGNED
 		 */
 		boolean areAligned = false;
-		Point originPoint = new Point(0, 0);
 		Point tileToBePlacedPosition = tileToBePlaced.getPosition();
+		// The position of the "pond" Tile: No alignment allowed with it
+		Point originPoint = new Point(0, 0);
 		// Gets the neighbours of the Tile to be placed
 		List<Tile> tileToBePlacedNeighbours = hashBoard.getNeighbours(tileToBePlacedPosition);
 		Iterator<Tile> tileToBePlacedNeighboursIterator = tileToBePlacedNeighbours.iterator();
