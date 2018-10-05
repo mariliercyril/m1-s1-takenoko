@@ -15,9 +15,15 @@ public class Takeyesntko {
         print("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
         print("                                                         Presented by angry raccoons\n");
 
-        // comment either one or the other instruction
-        launch1gameNoJutsu();
-        // launch1000gamesNoJutsu();
+        /*
+        Arguments parsing
+         */
+        if(args.length <= 0) {
+            launch1000gamesNoJutsu();
+        }
+        else {
+            launch1gameNoJutsu();
+        }
     }
 
     /**
