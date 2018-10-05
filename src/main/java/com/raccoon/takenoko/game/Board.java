@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.tool.Vector;
+
 import java.awt.*;
 import java.util.List;
 
@@ -38,4 +40,12 @@ public interface Board {
      * @return  The list of positions accessible
      */
     List<Point> getAccessiblePositions(Point initialPosition);
+
+    /**
+     * Will irrigate the tile concerned by the call, and the tile next to it in the specified direction.
+     * @param p the position of tile to irrigate
+     * @param direction the direction in which we are going to put the tile
+     * @return
+     */
+    boolean irrigate(Point p, Vector direction);
 }

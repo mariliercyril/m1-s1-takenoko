@@ -2,6 +2,7 @@ package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.tool.UnitVector;
+import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.*;
 import java.util.*;
@@ -52,7 +53,6 @@ public class HashBoard implements Board {
         Returns an array with the coordinates of all the neighbours position
         of the specified position
          */
-
 
 
         Point[] vectors = new Point[6];
@@ -156,44 +156,57 @@ public class HashBoard implements Board {
         ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
 
         Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
-                                                // using the UNIT vectors.
+        // using the UNIT vectors.
 
-        while(this.board.containsKey(tempPoint = UnitVector.I.get().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.I.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = UnitVector.J.get().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.J.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = UnitVector.K.get().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.K.get().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = UnitVector.I.get().getOpposite().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.I.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = UnitVector.J.get().getOpposite().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.J.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
         tempPoint = initialPosition;
 
-        while(this.board.containsKey(tempPoint = UnitVector.K.get().getOpposite().apply(tempPoint))) {
+        while (this.board.containsKey(tempPoint = UnitVector.K.get().getOpposite().apply(tempPoint))) {
             accessiblePositions.add(tempPoint);
         }
 
 
         return accessiblePositions;
+    }
+
+    @Override
+    public boolean irrigate(Point p, Vector direction) {
+        Point otherPosToIrrigate = new Point(direction.apply(p));
+
+        if (Objects.nonNull(this.get(otherPosToIrrigate))) {
+            this.get(p).irrigate(direction);
+            this.get(otherPosToIrrigate).irrigate(direction.getOpposite());
+            return true;
+        }
+
+        return false;
     }
 
 }

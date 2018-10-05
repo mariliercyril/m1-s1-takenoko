@@ -1,6 +1,9 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.tool.Vector;
+
 import java.awt.Point;
+import java.util.List;
 
 /**
  * This interface provides methods for Tile.
@@ -12,8 +15,10 @@ public interface Tile {
     Point getPosition();
     void setPosition(Point position);
     Color getColor();
-    public boolean isIrrigated();
-    public void irrigate();
+
+    List<Vector> getIrrigatedTowards ();
+    boolean isIrrigated();
+    void irrigate(Vector direction);
 
     void decreaseBambooSize();
 }

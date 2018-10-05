@@ -1,14 +1,15 @@
 package com.raccoon.takenoko.game;
 
-import org.junit.Ignore;
+import com.raccoon.takenoko.tool.Vector;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.List;
 import java.awt.*;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -25,11 +26,34 @@ public class HashBoardTest {
     @Mock
     BasicTile tile2;
 
-    /*
-    @BeforeEach
-    void setUp() {
+    private Game g;
 
-    }*/
+    private Tile origin;
+    private Tile t1;
+    private Tile t2;
+    private Tile t3;
+
+
+    @Before
+    public void setUp() {
+        g = new Game();
+        g.getBoard().set(new Point(0, 1), new BasicTile(Color.GREEN));
+
+        // put down some tiles
+        g.getBoard().set(new Point(1, 0), new BasicTile(Color.PINK));
+        g.getBoard().set(new Point(0, -1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(1, -1), new BasicTile(Color.YELLOW));
+
+        // keep them somewhere (for lisibility)
+        origin = g.getBoard().get(new Point(0, 0));
+        t1 = g.getBoard().get(new Point(1, 0));
+        t2 = g.getBoard().get(new Point(0, -1));
+        t3 = g.getBoard().get(new Point(1, -1));
+
+        // irrigate them where possible
+        g.getBoard().irrigate(t1.getPosition(), new Vector(-1, -1));
+        g.getBoard().irrigate(t1.getPosition(), new Vector(0, -1));
+    }
 
     @Test
     public void getSet() {
@@ -98,5 +122,11 @@ public class HashBoardTest {
         assertTrue(board.getAccessiblePositions(start).contains(new Point(2, 0)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -2)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(-1, -2)));
+    }
+
+    @Test
+    public void irrigatedTowardsSomething() {
+        assertTrue("Tile next to last irrigated tile, and in the right direction, is not irrigated", t3.isIrrigated());
+        assertTrue("Next tile irrigated is irrigated in the wrong direction.", t3.getIrrigatedTowards().contains(new Vector(0, 1)));
     }
 }
