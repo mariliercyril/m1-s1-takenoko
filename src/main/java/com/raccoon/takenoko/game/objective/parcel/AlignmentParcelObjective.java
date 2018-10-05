@@ -40,36 +40,38 @@ public class AlignmentParcelObjective extends Objective {
 		 * ARE ALIGNED
 		 */
 		boolean areAligned = false;
+		Point originPoint = new Point(0, 0);
+		Point tileToBePlacedPosition = tileToBePlaced.getPosition();
 		// Gets the neighbours of the Tile to be placed
-		List<Tile> tileToBePlacedNeighbours = hashBoard.getNeighbours(tileToBePlaced.getPosition());
+		List<Tile> tileToBePlacedNeighbours = hashBoard.getNeighbours(tileToBePlacedPosition);
 		Iterator<Tile> tileToBePlacedNeighboursIterator = tileToBePlacedNeighbours.iterator();
 		// Parses the neighbours of the Tile to be placed, in order to find a second Tile for alignment
 		while (tileToBePlacedNeighboursIterator.hasNext()) {
 			Tile secondTile = tileToBePlacedNeighboursIterator.next();
 			Point secondTilePosition = secondTile.getPosition();
-			if (!(secondTilePosition.equals(new Point(0, 0)))) {
+			if (!(secondTilePosition.equals(originPoint))) {
 				// The Vector of translation, from the Tile to be placed to a second Tile, for alignment...
-				Vector translationVector = new Vector(tileToBePlaced.getPosition(), secondTile.getPosition());
+				Vector translationVector = new Vector(tileToBePlacedPosition, secondTilePosition);
 				// Parses the neighbours of the Tile to be placed, in order to find the third Tile for alignment
 				while (tileToBePlacedNeighboursIterator.hasNext() && !areAligned) {
 					Tile thirdTile = tileToBePlacedNeighboursIterator.next();
 					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(new Point(0, 0)))
-							&& (new Vector(tileToBePlaced.getPosition(), thirdTile.getPosition())).equals(translationVector.getOpposite())) {
+					if (!(thirdTilePosition.equals(originPoint))
+							&& (new Vector(tileToBePlacedPosition, thirdTilePosition)).equals(translationVector.getOpposite())) {
 						tiles.add(secondTile);
 						tiles.add(thirdTile);
 						areAligned = true;
 					}
 				}
 				// Gets the neighbours of each neighbour of the Tile to be placed
-				List<Tile> secondTileNeighbours = hashBoard.getNeighbours(secondTile.getPosition());
+				List<Tile> secondTileNeighbours = hashBoard.getNeighbours(secondTilePosition);
 				Iterator<Tile> secondTileNeighboursIterator = secondTileNeighbours.iterator();
 				// Parses the neighbours of each neighbour of the Tile to be placed, in order to find the third Tile for alignment
 				while (secondTileNeighboursIterator.hasNext() && !areAligned) {
 					Tile thirdTile = secondTileNeighboursIterator.next();
 					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(new Point(0, 0)))
-							&& (new Vector(secondTile.getPosition(), thirdTile.getPosition())).equals(translationVector)) {
+					if (!(thirdTilePosition.equals(originPoint))
+							&& (new Vector(secondTilePosition, thirdTilePosition)).equals(translationVector)) {
 						tiles.add(secondTile);
 						tiles.add(thirdTile);
 						areAligned = true;

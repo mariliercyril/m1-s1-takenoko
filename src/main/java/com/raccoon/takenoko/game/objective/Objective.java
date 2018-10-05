@@ -11,7 +11,7 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
-	private static final String RESULT_FORMAT = "{isCompleted=%b, score=%d, color=%s}";
+	private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
 
 	protected boolean isCompleted;
 	protected int score;
@@ -80,7 +80,7 @@ public abstract class Objective {
      */
     public String toString() {
 
-        return (this.getClass()).getSimpleName() + String.format(RESULT_FORMAT, isCompleted, score, color);
+        return  String.format(RESULT_FORMAT, (this.getClass()).getSimpleName(), isCompleted, score, color);
     }
 
 }
