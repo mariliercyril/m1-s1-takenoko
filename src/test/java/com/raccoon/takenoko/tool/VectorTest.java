@@ -47,9 +47,9 @@ public class VectorTest {
 	@DisplayName("assert true when the sum of Vector (X1, Y1), (X2, Y2), ... , (Xn, Yn) equals the Vector (X1 + X2 + ... + Xn, Y1 + Y2 + ... + Yn)")
 	public void testSum_true() {
 
-		Vector v1 = new Vector(1, 0);
-		Vector v2 = new Vector(1, 1);
-		Vector vn = new Vector(0, 1);
+		Vector v1 = (UnitVector.I).get();
+		Vector v2 = (UnitVector.J).get();
+		Vector vn = new Vector(new Point(1, 1));
 
 		assertTrue((Vector.sum(v1, v2, vn)).equals(new Point(2, 2)));
 	}
