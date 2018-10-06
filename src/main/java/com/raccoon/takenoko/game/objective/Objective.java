@@ -50,7 +50,7 @@ public abstract class Objective {
     public void checkIfCompleted(Player player) {
 
     	throw new UnsupportedOperationException();
-    };
+    }
 
     /**
      * Checks whether the objective is completed from a tile and a board.

@@ -27,6 +27,7 @@ public class BasicParcelObjective extends Objective {
 		score = 1;
 	}
 
+	@Override
 	public void checkIfCompleted(Tile tileToBePlaced, Board hashBoard) {
 
 		// Gets the position of the tile to be placed

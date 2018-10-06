@@ -3,7 +3,6 @@ package com.raccoon.takenoko.game.objective.parcel;
 import java.awt.Point;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.raccoon.takenoko.game.Board;
@@ -27,7 +26,12 @@ import com.raccoon.takenoko.tool.Vector;
  */
 public class AlignmentParcelObjective extends Objective {
 
+	// The position of the "pond" Tile: No alignment allowed with it
+	private static final Point ORIGIN_POINT = new Point(0, 0);
+
 	private static final int SCORE_BASE = 2;
+
+	private boolean areAligned;
 
 	/**
 	 * Constructs a {@code AlignmentParcelObjective} with a specified color.
@@ -40,8 +44,11 @@ public class AlignmentParcelObjective extends Objective {
 		super();
 		this.color = color;
 		setScore(color);
+
+		areAligned = false;
 	}
 
+	@Override
 	public void checkIfCompleted(Tile tileToBePlaced, Board hashBoard) {
 
 		List<Tile> tiles = new ArrayList<>();
@@ -51,47 +58,39 @@ public class AlignmentParcelObjective extends Objective {
 		/*
 		 * ARE ALIGNED
 		 */
-		boolean areAligned = false;
 		Point tileToBePlacedPosition = tileToBePlaced.getPosition();
-		// The position of the "pond" Tile: No alignment allowed with it
-		Point originPoint = new Point(0, 0);
 		// Gets the neighbours of the Tile to be placed
 		List<Tile> tileToBePlacedNeighbours = hashBoard.getNeighbours(tileToBePlacedPosition);
-		Iterator<Tile> tileToBePlacedNeighboursIterator = tileToBePlacedNeighbours.iterator();
 		// Parses the neighbours of the Tile to be placed, in order to find a second Tile for alignment
-		while (tileToBePlacedNeighboursIterator.hasNext()) {
-			Tile secondTile = tileToBePlacedNeighboursIterator.next();
-			Point secondTilePosition = secondTile.getPosition();
-			if (!(secondTilePosition.equals(originPoint))) {
+		tileToBePlacedNeighbours.stream().filter(t2 -> !areAligned).forEach(t2 -> {
+			Point secondTilePosition = t2.getPosition();
+			if (!(secondTilePosition.equals(ORIGIN_POINT))) {
 				// The Vector of translation, from the Tile to be placed to a second Tile, for alignment...
 				Vector translationVector = new Vector(tileToBePlacedPosition, secondTilePosition);
 				// Parses the neighbours of the Tile to be placed, in order to find the third Tile for alignment
-				while (tileToBePlacedNeighboursIterator.hasNext() && !areAligned) {
-					Tile thirdTile = tileToBePlacedNeighboursIterator.next();
-					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(originPoint))
+				tileToBePlacedNeighbours.stream().filter(t3 -> !(t3.equals(t2))).forEach(t3 -> {
+					Point thirdTilePosition = t3.getPosition();
+					if (!(thirdTilePosition.equals(ORIGIN_POINT))
 							&& (new Vector(tileToBePlacedPosition, thirdTilePosition)).equals(translationVector.getOpposite())) {
-						tiles.add(secondTile);
-						tiles.add(thirdTile);
+						tiles.add(t2);
+						tiles.add(t3);
 						areAligned = true;
 					}
-				}
+				});
 				// Gets the neighbours of each neighbour of the Tile to be placed
 				List<Tile> secondTileNeighbours = hashBoard.getNeighbours(secondTilePosition);
-				Iterator<Tile> secondTileNeighboursIterator = secondTileNeighbours.iterator();
 				// Parses the neighbours of each neighbour of the Tile to be placed, in order to find the third Tile for alignment
-				while (secondTileNeighboursIterator.hasNext() && !areAligned) {
-					Tile thirdTile = secondTileNeighboursIterator.next();
-					Point thirdTilePosition = thirdTile.getPosition();
-					if (!(thirdTilePosition.equals(originPoint))
+				secondTileNeighbours.stream().filter(t3 -> !(t3.equals(tileToBePlaced))).forEach(t3 -> {
+					Point thirdTilePosition = t3.getPosition();
+					if (!(thirdTilePosition.equals(ORIGIN_POINT))
 							&& (new Vector(secondTilePosition, thirdTilePosition)).equals(translationVector)) {
-						tiles.add(secondTile);
-						tiles.add(thirdTile);
+						tiles.add(t2);
+						tiles.add(t3);
 						areAligned = true;
 					}
-				}
+				});
 			}
-		}
+		});
 
 		/*
 		 * HAVE SAME COLOR (if are aligned)
