@@ -1,18 +1,22 @@
 package com.raccoon.takenoko.game.objective.panda;
 
 import com.raccoon.takenoko.game.Color;
+
 import com.raccoon.takenoko.player.Player;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito.*;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * This class allows to test the method {@code checkIfCompleted} of the class {@link TwoBambooChunksPandaObjective}.
+ */
 public class TwoBambooChunksPandaObjectiveTest {
 
     private TwoBambooChunksPandaObjective test;

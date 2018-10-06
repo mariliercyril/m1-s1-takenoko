@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * This class allows to perform unit tests of the methods of the class {@code Vector}.
+ * This class allows to test methods of the class {@link Vector}.
  */
 public class VectorTest {
 

@@ -15,13 +15,26 @@ import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Vector;
 
 /**
- * This class allows to satisfy the following objective:
- * Align three tiles of the same color.
+ * The {@code AlignmentParcelObjective} class implements the <i>parcel</i> {@link Objective}
+ * which consists in "<b>having aligned three tiles of the same color</b>".
+ * <p>
+ * The score base is equal to 2; consequently, the scores are:
+ * <ul>
+ * <li>2 for GREEN tiles</li>
+ * <li>3 for YELLOW tiles</li>
+ * <li>4 for PINK tiles</li>
+ * </ul>
  */
 public class AlignmentParcelObjective extends Objective {
 
 	private static final int SCORE_BASE = 2;
 
+	/**
+	 * Constructs a {@code AlignmentParcelObjective} with a specified color.
+	 * 
+	 * @param color
+	 *  the color of the parcels which should be aligned
+	 */
 	public AlignmentParcelObjective(Color color) {
 
 		super();
@@ -29,7 +42,6 @@ public class AlignmentParcelObjective extends Objective {
 		setScore(color);
 	}
 
-	@Override
 	public void checkIfCompleted(Tile tileToBePlaced, Board hashBoard) {
 
 		List<Tile> tiles = new ArrayList<>();
@@ -93,6 +105,7 @@ public class AlignmentParcelObjective extends Objective {
 	 * Sets the score according to the color.
 	 * 
 	 * @param color
+	 * 	the color which is associated with the objective
 	 */
 	private void setScore(Color color) {
 

@@ -2,20 +2,34 @@ package com.raccoon.takenoko.game.objective.panda;
 
 import java.util.HashMap;
 
+import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
-
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.player.Player;
 
 /**
- * This class allows to satisfy the following objective:
- * Have eaten (at least) two bamboo chunks of which color is an expected color.
+ * The {@code TwoBambooChunksPandaObjective} class implements the <i>panda</i> {@link Objective}
+ * which consists in "<b>having eaten (at least) two bamboo chunks of which the color is an expected color</b>".
+ * <p>
+ * The score base is equal to 3; consequently, the scores are:
+ * <ul>
+ * <li>3 for GREEN bamboo chunks</li>
+ * <li>4 for YELLOW bamboo chunks</li>
+ * <li>5 for PINK bamboo chunks</li>
+ * </ul>
  */
 public class TwoBambooChunksPandaObjective extends Objective {
 
 	private static final int SCORE_BASE = 3;
 
+	/**
+	 * Constructs a {@code TwoBambooChunksPandaObjective} with a specified color.
+	 * 
+	 * @param color
+	 *  the color of the bamboo chunks which should have been eaten
+	 */
 	public TwoBambooChunksPandaObjective(Color color) {
 
 		super();
@@ -23,7 +37,6 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		setScore(color);
 	}
 
-	@Override
 	public void checkIfCompleted(Player player) {
 
 		// Gets the size of the bamboo which is on the final tile
@@ -40,6 +53,7 @@ public class TwoBambooChunksPandaObjective extends Objective {
 	 * Sets the score according to the color.
 	 * 
 	 * @param color
+	 *  the color which is associated with the objective
 	 */
 	private void setScore(Color color) {
 

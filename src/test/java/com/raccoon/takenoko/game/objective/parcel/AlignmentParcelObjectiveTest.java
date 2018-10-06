@@ -17,8 +17,7 @@ import com.raccoon.takenoko.game.HashBoard;
 import com.raccoon.takenoko.game.Tile;
 
 /**
- * This class allows to perform unit tests of the method "checkIfCompleted()"
- * of the class {@code AlignmentParcelObjective}.
+ * This class allows to test the method {@code checkIfCompleted} of the class {@link AlignmentParcelObjective}.
  */
 public class AlignmentParcelObjectiveTest {
 

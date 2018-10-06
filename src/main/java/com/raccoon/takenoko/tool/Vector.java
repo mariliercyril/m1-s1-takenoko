@@ -3,7 +3,13 @@ package com.raccoon.takenoko.tool;
 import java.awt.Point;
 
 /**
- * This class allows to define a vector (as a Point) and several operations (such as the opposite).
+ * The {@code Vector} class defines any vector of a 2-dimensional space.
+ * <p>
+ * In addition to defining a vector, this class provides methods for the vectors, such as:<ul>
+ * <li>{@code apply(Point)}</li>
+ * <li>{@code getOpposite()}</li>
+ * <li>{@code sum(Vector...)}</li>
+ * </ul>
  */
 public final class Vector extends Point {
 
@@ -12,23 +18,53 @@ public final class Vector extends Point {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructs a location vector of a 2-dimensional space
+	 * with coordinates (specified as parameters).
+	 * 
+	 * @param x
+	 * 	the X coordinate of the point of which the vector is the location vector
+	 * @param y
+	 *  the Y coordinate of the point of which the vector is the location vector
+	 */
 	public Vector(int x, int y) {
 
 		super(x, y);
 	}
 
-	public Vector(Point startPoint, Point endPoint) {
+	/**
+	 * Constructs a location vector of a 2-dimensional space
+	 * with a point (specified as a parameter).
+	 * 
+	 * @param point
+	 * 	the point of which the vector is the location vector
+	 */
+	public Vector(Point point) {
 
-		super(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+		this(point.x, point.y);
 	}
 
 	/**
-	 * Applies a vector on a point.
+	 * Constructs a vector of a 2-dimensional space
+	 * with a start point and an end point (specified as parameters).
+	 * 
+	 * @param startPoint
+	 *  the start point of the vector which we would to construct
+	 * @param endPoint
+	 *  the end point of the vector which we would to construct
+	 */
+	public Vector(Point startPoint, Point endPoint) {
+
+		this(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+	}
+
+	/**
+	 * Returns the point resulting from the application of a vector to a point.
 	 * 
 	 * @param point
-	 *        A point for applying
+	 *  the point of application
 	 * 
-	 * @return The point by the translation
+	 * @return the point resulting from the application of a vector to a point
 	 */
 	public Point apply(Point point) {
 
@@ -36,9 +72,9 @@ public final class Vector extends Point {
 	}
 
 	/**
-	 * Gets the opposite of a vector.
+	 * Returns the opposite of a vector.
 	 * 
-	 * @return The opposite Vector
+	 * @return the opposite vector
 	 */
 	public Vector getOpposite() {
 
@@ -46,9 +82,12 @@ public final class Vector extends Point {
 	}
 
 	/**
-	 * Gets the sum of vectors.
+	 * Returns the sum of vectors.
 	 * 
-	 * @return The sum Vector
+	 * @param vectors
+	 * 	the vectors we would to add
+	 * 
+	 * @return the sum vector
 	 */
 	public static Vector sum(Vector... vectors) {
 
