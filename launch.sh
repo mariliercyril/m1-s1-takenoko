@@ -58,9 +58,9 @@ if [[ -n $* ]]; then
 		fi
 	else
 		if [[ $1 =~ ^('--help'|'-h')$ ]]; then
-			echo "For skiping one or two operations, enter (as an argument) '--skip' (or '-s') followed by at least one letter (when you would to skip several operations, separate the letters by space; for example: '--skip C E' has the effect of skiping the compilation and the execution (in other words, only the analysis is launched).";
+			echo -e "For skiping one or two operations, enter (as an argument) '--skip' (or '-s') followed by at least one letter (when you would to skip several operations, separate the letters by space; for example:\n${magentafat}'--skip C E' has the effect of skiping the compilation and the execution (in other words, only the analysis is launched)${neutral}.";
 		else
-			echo "Option not found; the allowed options are: '--skip' and '--help'.";
+			echo -e "Unknown '$*'; the allowed options are: '--skip' and '--help'.";
 		fi
 	fi
 else
