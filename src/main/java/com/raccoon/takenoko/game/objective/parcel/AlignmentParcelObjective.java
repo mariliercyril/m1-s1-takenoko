@@ -1,10 +1,5 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import java.awt.Point;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Tile;
@@ -12,6 +7,11 @@ import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.tool.Vector;
+
+import java.awt.Point;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@code AlignmentParcelObjective} class implements the <i>parcel</i> {@link Objective}

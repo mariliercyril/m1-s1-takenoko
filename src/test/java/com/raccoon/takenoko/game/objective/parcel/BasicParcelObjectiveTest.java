@@ -1,19 +1,19 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.HashBoard;
+import com.raccoon.takenoko.game.Tile;
 
 import java.awt.Point;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import com.raccoon.takenoko.game.BasicTile;
-import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.HashBoard;
-import com.raccoon.takenoko.game.Tile;
 
 /**
  * This class allows to test the method {@code checkIfCompleted} of the class {@link BasicParcelObjective}.

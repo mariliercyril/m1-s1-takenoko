@@ -1,12 +1,12 @@
 package com.raccoon.takenoko.game.objective.panda;
 
-import java.util.HashMap;
-
 import com.raccoon.takenoko.game.Color;
 
 import com.raccoon.takenoko.game.objective.Objective;
 
 import com.raccoon.takenoko.player.Player;
+
+import java.util.HashMap;
 
 /**
  * The {@code TwoBambooChunksPandaObjective} class implements the <i>panda</i> {@link Objective}

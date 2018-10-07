@@ -1,16 +1,5 @@
 package com.raccoon.takenoko.game.objective.panda;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.awt.Point;
-
-import java.util.HashMap;
-
 import com.raccoon.takenoko.game.BasicTile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
@@ -19,10 +8,21 @@ import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.player.Player;
 
+import java.awt.Point;
+
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * This class allows to test the method {@code checkIfCompleted} of the class {@link TwoBambooChunksPandaObjective}.
