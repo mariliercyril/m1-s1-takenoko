@@ -36,7 +36,19 @@ public class TakeyesntkoTest {
     }
 
     @Test
-    public void testPrint() {
+    public void testPrint_withDefaultVerbose() {
+
+    	try {
+    		Takeyesntko.print("Test!");
+    	} catch (Throwable e) {
+            fail(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    @Test
+    public void testPrint_withFalseVerbose() {
+
+    	Takeyesntko.setVerbose(false);
 
     	try {
     		Takeyesntko.print("Test!");
