@@ -14,7 +14,7 @@ public class TakeyesntkoTest {
 
     @Before
     public void setup() {
-        Takeyesntko.VERBOSE = false;
+        Takeyesntko.setVerbose(false);
     }
 
     @Test
@@ -34,4 +34,15 @@ public class TakeyesntkoTest {
             fail("Game didn't go well, exception raised : " + e.getClass().getSimpleName() + ". See stack : \n" + Arrays.deepToString(e.getStackTrace()));
         }
     }
+
+    @Test
+    public void testPrint() {
+
+    	try {
+    		Takeyesntko.print("Test!");
+    	} catch (Throwable e) {
+            fail(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
 }

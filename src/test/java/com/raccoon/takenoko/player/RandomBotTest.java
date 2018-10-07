@@ -36,7 +36,7 @@ public class RandomBotTest {
 
     @Before
     public void build() {
-        Takeyesntko.VERBOSE = false;
+    	Takeyesntko.setVerbose(false);
 
         g = new Game();
         p = new RandomBot();

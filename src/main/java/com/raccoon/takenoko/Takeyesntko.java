@@ -10,7 +10,7 @@ public class Takeyesntko {
 
 	static Logger logger = Logger.getLogger(Takeyesntko.class);
 
-    public static boolean VERBOSE = true;
+    private static boolean verbose = true;
 
     public static void main(String[] args) {
 
@@ -41,7 +41,7 @@ public class Takeyesntko {
      * @param str The String to be printed.
      */
     public static void print(String str) {
-        if (VERBOSE) {
+        if (verbose) {
         	logger.info(str);
         }
     }
@@ -59,7 +59,7 @@ public class Takeyesntko {
      * Launches 1000 games and prints out the output
      */
     public static int launch1000gamesNoJutsu() {
-    	VERBOSE = false;
+    	verbose = false;
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
@@ -112,6 +112,17 @@ public class Takeyesntko {
         }
         print(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)%n", totalGames + voidedGames));
         return totalGames + voidedGames;
+    }
+
+    /**
+     * Allows to inject (i.e. at runtime) a verbose value (which is 'true' by default).
+     * 
+     * @param verbose
+     * 	typically a new verbose value
+     */
+    public static void setVerbose(boolean verbose) {
+
+    	Takeyesntko.verbose = verbose;
     }
 
 }

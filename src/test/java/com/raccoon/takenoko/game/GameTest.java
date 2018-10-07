@@ -15,7 +15,7 @@ class GameTest {
 
     @BeforeEach
     void build() {
-        Takeyesntko.VERBOSE = false;
+    	Takeyesntko.setVerbose(false);
         game = new Game();
     }
 
