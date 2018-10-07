@@ -4,18 +4,14 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.player.Player;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 public class Takeyesntko {
 
-	static Logger logger = Logger.getLogger(Takeyesntko.class);
+	static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
     private static boolean verbose = true;
 
     public static void main(String[] args) {
-
-    	// Configures logger from properties file
-        PropertyConfigurator.configure("log4j.properties");
 
         print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
         print("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
@@ -42,7 +38,7 @@ public class Takeyesntko {
      */
     public static void print(String str) {
         if (verbose) {
-        	logger.info(str);
+        	LOGGER.info(str);
         }
     }
 
