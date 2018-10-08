@@ -2,6 +2,7 @@ package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
@@ -29,14 +30,24 @@ public class Game {
     // Used to keep track of the objectives involving the tiles handed to the players
     private List<Objective> patternObjectives;
 
+    private ObjectivePool objectivePool;
+
     /**
-     * Default constructor creating a 1 vs 1 game
+     * Constructs a 4 players game
      */
     public Game() {
+        this(4);
+    }
+
+    /**
+     * Construct a game with new players, all with the randomBot implementation
+     * @param numberOfPlayers the number of players to add to the game
+     */
+    public Game(int numberOfPlayers) {
 
         this.gardener = new Gardener();
         this.panda = new Panda();
-        int numberOfPlayers = 4;
+
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
@@ -49,16 +60,21 @@ public class Game {
 
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initTileDeck();
-        initObjectiveDeck();
+
+        objectivePool = new ObjectivePool();    // Initialisation of the objective pool
     }
 
+    /**
+     * Constructs a game with a given list of players. Useful to test and give a specific composition of bots to the game.
+     * @param players the list of {@code Players} to add to the game
+     */
     public Game(List<Player> players) {
         this.gardener = new Gardener();
         this.panda = new Panda();
         this.players = players;
         board = new HashBoard(new BasicTile());
         initTileDeck();
-        initObjectiveDeck();
+        this.objectivePool = new ObjectivePool();
     }
 
     public List<Player> getPlayers() {
@@ -190,7 +206,7 @@ public class Game {
      */
     public Objective drawObjective() {
 
-        Objective objective = objectivesDeck.pop();
+        Objective objective = this.objectivePool.draw();
 
         /*
         We add the drawn objective to the adequate list of objective, to maintain its completion.
