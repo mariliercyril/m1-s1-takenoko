@@ -26,7 +26,13 @@ public class Game {
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
 
-    private ObjectivePool objectivePool;
+    private ObjectivePool objectivePool;    // The pool of objective cards
+
+    /*
+    *************************************************
+    *                 Constructors
+    *************************************************
+     */
 
     /**
      * Constructs a 4 players game
@@ -71,13 +77,39 @@ public class Game {
         this.objectivePool = new ObjectivePool(this);
     }
 
+    /*
+     *************************************************
+     *                 Get/Set
+     *************************************************
+     */
+
+    protected List getTilesDeck() {
+        return tilesDeck;
+    }
+
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public ObjectivePool getObjectivePool() {
+        return objectivePool;
     }
 
     public Board getBoard() {
         return board;
     }
+    public Gardener getGardener() {
+        return gardener;
+    }
+    public Panda getPanda() {
+        return panda;
+    }
+
+    /*
+     *************************************************
+     *                 Methods
+     *************************************************
+     */
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         for (Player p : players) {
@@ -149,14 +181,6 @@ public class Game {
         }
     }
 
-    protected List getTilesDeck() {
-        return tilesDeck;
-    }
-
-    public Gardener getGardener() {
-        return gardener;
-    }
-
     /**
      * Allows a player to put down a tile on the board. It also notifies the objective pool, so the pattern objectives
      * completion is checked.
@@ -166,7 +190,8 @@ public class Game {
     public void putDownTile(Tile tile) {
 
         this.board.set(tile.getPosition(), tile);   // The tile is put in the right position in the board
-        this.objectivePool.notifyTilePut(tile);     // Notification that a tile has been put, the completion of some objectives could be changed
+        // Notification that a tile has been put, the completion of some objectives could be changed
+        this.objectivePool.notifyTilePut(tile);
 
     }
 
@@ -176,11 +201,11 @@ public class Game {
      * @return the first objective card of the deck
      */
     public Objective drawObjective() {
+        /*
+        This might be replaced by a direct call to the draw method of the objectivePool
+        in the classes needing it
+         */
         return this.objectivePool.draw();   // We just get the objective from the pool
-    }
-
-    public Panda getPanda() {
-        return panda;
     }
 
     public void purge() {
