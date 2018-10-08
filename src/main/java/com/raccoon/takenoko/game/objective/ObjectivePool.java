@@ -1,6 +1,8 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 
@@ -11,6 +13,8 @@ import java.util.*;
  * Provides the notify methods to induce a completion checking for the right objectives.
  */
 public class ObjectivePool {
+
+    private Game game;      // The game to which this pool belongs
 
     private List<Objective> allObjectives;      // The list of all the objectives in the game
 
@@ -28,7 +32,10 @@ public class ObjectivePool {
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
      */
-    public ObjectivePool() {
+    public ObjectivePool(Game game) {
+
+        // Hookup of the game we belong to
+        this.game = game;
 
         // Instanciation of the lists
         allObjectives = new ArrayList<>();
@@ -66,6 +73,18 @@ public class ObjectivePool {
     public Objective draw() {
         // TODO : Treat the case of an empty stack, when no more objectives are available
         return this.deck.pop();
+    }
+
+    /**
+     * Notifies the pool that a tile has been put on the board. The completion checking of the objectives
+     * depending on the patterns is triggered.
+     * @param tile the tile that has been put down, allows to check only the area where this event happened
+     */
+    public void notifyTilePut(Tile tile) {
+        // We just go through the pattern objectives and check for their completion
+        for(Objective objective : patternObjectives) {
+            objective.checkIfCompleted(tile, game.getBoard());
+        }
     }
 
 

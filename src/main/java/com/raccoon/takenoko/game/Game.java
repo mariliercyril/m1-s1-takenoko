@@ -22,13 +22,9 @@ public class Game {
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
-    private Stack<Objective> objectivesDeck; // The deck of objective cards
 
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
-
-    // Used to keep track of the objectives involving the tiles handed to the players
-    private List<Objective> patternObjectives;
 
     private ObjectivePool objectivePool;
 
@@ -56,12 +52,10 @@ public class Game {
             players.add(newPlayer);
         }
 
-        patternObjectives = new ArrayList<>();
-
         board = new HashBoard(new BasicTile());     //  The pond tile is placed first
         initTileDeck();
 
-        objectivePool = new ObjectivePool();    // Initialisation of the objective pool
+        objectivePool = new ObjectivePool(this);    // Initialisation of the objective pool
     }
 
     /**
@@ -74,7 +68,7 @@ public class Game {
         this.players = players;
         board = new HashBoard(new BasicTile());
         initTileDeck();
-        this.objectivePool = new ObjectivePool();
+        this.objectivePool = new ObjectivePool(this);
     }
 
     public List<Player> getPlayers() {
@@ -147,29 +141,6 @@ public class Game {
         Collections.shuffle(tilesDeck);
     }
 
-    private void initObjectiveDeck() {
-        /*
-        Initialisation of the deck of objectives cards.
-        First version, we fill it with the objectives we have, each time with the three colors it exists in.
-        Will evolve in a factory pattern with the amount of each card matching the rules.
-         */
-
-        this.objectivesDeck = new Stack<>();
-
-        for (int i = 0; i < 10; i++) {
-            for (Color color : Color.values()) {
-                this.objectivesDeck.push(new AlignmentParcelObjective(color));
-            }
-        }
-        for (int i = 0; i < 10; i++) {
-            for (Color color : Color.values()) {
-                this.objectivesDeck.push(new TwoBambooChunksPandaObjective(color));
-            }
-        }
-
-        Collections.shuffle(objectivesDeck);
-    }
-
     private void printRanking() {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
         Takeyesntko.print("\n RANKING");
@@ -187,37 +158,25 @@ public class Game {
     }
 
     /**
-     * Allow a player to put down a tile on the board. It also check for the completion of the
-     * objectives that might be changed by this action.
+     * Allows a player to put down a tile on the board. It also notifies the objective pool, so the pattern objectives
+     * completion is checked.
      *
      * @param tile The tile to put down, with its position attribute set
      */
     public void putDownTile(Tile tile) {
-        this.board.set(tile.getPosition(), tile);
-        for (Objective objective : this.patternObjectives) {
-            objective.checkIfCompleted(tile, this.board);
-        }
+
+        this.board.set(tile.getPosition(), tile);   // The tile is put in the right position in the board
+        this.objectivePool.notifyTilePut(tile);     // Notification that a tile has been put, the completion of some objectives could be changed
+
     }
 
     /**
-     * Allows a player to draw an objective card
+     * Allows a player to draw an objective card.
      *
      * @return the first objective card of the deck
      */
     public Objective drawObjective() {
-
-        Objective objective = this.objectivePool.draw();
-
-        /*
-        We add the drawn objective to the adequate list of objective, to maintain its completion.
-        Here, we just have one objective of the type pattern, the alignment.
-        Could be replaced by an observer design pattern.
-         */
-        if (objective instanceof AlignmentParcelObjective) {
-            this.patternObjectives.add(objective);
-        }
-
-        return objective;
+        return this.objectivePool.draw();   // We just get the objective from the pool
     }
 
     public Panda getPanda() {
