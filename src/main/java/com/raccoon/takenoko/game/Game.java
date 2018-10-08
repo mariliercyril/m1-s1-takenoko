@@ -3,8 +3,6 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
-import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;

@@ -17,7 +17,7 @@ public class ObjectivePool {
 
     private Game game;      // The game to which this pool belongs
 
-    private List<Objective> allObjectives;      // The list of all the objectives in the game
+    private List<Objective> allObjectives;  // The list of all the objectives in the game, maybe useless
 
     /*
     The list of objectives by type, needed to check for the completion of a specific
@@ -28,7 +28,7 @@ public class ObjectivePool {
     private List<TwoBambooChunksPandaObjective> bambooObjectives;
     private List<AlignmentParcelObjective> patternObjectives;
 
-    private Stack<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
+    private Deque<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
 
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
@@ -62,9 +62,9 @@ public class ObjectivePool {
         }
 
         // Initialisation of the deck
-        deck = new Stack<>();
+        deck = new ArrayDeque<>();
+        Collections.shuffle(allObjectives);
         deck.addAll(allObjectives);
-        Collections.shuffle(deck);
     }
 
     /**
