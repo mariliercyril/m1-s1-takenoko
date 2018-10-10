@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,6 +96,15 @@ public class HashBoardTest {
         Tile test_dry = new BasicTile();
         board.set(new Point(1,2), test_dry);
         assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());*/
+    }
+
+    @Test
+    public void irrigateTest() {
+        Board board = g.getBoard();
+
+        assertTrue("Irrigation can't be put between to correct tiles", board.irrigate(new Point(0,-1), UnitVector.K.get()));
+        assertFalse("Irrigation put on a tile with no other tile adjacent", board.irrigate(new Point(1, -1), UnitVector.K.get().getOpposite()));
+
     }
     //@Ignore
     @Test
