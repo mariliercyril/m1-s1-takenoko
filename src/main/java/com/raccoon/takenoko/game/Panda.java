@@ -16,7 +16,7 @@ public class Panda {
     }
 
     /**
-     * This methods allows us to tell the gardener to move to a given location
+     * Allows us to tell the panda to move to a given location.
      *
      * @param position The location where we want the panda to go
      */

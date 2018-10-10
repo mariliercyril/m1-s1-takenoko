@@ -1,16 +1,15 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.UnitVector;
+import com.raccoon.takenoko.tool.Vector;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.*;
-import java.util.List;
-
-import static java.lang.Math.abs;
 
 public class RandomBot extends Player {
 
@@ -51,30 +50,62 @@ public class RandomBot extends Player {
     }
 
     @Override
-    protected Point whereToMoveGardener(List<Point> available) {
+    protected Point whereToMoveGardener(Game game, List<Point> available) {
         Collections.shuffle(available);
         return available.get(0);
 
     }
 
     @Override
-    protected Point whereToMovePanda(List<Point> available) {
+    protected Point whereToMovePanda(Game game, List<Point> available) {
         Collections.shuffle(available);
         return available.get(0);
     }
 
     @Override
     protected Action[] planActions(Game game) {
-        // If we don't have as much objectives as we can in our hand
-        if (this.getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {
-            // we draw one
-            return new Action[]{Action.DRAW_OBJECTIVE, Action.PUT_DOWN_TILE, Action.VALID_OBJECTIVE};
+        int score = 0, cursor = 0;
+        Random r = new Random();
+        ArrayList<Action> choosen = new ArrayList<>();
+        Action[] available = Action.values();
+
+        // if there is no tile yet, we NEED to put one down
+        if (game.getBoard().getNeighbours(new Point(0, 0)).size() <= 0) {
+            choosen.add(Action.PUT_DOWN_TILE);
+            score += Action.PUT_DOWN_TILE.getCost();
+            cursor++;
         }
-        // Else we return a simple action set
-        if(new Random().nextBoolean()){
-            return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};
+
+        while (score < 2) {
+            if (r.nextBoolean()) {
+                // ban unavailable actions
+                // can't put irrigation if none has been taken
+                if (available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0) {
+                    cursor = ++cursor % available.length;
+                    continue;
+                }
+                // can't validate an objective if I don't have any
+                if (available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null) {
+                    cursor = ++cursor % available.length;
+                    continue;
+                }
+                // can't draw objective if I already have 5
+                if (available[cursor] == Action.DRAW_OBJECTIVE && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES) {
+                    cursor = ++cursor % available.length;
+                    continue;
+                }
+                if (choosen.contains(available[cursor])) {
+                    cursor = ++cursor % available.length;
+                    continue;
+                }
+
+                choosen.add(available[cursor]);
+                score += available[cursor].getCost();
+            }
+            cursor = ++cursor % available.length;
         }
-        return new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_PANDA, Action.VALID_OBJECTIVE};
+
+        return choosen.toArray(new Action[0]);
     }
 
     @Override
@@ -89,6 +120,22 @@ public class RandomBot extends Player {
         }
 
         return null;    // If no objective is completed, we just return null
+    }
 
+    @Override
+    public boolean keepIrrigation() {
+        return new Random().nextBoolean();
+    }
+
+    @Override
+    protected boolean putDownIrrigation(Game game) {
+        List<Tile> boardTiles = game.getBoard().getAllTiles();
+        Collections.shuffle(boardTiles);
+        boardTiles.removeIf(p -> p.getPosition().equals(new Point(0, 0)));
+
+        Vector[] directionsTable = UnitVector.getVectors();
+        Collections.shuffle(Arrays.asList(directionsTable));
+
+        return putDownIrrigation(game, boardTiles.get(0).getPosition(), directionsTable[0]);
     }
 }

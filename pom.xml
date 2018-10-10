@@ -2,7 +2,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
-    <version>OCT3</version> <!-- CHANGE ME -->
+
+    <version>OCT10</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -13,32 +14,37 @@
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>log4j.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
 
             <plugin>
+
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
+
                 <executions>
                     <execution>
                         <goals>
                             <goal>java</goal>
                         </goals>
                     </execution>
+
                 </executions>
+
                 <configuration>
+
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
-                    <!--      <arguments>
-                                <argument>argument1</argument>
-                              </arguments>
-                              <systemProperties>
-                                <systemProperty>
-                                  <key>myproperty</key>
-                                  <value>myvalue</value>
-                                </systemProperty>
-                              </systemProperties>
-                    -->
+
                 </configuration>
+
             </plugin>
 
             <plugin>
@@ -106,5 +112,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- For logging  -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 </project>

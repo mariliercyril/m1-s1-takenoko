@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +14,7 @@ class GameTest {
 
     @BeforeEach
     void build() {
-        Takeyesntko.VERBOSE = false;
+    	Takeyesntko.setVerbose(false);
         game = new Game();
     }
 

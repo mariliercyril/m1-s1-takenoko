@@ -12,6 +12,12 @@ The goal is to grow the most bamboos by skillfully managing the plots and satisf
 
 [Maven](https://maven.apache.org/) - Dependency Management
 
+## Tools links
+
+[Javadoc](http://www-mips.unice.fr/~gl800548/)
+
+[Sonar](http://ggdom.freeboxos.fr:9000/dashboard?id=takenoko%3Atakenoko)
+
 ## Authors
 
 The **Raccoons** team:

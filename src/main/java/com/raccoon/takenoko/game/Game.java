@@ -2,8 +2,7 @@ package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
-import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
+import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
@@ -21,22 +20,34 @@ public class Game {
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
-    private Stack<Objective> objectivesDeck; // The deck of objective cards
 
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
 
-    // Used to keep track of the objectives involving the tiles handed to the players
-    private List<Objective> patternObjectives;
+    private ObjectivePool objectivePool;    // The pool of objective cards
+
+    /*
+    *************************************************
+    *                 Constructors
+    *************************************************
+     */
 
     /**
-     * Default constructor creating a 1 vs 1 game
+     * Constructs a 4 players game
      */
     public Game() {
+        this(4);
+    }
+
+    /**
+     * Construct a game with new players, all with the randomBot implementation
+     * @param numberOfPlayers the number of players to add to the game
+     */
+    public Game(int numberOfPlayers) {
 
         this.gardener = new Gardener();
         this.panda = new Panda();
-        int numberOfPlayers = 4;
+
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
@@ -45,29 +56,58 @@ public class Game {
             players.add(newPlayer);
         }
 
-        patternObjectives = new ArrayList<>();
-
-        board = new HashBoard(new BasicTile());     //  The pond tile is placed first
+        board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
-        initObjectiveDeck();
+
+        objectivePool = new ObjectivePool(this);    // Initialisation of the objective pool
     }
 
+    /**
+     * Constructs a game with a given list of players. Useful to test and give a specific composition of bots to the game.
+     * @param players the list of {@code Players} to add to the game
+     */
     public Game(List<Player> players) {
         this.gardener = new Gardener();
         this.panda = new Panda();
         this.players = players;
-        board = new HashBoard(new BasicTile());
+        board = new HashBoard(new Tile());
         initTileDeck();
-        initObjectiveDeck();
+        this.objectivePool = new ObjectivePool(this);
+    }
+
+    /*
+     *************************************************
+     *                 Get/Set
+     *************************************************
+     */
+
+    protected List getTilesDeck() {
+        return tilesDeck;
     }
 
     public List<Player> getPlayers() {
         return players;
     }
 
+    public ObjectivePool getObjectivePool() {
+        return objectivePool;
+    }
+
     public Board getBoard() {
         return board;
     }
+    public Gardener getGardener() {
+        return gardener;
+    }
+    public Panda getPanda() {
+        return panda;
+    }
+
+    /*
+     *************************************************
+     *                 Methods
+     *************************************************
+     */
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         for (Player p : players) {
@@ -125,33 +165,10 @@ public class Game {
 
         for (Color c : colors) {
             for (int i = 0; i < c.getQuantite(); i++) {
-                tilesDeck.push(new BasicTile(c));
+                tilesDeck.push(new Tile(c));
             }
         }
         Collections.shuffle(tilesDeck);
-    }
-
-    private void initObjectiveDeck() {
-        /*
-        Initialisation of the deck of objectives cards.
-        First version, we fill it with the objectives we have, each time with the three colors it exists in.
-        Will evolve in a factory pattern with the amount of each card matching the rules.
-         */
-
-        this.objectivesDeck = new Stack<>();
-
-        for (int i = 0; i < 10; i++) {
-            for (Color color : Color.values()) {
-                this.objectivesDeck.push(new AlignmentParcelObjective(color));
-            }
-        }
-        for (int i = 0; i < 10; i++) {
-            for (Color color : Color.values()) {
-                this.objectivesDeck.push(new TwoBambooChunksPandaObjective(color));
-            }
-        }
-
-        Collections.shuffle(objectivesDeck);
     }
 
     private void printRanking() {
@@ -162,54 +179,35 @@ public class Game {
         }
     }
 
-    protected List getTilesDeck() {
-        return tilesDeck;
-    }
-
-    public Gardener getGardener() {
-        return gardener;
-    }
-
     /**
-     * Allow a player to put down a tile on the board. It also check for the completion of the
-     * objectives that might be changed by this action.
+     * Allows a player to put down a tile on the board. It also notifies the objective pool, so the pattern objectives
+     * completion is checked.
      *
      * @param tile The tile to put down, with its position attribute set
      */
     public void putDownTile(Tile tile) {
-        this.board.set(tile.getPosition(), tile);
-        for (Objective objective : this.patternObjectives) {
-            objective.checkIfCompleted(tile, this.board);
-        }
+
+        this.board.set(tile.getPosition(), tile);   // The tile is put in the right position in the board
+        // Notification that a tile has been put, the completion of some objectives could be changed
+        this.objectivePool.notifyTilePut(tile);
+
     }
 
     /**
-     * Allows a player to draw an objective card
+     * Allows a player to draw an objective card.
      *
      * @return the first objective card of the deck
      */
     public Objective drawObjective() {
-
-        Objective objective = objectivesDeck.pop();
-
         /*
-        We add the drawn objective to the adequate list of objective, to maintain its completion.
-        Here, we just have one objective of the type pattern, the alignment.
-        Could be replaced by an observer design pattern.
+        This might be replaced by a direct call to the draw method of the objectivePool
+        in the classes needing it
          */
-        if (objective instanceof AlignmentParcelObjective) {
-            this.patternObjectives.add(objective);
-        }
-
-        return objective;
-    }
-
-    public Panda getPanda() {
-        return panda;
+        return this.objectivePool.draw();   // We just get the objective from the pool
     }
 
     public void purge() {
-        board = new HashBoard(new BasicTile());
+        board = new HashBoard(new Tile());
         initTileDeck();
         Player.reinitCounter();
     }

@@ -1,23 +1,22 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.HashBoard;
 
 import java.awt.Point;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.raccoon.takenoko.game.BasicTile;
-import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.HashBoard;
-import com.raccoon.takenoko.game.Tile;
-
 /**
- * This class allows to perform unit tests of the method "checkIfCompleted()"
- * of the class {@code BasicParcelObjective}.
+ * This class allows to test the method {@code checkIfCompleted} of the class {@link BasicParcelObjective}.
  */
 public class BasicParcelObjectiveTest {
 
@@ -31,8 +30,8 @@ public class BasicParcelObjectiveTest {
 	@BeforeAll
 	public static void constructPondTile() {
 
-		pondTile = new BasicTile();
-		initialTile = new BasicTile();
+		pondTile = new Tile();
+		initialTile = new Tile(Color.YELLOW);
 	}
 
 	@BeforeEach
@@ -67,7 +66,7 @@ public class BasicParcelObjectiveTest {
 	@DisplayName("assert true when basic objective is completed, 3rd case: from the initial Tile to another Tile")
 	public void testIsCompleted_trueInitialToAnotherCase() {
 
-		hashBoard.set(new Point(2, 2), new BasicTile());
+		hashBoard.set(new Point(2, 2), new Tile(Color.YELLOW));
 
 		basicParcelObjective.checkIfCompleted(initialTile, hashBoard);
 		assertTrue(basicParcelObjective.isCompleted());
@@ -77,10 +76,10 @@ public class BasicParcelObjectiveTest {
 	@DisplayName("assert false when basic objective is not completed: from another Tile to a \"lambda\" Tile")
 	public void testIsCompleted_falseAnotherToLambdaCase() {
 
-		Tile anotherTile = new BasicTile();
+		Tile anotherTile = new Tile(Color.YELLOW);
 		hashBoard.set(new Point(3, 3), anotherTile);
 		// A lambda Tile
-		hashBoard.set(new Point(-1, -1), new BasicTile());
+		hashBoard.set(new Point(-1, -1), new Tile(Color.YELLOW));
 
 		basicParcelObjective.checkIfCompleted(anotherTile, hashBoard);
 		assertFalse(basicParcelObjective.isCompleted());

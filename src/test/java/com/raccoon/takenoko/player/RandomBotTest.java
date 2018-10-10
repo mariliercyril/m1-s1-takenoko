@@ -36,14 +36,14 @@ public class RandomBotTest {
 
     @Before
     public void build() {
-        Takeyesntko.VERBOSE = false;
+    	Takeyesntko.setVerbose(false);
 
         g = new Game();
         p = new RandomBot();
 
-        Tile greenTile0 = new BasicTile(Color.GREEN);
-        Tile greenTile1 = new BasicTile(Color.GREEN);
-        Tile pinkTile0 = new BasicTile(Color.PINK);
+        Tile greenTile0 = new Tile(Color.GREEN);
+        Tile greenTile1 = new Tile(Color.GREEN);
+        Tile pinkTile0 = new Tile(Color.PINK);
 
         g.getBoard().set(new Point(0, 1), greenTile0);
         g.getBoard().set(new Point(1, 1), pinkTile0);
@@ -73,8 +73,8 @@ public class RandomBotTest {
     public void testWhereToPutGardener() {
         List<Point> accessiblePositions = g.getBoard().getAccessiblePositions(g.getGardener().getPosition());
 
-        assertNotNull(p.whereToMoveGardener(accessiblePositions));
-        assertTrue(accessiblePositions.contains(p.whereToMoveGardener(accessiblePositions)));
+        assertNotNull(p.whereToMoveGardener(g, accessiblePositions));
+        assertTrue(accessiblePositions.contains(p.whereToMoveGardener(g, accessiblePositions)));
     }
 
     @Test
@@ -97,10 +97,10 @@ public class RandomBotTest {
 
     @Test
     public void failingMovingGardener() {
-        g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
-        g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(1, 1), new Tile(Color.GREEN));
+        g.getBoard().set(new Point(2, 1), new Tile(Color.GREEN));
 
-        when(mockedBot.whereToMoveGardener(any())).thenReturn(new Point(2, 1));
+        when(mockedBot.whereToMoveGardener(any(), any())).thenReturn(new Point(2, 1));
         // planActions returns null if we don't add this line.
         when(mockedBot.planActions(any())).thenReturn(new Action[]{Action.MOVE_GARDENER, Action.VALID_OBJECTIVE});
 

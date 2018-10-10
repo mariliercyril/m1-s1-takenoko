@@ -1,24 +1,29 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
+import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.Board;
+
+import com.raccoon.takenoko.game.objective.Objective;
+
 import java.awt.Point;
 
 import java.util.List;
 
-import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.Tile;
-
-import com.raccoon.takenoko.game.objective.Objective;
-
 /**
- * This class allows to satisfy the following objective:
- * Place two tiles in an adjacent way.
+ * The {@code BasicParcelObjective} class implements the <i>parcel</i> {@link Objective}
+ * which consists in "<b>having placed two tiles in an adjacent way</b>".
+ * 
+ * <p>This objective was used while waiting for real objectives of the game;
+ * consequently, there is a single score (equal to 1).</p>
  */
 public class BasicParcelObjective extends Objective {
 
+	/**
+	 * Constructs a {@code BasicParcelObjective}.
+	 */
 	public BasicParcelObjective() {
 
 		super();
-
 		score = 1;
 	}
 
