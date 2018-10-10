@@ -4278,3 +4278,19 @@ Player #3 is playing now.
 2018-10-10 19:41:41.544 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- There has been 16 void games where all players' scores were 0
 2018-10-10 19:41:41.545 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- Checksum : won + voided games adds up to 1000 (should be 1000)
 
+2018-10-10 19:55:41.259 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  ________      _       __   __   ______    __    __   ________   __   __   ________  
+2018-10-10 19:55:41.260 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |__    __|   /   \    |  | /  / |   ___|  |  \  |  | |   __   | |  | /  / |   __   | 
+2018-10-10 19:55:41.260 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -    |  |     / /_\ \   |  |/  /  |  |__    |  |\ |  | |  |  |  | |  |/  /  |  |  |  | 
+2018-10-10 19:55:41.260 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -    |  |    / _____ \  |     <   |   __|_  |  | \|  | |  |__|  | |     <   |  |__|  | 
+2018-10-10 19:55:41.260 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -    |__|   /_/     \_\ |__|\__\  |_______| |__|  \__| |________| |__|\__\  |________| 
+2018-10-10 19:55:41.260 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -                                                          Presented by angry raccoons
+
+2018-10-10 19:55:42.336 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  -- Launched 1000 games!
+2018-10-10 19:55:42.336 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |	Player	|		Type	|	Victories	|		Points	|
+2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |		#1	|	RandomBot	|		289		|		2655	|
+2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |		#2	|	RandomBot	|		251		|		2664	|
+2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |		#3	|	RandomBot	|		230		|		2662	|
+2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) - |		#4	|	RandomBot	|		208		|		2652	|
+2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  -- There has been 22 void games where all players' scores were 0
+2018-10-10 19:55:42.338 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  -- Checksum : won + voided games adds up to 1000 (should be 1000)
+
