@@ -4294,3 +4294,229 @@ Player #3 is playing now.
 2018-10-10 19:55:42.337 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  -- There has been 22 void games where all players' scores were 0
 2018-10-10 19:55:42.338 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:com.raccoon.takenoko.Takeyesntko.main()) -  -- Checksum : won + voided games adds up to 1000 (should be 1000)
 
+2018-10-10 20:12:03.995 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.012 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.013 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:12:04.013 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=-1].
+2018-10-10 20:12:04.014 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.014 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.015 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:12:04.015 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.017 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.018 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.018 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.035 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.036 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.036 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.037 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.037 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.037 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:12:04.037 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.055 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.056 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.056 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 2 chunks.
+2018-10-10 20:12:04.056 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:12:04.056 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.057 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=1].
+2018-10-10 20:12:04.057 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.058 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.058 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.059 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 3 chunks.
+2018-10-10 20:12:04.059 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=1].
+2018-10-10 20:12:04.059 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.059 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:12:04.059 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.060 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.060 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.062 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 4 chunks.
+2018-10-10 20:12:04.063 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.063 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.063 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:12:04.063 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.064 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.064 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.064 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.065 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.065 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:12:04.065 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile PINK at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.068 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.069 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.069 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:12:04.069 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.069 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.069 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.070 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.070 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.071 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:12:04.071 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.071 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=1].
+2018-10-10 20:12:04.071 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.071 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.072 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.072 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.072 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=0] increases to 1 chunks.
+2018-10-10 20:12:04.072 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=-1].
+2018-10-10 20:12:04.072 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=-1] increases to 1 chunks.
+2018-10-10 20:12:04.080 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.080 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.080 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=0].
+2018-10-10 20:12:04.080 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=0] increases to 1 chunks.
+2018-10-10 20:12:04.080 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=-1].
+2018-10-10 20:12:04.081 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=-1] increases to 1 chunks.
+2018-10-10 20:12:04.082 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.082 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.082 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.082 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.083 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:12:04.083 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.083 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.083 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.084 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.084 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.084 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:12:04.084 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile PINK at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.086 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.086 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.087 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:12:04.087 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.087 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:12:04.087 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.088 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.088 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.088 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:12:04.089 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.089 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:12:04.089 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=2] increases to 1 chunks.
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:12:04.092 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=3] increases to 1 chunks.
+2018-10-10 20:12:04.093 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.093 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.878 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:12:04.878 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:12:04.878 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:12:08.202 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- Launched 1000 games!
+2018-10-10 20:12:08.202 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |	Player	|		Type	|	Victories	|		Points	|
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#1	|	RandomBot	|		288		|		2647	|
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#2	|	RandomBot	|		260		|		2729	|
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#3	|	RandomBot	|		232		|		2611	|
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#4	|	RandomBot	|		201		|		2661	|
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- There has been 19 void games where all players' scores were 0
+2018-10-10 20:12:08.203 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- Checksum : won + voided games adds up to 1000 (should be 1000)
+
+2018-10-10 20:15:01.178 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.181 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.183 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:15:01.184 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=-1].
+2018-10-10 20:15:01.187 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.191 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.191 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:15:01.194 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.195 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.197 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.198 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.230 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.231 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.233 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.235 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.236 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.236 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:15:01.237 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.247 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.248 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.248 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 2 chunks.
+2018-10-10 20:15:01.248 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:15:01.249 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.249 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=1].
+2018-10-10 20:15:01.249 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.250 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.251 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.251 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 3 chunks.
+2018-10-10 20:15:01.251 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=1].
+2018-10-10 20:15:01.252 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.252 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:15:01.252 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.254 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.254 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.255 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 4 chunks.
+2018-10-10 20:15:01.255 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.259 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.259 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:15:01.259 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.264 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.268 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.268 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.268 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.269 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:15:01.269 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile PINK at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.269 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.270 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.270 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:15:01.270 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.270 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.270 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.271 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.271 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.272 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-10 20:15:01.272 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.272 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=1].
+2018-10-10 20:15:01.272 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.273 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.274 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.274 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.274 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=0,y=0] increases to 1 chunks.
+2018-10-10 20:15:01.274 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=-1,y=-1].
+2018-10-10 20:15:01.274 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=-1] increases to 1 chunks.
+2018-10-10 20:15:01.275 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.275 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.276 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=0].
+2018-10-10 20:15:01.276 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=0] increases to 1 chunks.
+2018-10-10 20:15:01.276 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=-1].
+2018-10-10 20:15:01.276 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=-1] increases to 1 chunks.
+2018-10-10 20:15:01.282 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.282 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.282 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.282 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.282 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:15:01.283 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.285 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.285 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.286 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.286 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.286 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-10 20:15:01.286 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile PINK at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.287 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.287 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.287 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:15:01.287 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.287 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:15:01.288 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.288 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.288 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.289 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-10 20:15:01.289 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.289 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-10 20:15:01.289 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=2,y=2] increases to 1 chunks.
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=3,y=3].
+2018-10-10 20:15:01.290 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=3,y=3] increases to 1 chunks.
+2018-10-10 20:15:01.291 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:01.291 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:02.099 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-10 20:15:02.099 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-10 20:15:02.099 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - Bamboo on Tile GREEN at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-10 20:15:03.107 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- Launched 1000 games!
+2018-10-10 20:15:03.108 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |	Player	|		Type	|	Victories	|		Points	|
+2018-10-10 20:15:03.108 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#1	|	RandomBot	|		273		|		2609	|
+2018-10-10 20:15:03.109 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#2	|	RandomBot	|		278		|		2910	|
+2018-10-10 20:15:03.109 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#3	|	RandomBot	|		238		|		2772	|
+2018-10-10 20:15:03.109 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) - |		#4	|	RandomBot	|		191		|		2489	|
+2018-10-10 20:15:03.109 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- There has been 20 void games where all players' scores were 0
+2018-10-10 20:15:03.109 [INFO] class:com.raccoon.takenoko.Takeyesntko (method:main) -  -- Checksum : won + voided games adds up to 1000 (should be 1000)
+

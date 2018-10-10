@@ -73,8 +73,8 @@ public class RandomBotTest {
     public void testWhereToPutGardener() {
         List<Point> accessiblePositions = g.getBoard().getAccessiblePositions(g.getGardener().getPosition());
 
-        assertNotNull(p.whereToMoveGardener(accessiblePositions));
-        assertTrue(accessiblePositions.contains(p.whereToMoveGardener(accessiblePositions)));
+        assertNotNull(p.whereToMoveGardener(g, accessiblePositions));
+        assertTrue(accessiblePositions.contains(p.whereToMoveGardener(g, accessiblePositions)));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class RandomBotTest {
         g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
         g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
 
-        when(mockedBot.whereToMoveGardener(any())).thenReturn(new Point(2, 1));
+        when(mockedBot.whereToMoveGardener(any(), any())).thenReturn(new Point(2, 1));
         // planActions returns null if we don't add this line.
         when(mockedBot.planActions(any())).thenReturn(new Action[]{Action.MOVE_GARDENER, Action.VALID_OBJECTIVE});
 
