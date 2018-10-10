@@ -95,9 +95,9 @@ public class Takeyesntko {
         // printing out results
         verbose = true;
         print(" -- Launched 1000 games!");
-        print("|\tPlayer\t|\t\tType\t|\tVictories\t|\t\tPoints\t|");
+        print("|\tPlayer\t|\tType\t\t|\tVictories\t|\tPoints\t|");
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("|\t\t#%d\t|\t%s\t|\t\t%d\t\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
+            print(String.format("|\t#%d\t|\t%s\t|\t%d\t\t|\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
 
