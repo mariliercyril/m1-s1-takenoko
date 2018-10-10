@@ -21,9 +21,9 @@ public enum UnitVector {
 	/**
 	 * The singleton instance for the unit vector <i>k</i>.
 	 */
-	K(Vector.sum((UnitVector.I).get(), (UnitVector.J).get()));
+	K(Vector.sum(I.getVector(), J.getVector()));
 
-	private Vector vector;
+	private final Vector vector;
 
 	private UnitVector(Vector vector) {
 
@@ -35,9 +35,32 @@ public enum UnitVector {
 	 * 
 	 * @return the vector as a <i>Vector</i> object.
 	 */
-	public Vector get() {
+	public Vector getVector() {
 
 		return vector;
+	}
+
+	/**
+	 * Returns six unit vectors (<i>i</i>, <i>j</i> and <i>k</i>, and their opposites),
+	 * ordered in the trigonometric (anticlockwise) sense, for facilitating the tile position operations.
+	 * Each of these six vectors points to one of the six sides of a {@link Tile},
+	 * of which the position could be used as an application point.
+	 * 
+	 * Note that this method is often to be preferred to the {@code values} (implicit) method.
+	 * 
+	 * @return
+	 *  the six unit vectors in the trigonometric direction.
+	 */
+	public static Vector[] getVectors() {
+
+		return new Vector[]{
+				I.getVector(),
+				K.getVector(),
+				J.getVector(),
+				I.getVector().getOpposite(),
+				K.getVector().getOpposite(),
+				J.getVector().getOpposite()
+		};
 	}
 
 }

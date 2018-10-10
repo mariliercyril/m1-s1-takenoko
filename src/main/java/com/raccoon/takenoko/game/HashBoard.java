@@ -155,43 +155,14 @@ public class HashBoard implements Board {
 
         ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
 
-        Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
-        // using the UNIT vectors.
+        for (Vector unitVector : UnitVector.getVectors()) {
+        	Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
+            // using the UNIT vectors.
 
-        while (this.board.containsKey(tempPoint = UnitVector.I.get().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
+            while (this.board.containsKey(tempPoint = unitVector.apply(tempPoint))) {
+                accessiblePositions.add(tempPoint);
+            }
         }
-
-        tempPoint = initialPosition;
-
-        while (this.board.containsKey(tempPoint = UnitVector.J.get().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
-        }
-
-        tempPoint = initialPosition;
-
-        while (this.board.containsKey(tempPoint = UnitVector.K.get().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
-        }
-
-        tempPoint = initialPosition;
-
-        while (this.board.containsKey(tempPoint = UnitVector.I.get().getOpposite().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
-        }
-
-        tempPoint = initialPosition;
-
-        while (this.board.containsKey(tempPoint = UnitVector.J.get().getOpposite().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
-        }
-
-        tempPoint = initialPosition;
-
-        while (this.board.containsKey(tempPoint = UnitVector.K.get().getOpposite().apply(tempPoint))) {
-            accessiblePositions.add(tempPoint);
-        }
-
 
         return accessiblePositions;
     }

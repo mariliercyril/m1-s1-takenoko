@@ -102,4 +102,27 @@ public final class Vector extends Point {
 		return new Vector(x, y);
 	}
 
+	/**
+	 * Returns the rotation of a vector, <i>v</i>.
+	 * 
+	 * @param angle
+	 *  the angle as the number of rotations, <i>n</i>, to be done
+	 *  for getting the n-th vector (in the trigonometric or clockwise sense)
+	 *  from <i>v</i>
+	 * 
+	 * @return the sum vector
+	 */
+	public Vector rotation(int angle) {
+
+		Vector[] unitVectors = UnitVector.getVectors();
+
+		for (int i = 0; i < unitVectors.length; i++) {
+			if (this.equals(unitVectors[i])) {
+				return unitVectors[(i + ((angle < 0) ? 6 : 0) + (angle % 6)) % 6];
+			}
+		}
+
+		return this;
+	}
+
 }
