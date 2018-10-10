@@ -106,7 +106,7 @@ public abstract class Player {
                 break;
             case MOVE_GARDENER:
                 List<Point> gardenerAccessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
-                Point whereToMoveGardener = whereToMoveGardener(gardenerAccessible);
+                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);
                 // check that point is in available points array
                 if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
@@ -127,7 +127,7 @@ public abstract class Player {
                 break;
             case MOVE_PANDA: // Works the same way as MOVE_GARDENER except it's a panda
                 List<Point> pandaAccessible = game.getBoard().getAccessiblePositions(game.getPanda().getPosition());
-                Point whereToMovePanda = whereToMovePanda(pandaAccessible);
+                Point whereToMovePanda = whereToMovePanda(game, pandaAccessible);
                 if (!pandaAccessible.contains(whereToMovePanda)) {
                     throw new ForbiddenActionException("Player tried to put the panda in a non accessible position.");
                 }
@@ -170,9 +170,9 @@ public abstract class Player {
         counter = 0;
     }
 
-    protected abstract Point whereToMoveGardener(List<Point> available);
+    protected abstract Point whereToMoveGardener(Game game, List<Point> available);
 
-    protected abstract Point whereToMovePanda(List<Point> available);
+    protected abstract Point whereToMovePanda(Game game, List<Point> available);
 
     protected void eatBamboo(Color color) {
         if(Objects.nonNull(color)){

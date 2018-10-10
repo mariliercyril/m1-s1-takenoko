@@ -2,8 +2,8 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.tool.Constants;
 
-import javax.naming.InsufficientResourcesException;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
@@ -26,15 +26,11 @@ public abstract class BamBot extends Player {
         List<Point> available = game.getBoard().getAvailablePositions();
         Map<Point, Integer> numberSameColorTiles = new HashMap<>();
         for (Point p : available) { // For each available spot
-            numberSameColorTiles.put(p, 0);
-            for (Tile adjacent : game.getBoard().getNeighbours(p)) {    // We find out how many tiles of the same color as the one we want to place are around it
-                if (adjacent.getColor() == t.getColor() && adjacent.getBambooSize() < 4 && adjacent.isIrrigated()) {
-                    numberSameColorTiles.put(p, numberSameColorTiles.get(p)+1);
-                }
-            }
+            numberSameColorTiles.put(p, numSameColorNeighbours(game, p));
         }
         return numberSameColorTiles;
     }
+
 
     @Override
     protected Point whereToPutDownTile(Game game, Tile t) { // Chooses where the best place to put down a tile
@@ -71,5 +67,29 @@ public abstract class BamBot extends Player {
         return bestTile;
     }
 
+    private int numSameColorNeighbours(Game game, Point p) {
+        int result = 0;
+        Tile t = game.getBoard().get(p);
+        for (Tile adjacent : game.getBoard().getNeighbours(p)) {    // We find out how many tiles of the same color as the one we want to place are around it
+            if (adjacent.getColor() == t.getColor() && adjacent.getBambooSize() < 4 && adjacent.isIrrigated()) {
+                result++;
+            }
+        }
+        return result;
+    }
 
+    @Override
+    protected Point whereToMoveGardener(Game game, List<Point> available) {
+
+        Point bestPoint = available.get(0);
+        int max = numSameColorNeighbours(game, bestPoint);
+
+        for (Point p : available) {
+            if (max < numSameColorNeighbours(game, p)) {
+                max = numSameColorNeighbours(game, p);
+                bestPoint = p;
+            }
+        }
+        return bestPoint;
+    }
 }
