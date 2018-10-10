@@ -54,4 +54,22 @@ public class VectorTest {
 		assertTrue((Vector.sum(v1, v2, vn)).equals(new Point(2, 2)));
 	}
 
+	@Test
+	@DisplayName("assert true when the rotation of a Vector is done in the positive trigonometric (anticlockwise) sense")
+	public void testRotation_truePositiveSense() {
+
+		Vector v = new Vector(new Point(1, 1));
+
+		assertTrue(v.rotation(4).equals(new Point(0, -1)));
+	}
+
+	@Test
+	@DisplayName("assert true when the rotation of a Vector is done in the negative clockwise sense")
+	public void testRotation_trueNegativeSense() {
+
+		Vector v = new Vector(new Point(1, 1));
+
+		assertTrue(v.rotation(-2).equals(new Point(0, -1)));
+	}
+
 }
