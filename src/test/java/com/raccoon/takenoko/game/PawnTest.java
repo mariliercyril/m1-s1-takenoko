@@ -8,17 +8,17 @@ import static org.junit.Assert.*;
 
 public class PawnTest {
 
-    Board testBoard = new HashBoard(new BasicTile(new Point(0,0)));
+    private Board testBoard = new HashBoard(new BasicTile(new Point(0,0)));
 
-    Gardener testGaredner = new Gardener();
-    Panda testPanda = new Panda();
+    private Gardener testGaredner = new Gardener();
+    private Panda testPanda = new Panda();
 
-    Tile greenTile0 = new BasicTile(Color.GREEN);
-    Tile greenTile1 = new BasicTile(Color.GREEN);
-    Tile greenTile2 = new BasicTile(Color.GREEN);
-    Tile pinkTile0 = new BasicTile(Color.PINK);
-    Tile yellowTile0 = new BasicTile(Color.YELLOW);
-    Tile greenTile3 = new BasicTile(Color.GREEN);
+    private Tile greenTile0 = new BasicTile(Color.GREEN);
+    private Tile greenTile1 = new BasicTile(Color.GREEN);
+    private Tile greenTile2 = new BasicTile(Color.GREEN);
+    private Tile pinkTile0 = new BasicTile(Color.PINK);
+    private Tile yellowTile0 = new BasicTile(Color.YELLOW);
+    private Tile greenTile3 = new BasicTile(Color.GREEN);
 
 
     @Test

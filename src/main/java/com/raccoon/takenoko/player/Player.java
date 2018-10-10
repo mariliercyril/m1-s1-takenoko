@@ -8,6 +8,7 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
 import java.util.*;
@@ -24,6 +25,7 @@ public abstract class Player {
     private List<Objective> objectives;
     private static int counter = 0;
     private HashMap<Color, Integer> stomach;
+    private int irrigations;
 
     public Player() {
         score = 0;
@@ -34,6 +36,7 @@ public abstract class Player {
         stomach.put(Color.GREEN, 0);
         stomach.put(Color.YELLOW, 0);
         stomach.put(Color.PINK, 0);
+        irrigations = 0;
     }
 
     public int getScore() {
@@ -42,6 +45,10 @@ public abstract class Player {
 
     public int getId() {
         return id;
+    }
+
+    public int getIrrigations() {
+        return irrigations;
     }
 
     public List<Objective> getObjectives() {
@@ -70,7 +77,7 @@ public abstract class Player {
 
         // check if the actions are compatible (exactly 2 costly actions)
         int validityCheck = 0;
-        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost());
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) { ; }
         if (validityCheck != 2) {
             throw new ForbiddenActionException("Player tried to play an incorrect number of actions.");
         }
@@ -106,12 +113,26 @@ public abstract class Player {
                 break;
             case MOVE_GARDENER:
                 List<Point> gardenerAccessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
-                Point whereToMoveGardener = whereToMoveGardener(gardenerAccessible);
+                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);
                 // check that point is in available points array
                 if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
                 }
                 game.getGardener().move(game.getBoard(), whereToMoveGardener);
+                break;
+            case DRAW_IRRIGATION:
+                Takeyesntko.print("Player drew an irrigation");
+                if (this.keepIrrigation()) {
+                    this.irrigations++;
+                    Takeyesntko.print(String.format("Player chooses to keep it. He now has %d irrigations.", irrigations));
+                    break;
+                }
+                if (!this.putDownIrrigation()) {
+                    this.irrigations++;
+                    Takeyesntko.print(String.format("He can't put it down where he chooses to. He keeps it, he now has %d irrigations.", irrigations));
+                    break;
+                }
+                Takeyesntko.print("Player has put down an irirgation !");
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
@@ -120,14 +141,20 @@ public abstract class Player {
                 game.getObjectivePool().notifyStomachChange(this);
                 break;
             case DRAW_OBJECTIVE:
-                if(objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
+                if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
                     throw new ForbiddenActionException("Player tried to draw an objective with a full hand already");
                 }
                 objectives.add(game.drawObjective());
                 break;
+            case PUT_DOWN_IRRIGATION:
+                if (this.putDownIrrigation()) {
+                    Takeyesntko.print("Player put down an irrigation that he had in his stock ! He now have " + irrigations);
+                    irrigations--;
+                }
+                break;
             case MOVE_PANDA: // Works the same way as MOVE_GARDENER except it's a panda
                 List<Point> pandaAccessible = game.getBoard().getAccessiblePositions(game.getPanda().getPosition());
-                Point whereToMovePanda = whereToMovePanda(pandaAccessible);
+                Point whereToMovePanda = whereToMovePanda(game, pandaAccessible);
                 if (!pandaAccessible.contains(whereToMovePanda)) {
                     throw new ForbiddenActionException("Player tried to put the panda in a non accessible position.");
                 }
@@ -143,6 +170,8 @@ public abstract class Player {
                 Takeyesntko.print(a + " UNSUPPORTED");
         }
     }
+
+    public abstract boolean keepIrrigation();
 
     private void validateObjective(Objective objective) {
         if (objective != null) {
@@ -160,6 +189,8 @@ public abstract class Player {
         }
     }
 
+    protected abstract boolean putDownIrrigation();
+
     protected abstract Action[] planActions(Game game);
 
     protected abstract Point whereToPutDownTile(Game game, Tile t);
@@ -170,16 +201,20 @@ public abstract class Player {
         counter = 0;
     }
 
-    protected abstract Point whereToMoveGardener(List<Point> available);
+    protected abstract Point whereToMoveGardener(Game game, List<Point> available);
 
-    protected abstract Point whereToMovePanda(List<Point> available);
+    protected abstract Point whereToMovePanda(Game game, List<Point> available);
 
     protected void eatBamboo(Color color) {
-        if(Objects.nonNull(color)){
+        if (Objects.nonNull(color)) {
             stomach.put(color, stomach.get(color) + 1);
             Takeyesntko.print(String.format("Player has eaten a %s bamboo ! He now has %d %s bamboo(s) in his stomach", color, stomach.get(color), color));
         }
     }
 
     protected abstract Objective chooseObjectiveToValidate();
+
+    public final boolean putDownIrrigation(Point pos, Vector direction) {
+        return false;
+    }
 }
