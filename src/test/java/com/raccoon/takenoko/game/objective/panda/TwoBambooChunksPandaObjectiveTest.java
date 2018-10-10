@@ -1,10 +1,9 @@
 package com.raccoon.takenoko.game.objective.panda;
 
-import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.HashBoard;
-import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -142,9 +141,9 @@ public class TwoBambooChunksPandaObjectiveTest {
 	public void testCheckIfCompletedWithTileAndBoard() {
 
 		// Create the "pond" Tile (initial Tile)
-		Tile pondTile = new BasicTile();
+		Tile pondTile = new Tile();
 		// Create a first Tile (a first parcel)
-		Tile firstTile = new BasicTile(Color.GREEN);
+		Tile firstTile = new Tile(Color.GREEN);
 
 		// Injects the "pond" Tile in the Board
 		Board hashBoard = new HashBoard(pondTile);

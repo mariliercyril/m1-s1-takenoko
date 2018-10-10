@@ -10,7 +10,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class BasicTileTest {
+public class TileTest {
     private Game g;
 
     Tile origin;
@@ -19,11 +19,11 @@ public class BasicTileTest {
     @Before
     public void setup() {
         g = new Game();
-        g.getBoard().set(new Point(0, 1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(0, 1), new Tile(Color.GREEN));
 
         // put down some tiles
-        g.getBoard().set(new Point(1, 0), new BasicTile(Color.PINK));
-        g.getBoard().set(new Point(0, -1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(1, 0), new Tile(Color.PINK));
+        g.getBoard().set(new Point(0, -1), new Tile(Color.GREEN));
 
         // keep them somewhere (for lisibility)
         origin = g.getBoard().get(new Point(0, 0));

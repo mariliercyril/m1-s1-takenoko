@@ -41,9 +41,9 @@ public class RandomBotTest {
         g = new Game();
         p = new RandomBot();
 
-        Tile greenTile0 = new BasicTile(Color.GREEN);
-        Tile greenTile1 = new BasicTile(Color.GREEN);
-        Tile pinkTile0 = new BasicTile(Color.PINK);
+        Tile greenTile0 = new Tile(Color.GREEN);
+        Tile greenTile1 = new Tile(Color.GREEN);
+        Tile pinkTile0 = new Tile(Color.PINK);
 
         g.getBoard().set(new Point(0, 1), greenTile0);
         g.getBoard().set(new Point(1, 1), pinkTile0);
@@ -97,8 +97,8 @@ public class RandomBotTest {
 
     @Test
     public void failingMovingGardener() {
-        g.getBoard().set(new Point(1, 1), new BasicTile(Color.GREEN));
-        g.getBoard().set(new Point(2, 1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(1, 1), new Tile(Color.GREEN));
+        g.getBoard().set(new Point(2, 1), new Tile(Color.GREEN));
 
         when(mockedBot.whereToMoveGardener(any(), any())).thenReturn(new Point(2, 1));
         // planActions returns null if we don't add this line.

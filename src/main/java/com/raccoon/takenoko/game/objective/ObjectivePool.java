@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game.objective;
 
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;

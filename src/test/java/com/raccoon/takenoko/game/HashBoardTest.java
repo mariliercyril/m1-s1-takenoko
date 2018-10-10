@@ -21,11 +21,11 @@ import static org.mockito.Mockito.verify;
 public class HashBoardTest {
 
     @Mock
-    BasicTile tile0;
+    Tile tile0;
     @Mock
-    BasicTile tile1;
+    Tile tile1;
     @Mock
-    BasicTile tile2;
+    Tile tile2;
 
     private Game g;
 
@@ -38,12 +38,12 @@ public class HashBoardTest {
     @Before
     public void setUp() {
         g = new Game();
-        g.getBoard().set(new Point(0, 1), new BasicTile(Color.GREEN));
+        g.getBoard().set(new Point(0, 1), new Tile(Color.GREEN));
 
         // put down some tiles
-        g.getBoard().set(new Point(1, 0), new BasicTile(Color.PINK));
-        g.getBoard().set(new Point(0, -1), new BasicTile(Color.GREEN));
-        g.getBoard().set(new Point(1, -1), new BasicTile(Color.YELLOW));
+        g.getBoard().set(new Point(1, 0), new Tile(Color.PINK));
+        g.getBoard().set(new Point(0, -1), new Tile(Color.GREEN));
+        g.getBoard().set(new Point(1, -1), new Tile(Color.YELLOW));
 
         // keep them somewhere (for lisibility)
         origin = g.getBoard().get(new Point(0, 0));
@@ -88,12 +88,12 @@ public class HashBoardTest {
     @Test
     public void irrigationTest() {
         HashBoard board = new HashBoard(tile0);
-        Tile test_wet = new BasicTile();
+        Tile test_wet = new Tile();
         board.set(new Point(0,1), test_wet);
         board.set(new Point(1,1), tile1);   // We need a tile here to put another one in (1, 2) for the next test
         assertTrue("The tile should be irrigated because it's adjacent to the pond", test_wet.isIrrigated());
         /* todo : uncomment this test once the tiles can not be irrigated
-        Tile test_dry = new BasicTile();
+        Tile test_dry = new Tile();
         board.set(new Point(1,2), test_dry);
         assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());*/
     }
@@ -113,20 +113,20 @@ public class HashBoardTest {
 
         Point start = new Point(0,0);
 
-        board.set(new Point(0, -1), new BasicTile());
-        board.set(new Point(1,0), new BasicTile());
-        board.set(new Point(1,-1), new BasicTile());
+        board.set(new Point(0, -1), new Tile());
+        board.set(new Point(1,0), new Tile());
+        board.set(new Point(1,-1), new Tile());
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -1)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(1,0)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(1,-1)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(-1,-2)));
 
-        board.set(new Point(-1, -1), new BasicTile());
-        board.set(new Point(-1, -2), new BasicTile());
-        board.set(new Point(-2, -2), new BasicTile());
-        board.set(new Point(0, -2), new BasicTile());
-        board.set(new Point(2, 0), new BasicTile());
+        board.set(new Point(-1, -1), new Tile());
+        board.set(new Point(-1, -2), new Tile());
+        board.set(new Point(-2, -2), new Tile());
+        board.set(new Point(0, -2), new Tile());
+        board.set(new Point(2, 0), new Tile());
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(-2,-2)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(2, 0)));

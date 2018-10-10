@@ -56,7 +56,7 @@ public class Game {
             players.add(newPlayer);
         }
 
-        board = new HashBoard(new BasicTile());     //  The pond tile is placed first
+        board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
 
         objectivePool = new ObjectivePool(this);    // Initialisation of the objective pool
@@ -70,7 +70,7 @@ public class Game {
         this.gardener = new Gardener();
         this.panda = new Panda();
         this.players = players;
-        board = new HashBoard(new BasicTile());
+        board = new HashBoard(new Tile());
         initTileDeck();
         this.objectivePool = new ObjectivePool(this);
     }
@@ -165,7 +165,7 @@ public class Game {
 
         for (Color c : colors) {
             for (int i = 0; i < c.getQuantite(); i++) {
-                tilesDeck.push(new BasicTile(c));
+                tilesDeck.push(new Tile(c));
             }
         }
         Collections.shuffle(tilesDeck);
@@ -207,7 +207,7 @@ public class Game {
     }
 
     public void purge() {
-        board = new HashBoard(new BasicTile());
+        board = new HashBoard(new Tile());
         initTileDeck();
         Player.reinitCounter();
     }

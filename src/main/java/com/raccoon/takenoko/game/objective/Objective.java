@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game.objective;
 
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.Tile;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -56,12 +56,12 @@ public abstract class Objective {
      * Checks whether the objective is completed from a tile and a board.
      * (This version is typically redefined by an {@code Objective} class for <i>parcel</i>.)
      * 
-     * @param basicTile
+     * @param tile
      *  the tile from which the checking is performed
      * @param hashBoard
      *  the game board, on which the pattern is looked for
      */
-    public void checkIfCompleted(Tile basicTile, Board hashBoard) {
+    public void checkIfCompleted(Tile tile, Board hashBoard) {
 
     	throw new UnsupportedOperationException();
     }

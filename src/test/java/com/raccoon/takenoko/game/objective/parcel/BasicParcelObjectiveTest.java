@@ -1,9 +1,8 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import com.raccoon.takenoko.game.BasicTile;
+import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.HashBoard;
-import com.raccoon.takenoko.game.Tile;
 
 import java.awt.Point;
 
@@ -30,8 +29,8 @@ public class BasicParcelObjectiveTest {
 	@BeforeAll
 	public static void constructPondTile() {
 
-		pondTile = new BasicTile();
-		initialTile = new BasicTile();
+		pondTile = new Tile();
+		initialTile = new Tile();
 	}
 
 	@BeforeEach
@@ -66,7 +65,7 @@ public class BasicParcelObjectiveTest {
 	@DisplayName("assert true when basic objective is completed, 3rd case: from the initial Tile to another Tile")
 	public void testIsCompleted_trueInitialToAnotherCase() {
 
-		hashBoard.set(new Point(2, 2), new BasicTile());
+		hashBoard.set(new Point(2, 2), new Tile());
 
 		basicParcelObjective.checkIfCompleted(initialTile, hashBoard);
 		assertTrue(basicParcelObjective.isCompleted());
@@ -76,10 +75,10 @@ public class BasicParcelObjectiveTest {
 	@DisplayName("assert false when basic objective is not completed: from another Tile to a \"lambda\" Tile")
 	public void testIsCompleted_falseAnotherToLambdaCase() {
 
-		Tile anotherTile = new BasicTile();
+		Tile anotherTile = new Tile();
 		hashBoard.set(new Point(3, 3), anotherTile);
 		// A lambda Tile
-		hashBoard.set(new Point(-1, -1), new BasicTile());
+		hashBoard.set(new Point(-1, -1), new Tile());
 
 		basicParcelObjective.checkIfCompleted(anotherTile, hashBoard);
 		assertFalse(basicParcelObjective.isCompleted());
