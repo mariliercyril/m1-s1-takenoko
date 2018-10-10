@@ -32,6 +32,7 @@ public class ObjectivePool {
 
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
+     * @param game The Game this pool belongs to
      */
     public ObjectivePool(Game game) {
 
