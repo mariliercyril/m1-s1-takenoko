@@ -20,7 +20,7 @@ public class HashBoard implements Board {
      */
 
     /**
-     * Return a new HashBoard, initialized with a Tile in its center (0, 0).
+     * Constructs a new HashBoard, initialized with a Tile in its center (0, 0).
      * The representation is hexagonal. Each horizontal line share a common 'y' component of its coordinates, each
      * diagonal from bottom left to top right share a common 'x' component of its coordinates, and each diagonal from
      * top left to bottom right has both its coordinates components evolving in the oposite direction (i.e. [-1, +1], or [+1, -1]).
@@ -33,7 +33,7 @@ public class HashBoard implements Board {
 
         Point firstPosition = new Point(0, 0);
 
-        this.availablePositions = new ArrayList<>(Arrays.asList(this.getNeighboursPrivate(firstPosition)));
+        this.availablePositions = new ArrayList<>(Arrays.asList(this.getNeighbouringCoordinates(firstPosition)));
 
         this.set(new Point(0, 0), firstTile);
         firstTile.setPosition(new Point(0, 0));
@@ -48,7 +48,7 @@ public class HashBoard implements Board {
      **** Private ****
      */
 
-    private Point[] getNeighboursPrivate(Point position) {
+    private Point[] getNeighbouringCoordinates(Point position) {
         /*
         Returns an array with the coordinates of all the neighbours position
         of the specified position
@@ -74,7 +74,7 @@ public class HashBoard implements Board {
          */
         List<Point> neighboursAvailable = new ArrayList<>();
 
-        Point[] neighbours = this.getNeighboursPrivate(position);
+        Point[] neighbours = this.getNeighbouringCoordinates(position);
 
         for (Point point : neighbours) {
 
@@ -108,6 +108,11 @@ public class HashBoard implements Board {
 
         List<Point> neighbourPositions = this.getFreeNeighbouringPositions(position);   // We get the list of the free positions adjacent to one of the new tile
 
+        if(Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0,0))) {     // If we are next to the pond tile
+            // we irrigate the tile, with the opposite direction as the one it is going from the center
+            tile.irrigate(new Vector(position).getOpposite());
+        }
+
         for (Point emptyPosition : neighbourPositions) {        // For each empty position
             if (this.getNeighbours(emptyPosition).size() >= 2 && !availablePositions.contains(emptyPosition)) {
                 this.availablePositions.add(emptyPosition);     // We add it to the available positions if 2 tiles at least are adjacent
@@ -115,7 +120,7 @@ public class HashBoard implements Board {
             }
         }
 
-        tile.setPosition(position);     // we indicate its coordinates to the tile -- MAYBE USELESS ?--
+        tile.setPosition(position);     // we indicate its coordinates to the tile
         Takeyesntko.print("A tile has been placed at " + position + ".");
 
         if (!Objects.isNull(tile.getColor())) {
@@ -126,9 +131,7 @@ public class HashBoard implements Board {
 
     @Override
     public List<Point> getAvailablePositions() {
-
         return this.availablePositions;
-
     }
 
     @Override
@@ -136,7 +139,7 @@ public class HashBoard implements Board {
 
         ArrayList<Tile> neighbours = new ArrayList<>();
 
-        Point[] points = this.getNeighboursPrivate(position);
+        Point[] points = this.getNeighbouringCoordinates(position);
 
         for (Point point : points) {
 

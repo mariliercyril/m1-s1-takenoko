@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -20,7 +21,7 @@ public class PawnTest {
     private Tile yellowTile0 = new Tile(Color.YELLOW);
     private Tile greenTile3 = new Tile(Color.GREEN);
 
-
+    @Ignore("Doesn't consider irrigation of the tiles")
     @Test
     public void move() {
 
@@ -37,7 +38,7 @@ public class PawnTest {
 
 
 
-        assertTrue("The tile adjacent to the tile where the gardener moved didn't grow a bamboo",greenTile1.getBambooSize() == 2);
+        assertEquals("The tile adjacent to the tile where the gardener moved didn't grow a bamboo", 2, greenTile1.getBambooSize());
         testPanda.move(testBoard, new Point(1,2));  // For the purpose of this test, it doesn't matter whether the panda is actually allowed to the tiles, we are only testing the effects of the panda arriving
         // The following tests also make sure that the surrounding tiles weren't affected by the panda
         assertTrue("The tile where the panda landed didn't have one piece of bamboo eaten",greenTile1.getBambooSize() == 1);

@@ -1,20 +1,22 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * This class allows to define a basic tile.
+ * Representation of the tiles of the game.
  */
 public class Tile {
 
     private Point position;
-
 
     private int bambooSize;
     private Color color;
@@ -22,19 +24,30 @@ public class Tile {
 
     private List<Vector> irrigatedTowards;
 
+    /**
+     * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
+     */
     public Tile() {
 
-        irrigated = true;    // todo : change to false when the players have to irrigate the tiles themselves
-        bambooSize = 0;
-        irrigatedTowards = new ArrayList<>();
+        irrigatedTowards = new ArrayList<>(Arrays.asList(UnitVector.getVectors()));
+        this.irrigated = false;
+        this.color = null;
+        position = new Point(0,0);
+
     }
 
+    /**
+     * Constructs a new tile of the specified color
+     */
     public Tile(Color color) {
 
-        this();
         this.color = color;
+        bambooSize = 0;
+        irrigatedTowards = new ArrayList<>();
+        this.irrigated = false;
     }
 
+    // TODO : Remove this, only used in a test…
     public Tile(Point position) {
 
         this();

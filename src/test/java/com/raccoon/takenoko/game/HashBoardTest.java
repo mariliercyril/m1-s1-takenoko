@@ -88,14 +88,14 @@ public class HashBoardTest {
     @Test
     public void irrigationTest() {
         HashBoard board = new HashBoard(tile0);
-        Tile test_wet = new Tile();
+        Tile test_wet = new Tile(Color.YELLOW);
         board.set(new Point(0,1), test_wet);
         board.set(new Point(1,1), tile1);   // We need a tile here to put another one in (1, 2) for the next test
         assertTrue("The tile should be irrigated because it's adjacent to the pond", test_wet.isIrrigated());
-        /* todo : uncomment this test once the tiles can not be irrigated
+
         Tile test_dry = new Tile();
         board.set(new Point(1,2), test_dry);
-        assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());*/
+        assertFalse("This tile shouldn't be irrigated because none of its neighbors have an adjacent irrigation", test_dry.isIrrigated());
     }
 
     @Test
@@ -113,20 +113,20 @@ public class HashBoardTest {
 
         Point start = new Point(0,0);
 
-        board.set(new Point(0, -1), new Tile());
-        board.set(new Point(1,0), new Tile());
-        board.set(new Point(1,-1), new Tile());
+        board.set(new Point(0, -1), new Tile(Color.YELLOW));
+        board.set(new Point(1,0), new Tile(Color.YELLOW));
+        board.set(new Point(1,-1), new Tile(Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -1)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(1,0)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(1,-1)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(-1,-2)));
 
-        board.set(new Point(-1, -1), new Tile());
-        board.set(new Point(-1, -2), new Tile());
-        board.set(new Point(-2, -2), new Tile());
-        board.set(new Point(0, -2), new Tile());
-        board.set(new Point(2, 0), new Tile());
+        board.set(new Point(-1, -1), new Tile(Color.YELLOW));
+        board.set(new Point(-1, -2), new Tile(Color.YELLOW));
+        board.set(new Point(-2, -2), new Tile(Color.YELLOW));
+        board.set(new Point(0, -2), new Tile(Color.YELLOW));
+        board.set(new Point(2, 0), new Tile(Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(-2,-2)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(2, 0)));
