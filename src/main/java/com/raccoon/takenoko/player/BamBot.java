@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BamBot extends Player {
+public abstract class BamBot extends Player {
 
     private Point getBestPoint(List<Point> available, Map<Point, Integer> numberSameColorTiles) {
         Point bestChoice = available.get(0);
@@ -28,7 +28,7 @@ public class BamBot extends Player {
         for (Point p : available) { // For each available spot
             numberSameColorTiles.put(p, 0);
             for (Tile adjacent : game.getBoard().getNeighbours(p)) {    // We find out how many tiles of the same color as the one we want to place are around it
-                if (adjacent.getColor() == t.getColor() && adjacent.getBambooSize() < 4) {
+                if (adjacent.getColor() == t.getColor() && adjacent.getBambooSize() < 4 && adjacent.isIrrigated()) {
                     numberSameColorTiles.put(p, numberSameColorTiles.get(p)+1);
                 }
             }
@@ -70,4 +70,6 @@ public class BamBot extends Player {
 
         return bestTile;
     }
+
+
 }
