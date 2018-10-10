@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
-    <version>OCT10-SNAPSHOT</version> <!-- CHANGE ME -->
+    <version>OCT10</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -41,10 +41,6 @@
                 <configuration>
 
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
-
-                    <arguments>
-                        <argument>SeeABattle</argument>
-                    </arguments>
 
                 </configuration>
 
