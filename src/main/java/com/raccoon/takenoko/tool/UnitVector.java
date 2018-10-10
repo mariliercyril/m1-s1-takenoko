@@ -41,15 +41,15 @@ public enum UnitVector {
 	}
 
 	/**
-	 * Returns six unit vectors (<i>i</i>, <i>j</i> and <i>k</i>, and their opposites),
+	 * Returns six unit vectors (<i>i</i>, <i>j</i>, and <i>k</i>, and their opposites),
 	 * ordered in the trigonometric (anticlockwise) sense, for facilitating the tile position operations.
-	 * Each of these six vectors points to one of the six sides of a {@link Tile},
-	 * of which the position could be used as an application point.
+	 * Each of these six vectors could be used to point, in a unique way, to one of the six sides of a tile
+	 * of which the coordinates define an application common point.
 	 * 
-	 * Note that this method is often to be preferred to the {@code values} (implicit) method.
+	 * <p>Note that this method is often to be preferred to the {@code values()} (implicit) method.</p>
 	 * 
 	 * @return
-	 *  the six unit vectors in the trigonometric direction.
+	 *  the six unit vectors in the trigonometric sense.
 	 */
 	public static Vector[] getVectors() {
 

@@ -107,10 +107,10 @@ public final class Vector extends Point {
 	 * 
 	 * @param angle
 	 *  the angle as the number of rotations, <i>n</i>, to be done
-	 *  for getting the n-th vector (in the trigonometric or clockwise sense)
-	 *  from <i>v</i>
+	 *  for getting the <i>n</i>-th vector in the clockwise sense
+	 *  as well as the trigonometric sense from <i>v</i>
 	 * 
-	 * @return the sum vector
+	 * @return the vector resulting from the rotation
 	 */
 	public Vector rotation(int angle) {
 
