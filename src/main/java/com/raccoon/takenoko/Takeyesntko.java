@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 public class Takeyesntko {
 
-	static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
+    static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
     private static boolean verbose = true;
 
@@ -23,10 +23,9 @@ public class Takeyesntko {
         /*
         Arguments parsing
          */
-        if(args.length <= 0) {
+        if (args.length <= 0) {
             launch1000gamesNoJutsu();
-        }
-        else {
+        } else {
             launch1gameNoJutsu();
         }
     }
@@ -38,7 +37,7 @@ public class Takeyesntko {
      */
     public static void print(String str) {
         if (verbose) {
-        	LOGGER.info(str);
+            LOGGER.info(str);
         }
     }
 
@@ -55,7 +54,7 @@ public class Takeyesntko {
      * Launches 1000 games and prints out the output
      */
     public static int launch1000gamesNoJutsu() {
-    	verbose = false;
+        verbose = false;
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
@@ -94,10 +93,11 @@ public class Takeyesntko {
 
         // this is why we need a log level instead of a boolean
         // printing out results
+        verbose = true;
         print(" -- Launched 1000 games!");
-        print("|\tPlayer\t|\t\tType\t|\tVictories\t|\tPoints\t|");
+        print("|\tPlayer\t|\t\tType\t|\tVictories\t|\t\tPoints\t|");
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("|\t\t#%d\t|\t%s\t|\t\t\t%d\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
+            print(String.format("|\t\t#%d\t|\t%s\t|\t\t%d\t\t|\t\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
 
@@ -112,13 +112,12 @@ public class Takeyesntko {
 
     /**
      * Allows to inject (i.e. at runtime) a verbose value (which is 'true' by default).
-     * 
-     * @param verbose
-     * 	typically a new verbose value
+     *
+     * @param verbose typically a new verbose value
      */
     public static void setVerbose(boolean verbose) {
 
-    	Takeyesntko.verbose = verbose;
+        Takeyesntko.verbose = verbose;
     }
 
 }

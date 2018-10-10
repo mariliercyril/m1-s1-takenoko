@@ -1,0 +1,173 @@
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() -  ________      _       __   __   ______    __    __   ________   __   __   ________  
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() - |__    __|   /   \    |  | /  / |   ___|  |  \  |  | |   __   | |  | /  / |   __   | 
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() -    |  |     / /_\ \   |  |/  /  |  |__    |  |\ |  | |  |  |  | |  |/  /  |  |  |  | 
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() -    |  |    / _____ \  |     <   |   __|_  |  | \|  | |  |__|  | |     <   |  |__|  | 
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() -    |__|   /_/     \_\ |__|\__\  |_______| |__|  \__| |________| |__|\__\  |________| 
+2018-10-07 14:58:57.220 [INFO] com.raccoon.takenoko.Takeyesntko.main() -                                                          Presented by angry raccoons
+
+2018-10-07 14:58:57.246 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=0,y=0].
+2018-10-07 14:58:57.246 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #1 is playing now.
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=0,y=1].
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=0,y=1] increases to 1 chunks.
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #2 is playing now.
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=-1,y=-1].
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=-1] increases to 1 chunks.
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.250 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #3 is playing now.
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=1,y=1].
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=1] increases to 1 chunks.
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #4 is playing now.
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=1,y=2].
+2018-10-07 14:58:57.254 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=1,y=2] increases to 1 chunks.
+2018-10-07 14:58:57.677 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.677 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.677 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #1 is playing now.
+2018-10-07 14:58:57.677 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=2,y=2].
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile GREEN at java.awt.Point[x=2,y=2] increases to 1 chunks.
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #2 is playing now.
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=-1,y=0].
+2018-10-07 14:58:57.681 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile GREEN at java.awt.Point[x=-1,y=0] increases to 1 chunks.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #3 is playing now.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=-2,y=-1].
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=-2,y=-1] increases to 1 chunks.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #4 is playing now.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=2,y=1].
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=2,y=1] increases to 1 chunks.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=3, color=YELLOW}
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 3
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #1 is playing now.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [PUT_DOWN_TILE, MOVE_PANDA, VALID_OBJECTIVE]
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=0,y=-1].
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=0,y=-1] increases to 1 chunks.
+2018-10-07 14:58:57.689 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING MOVE_PANDA
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Panda moves from java.awt.Point[x=0,y=0] to java.awt.Point[x=-1,y=0]
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has eaten a GREEN bamboo ! He now has 1 GREEN bamboo(s) in his stomach
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 0
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #2 is playing now.
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [PUT_DOWN_TILE, MOVE_PANDA, VALID_OBJECTIVE]
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=1,y=0].
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile GREEN at java.awt.Point[x=1,y=0] increases to 1 chunks.
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING MOVE_PANDA
+2018-10-07 14:58:57.693 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Panda moves from java.awt.Point[x=-1,y=0] to java.awt.Point[x=1,y=2]
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has eaten a PINK bamboo ! He now has 1 PINK bamboo(s) in his stomach
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=4, color=PINK}
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 4
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #3 is playing now.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [PUT_DOWN_TILE, MOVE_GARDENER, VALID_OBJECTIVE]
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=2,y=0].
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=2,y=0] increases to 1 chunks.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING MOVE_GARDENER
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Gardener moves from java.awt.Point[x=0,y=0] to java.awt.Point[x=2,y=0]
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=2,y=0] increases to 2 chunks.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=2,y=1] increases to 2 chunks.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=2, color=GREEN}
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 2
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #4 is playing now.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=0,y=2].
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=0,y=2] increases to 1 chunks.
+2018-10-07 14:58:57.697 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=3, color=YELLOW}
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 6
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #1 is playing now.
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [PUT_DOWN_TILE, MOVE_PANDA, VALID_OBJECTIVE]
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=3,y=2].
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=3,y=2] increases to 1 chunks.
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING MOVE_PANDA
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Panda moves from java.awt.Point[x=1,y=2] to java.awt.Point[x=-2,y=-1]
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has eaten a PINK bamboo ! He now has 1 PINK bamboo(s) in his stomach
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=2, color=GREEN}
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 2
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #2 is playing now.
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=3,y=1].
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=3,y=1] increases to 1 chunks.
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 4
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #3 is playing now.
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.701 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=-2,y=-2].
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile PINK at java.awt.Point[x=-2,y=-2] increases to 1 chunks.
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 2
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+Player #4 is playing now.
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Choosen actions : [DRAW_OBJECTIVE, PUT_DOWN_TILE, VALID_OBJECTIVE]
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING DRAW_OBJECTIVE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING PUT_DOWN_TILE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - A tile has been placed at java.awt.Point[x=1,y=3].
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Bamboo on Tile YELLOW at java.awt.Point[x=1,y=3] increases to 1 chunks.
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - PLAYING VALID_OBJECTIVE
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has completed an objective ! AlignmentParcelObjective{isCompleted=TRUE, score=3, color=YELLOW}
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player has played. Current score : 9
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - 
+ RANKING
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player #4 has 9 points.
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player #2 has 4 points.
+2018-10-07 14:58:57.718 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player #1 has 2 points.
+2018-10-07 14:58:57.721 [INFO] com.raccoon.takenoko.Takeyesntko.main() - Player #3 has 2 points.
