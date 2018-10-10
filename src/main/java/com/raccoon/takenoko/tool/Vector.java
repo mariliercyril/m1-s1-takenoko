@@ -103,7 +103,7 @@ public final class Vector extends Point {
 	}
 
 	/**
-	 * Returns the rotation of a vector, <i>v</i>.
+	 * Returns the rotation of a vector <i>v</i>.
 	 * 
 	 * @param angle
 	 *  the angle as the number of rotations, <i>n</i>, to be done
