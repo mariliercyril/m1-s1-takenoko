@@ -68,4 +68,13 @@ public class VectorTest {
 		assertTrue(vector.rotation(-2).equals(new Point(0, -1)));
 	}
 
+	@Test
+	@DisplayName("assert true when the rotation of a Vector is null")
+	public void testRotation_trueThis() {
+
+		Vector v = new Vector(1, 2);
+
+		assertTrue(v.rotation(4).equals(v));
+	}
+
 }
