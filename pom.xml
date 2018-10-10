@@ -42,6 +42,10 @@
 
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
 
+                    <arguments>
+                        <argument>SeeABattle</argument>
+                    </arguments>
+
                 </configuration>
 
             </plugin>

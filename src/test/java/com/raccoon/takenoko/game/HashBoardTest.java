@@ -102,8 +102,8 @@ public class HashBoardTest {
     public void irrigateTest() {
         Board board = g.getBoard();
 
-        assertTrue("Irrigation can't be put between to correct tiles", board.irrigate(new Point(0,-1), UnitVector.K.get()));
-        assertFalse("Irrigation put on a tile with no other tile adjacent", board.irrigate(new Point(1, -1), UnitVector.K.get().getOpposite()));
+        assertTrue("Irrigation can't be put between to correct tiles", board.irrigate(new Point(0,-1), UnitVector.K.getVector ()));
+        assertFalse("Irrigation put on a tile with no other tile adjacent", board.irrigate(new Point(1, -1), UnitVector.K.getVector ().getOpposite()));
 
     }
     //@Ignore

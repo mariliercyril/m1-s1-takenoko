@@ -180,4 +180,8 @@ public class HashBoard implements Board {
         return false;
     }
 
+    @Override
+    public List<Tile> getAllTiles() {
+        return new ArrayList<>(board.values());
+    }
 }

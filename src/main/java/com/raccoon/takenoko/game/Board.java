@@ -48,4 +48,9 @@ public interface Board {
      * @return
      */
     boolean irrigate(Point p, Vector direction);
+
+    /**
+     * @return all the tiles currently on the board
+     */
+    List<Tile> getAllTiles();
 }

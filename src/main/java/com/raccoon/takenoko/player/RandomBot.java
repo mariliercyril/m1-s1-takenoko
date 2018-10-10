@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
@@ -98,7 +99,7 @@ public class RandomBot extends Player {
                     cursor = ++cursor % available.length;
                     continue;
                 }
-                if(choosen.contains(available[cursor])){
+                if (choosen.contains(available[cursor])) {
                     cursor = ++cursor % available.length;
                     continue;
                 }
@@ -132,8 +133,14 @@ public class RandomBot extends Player {
     }
 
     @Override
-    protected boolean putDownIrrigation() {
-        // todo : where to put down the irrigation, in which direction
-        return putDownIrrigation(new Point(0, 0), new Vector(1, 1));
+    protected boolean putDownIrrigation(Game game) {
+        List<Tile> boardTiles = game.getBoard().getAllTiles();
+        Collections.shuffle(boardTiles);
+        boardTiles.removeIf(p -> p.equals(new Point(0, 0)));
+
+        Vector[] directionsTable = UnitVector.getVectors();
+        Collections.shuffle(Arrays.asList(directionsTable));
+
+        return putDownIrrigation(game, boardTiles.get(0).getPosition(), directionsTable[0]);
     }
 }

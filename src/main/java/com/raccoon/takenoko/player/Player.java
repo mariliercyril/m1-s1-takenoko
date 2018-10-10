@@ -122,17 +122,16 @@ public abstract class Player {
                 break;
             case DRAW_IRRIGATION:
                 Takeyesntko.print("Player drew an irrigation");
+                this.irrigations++;
                 if (this.keepIrrigation()) {
-                    this.irrigations++;
                     Takeyesntko.print(String.format("Player chooses to keep it. He now has %d irrigations.", irrigations));
                     break;
                 }
-                if (!this.putDownIrrigation()) {
-                    this.irrigations++;
+                if (!this.putDownIrrigation(game)) {
                     Takeyesntko.print(String.format("He can't put it down where he chooses to. He keeps it, he now has %d irrigations.", irrigations));
                     break;
                 }
-                Takeyesntko.print("Player has put down an irirgation !");
+                Takeyesntko.print(String.format("Player has put down an irirgation ! He now has %d irrigations.", irrigations));
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
@@ -147,9 +146,8 @@ public abstract class Player {
                 objectives.add(game.drawObjective());
                 break;
             case PUT_DOWN_IRRIGATION:
-                if (this.putDownIrrigation()) {
+                if (this.putDownIrrigation(game)) {
                     Takeyesntko.print("Player put down an irrigation that he had in his stock ! He now have " + irrigations);
-                    irrigations--;
                 }
                 break;
             case MOVE_PANDA: // Works the same way as MOVE_GARDENER except it's a panda
@@ -189,7 +187,7 @@ public abstract class Player {
         }
     }
 
-    protected abstract boolean putDownIrrigation();
+    protected abstract boolean putDownIrrigation(Game game);
 
     protected abstract Action[] planActions(Game game);
 
@@ -214,7 +212,11 @@ public abstract class Player {
 
     protected abstract Objective chooseObjectiveToValidate();
 
-    public final boolean putDownIrrigation(Point pos, Vector direction) {
+    public final boolean putDownIrrigation(Game game, Point pos, Vector direction) {
+        if (irrigations > 0) {
+            irrigations--;
+            return game.getBoard().irrigate(pos, direction);
+        }
         return false;
     }
 }
