@@ -37,12 +37,7 @@ public class RandomBot extends Player {
     protected Tile chooseTile(Game game) {  // Randomly chooses one tile out of three
         Random rand = new Random();
         List<Tile> tiles = game.getTiles();
-        int choice;
-        if (tiles.size() != 0) {
-            choice = 0;
-        } else {
-            choice = rand.nextInt() % tiles.size(); // TODO WARNING ARITHMETIC ERROR DIV BY 0
-        }
+        int choice = rand.nextInt() % tiles.size();
         if (choice < 0) {
             choice *= -1;
         }
@@ -136,7 +131,7 @@ public class RandomBot extends Player {
     protected boolean putDownIrrigation(Game game) {
         List<Tile> boardTiles = game.getBoard().getAllTiles();
         Collections.shuffle(boardTiles);
-        boardTiles.removeIf(p -> p.equals(new Point(0, 0)));
+        boardTiles.removeIf(p -> p.getPosition().equals(new Point(0, 0)));
 
         Vector[] directionsTable = UnitVector.getVectors();
         Collections.shuffle(Arrays.asList(directionsTable));
