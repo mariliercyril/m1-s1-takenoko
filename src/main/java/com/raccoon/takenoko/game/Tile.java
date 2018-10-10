@@ -47,13 +47,6 @@ public class Tile {
         this.irrigated = false;
     }
 
-    // TODO : Remove this, only used in a test…
-    public Tile(Point position) {
-
-        this();
-        this.position = position;
-    }
-
     public List<Vector> getIrrigatedTowards() {
         return irrigatedTowards;
     }

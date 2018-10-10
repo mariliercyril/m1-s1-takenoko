@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class PawnTest {
 
-    private Board testBoard = new HashBoard(new Tile(new Point(0,0)));
+    private Board testBoard = new HashBoard(new Tile());
 
     private Gardener testGaredner = new Gardener();
     private Panda testPanda = new Panda();
