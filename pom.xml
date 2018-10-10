@@ -2,6 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
+
     <version>OCT10</version> <!-- CHANGE ME -->
 
     <properties>
