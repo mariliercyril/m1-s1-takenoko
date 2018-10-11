@@ -3,6 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
@@ -51,8 +52,13 @@ public class Game {
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
+        Player newPlayer;
         for (int i = 0; i < numberOfPlayers; i++) {
-            Player newPlayer = new RandomBot();
+            if (i%2 == 0) {
+                newPlayer = new BamBot();
+            } else {
+                newPlayer = new RandomBot();
+            }
             players.add(newPlayer);
         }
 
