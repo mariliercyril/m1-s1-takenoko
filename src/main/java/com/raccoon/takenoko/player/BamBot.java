@@ -1,6 +1,5 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
@@ -24,7 +23,7 @@ public class BamBot extends RandomBot {
        for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
            possibleBambooGrowth.put(available, 0);
            for (Tile adjacent : game.getBoard().getNeighbours(available)) {
-                if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated()) {
+                if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
                     possibleBambooGrowth.put(available, possibleBambooGrowth.get(available)+1);
                 }
            }
@@ -33,6 +32,52 @@ public class BamBot extends RandomBot {
         return Tools.mapMaxKey(possibleBambooGrowth);
     }
 
+    @Override
+    protected Tile chooseTile(Game game) {
+        List<Tile> tiles = game.getTiles();
+        Map<Tile, Point> bestMoves = new HashMap<>();
+
+        for (Tile t : tiles) {  //  Figuring out the best move for each tile
+            bestMoves.put(t, whereToPutDownTile(game, t));
+        }
+
+        Map<Tile, Integer> tileGrowth = new HashMap<>();  // Choosing the tile that gives the most bamboo growth
+        for (Tile t : tiles) {
+            tileGrowth.put(t, 0);
+            for (Tile adjacent : game.getBoard().getNeighbours(bestMoves.get(t))) {
+                if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
+                    tileGrowth.put(t, tileGrowth.get(t)+1);
+                }
+            }
+        }
+
+        Tile choice = Tools.mapMaxKey(tileGrowth);
+        for (Tile t : tiles) {
+            if (t != choice) {
+                game.putBackTile(t);
+            }
+        }
+
+        return choice;
+    }
+
+    @Override
+    protected Point whereToMoveGardener(Game game, List<Point> available) {
+        Map<Point, Integer> outcomes = new HashMap<>();
+        Tile destination;
+
+        for (Point p : available) { // Searching for the place where the gardener can grow the most bamboos
+            outcomes.put(p, 0);
+            destination = game.getBoard().get(p);
+            for (Tile adjacent : game.getBoard().getNeighbours(p)) {
+                if (adjacent.getColor() == destination.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
+                    outcomes.put(p, outcomes.get(p)+1);
+                }
+            }
+        }
+
+        return Tools.mapMaxKey(outcomes);
+    }
 
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
