@@ -44,8 +44,8 @@ public interface Board {
     /**
      * Will irrigate the tile concerned by the call, and the tile next to it in the specified direction.
      * @param p the position of tile to irrigate
-     * @param direction the direction in which we are going to put the tile
-     * @return
+     * @param direction the direction in which we are going to put the irrigation
+     * @return true if the tile has been irrigated
      */
     boolean irrigate(Point p, Vector direction);
 
@@ -53,4 +53,12 @@ public interface Board {
      * @return all the tiles currently on the board
      */
     List<Tile> getAllTiles();
+
+    /**
+     * Checks if the tile can be irrigated in a particular direction following the restricting rules
+     * @param p the position of tile we want to irigate
+     * @param direction the direction in which we want to irrigate
+     * @return true if we can put an irrigation there
+     */
+    boolean canIrrigate(Point p, Vector direction);
 }

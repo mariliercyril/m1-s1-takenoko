@@ -181,7 +181,7 @@ public class Game {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
         Takeyesntko.print("\n RANKING");
         for (Player pl : players) {
-            Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points.");
+            Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points (" + pl.getClass().getSimpleName() + ")");
         }
     }
 

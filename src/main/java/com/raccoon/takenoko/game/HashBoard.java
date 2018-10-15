@@ -108,7 +108,7 @@ public class HashBoard implements Board {
 
         List<Point> neighbourPositions = this.getFreeNeighbouringPositions(position);   // We get the list of the free positions adjacent to one of the new tile
 
-        if(Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0,0))) {     // If we are next to the pond tile
+        if (Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0, 0))) {     // If we are next to the pond tile
             // we irrigate the tile, with the opposite direction as the one it is going from the center
             tile.irrigate(new Vector(position).getOpposite());
         }
@@ -159,7 +159,7 @@ public class HashBoard implements Board {
         ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
 
         for (Vector unitVector : UnitVector.getVectors()) {
-        	Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
+            Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
             // using the UNIT vectors.
 
             while (this.board.containsKey(tempPoint = unitVector.apply(tempPoint))) {
@@ -174,7 +174,7 @@ public class HashBoard implements Board {
     public boolean irrigate(Point p, Vector direction) {
         Point otherPosToIrrigate = new Point(direction.apply(p));
 
-        if (Objects.nonNull(this.get(otherPosToIrrigate))) {
+        if (Objects.nonNull(this.get(otherPosToIrrigate)) && canIrrigate(p, direction)) {
             this.get(p).irrigate(direction);
             this.get(otherPosToIrrigate).irrigate(direction.getOpposite());
             return true;
@@ -187,4 +187,23 @@ public class HashBoard implements Board {
     public List<Tile> getAllTiles() {
         return new ArrayList<>(board.values());
     }
+
+    @Override
+    public boolean canIrrigate(Point p, Vector direction) {
+        Tile t = this.get(p);
+        Tile tNext = this.get(direction.apply(p));
+
+        // We must put down the irrigation between two tiles
+        if (Objects.isNull(tNext)) { return false; }
+
+        List<Vector> l = t.getIrrigatedTowards();
+        List<Vector> lNext = tNext.getIrrigatedTowards();
+
+        return l.contains(direction.rotation(1))            // current tile's direction's left border
+                || l.contains(direction.rotation(-1))       // current tile's direction's right border
+                || lNext.contains(direction.rotation(1))    // next tile's direction's left border
+                || lNext.contains(direction.rotation(-1));  // next tile's direction's right border
+    }
+
+
 }
