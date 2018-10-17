@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-.DS_Store
+
 .git/
 .settings/
 bin/
@@ -9,19 +8,5 @@ target/
 
 .idea
 *.iml
-log
-=======
-.DS_Store
-.git/
-.settings/
-bin/
-target/
-.classpath
-.project
-
-.idea
-*.iml
-*.log
-/.apt_generated/
-/.apt_generated_tests/
->>>>>>> stash
+**.log
+log/**
