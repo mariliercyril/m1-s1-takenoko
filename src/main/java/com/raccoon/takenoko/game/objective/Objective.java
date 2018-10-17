@@ -10,21 +10,21 @@ import com.raccoon.takenoko.player.Player;
  * This class provides a skeletal implementation for the <b>objectives</b> of the game
  * (<i>parcel</i> objectives, <i>gardener</i> objectives, <i>panda</i> objectives)
  * to minimize the effort required to do this implementation.
- * 
+ *
  * <p>To implement an objective, the programmer needs only to extend this class
  * and provide a redefinition for one of the versions of the {@code checkIfCompleted} (overloaded) method.</p>
  */
 public abstract class Objective {
 
-	protected static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
+    protected static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
 
-	protected boolean isCompleted;
-	protected int score;
-	protected Color color;
+    protected boolean isCompleted;
+    protected int score;
+    protected Color color;
 
-	/**
-	 * Sole constructor. (For invocation by subclass constructors.)
-	 */
+    /**
+     * Sole constructor. (For invocation by subclass constructors.)
+     */
     public Objective() {
 
         isCompleted = false;
@@ -32,7 +32,7 @@ public abstract class Objective {
 
     /**
      * Returns the completed state of the objective.
-     * 
+     *
      * @return true if the objective has been completed, otherwise false
      */
     public boolean isCompleted() {
@@ -43,32 +43,40 @@ public abstract class Objective {
     /**
      * Checks whether the objective is completed from a player.
      * (This version is typically redefined by an {@code Objective} class for <i>panda</i>.)
-     * 
-     * @param player
-     *  the player in which the bamboo chunks are looked for
+     *
+     * @param player the player in which the bamboo chunks are looked for
      */
     public void checkIfCompleted(Player player) {
 
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Checks whether the objective is completed from a tile and a board.
      * (This version is typically redefined by an {@code Objective} class for <i>parcel</i>.)
-     * 
-     * @param tile
-     *  the tile from which the checking is performed
-     * @param hashBoard
-     *  the game board, on which the pattern is looked for
+     *
+     * @param tile  the tile from which the checking is performed
+     * @param board the game board, on which the pattern is looked for
      */
-    public void checkIfCompleted(Tile tile, Board hashBoard) {
+    public void checkIfCompleted(Tile tile, Board board) {
 
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
- 
+
+    /**
+     *Checks wether an objective is completed from a board
+     * This method is to be overridden for gardener objectives
+     *
+     * @param board the game board, on which we look for bamboo growth
+     */
+    public void checkIfCompleted(Board board) {
+
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Returns the score which we should have if the objective were completed.
-     * 
+     *
      * @return the score which we should have if the objective were completed
      */
     public int getScore() {
@@ -78,7 +86,7 @@ public abstract class Objective {
 
     /**
      * Returns the color which is expected for the objective to be completed.
-     * 
+     *
      * @return the color which is expected for the objective to be completed
      */
     public Color getColor() {
@@ -92,14 +100,13 @@ public abstract class Objective {
      * and, between curly brackets, its <i>completed state</i>, the <i>score</i> and the <i>color which is expected</i>;
      * for example:
      * <blockquote><b>AlignmentParcelObjective{isCompleted=TRUE, score=2, color=GREEN}</b></blockquote>
-     * 
+     *
      * @return a string representation of the objective with its <i>type</i>, followed by its <i>completed state</i>,
      * the <i>score</i> and the <i>color which is expected</i>
      */
     @Override
     public String toString() {
 
-        return  String.format(RESULT_FORMAT, (this.getClass()).getSimpleName(), isCompleted, score, color);
+        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score, color);
     }
-
 }

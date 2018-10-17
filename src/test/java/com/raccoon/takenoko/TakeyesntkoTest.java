@@ -22,7 +22,7 @@ public class TakeyesntkoTest {
         try {
             assertEquals("Did not launch the 1000 games or counting failed", 1000, Takeyesntko.launch1000gamesNoJutsu());
         }catch(Throwable e){
-            fail(Arrays.toString(e.getStackTrace()));
+            fail("Launched 1000 games, exception raised : " + Arrays.toString(e.getStackTrace()));
         }
     }
 
