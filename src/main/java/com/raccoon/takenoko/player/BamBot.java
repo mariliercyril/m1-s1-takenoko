@@ -3,97 +3,80 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
 import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.tool.Tools;
 
 import java.util.*;
 import java.util.List;
 
-public abstract class BamBot extends Player {
-
-    private Point getBestPoint(List<Point> available, Map<Point, Integer> numberSameColorTiles) {
-        Point bestChoice = available.get(0);
-        for (Point p : available) {
-            if (numberSameColorTiles.get(p) > numberSameColorTiles.get(bestChoice)) {
-                bestChoice = p;
-            }
-        }
-
-        return bestChoice;
-    }
-
-    private Map<Point, Integer> getNumberSameColorTiles(Game game, Tile t) {
-        List<Point> available = game.getBoard().getAvailablePositions();
-        Map<Point, Integer> numberSameColorTiles = new HashMap<>();
-        for (Point p : available) { // For each available spot
-            numberSameColorTiles.put(p, numSameColorNeighbours(game, p));
-        }
-        return numberSameColorTiles;
-    }
+public class BamBot extends RandomBot {
 
 
     @Override
-    protected Point whereToPutDownTile(Game game, Tile t) { // Chooses where the best place to put down a tile
-        Map<Point, Integer> numberSameColorTiles = getNumberSameColorTiles(game, t);
-        return getBestPoint(game.getBoard().getAvailablePositions(), numberSameColorTiles);
+    protected Point whereToPutDownTile(Game game, Tile t) {
+       Map<Point, Integer> possibleBambooGrowth = new HashMap<>();
+
+       for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
+           possibleBambooGrowth.put(available, 0);
+           for (Tile adjacent : game.getBoard().getNeighbours(available)) {
+                if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
+                    possibleBambooGrowth.put(available, possibleBambooGrowth.get(available)+1);
+                }
+           }
+       }
+
+        return Tools.mapMaxKey(possibleBambooGrowth);
     }
 
     @Override
     protected Tile chooseTile(Game game) {
         List<Tile> tiles = game.getTiles();
-        Tile bestTile = tiles.get(0);
-        Point bestPos = whereToPutDownTile(game, bestTile);
-        int maxNumberSameColorTiles = getNumberSameColorTiles(game, bestTile).get(bestPos);
+        Map<Tile, Point> bestMoves = new HashMap<>();
 
-        Point currentPos;
-        int currentNumberSameColorTiles;
+        for (Tile t : tiles) {  //  Figuring out the best move for each tile
+            bestMoves.put(t, whereToPutDownTile(game, t));
+        }
 
-        for (Tile t : tiles) {  // We find which of the three tiles grows the most bamboos when place at its best possible spot
-            currentPos = whereToPutDownTile(game, t);
-            currentNumberSameColorTiles = getNumberSameColorTiles(game, t).get(currentPos);
-
-            if(currentNumberSameColorTiles > maxNumberSameColorTiles) {
-                bestTile = t;
-                maxNumberSameColorTiles = currentNumberSameColorTiles;
+        Map<Tile, Integer> tileGrowth = new HashMap<>();  // Choosing the tile that gives the most bamboo growth
+        for (Tile t : tiles) {
+            tileGrowth.put(t, 0);
+            for (Tile adjacent : game.getBoard().getNeighbours(bestMoves.get(t))) {
+                if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
+                    tileGrowth.put(t, tileGrowth.get(t)+1);
+                }
             }
         }
 
-        for (Tile t : tiles) {  // We need to put back the tiles we don't want
-            if (t != bestTile) {
+        Tile choice = Tools.mapMaxKey(tileGrowth);
+        for (Tile t : tiles) {
+            if (t != choice) {
                 game.putBackTile(t);
             }
         }
 
-        return bestTile;
-    }
-
-    private int numSameColorNeighbours(Game game, Point p) {
-        int result = 0;
-        Tile t = game.getBoard().get(p);
-        for (Tile adjacent : game.getBoard().getNeighbours(p)) {    // We find out how many tiles of the same color as the one we want to place are around it
-            if (adjacent.getColor() == t.getColor() && adjacent.getBambooSize() < 4 && adjacent.isIrrigated()) {
-                result++;
-            }
-        }
-        return result;
+        return choice;
     }
 
     @Override
     protected Point whereToMoveGardener(Game game, List<Point> available) {
+        Map<Point, Integer> outcomes = new HashMap<>();
+        Tile destination;
 
-        Point bestPoint = available.get(0);
-        int max = numSameColorNeighbours(game, bestPoint);
-
-        for (Point p : available) {
-            if (max < numSameColorNeighbours(game, p)) {
-                max = numSameColorNeighbours(game, p);
-                bestPoint = p;
+        for (Point p : available) { // Searching for the place where the gardener can grow the most bamboos
+            outcomes.put(p, 0);
+            destination = game.getBoard().get(p);
+            for (Tile adjacent : game.getBoard().getNeighbours(p)) {
+                if (adjacent.getColor() == destination.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
+                    outcomes.put(p, outcomes.get(p)+1);
+                }
             }
         }
-        return bestPoint;
+
+        return Tools.mapMaxKey(outcomes);
     }
 
     @Override
@@ -123,11 +106,16 @@ public abstract class BamBot extends Player {
     @Override
     protected Action[] planActions(Game game) {
         Action[] actionSet = new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};  // Safety action set
+
+        if (game.getBoard().getAllTiles().size() == 1) {
+            return actionSet;
+        }
+
         boolean hasWantedObjective = false;
 
         // Always wants to have one "have x bamboos of each color" objective
         for (Objective obj : getObjectives()) {
-            if (obj instanceof TwoBambooChunksPandaObjective) {
+            if (obj instanceof PandaObjective) {
                 hasWantedObjective = true;
                 break;
             }
@@ -171,9 +159,9 @@ public abstract class BamBot extends Player {
             }
          }
 
-         if (completedObjectives.size() != 0) {
+         if (completedObjectives.size() > 0) {
              for (Objective completed : completedObjectives) {
-                 if (completed instanceof TwoBambooChunksPandaObjective) {
+                 if (completed instanceof PandaObjective) {
                      return completed;
                  }
              }

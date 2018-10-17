@@ -3,6 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
@@ -27,9 +28,9 @@ public class Game {
     private ObjectivePool objectivePool;    // The pool of objective cards
 
     /*
-    *************************************************
-    *                 Constructors
-    *************************************************
+     *************************************************
+     *                 Constructors
+     *************************************************
      */
 
     /**
@@ -41,6 +42,7 @@ public class Game {
 
     /**
      * Construct a game with new players, all with the randomBot implementation
+     *
      * @param numberOfPlayers the number of players to add to the game
      */
     public Game(int numberOfPlayers) {
@@ -51,8 +53,13 @@ public class Game {
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
+        Player newPlayer;
         for (int i = 0; i < numberOfPlayers; i++) {
-            Player newPlayer = new RandomBot();
+            if (i % 2 == 0) {
+                newPlayer = new BamBot();
+            } else {
+                newPlayer = new RandomBot();
+            }
             players.add(newPlayer);
         }
 
@@ -64,6 +71,7 @@ public class Game {
 
     /**
      * Constructs a game with a given list of players. Useful to test and give a specific composition of bots to the game.
+     *
      * @param players the list of {@code Players} to add to the game
      */
     public Game(List<Player> players) {
@@ -96,9 +104,11 @@ public class Game {
     public Board getBoard() {
         return board;
     }
+
     public Gardener getGardener() {
         return gardener;
     }
+
     public Panda getPanda() {
         return panda;
     }
@@ -120,7 +130,7 @@ public class Game {
     public void start() {           // Starts the game: while the game isn't over, each player plays
         int i = 0;
         while (!gameOver()) {
-            Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " is playing now.");
+            Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " " + players.get(i).getClass().getSimpleName() + " is playing now.");
             try {
                 players.get(i).play(this);
             } catch (ForbiddenActionException e) {
@@ -175,7 +185,7 @@ public class Game {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
         Takeyesntko.print("\n RANKING");
         for (Player pl : players) {
-            Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points.");
+            Takeyesntko.print("Player #" + pl.getId() + " has " + pl.getScore() + " points (" + pl.getClass().getSimpleName() + ")");
         }
     }
 

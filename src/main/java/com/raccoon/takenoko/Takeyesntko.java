@@ -55,13 +55,14 @@ public class Takeyesntko {
      */
     public static int launch1000gamesNoJutsu() {
         verbose = false;
+        int nbGames = 1000;
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
         int voidedGames = 0;
         String[] playersTypes = new String[nbPlayers];
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < nbGames; i++) {
             Game game = new Game();
             game.start();
 
@@ -91,22 +92,21 @@ public class Takeyesntko {
             game.purge();
         }
 
-        // this is why we need a log level instead of a boolean
         // printing out results
         verbose = true;
-        print(" -- Launched 1000 games!");
-        print("|\tPlayer\t|\tType\t\t|\tVictories\t|\tPoints\t|");
+        print(" -- Launched " + nbGames + " games!");
+        print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("|\t#%d\t|\t%s\t|\t%d\t\t|\t%d\t|", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
+            print(String.format("| #%-7d|  %-13s|%12d |%9d |", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0", voidedGames));
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %d percents)", voidedGames, (voidedGames * 100 / nbGames)));
 
-        // Checksum : if the checksum is not 1000, points were badly distributed
+        // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
         for (int w : wins) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be 1000)%n", totalGames + voidedGames));
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %d)%n", totalGames + voidedGames, nbGames));
         return totalGames + voidedGames;
     }
 

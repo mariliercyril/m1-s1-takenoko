@@ -5,7 +5,7 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.Vector;
@@ -102,7 +102,6 @@ public abstract class Player {
     private void execute(Action a, Game game) throws ForbiddenActionException {
         Takeyesntko.print("PLAYING " + a);
 
-
         switch (a) {
             case PUT_DOWN_TILE:
                 // refactorable : chooseTile can return a tile with the chosen position in it.
@@ -119,6 +118,7 @@ public abstract class Player {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
                 }
                 game.getGardener().move(game.getBoard(), whereToMoveGardener);
+                game.getObjectivePool().notifyBambooGrowth(game.getBoard());
                 break;
             case DRAW_IRRIGATION:
                 Takeyesntko.print("Player drew an irrigation");
@@ -135,15 +135,17 @@ public abstract class Player {
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
+                Takeyesntko.print(String.format("Player choosed to validate the objective %s !", objective));
                 validateObjective(objective);
-                // The completion of bamboo objective could have changed : we removed bamboo from our stomach
-                game.getObjectivePool().notifyStomachChange(this);
+                // we may have emptied a stomach
+                game.getObjectivePool().notifyStomachEmpty(this);
                 break;
             case DRAW_OBJECTIVE:
                 if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
                     throw new ForbiddenActionException("Player tried to draw an objective with a full hand already");
                 }
                 objectives.add(game.drawObjective());
+                Takeyesntko.print(String.format("Player has drawn an objective, he now has %d in his hand : %s", objectives.size(), Arrays.toString(new List[]{objectives})));
                 break;
             case PUT_DOWN_IRRIGATION:
                 if (this.putDownIrrigation(game)) {
@@ -161,8 +163,8 @@ public abstract class Player {
 
                 if (destinationHadBamboo) {
                     eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
+                    game.getObjectivePool().notifyBambooEaten(game.getBoard(), this);  // The overall bamboo situation has changed
                 }
-                game.getObjectivePool().notifyStomachChange(this);  // Notification that something changed in our stomach
                 break;
             default:
                 Takeyesntko.print(a + " UNSUPPORTED");
@@ -177,7 +179,7 @@ public abstract class Player {
             this.objectives.remove(objective);
             this.score += objective.getScore();
 
-            if (objective instanceof TwoBambooChunksPandaObjective) {
+            if (objective instanceof PandaObjective) {
                 /* Be careful, the number here has to be changed when we'll have objective involving a
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
@@ -213,7 +215,7 @@ public abstract class Player {
     protected abstract Objective chooseObjectiveToValidate();
 
     public final boolean putDownIrrigation(Game game, Point pos, Vector direction) {
-        if (irrigations > 0) {
+        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction)) {
             irrigations--;
             return game.getBoard().irrigate(pos, direction);
         }

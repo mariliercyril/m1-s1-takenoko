@@ -1,4 +1,4 @@
-.DS_Store
+
 .git/
 .settings/
 bin/
@@ -8,4 +8,5 @@ target/
 
 .idea
 *.iml
-*.log
+**.log
+log/**

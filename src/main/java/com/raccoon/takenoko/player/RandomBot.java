@@ -77,7 +77,7 @@ public class RandomBot extends Player {
         }
 
         while (score < 2) {
-            if (r.nextBoolean()) {
+            if (r.nextBoolean() && r.nextBoolean()) {
                 // ban unavailable actions
                 // can't put irrigation if none has been taken
                 if (available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0) {
@@ -89,11 +89,12 @@ public class RandomBot extends Player {
                     cursor = ++cursor % available.length;
                     continue;
                 }
-                // can't draw objective if I already have 5
+                // can't draw objective if I already have 2
                 if (available[cursor] == Action.DRAW_OBJECTIVE && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES) {
                     cursor = ++cursor % available.length;
                     continue;
                 }
+                // can't play the same action twice
                 if (choosen.contains(available[cursor])) {
                     cursor = ++cursor % available.length;
                     continue;
@@ -118,6 +119,8 @@ public class RandomBot extends Player {
             }
 
         }
+        Collections.shuffle(this.getObjectives());
+        if (this.getObjectives().size() > 0) { return this.getObjectives().get(0); }
 
         return null;    // If no objective is completed, we just return null
     }
