@@ -3,9 +3,14 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.awt.*;
 import java.util.List;
@@ -13,7 +18,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BamBotTest {
 
     private Map<Point, Color> tileColors;
@@ -23,6 +31,15 @@ public class BamBotTest {
     private final Color green = Color.GREEN;
     private final Color pink = Color.PINK;
     private final Color yellow = Color.YELLOW;
+
+    @Mock
+    private PandaObjective pObj1;
+    @Mock
+    private PandaObjective pObj2;
+    @Mock
+    private AlignmentParcelObjective aObj1;
+    @Mock
+    private AlignmentParcelObjective aObj2;
 
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));
@@ -117,5 +134,23 @@ public class BamBotTest {
 
     @Test
     public void chooseObjectiveToValidate() {
+
+        assertEquals(0, bot.getObjectives().size());    // No objective in hand -> null
+        assertNull(bot.chooseObjectiveToValidate());
+
+        bot.addObjective(aObj1);
+        bot.addObjective(pObj1);
+        when(pObj1.isCompleted()).thenReturn(false);
+        when(aObj1.isCompleted()).thenReturn(false);
+
+        assertEquals(2, bot.getObjectives().size());    // 1 objective of each in hand but none completed -> null
+        assertNull(bot.chooseObjectiveToValidate());
+
+        when(aObj1.isCompleted()).thenReturn(true); // When only a non-panda objective is completed -> the non-panda objective
+        assertSame(aObj1, bot.chooseObjectiveToValidate());
+
+        when(pObj1.isCompleted()).thenReturn(true);
+        assertSame(pObj1, bot.chooseObjectiveToValidate());
+
     }
 }
