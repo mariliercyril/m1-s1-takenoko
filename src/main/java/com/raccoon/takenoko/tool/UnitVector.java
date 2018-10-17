@@ -56,10 +56,9 @@ public enum UnitVector {
 	}
 
 	/**
-	 * Returns six unit vectors (<i>i</i>, <i>j</i>, and <i>k</i>, and their opposites),
-	 * ordered in the trigonometric (anticlockwise) sense, for facilitating the tile position operations.
-	 * Each of these six vectors could be used to point, in a unique way, to one of the six sides of a tile
-	 * of which the coordinates define an application common point.
+	 * Returns the six unit vectors as {@code Vector}, ordered in the trigonometric (anticlockwise) sense,
+	 * for facilitating the tile position operations. Each of these six vectors could be used to point,
+	 * in a unique way, to one of the six sides of a tile of which the coordinates define an application common point.
 	 * 
 	 * <p>Note that this method is often to be preferred to the {@code values()} (implicit) method.</p>
 	 * 
@@ -70,8 +69,8 @@ public enum UnitVector {
 
 		Vector[] unitVectors = new Vector[6];
 
-		for (int i = 0; i < UnitVector.values().length; i++) {
-			unitVectors[i] = UnitVector.values()[i].getVector();
+		for (int i = 0; i < 6; i++) {
+			unitVectors[i] = (UnitVector.values()[i]).getVector();
 		}
 
 		return unitVectors;
