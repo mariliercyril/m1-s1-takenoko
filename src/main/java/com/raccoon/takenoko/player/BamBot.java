@@ -3,7 +3,7 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
@@ -115,7 +115,7 @@ public class BamBot extends RandomBot {
 
         // Always wants to have one "have x bamboos of each color" objective
         for (Objective obj : getObjectives()) {
-            if (obj instanceof TwoBambooChunksPandaObjective) {
+            if (obj instanceof PandaObjective) {
                 hasWantedObjective = true;
                 break;
             }
@@ -161,7 +161,7 @@ public class BamBot extends RandomBot {
 
          if (completedObjectives.size() != 0) {
              for (Objective completed : completedObjectives) {
-                 if (completed instanceof TwoBambooChunksPandaObjective) {
+                 if (completed instanceof PandaObjective) {
                      return completed;
                  }
              }

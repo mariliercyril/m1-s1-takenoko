@@ -5,7 +5,7 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.Vector;
@@ -177,7 +177,7 @@ public abstract class Player {
             this.objectives.remove(objective);
             this.score += objective.getScore();
 
-            if (objective instanceof TwoBambooChunksPandaObjective) {
+            if (objective instanceof PandaObjective) {
                 /* Be careful, the number here has to be changed when we'll have objective involving a
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.

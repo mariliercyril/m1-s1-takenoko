@@ -7,6 +7,9 @@ import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * The {@code TwoBambooChunksPandaObjective} class implements the <i>panda</i> {@link Objective}
@@ -19,7 +22,7 @@ import java.util.HashMap;
  * <li>5 for PINK bamboo chunks</li>
  * </ul>
  */
-public class TwoBambooChunksPandaObjective extends Objective {
+public class PandaObjective extends Objective {
 
 	private static final int SCORE_BASE = 3;
 
@@ -29,7 +32,7 @@ public class TwoBambooChunksPandaObjective extends Objective {
 	 * @param color
 	 *  the color of the bamboo chunks which should have been eaten
 	 */
-	public TwoBambooChunksPandaObjective(Color color) {
+	public PandaObjective(Color color) {
 
 		super();
 		this.color = color;
@@ -46,6 +49,16 @@ public class TwoBambooChunksPandaObjective extends Objective {
 		// and the color is the expected color (color of Objective)
 		if (stomach.entrySet().stream().anyMatch(b -> ((b.getKey()).equals(color) && (b.getValue()) >= 2))) {
 			isCompleted = true;
+		} else {
+			stomach.entrySet().stream().forEach(b1 ->
+				stomach.entrySet().stream().forEach(b2 ->
+					stomach.entrySet().stream().forEach(b3 -> {
+						if (!(b2.getKey()).equals(b1.getKey()) && !(b3.getKey()).equals(b1.getKey()) && !(b3.getKey()).equals(b2.getKey())) {
+							isCompleted = true;
+						}
+					})
+				)
+			);
 		}
 	}
 
