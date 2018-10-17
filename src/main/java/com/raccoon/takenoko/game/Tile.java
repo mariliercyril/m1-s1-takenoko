@@ -5,7 +5,6 @@ import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +27,6 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-
         irrigatedTowards = new ArrayList<>(Arrays.asList(UnitVector.getVectors()));
         this.irrigated = false;
         this.color = null;

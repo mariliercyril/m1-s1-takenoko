@@ -77,7 +77,7 @@ public class RandomBot extends Player {
         }
 
         while (score < 2) {
-            if (r.nextBoolean() || r.nextBoolean()) {
+            if (r.nextBoolean() && r.nextBoolean()) {
                 // ban unavailable actions
                 // can't put irrigation if none has been taken
                 if (available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0) {

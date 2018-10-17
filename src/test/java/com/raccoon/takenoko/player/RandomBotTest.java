@@ -29,10 +29,10 @@ public class RandomBotTest {
     private Game g;
 
     @Mock
-    AlignmentParcelObjective mockObjective;
+    private AlignmentParcelObjective mockObjective;
 
     @Mock
-    RandomBot mockedBot;
+    private RandomBot mockedBot;
 
     @Before
     public void build() {
@@ -99,6 +99,7 @@ public class RandomBotTest {
     public void failingMovingGardener() {
         g.getBoard().set(new Point(1, 1), new Tile(Color.GREEN));
         g.getBoard().set(new Point(2, 1), new Tile(Color.GREEN));
+        Point beforePoint = g.getGardener().getPosition();
 
         when(mockedBot.whereToMoveGardener(any(), any())).thenReturn(new Point(2, 1));
         // planActions returns null if we don't add this line.
@@ -110,6 +111,9 @@ public class RandomBotTest {
         } catch (Exception e) {
             assertEquals(ForbiddenActionException.class, e.getClass());
         }
+
+        // for this test, we test that the gardener hasn't moved
+        assertSame(beforePoint, g.getGardener().getPosition());
 
     }
 }
