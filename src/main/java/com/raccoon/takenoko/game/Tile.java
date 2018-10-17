@@ -98,4 +98,9 @@ public class Tile {
             this.bambooSize--;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
