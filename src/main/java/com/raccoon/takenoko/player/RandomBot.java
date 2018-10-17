@@ -119,6 +119,8 @@ public class RandomBot extends Player {
             }
 
         }
+        Collections.shuffle(this.getObjectives());
+        if (this.getObjectives().size() > 0) { return this.getObjectives().get(0); }
 
         return null;    // If no objective is completed, we just return null
     }

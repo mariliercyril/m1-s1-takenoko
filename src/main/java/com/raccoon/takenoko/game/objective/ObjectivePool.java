@@ -1,11 +1,10 @@
 package com.raccoon.takenoko.game.objective;
 
-import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.game.*;
 import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
+import com.raccoon.takenoko.tool.Constants;
 
 import java.util.*;
 
@@ -27,11 +26,13 @@ public class ObjectivePool {
     */
     private List<PandaObjective> bambooObjectives;
     private List<AlignmentParcelObjective> patternObjectives;
+    private List<GardenerObjective> gardenerObjectives;
 
     private Deque<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
 
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
+     *
      * @param game The Game this pool belongs to
      */
     public ObjectivePool(Game game) {
@@ -43,6 +44,7 @@ public class ObjectivePool {
         allObjectives = new ArrayList<>();
         bambooObjectives = new ArrayList<>();
         patternObjectives = new ArrayList<>();
+        gardenerObjectives = new ArrayList<>();
 
         /* Instanciation of the objectives and filling of the lists.
         First version, we juste create 10 card for each colour and each objective.
@@ -61,6 +63,13 @@ public class ObjectivePool {
                 bambooObjectives.add(newObjective);
             }
         }
+        for (int i = 1; i < 4; i++) {
+            for (Color color : Color.values()) {
+                GardenerObjective newGObjective = new GardenerObjective(i, color, 1);
+                this.allObjectives.add(newGObjective);
+                gardenerObjectives.add(newGObjective);
+            }
+        }
 
         // Initialisation of the deck
         deck = new ArrayDeque<>();
@@ -70,6 +79,7 @@ public class ObjectivePool {
 
     /**
      * Draws an objective from the deck.
+     *
      * @return an objective yet unplayed in this game
      */
     public Objective draw() {
@@ -80,35 +90,55 @@ public class ObjectivePool {
     /**
      * Notifies the pool that a tile has been put on the board. The completion checking of the objectives
      * depending on the patterns is triggered.
+     *
      * @param tile the tile that has been put down, allows to check only the area where this event happened
      */
     public void notifyTilePut(Tile tile) {
-        // We just go through the pattern objectives and check for their completion
-        for(Objective objective : patternObjectives) {
-            objective.checkIfCompleted(tile, game.getBoard());
-        }
+        updatePatternObjectives(tile);
     }
 
     /**
      * Notifies the pool that a player's stomach state has changed. Either he had the panda to eat a bamboo
      * or he validated a bamboo objective, and his stomach has been emptied of some bamboo chunks.
+     *
      * @param player the {@code Player} who triggered the action. The changes will have happened in his stomach.
      */
-    public void notifyStomachChange(Player player) {
-        /*
-        Maybe not the best way to do this, but it works
-         */
-
-        List<Objective> objectives = player.getObjectives();    // First we get the list of the player's objectives
-
-        for (Objective objective : objectives) {            // For each of these objectives,
-            if(this.bambooObjectives.contains(objective)) { // we check if it is a bamboo objective
-                // (thanks to its membership in the bamboo objective list)
-                objective.checkIfCompleted(player); // If it is, we check for its completion
-            }
-        }
-
+    public void notifyStomachEmpty(Player player) {
+        updatePandaObjectives(player);
     }
 
+    public void notifyBambooEaten(Board b, Player p) {
+        updatePandaObjectives(p);
+        updateGardenerObjectives(b);
+    }
+
+
+    public void notifyBambooGrowth(Board b) {
+        updateGardenerObjectives(b);
+    }
+
+    private void updatePatternObjectives(Tile t) {
+        for (Objective objective : patternObjectives) {
+            objective.checkIfCompleted(t, game.getBoard());
+        }
+    }
+
+    private void updatePandaObjectives(Player p) {
+
+        List<Objective> objectives = p.getObjectives();    // First we get the list of the player's objectives
+
+        for (Objective objective : objectives) {            // For each of these objectives,
+            if (this.bambooObjectives.contains(objective)) { // we check if it is a bamboo objective
+                // (thanks to its membership in the bamboo objective list)
+                objective.checkIfCompleted(p); // If it is, we check for its completion
+            }
+        }
+    }
+
+    private void updateGardenerObjectives(Board b) {
+        for (GardenerObjective go : gardenerObjectives) {
+            go.checkIfCompleted(b);
+        }
+    }
 
 }
