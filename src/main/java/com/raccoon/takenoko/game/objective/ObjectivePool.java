@@ -3,7 +3,7 @@ package com.raccoon.takenoko.game.objective;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.objective.panda.TwoBambooChunksPandaObjective;
+import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.player.Player;
 
@@ -25,7 +25,7 @@ public class ObjectivePool {
     ***** CAUTION ***** : This is a draft, has to be updated with an interface or a mother class
     for all the types. For now we just have one objective per type.
     */
-    private List<TwoBambooChunksPandaObjective> bambooObjectives;
+    private List<PandaObjective> bambooObjectives;
     private List<AlignmentParcelObjective> patternObjectives;
 
     private Deque<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
@@ -56,7 +56,7 @@ public class ObjectivePool {
         }
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
-                TwoBambooChunksPandaObjective newObjective = new TwoBambooChunksPandaObjective(color);
+                PandaObjective newObjective = new PandaObjective(color);
                 this.allObjectives.add(newObjective);
                 bambooObjectives.add(newObjective);
             }
