@@ -37,7 +37,6 @@ public class HashBoard implements Board {
 
         this.set(new Point(0, 0), firstTile);
         firstTile.setPosition(new Point(0, 0));
-
     }
 
     /*
@@ -122,11 +121,6 @@ public class HashBoard implements Board {
 
         tile.setPosition(position);     // we indicate its coordinates to the tile
         Takeyesntko.print("A tile has been placed at " + position + ".");
-
-        if (!Objects.isNull(tile.getColor())) {
-            tile.increaseBambooSize(1);
-        }
-
     }
 
     @Override

@@ -84,7 +84,10 @@ public class Tile {
     }
 
     public void irrigate(Vector direction) {
-        this.irrigated = true;
+        if (!this.irrigated) {
+            this.irrigated = true;
+            this.increaseBambooSize(1);
+        }
 
         if (!irrigatedTowards.contains(direction)) {
             this.irrigatedTowards.add(direction);
