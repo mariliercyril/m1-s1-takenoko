@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,11 +34,7 @@ public class BamBotTest {
     @Mock
     private PandaObjective pObj1;
     @Mock
-    private PandaObjective pObj2;
-    @Mock
     private AlignmentParcelObjective aObj1;
-    @Mock
-    private AlignmentParcelObjective aObj2;
 
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));
@@ -57,6 +52,47 @@ public class BamBotTest {
 
     @Test
     public void whereToPutDownTile() {
+        place(0,1, yellow);
+        place(1,1, pink);
+        place(1,0,yellow);
+        place(0, -1, pink);
+        place(-1, -1, green);
+        place(-1, 0, green);
+
+        place(1,2, pink);
+        place(2, 1, pink);
+        place(1, -1, yellow);
+        place(-1, -2, yellow);
+        place(-1, 1, pink);
+
+        place(0,2, yellow);
+        place(2,0, green);
+        place(0,2, green);
+        place(-2, -2, green);
+        place(-2, 0, green);
+
+        Tile pinkTile = new Tile(pink);
+        Tile greenTile = new Tile(green);
+
+        assertNotNull(bot.whereToPutDownTile(g, pinkTile));
+        assertNotNull(bot.whereToPutDownTile(g, greenTile));
+
+        irrigate(1,1, UnitVector.L);
+        irrigate(1,1, UnitVector.K);
+        irrigate(1,1, UnitVector.J);
+        irrigate(1,1, UnitVector.I);
+
+        assertEquals(new Point(2,2), bot.whereToPutDownTile(g, pinkTile));
+        assertNotNull(bot.whereToPutDownTile(g, greenTile));
+
+        irrigate(-1, 0, UnitVector.N);
+        irrigate(-1, 0, UnitVector.M);
+        irrigate(-2, 0, UnitVector.N);
+        irrigate(-1, -1, UnitVector.L);
+        irrigate(-2, -2, UnitVector.K);
+
+        assertEquals(new Point(-2, -1), bot.whereToPutDownTile(g, greenTile));
+        assertEquals(new Point(2,2), bot.whereToPutDownTile(g, pinkTile));
     }
 
     @Test
