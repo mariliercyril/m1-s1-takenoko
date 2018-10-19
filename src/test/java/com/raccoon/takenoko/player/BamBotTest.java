@@ -3,7 +3,7 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
@@ -43,6 +43,8 @@ public class BamBotTest {
     private void irrigate(int x, int y, UnitVector v) {
         g.getBoard().irrigate(new Point(x,y), v.getVector());
     }
+
+
 
     @Before
     public void init() {
@@ -160,8 +162,27 @@ public class BamBotTest {
         assertTrue(possibleBest.contains(bot.whereToMoveGardener(g, g.getBoard().getAccessiblePositions(g.getGardener().getPosition()))));
     }
 
+
     @Test
     public void whereToMovePanda() {
+        place(0, 1, pink);
+        place(1,1, pink);
+        place(1, 0, green);
+
+        irrigate(1, 1, UnitVector.N);
+        irrigate(1, 1, UnitVector.I);
+        irrigate(1, 1, UnitVector.J);
+
+        bot.getStomach().put(pink, 1);  // The player already has a pink bamboo in his stomach
+
+        assertEquals(new Point(1, 0), bot.whereToMovePanda(g, g.getBoard().getAccessiblePositions(g.getPanda().getPosition())));    // He goes to eat the green bamboo
+        bot.getStomach().put(green, 1); // He eats the green bamboo
+
+        place(2, 1, yellow);
+        place(2, 2, yellow);
+        g.getGardener().move(g.getBoard(), new Point(2, 2));
+
+        assertEquals(new Point(2, 2), bot.whereToMovePanda(g, g.getBoard().getAccessiblePositions(g.getPanda().getPosition())));    // Now he only needs yellow
     }
 
     @Test

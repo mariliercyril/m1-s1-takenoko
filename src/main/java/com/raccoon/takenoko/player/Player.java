@@ -5,7 +5,7 @@ import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.Vector;
@@ -24,7 +24,7 @@ public abstract class Player {
     private int id;
     private List<Objective> objectives;
     private static int counter = 0;
-    private HashMap<Color, Integer> stomach;
+    private Map<Color, Integer> stomach;
     private int irrigations;
 
     public Player() {
@@ -59,7 +59,7 @@ public abstract class Player {
         this.objectives.add(objective);
     }
 
-    public HashMap<Color, Integer> getStomach() {
+    public Map<Color, Integer> getStomach() {
         return stomach;
     }
 
