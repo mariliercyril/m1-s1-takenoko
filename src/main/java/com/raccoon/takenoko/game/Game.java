@@ -129,7 +129,14 @@ public class Game {
 
     public void start() {           // Starts the game: while the game isn't over, each player plays
         int i = 0;
+        int turnNumber = 0;
         while (!gameOver()) {
+
+            if (i == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
+                Takeyesntko.print("\n######################################################");
+                Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
+            }
+
             Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " " + players.get(i).getClass().getSimpleName() + " is playing now.");
             try {
                 players.get(i).play(this);
