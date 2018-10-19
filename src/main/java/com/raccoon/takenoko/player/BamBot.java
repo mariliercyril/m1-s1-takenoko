@@ -3,7 +3,7 @@ package com.raccoon.takenoko.player;
 import com.raccoon.takenoko.game.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
@@ -95,7 +95,7 @@ public class BamBot extends RandomBot {
         //  Looks for the first tile of the needed color
 
         for (Point p : available) {
-            if (game.getBoard().get(p).getColor() == minColor) {
+            if (game.getBoard().get(p).getColor() == minColor && game.getBoard().get(p).getBambooSize() > 0) {
                 return p;
             }
         }

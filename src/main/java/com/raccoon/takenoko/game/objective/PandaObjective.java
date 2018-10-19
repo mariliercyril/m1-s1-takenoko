@@ -1,4 +1,4 @@
-package com.raccoon.takenoko.game.objective.panda;
+package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Color;
 
@@ -7,6 +7,7 @@ import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.player.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The {@code PandaObjective} class implements the <i>panda</i> {@link Objective}
@@ -41,7 +42,7 @@ public class PandaObjective extends Objective {
 	public void checkIfCompleted(Player player) {
 
 		// Gets the size of the bamboo which is on the final tile
-		HashMap<Color, Integer> stomach = player.getStomach();
+		Map<Color, Integer> stomach = player.getStomach();
 
 		// Is completed if the size of the bamboo which is on the final tile is at least equal to 2
 		// and the color is the expected color (color of Objective)

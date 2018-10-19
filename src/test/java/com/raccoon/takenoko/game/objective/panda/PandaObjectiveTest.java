@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Color;
 import com.raccoon.takenoko.game.HashBoard;
 
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.player.Player;
 
 import java.awt.Point;
