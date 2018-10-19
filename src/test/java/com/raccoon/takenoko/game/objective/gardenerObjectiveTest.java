@@ -12,7 +12,7 @@ import java.awt.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class gardenerObjectiveTest {
+public class GardenerObjectiveTest {
 
     private Board b;
     private Objective go1;
