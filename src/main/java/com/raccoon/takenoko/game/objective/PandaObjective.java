@@ -32,17 +32,8 @@ public class PandaObjective extends Objective {
 	public PandaObjective(Color color) {
 
 		super();
+		score = SCORE_BASE + ((color == null) ? SCORE_BASE : color.ordinal());
 		this.color = color;
-		setScore(this.color);
-	}
-
-	/**
-	 * Constructs a {@code PandaObjective} of the second type.
-	 */
-	public PandaObjective() {
-
-		super();
-		score = SCORE_BASE + SCORE_BASE;
 	}
 
 	@Override
@@ -59,18 +50,6 @@ public class PandaObjective extends Objective {
 		} else if (stomach.values().stream().allMatch(n -> n > 0)) {
 			isCompleted = true;
 		}
-	}
-
-	/**
-	 * Sets the score according to the color
-	 * (if the {@code PandaObjective} of the first type is completed).
-	 * 
-	 * @param color
-	 *  the color which is associated with the objective
-	 */
-	private void setScore(Color color) {
-
-		score = SCORE_BASE + color.ordinal();
 	}
 
 }

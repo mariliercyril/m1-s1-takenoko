@@ -42,8 +42,8 @@ public class AlignmentParcelObjective extends Objective {
 	public AlignmentParcelObjective(Color color) {
 
 		super();
+		score = SCORE_BASE + color.ordinal();
 		this.color = color;
-		setScore(color);
 
 		areAligned = false;
 	}
@@ -98,17 +98,6 @@ public class AlignmentParcelObjective extends Objective {
 		if (areAligned && ((tiles.stream()).allMatch(t -> (t.getColor()).equals(color)))) {
 			isCompleted = true;
 		}
-	}
-
-	/**
-	 * Sets the score according to the color.
-	 * 
-	 * @param color
-	 * 	the color which is associated with the objective
-	 */
-	private void setScore(Color color) {
-
-		score = SCORE_BASE + color.ordinal();
 	}
 
 }
