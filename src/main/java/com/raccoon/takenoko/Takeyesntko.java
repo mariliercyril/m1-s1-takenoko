@@ -97,7 +97,7 @@ public class Takeyesntko {
         print(" -- Launched " + nbGames + " games!");
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("| #%-7d|  %-13s|%12d |%9d |", ( i + 1 ), playersTypes[i], wins[i], scores[i]));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i] / 10, scores[i]));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %d percents)", voidedGames, (voidedGames * 100 / nbGames)));
 
