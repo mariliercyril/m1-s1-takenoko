@@ -62,13 +62,11 @@ public enum UnitVector {
      */
 	public UnitVector opposite() {
 
-		UnitVector[] unitVectors = values();
-
-		return unitVectors[(this.ordinal() + 3) % 6];
+		return values()[(this.ordinal() + 3) % 6];
 	}
 
 	/**
-	 * Returns the unit Vector resulting from the rotation from an unit Vector <i>v</i>.
+	 * Returns the {@code UnitVector} resulting from the rotation from an unit Vector <i>v</i>.
 	 * 
 	 * @param angle
 	 *  the angle as the number, <i>n</i>, of rotations to be done
@@ -79,9 +77,7 @@ public enum UnitVector {
 	 */
 	public UnitVector rotation(int angle) {
 
-		UnitVector[] unitVectors = values();
-
-		return unitVectors[(this.ordinal() + ((angle < 0) ? 6 : 0) + (angle % 6)) % 6];
+		return values()[(this.ordinal() + ((angle < 0) ? 6 : 0) + (angle % 6)) % 6];
 	}
 
 }
