@@ -120,8 +120,7 @@ public class HashBoardTest {
 
     @Test
     public void irrigateTest() {
-        // Testing if a tile can be irrigated toward the pond ??
-        //assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t2.getPosition(), UnitVector.K));
+        assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t1.getPosition(), UnitVector.J));
         assertFalse("Irrigation put on a tile with no other tile adjacent", b.irrigate(t3.getPosition(), UnitVector.K.opposite()));
 
     }
