@@ -55,6 +55,10 @@ public class HashBoard implements Board {
         of the specified position
          */
 
+        Point[] tab = new Point[6];
+
+
+
 
         Point[] vectors = new Point[6];
         vectors[0] = new Point(position.x - 1, position.y);
@@ -102,7 +106,6 @@ public class HashBoard implements Board {
 
     @Override
     public void set(Point position, Tile tile) {
-        //TODO : check for irrigable state update when a tile is put down
 
         this.availablePositions.remove(position);    // We remove our position from the list (will crash if this position was not available…)
 
@@ -110,26 +113,49 @@ public class HashBoard implements Board {
 
         List<Point> neighbourPositions = this.getFreeNeighbouringPositions(position);   // We get the list of the free positions adjacent to one of the new tile
 
-        if (Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0, 0))) {     // If we are next to the pond tile
-            // we irrigate the tile, with the opposite direction as the one it is going from the center
+        /*
+        ********************************************************
+        * All this code just to treat the case of the irrigation
+        * of the tiles next to the pond.
+        * This is the initialisation of the conditions to build a coherent
+        * irrigation network.
+         */
+        if (Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0, 0))) {
 
-            /*
-            Ugliness alert, this should be written more clearly
-             */
-            UnitVector direction = null;
+            UnitVector directionOfThePond = null;
+            /* We look for the UnitVector pointing toward the pond from our tile
+            As we don't have a way to get a UnitVector from a corresponding vector.
+            */
             for (int i = 0; i < UnitVector.values().length; i++) {
-                if (UnitVector.values()[i].getVector().equals(new Vector(position))) {
-                    direction = UnitVector.values()[i];
+                if (UnitVector.values()[i].getVector().equals((new Vector(position)).getOpposite())) {
+                    directionOfThePond = UnitVector.values()[i];
                 }
             }
 
-            tile.irrigate(direction.opposite());
-            //TODO : check if a tile is adjacent !!
-            tile.setIrrigable(direction.opposite().rotation(1));
-            tile.setIrrigable(direction.opposite().rotation(-1));
+            // We put an irrigation chanel on the border adjacent to the pond
+            tile.irrigate(directionOfThePond);
 
+            // then we gather the vectors from our tile to our potential neighbours
+            UnitVector firstNeighbourDirection = directionOfThePond.rotation(-1);
+            UnitVector secondNeighbourDirection = directionOfThePond.rotation(1);
+
+            if (board.containsKey(firstNeighbourDirection.getVector().applyTo(position))) {
+                // If we have a neighbour there
+                // we tell our tile to be irrigable on this border
+                tile.setIrrigable(firstNeighbourDirection);
+                // and to the adjacent tile as well
+                board.get(firstNeighbourDirection.getVector().applyTo(position)).setIrrigable(firstNeighbourDirection.opposite());
+            }
+            if (board.containsKey(secondNeighbourDirection.getVector().applyTo(position))) {
+                // If we have a neighbour there
+                // we tell our tile to be irrigable on this border
+                tile.setIrrigable(secondNeighbourDirection);
+                // and to the adjacent tile as well
+                board.get(secondNeighbourDirection.getVector().applyTo(position)).setIrrigable(secondNeighbourDirection.opposite());
+            }
         }
 
+        // We maintain the list of available positions
         for (Point emptyPosition : neighbourPositions) {        // For each empty position adjacent to a tile
             if (this.getNeighbours(emptyPosition).size() >= 2 && !availablePositions.contains(emptyPosition)) {
                 // If 2 tiles at least are adjacent and if it's not there yet
@@ -234,6 +260,7 @@ public class HashBoard implements Board {
 
     @Override
     public boolean canIrrigate(Point p, UnitVector direction) {
+
         Tile t = this.get(p);
         Tile tNext = this.get(direction.getVector().applyTo(p));
 

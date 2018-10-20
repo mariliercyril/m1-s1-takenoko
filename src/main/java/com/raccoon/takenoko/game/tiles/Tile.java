@@ -131,7 +131,6 @@ public class Tile {
      * @param direction a element from UnitVector, indicating the side to put the canal on.
      */
     public void irrigate(UnitVector direction) {
-        //TODO : store the side irrigation state in the new map
 
         if (!this.irrigated) {  // If we are not yet irrigated
             this.irrigated = true;  // we become irrigated
@@ -154,9 +153,7 @@ public class Tile {
      * @param direction the UnitVector pointing toward the side to set irrigable.
      */
     public void setIrrigable(UnitVector direction) {
-        /*TODO : Use of a single UnitVector to set irrigable both the sides ?
-        Could be done if the direction is a reference to a point rather than a side…
-        */
+
         if (this.sideIrrigationState.get(direction).equals(IrrigationState.NOT_IRRIGATED)) {
             this.sideIrrigationState.put(direction, IrrigationState.IRRIGABLE);
         }
