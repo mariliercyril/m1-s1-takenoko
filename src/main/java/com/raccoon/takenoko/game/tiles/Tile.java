@@ -2,7 +2,6 @@ package com.raccoon.takenoko.game.tiles;
 
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
 import java.util.*;
@@ -24,7 +23,7 @@ public class Tile {
     private boolean irrigated;
     private Color color;
 
-    private List<Vector> irrigatedTowards;
+    private List<UnitVector> irrigatedTowards;
 
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
@@ -38,7 +37,10 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-        irrigatedTowards = new ArrayList<>(Arrays.asList(UnitVector.getVectors()));
+        irrigatedTowards = new ArrayList<>();
+        for (UnitVector unitVector : UnitVector.values()) {
+        	irrigatedTowards.add(unitVector);
+        }
         this.irrigated = false;
         this.color = null;
         position = new Point(0,0);
@@ -117,7 +119,7 @@ public class Tile {
         return this.sideIrrigationState.get(direction);
     }
 
-    public List<Vector> getIrrigatedTowards() {
+    public List<UnitVector> getIrrigatedTowards() {
         //TODO : replace its usages by getIrrigationState
         return irrigatedTowards;
     }
@@ -139,8 +141,8 @@ public class Tile {
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
 
-        if (!irrigatedTowards.contains(direction.getVector())) {
-            this.irrigatedTowards.add(direction.getVector());
+        if (!irrigatedTowards.contains(direction)) {
+            this.irrigatedTowards.add(direction);
         }
 
         this.sideIrrigationState.put(direction, IrrigationState.IRRIGATED);

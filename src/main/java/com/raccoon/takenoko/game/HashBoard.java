@@ -170,11 +170,11 @@ public class HashBoard implements Board {
 
         ArrayList<Point> accessiblePositions = new ArrayList<>();   // Instantiation of the empty list
 
-        for (Vector unitVector : UnitVector.getVectors()) {
+        for (UnitVector unitVector : UnitVector.values()) {
             Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
             // using the UNIT vectors.
 
-            while (this.board.containsKey(tempPoint = unitVector.applyTo(tempPoint))) {
+            while (this.board.containsKey(tempPoint = unitVector.getVector().applyTo(tempPoint))) {
                 accessiblePositions.add(tempPoint);
             }
         }
@@ -233,15 +233,15 @@ public class HashBoard implements Board {
     }
 
     @Override
-    public boolean canIrrigate(Point p, Vector direction) {
+    public boolean canIrrigate(Point p, UnitVector direction) {
         Tile t = this.get(p);
-        Tile tNext = this.get(direction.applyTo(p));
+        Tile tNext = this.get(direction.getVector().applyTo(p));
 
         // We must put down the irrigation between two tiles
         if (Objects.isNull(tNext)) { return false; }
 
-        List<Vector> l = t.getIrrigatedTowards();
-        List<Vector> lNext = tNext.getIrrigatedTowards();
+        List<UnitVector> l = t.getIrrigatedTowards();
+        List<UnitVector> lNext = tNext.getIrrigatedTowards();
 
         return l.contains(direction.rotation(1))            // current tile's direction's left border
                 || l.contains(direction.rotation(-1))       // current tile's direction's right border

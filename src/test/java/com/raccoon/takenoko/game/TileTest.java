@@ -3,7 +3,6 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,7 +65,8 @@ public class TileTest {
     @Test
     public void tileNextToLakeIsIrrigated() {
         assertTrue("Tile is not irrigated even though asked.", t1.isIrrigated());
-        assertTrue("Tile has not been irrigated in the right direction", t1.getIrrigatedTowards().contains(new Vector(0, -1)));
+        // N is the unit Vector (0, -1)
+        assertTrue("Tile has not been irrigated in the right direction", t1.getIrrigatedTowards().contains(UnitVector.N));
     }
 
 }

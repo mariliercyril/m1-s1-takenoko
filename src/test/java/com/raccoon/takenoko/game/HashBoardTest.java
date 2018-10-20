@@ -3,7 +3,6 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -158,23 +157,29 @@ public class HashBoardTest {
     @Test
     public void irrigatedTowardsSomething() {
         assertTrue("Tile next to last irrigated tile, and in the right direction, is not irrigated", t3.isIrrigated());
-        assertTrue("Next tile irrigated is irrigated in the wrong direction.", t3.getIrrigatedTowards().contains(new Vector(0, 1)));
+        // K is the unit Vector (0, 1)
+        assertTrue("Next tile irrigated is irrigated in the wrong direction.", t3.getIrrigatedTowards().contains(UnitVector.K));
     }
 
     @Test
     public void canIrrigateTest() {
         // can irrigate roads directly leaving the pond tile
-        assertTrue("Can't irrigate path directly next to pond.", b.canIrrigate(t5.getPosition(), new Vector(1, 0)));
+    	// I is the unit Vector (1, 0)
+        assertTrue("Can't irrigate path directly next to pond.", b.canIrrigate(t5.getPosition(), UnitVector.I));
 
         // can't irrigate tile in a direction that has no neighbour
-        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), new Vector(-1, 0)));
+    	// L is the unit Vector (-1, 0), the opposite unit Vector of I
+        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), UnitVector.I.opposite()));
 
         // can't irrigate if there is no irrigation coming from pond tile to this intersection
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), new Vector(-1, 0)));
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t5.getPosition(), new Vector(1, 1)));
+    	// L is the unit Vector (-1, 0), the opposite unit Vector of I
+        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), UnitVector.I.opposite()));
+    	// J is the unit Vector (1, 1)
+        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t5.getPosition(), UnitVector.J));
 
         // can irrigate if there is an irrigation path from pond to here
-        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), new Vector(-1, -1)));
+    	// M is the unit Vector (-1, 0), the opposite unit Vector of J
+        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), UnitVector.J.opposite()));
 
         // assertTrue(t5.isIrrigated());
         // assertTrue(t6.isIrrigated());

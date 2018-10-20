@@ -215,7 +215,7 @@ public abstract class Player {
     protected abstract Objective chooseObjectiveToValidate();
 
     public final boolean putDownIrrigation(Game game, Point pos, UnitVector direction) {
-        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction.getVector())) {
+        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction)) {
             irrigations--;
             return game.getBoard().irrigate(pos, direction);
         }
