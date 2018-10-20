@@ -1,6 +1,5 @@
-package com.raccoon.takenoko.game;
+package com.raccoon.takenoko.game.tiles;
 
-import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;

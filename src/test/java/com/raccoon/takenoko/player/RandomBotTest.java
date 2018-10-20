@@ -2,8 +2,9 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.*;
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.Before;
 import org.junit.Test;

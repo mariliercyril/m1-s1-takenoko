@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
@@ -45,17 +47,17 @@ public class HashBoardTest {
     public void setUp() {
         g = new Game();
         b = g.getBoard();
-        b.set(new Point(0, 1), new Tile(Color.GREEN));
+        b.set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
 
         // put down some tiles
-        b.set(new Point(1, 0), new Tile(Color.PINK));
-        b.set(new Point(0, -1), new Tile(Color.GREEN));
-        b.set(new Point(1, -1), new Tile(Color.YELLOW));
+        b.set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.PINK));
+        b.set(new Point(0, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
+        b.set(new Point(1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
 
-        b.set(new Point(1, 1), new Tile(Color.YELLOW));
-        b.set(new Point(0, 1), new Tile(Color.YELLOW));
-        b.set(new Point(2, 1), new Tile(Color.YELLOW));
-        b.set(new Point(2, 2), new Tile(Color.YELLOW));
+        b.set(new Point(1, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        b.set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        b.set(new Point(2, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        b.set(new Point(2, 2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
 
         // keep them somewhere (for lisibility)
         Tile origin = b.get(new Point(0, 0));
@@ -108,7 +110,7 @@ public class HashBoardTest {
     @Test
     public void irrigationTest() {
         HashBoard board = new HashBoard(tile0);
-        Tile test_wet = new Tile(Color.YELLOW);
+        Tile test_wet = new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW);
         board.set(new Point(0, 1), test_wet);
         board.set(new Point(1, 1), tile1);   // We need a tile here to put another one in (1, 2) for the next test
         assertTrue("The tile should be irrigated because it's adjacent to the pond", test_wet.isIrrigated());
@@ -132,19 +134,19 @@ public class HashBoardTest {
 
         Point start = new Point(0, 0);
 
-        board.set(new Point(0, -1), new Tile(Color.YELLOW));
-        board.set(new Point(1, 0), new Tile(Color.YELLOW));
-        board.set(new Point(1, -1), new Tile(Color.YELLOW));
+        board.set(new Point(0, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -1)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(1, 0)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(1, -1)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(-1, -2)));
 
-        board.set(new Point(-1, -1), new Tile(Color.YELLOW));
-        board.set(new Point(-1, -2), new Tile(Color.YELLOW));
-        board.set(new Point(-2, -2), new Tile(Color.YELLOW));
-        board.set(new Point(0, -2), new Tile(Color.YELLOW));
+        board.set(new Point(-1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(-1, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(-2, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(0, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
         board.set(new Point(2, 0), new Tile(Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(-2, -2)));

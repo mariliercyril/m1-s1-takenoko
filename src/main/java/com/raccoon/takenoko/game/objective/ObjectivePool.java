@@ -2,6 +2,8 @@ package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.*;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 
 import java.util.*;

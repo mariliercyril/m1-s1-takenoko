@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
@@ -20,10 +22,10 @@ public class TileTest {
     @Before
     public void setup() {
         g = new Game();
-        g.getBoard().set(new Point(0, 1), new Tile(Color.GREEN));
+        g.getBoard().set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
 
         // put down some tiles
-        g.getBoard().set(new Point(1, 0), new Tile(Color.PINK));
+        g.getBoard().set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.PINK));
         g.getBoard().set(new Point(0, -1), new Tile(Color.GREEN));
 
         // keep them somewhere (for lisibility)

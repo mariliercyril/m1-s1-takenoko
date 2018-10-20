@@ -1,7 +1,8 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -15,11 +16,11 @@ public class PawnTest {
     private Gardener testGaredner = new Gardener();
     private Panda testPanda = new Panda();
 
-    private Tile greenTile0 = new Tile(Color.GREEN);
-    private Tile greenTile1 = new Tile(Color.GREEN);
-    private Tile greenTile2 = new Tile(Color.GREEN);
-    private Tile pinkTile0 = new Tile(Color.PINK);
-    private Tile yellowTile0 = new Tile(Color.YELLOW);
+    private Tile greenTile0 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
+    private Tile greenTile1 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
+    private Tile greenTile2 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
+    private Tile pinkTile0 = new Tile(com.raccoon.takenoko.game.tiles.Color.PINK);
+    private Tile yellowTile0 = new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW);
     private Tile greenTile3 = new Tile(Color.GREEN);
 
 

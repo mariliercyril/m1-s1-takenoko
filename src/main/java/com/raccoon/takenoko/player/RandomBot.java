@@ -1,12 +1,11 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
 import java.util.*;

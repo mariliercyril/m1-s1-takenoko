@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 
 import java.util.List;
 

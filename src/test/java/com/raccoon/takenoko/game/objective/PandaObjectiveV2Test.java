@@ -1,6 +1,6 @@
 package com.raccoon.takenoko.game.objective;
 
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.player.Player;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
