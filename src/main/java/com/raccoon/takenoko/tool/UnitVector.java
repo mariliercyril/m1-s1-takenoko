@@ -58,6 +58,8 @@ public enum UnitVector {
 
     /**
      * Returns the opposite {@code UnitVector} of the enum element.
+     * (This method corresponds to do "rotation(3)".)
+     * 
      * @return an enum element, the opposite of the one its called to
      */
 	public UnitVector opposite() {
