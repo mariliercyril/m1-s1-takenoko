@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +31,8 @@ public class TileTest {
         t1 = g.getBoard().get(new Point(1, 0));
 
         // irrigate them where possible
-        t1.irrigate(new Vector(-1, -1));
-        t1.irrigate(new Vector(0, -1));
+        t1.irrigate(UnitVector.M);
+        t1.irrigate(UnitVector.N);
 
         g.getGardener().move(g.getBoard(), new Point(0, 1));
     }

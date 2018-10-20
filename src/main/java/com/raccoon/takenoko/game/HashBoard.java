@@ -100,6 +100,7 @@ public class HashBoard implements Board {
 
     @Override
     public void set(Point position, Tile tile) {
+        //TODO : check for irrigable state update when a tile is put down
 
         this.availablePositions.remove(position);    // We remove our position from the list (will crash if this position was not available…)
 
@@ -109,13 +110,28 @@ public class HashBoard implements Board {
 
         if (Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0, 0))) {     // If we are next to the pond tile
             // we irrigate the tile, with the opposite direction as the one it is going from the center
-            tile.irrigate(new Vector(position).getOpposite());
+
+            /*
+            Ugliness alert, this should be written more clearly
+             */
+            UnitVector direction = null;
+            for (int i = 0; i < UnitVector.values().length; i++) {
+                if (UnitVector.values()[i].getVector().equals(new Vector(position))) {
+                    direction = UnitVector.values()[i];
+                }
+            }
+
+            tile.irrigate(direction.opposite());
+            //TODO : check if a tile is adjacent !!
+            tile.setIrrigable(direction.opposite().rotation(1));
+            tile.setIrrigable(direction.opposite().rotation(-1));
+
         }
 
-        for (Point emptyPosition : neighbourPositions) {        // For each empty position
+        for (Point emptyPosition : neighbourPositions) {        // For each empty position adjacent to a tile
             if (this.getNeighbours(emptyPosition).size() >= 2 && !availablePositions.contains(emptyPosition)) {
-                this.availablePositions.add(emptyPosition);     // We add it to the available positions if 2 tiles at least are adjacent
-                // and if it's not there yet
+                // If 2 tiles at least are adjacent and if it's not there yet
+                this.availablePositions.add(emptyPosition);     // we add it to the available positions
             }
         }
 
@@ -156,7 +172,7 @@ public class HashBoard implements Board {
             Point tempPoint = initialPosition;      // tempPoint will travel to every position accessible in straight line
             // using the UNIT vectors.
 
-            while (this.board.containsKey(tempPoint = unitVector.apply(tempPoint))) {
+            while (this.board.containsKey(tempPoint = unitVector.applyTo(tempPoint))) {
                 accessiblePositions.add(tempPoint);
             }
         }
@@ -165,13 +181,45 @@ public class HashBoard implements Board {
     }
 
     @Override
-    public boolean irrigate(Point p, Vector direction) {
-        Point otherPosToIrrigate = new Point(direction.apply(p));
+    public boolean irrigate(Point p, UnitVector direction) {
 
-        if (Objects.nonNull(this.get(otherPosToIrrigate)) && canIrrigate(p, direction)) {
-            this.get(p).irrigate(direction);
-            this.get(otherPosToIrrigate).irrigate(direction.getOpposite());
-            return true;
+        // Get the coordinates of the second tile involved in this irrigation
+        Point otherPositionToIrrigate = new Point(direction.getVector().applyTo(p));
+
+        if (board.containsKey(otherPositionToIrrigate) && this.get(p).getIrrigationState(direction).equals(IrrigationState.IRRIGABLE)) {
+            // If the position actually consists in two tiles adjacent connected to the irrigation network
+            //TODO : Replace the canIrrigate with a check of the irrigationState
+            this.get(p).irrigate(direction);    // We irrigate the tile
+            this.get(otherPositionToIrrigate).irrigate(direction.opposite());   // and the adjacent one
+
+            /*
+            **********************************************************************************
+            DANGER ZONE : I'll comment, refactor and explain this later. Pontential source of bug.
+            Variables have to have a better name
+             */
+
+            int[] angles = {-1, 1};
+
+            for (int angle : angles) {
+                UnitVector directionVector = direction.rotation(angle);
+                Point irrigablePosition = directionVector.getVector().applyTo(p);
+                if(board.containsKey(irrigablePosition)) {
+                    // If we have a tile that becomes irrigable
+                    Tile irrigableTile = board.get(irrigablePosition);
+
+                    this.get(p).setIrrigable(directionVector);
+                    this.get(otherPositionToIrrigate).setIrrigable(directionVector.rotation(angle));
+                    irrigableTile.setIrrigable(directionVector.opposite());
+                    irrigableTile.setIrrigable(directionVector.opposite().rotation(angle));
+                }
+            }
+
+            /*
+            END OF THE DANGER ZONE
+            ***************************************************
+             */
+
+            return true;    // Means the irrigation procedure worked
         }
 
         return false;
@@ -185,7 +233,7 @@ public class HashBoard implements Board {
     @Override
     public boolean canIrrigate(Point p, Vector direction) {
         Tile t = this.get(p);
-        Tile tNext = this.get(direction.apply(p));
+        Tile tNext = this.get(direction.applyTo(p));
 
         // We must put down the irrigation between two tiles
         if (Objects.isNull(tNext)) { return false; }

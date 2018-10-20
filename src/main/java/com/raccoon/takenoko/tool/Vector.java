@@ -6,7 +6,7 @@ import java.awt.Point;
  * The {@code Vector} class defines any vector of a 2-dimensional space.
  * <p>
  * In addition to defining a vector, this class provides methods for the vectors, such as:<ul>
- * <li>{@code apply(Point)}</li>
+ * <li>{@code applyTo(Point)}</li>
  * <li>{@code getOpposite()}</li>
  * <li>{@code sum(Vector...)}</li>
  * </ul>
@@ -66,7 +66,7 @@ public final class Vector extends Point {
 	 * 
 	 * @return the point resulting from the application of a vector to a point
 	 */
-	public Point apply(Point point) {
+	public Point applyTo(Point point) {
 
 		return new Point(point.x + this.x, point.y + this.y);
 	}

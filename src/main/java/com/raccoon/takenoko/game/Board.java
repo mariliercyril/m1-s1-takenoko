@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.*;
@@ -47,7 +48,7 @@ public interface Board {
      * @param direction the direction in which we are going to put the irrigation
      * @return true if the tile has been irrigated
      */
-    boolean irrigate(Point p, Vector direction);
+    boolean irrigate(Point p, UnitVector direction);
 
     /**
      * @return all the tiles currently on the board

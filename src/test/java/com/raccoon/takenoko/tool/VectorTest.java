@@ -26,7 +26,7 @@ public class VectorTest {
 	@DisplayName("assert true when a Vector (X, Y) allows to have a translation from P (x, x) to P' (x + X, y + Y)")
 	public void testApply() {
 
-		assertTrue((vector.apply(new Point(1, 2))).equals(new Point(2, 3)));
+		assertTrue((vector.applyTo(new Point(1, 2))).equals(new Point(2, 3)));
 	}
 
 	@Test

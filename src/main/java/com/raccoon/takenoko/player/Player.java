@@ -8,6 +8,7 @@ import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
@@ -214,8 +215,8 @@ public abstract class Player {
 
     protected abstract Objective chooseObjectiveToValidate();
 
-    public final boolean putDownIrrigation(Game game, Point pos, Vector direction) {
-        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction)) {
+    public final boolean putDownIrrigation(Game game, Point pos, UnitVector direction) {
+        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction.getVector())) {
             irrigations--;
             return game.getBoard().irrigate(pos, direction);
         }

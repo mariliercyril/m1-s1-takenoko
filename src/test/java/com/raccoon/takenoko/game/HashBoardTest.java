@@ -70,9 +70,9 @@ public class HashBoardTest {
         t7 = b.get(new Point(2, 2));
 
         // irrigate them where possible
-        b.irrigate(t1.getPosition(), new Vector(-1, -1));
-        b.irrigate(t1.getPosition(), new Vector(0, -1));
-        b.irrigate(t1.getPosition(), new Vector(0, 1));
+        b.irrigate(t1.getPosition(), UnitVector.M);
+        b.irrigate(t1.getPosition(), UnitVector.N);
+        b.irrigate(t1.getPosition(), UnitVector.K);
     }
 
     @Test
@@ -120,8 +120,9 @@ public class HashBoardTest {
 
     @Test
     public void irrigateTest() {
-        assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t2.getPosition(), UnitVector.K.getVector()));
-        assertFalse("Irrigation put on a tile with no other tile adjacent", b.irrigate(t3.getPosition(), UnitVector.K.getVector().getOpposite()));
+        // Testing if a tile can be irrigated toward the pond ??
+        //assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t2.getPosition(), UnitVector.K));
+        assertFalse("Irrigation put on a tile with no other tile adjacent", b.irrigate(t3.getPosition(), UnitVector.K.opposite()));
 
     }
 

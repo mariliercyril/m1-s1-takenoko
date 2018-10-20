@@ -136,7 +136,7 @@ public class RandomBot extends Player {
         Collections.shuffle(boardTiles);
         boardTiles.removeIf(p -> p.getPosition().equals(new Point(0, 0)));
 
-        Vector[] directionsTable = UnitVector.getVectors();
+        UnitVector[] directionsTable = UnitVector.values();
         Collections.shuffle(Arrays.asList(directionsTable));
 
         return putDownIrrigation(game, boardTiles.get(0).getPosition(), directionsTable[0]);

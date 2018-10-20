@@ -36,8 +36,8 @@ public class PawnTest {
         testBoard.set(new Point(0,2), yellowTile0);
         testBoard.set(new Point(1,0), greenTile3);
 
-        testBoard.irrigate(new Point(1, 1), UnitVector.L.getVector());
-        testBoard.irrigate(new Point(1, 1), UnitVector.K.getVector());
+        testBoard.irrigate(new Point(1, 1), UnitVector.L);
+        testBoard.irrigate(new Point(1, 1), UnitVector.K);
 
         assertEquals(1, testBoard.get(new Point(1, 2)).getBambooSize());
 
