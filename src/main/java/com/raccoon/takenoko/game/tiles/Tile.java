@@ -24,8 +24,6 @@ public class Tile {
     private boolean irrigated;
     private boolean irrigable;
 
-    private List<UnitVector> irrigatedTowards;
-
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
     /*
@@ -38,10 +36,7 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-        irrigatedTowards = new ArrayList<>();
-        for (UnitVector unitVector : UnitVector.values()) {
-        	irrigatedTowards.add(unitVector);
-        }
+
         this.irrigated = false;
         this.color = null;
         this.irrigable = false;
@@ -56,7 +51,6 @@ public class Tile {
 
         this.color = color;
         bambooSize = 0;
-        irrigatedTowards = new ArrayList<>();
         initializeSideIrrigation();
         this.irrigated = false;
         this.irrigable = false;
@@ -127,11 +121,6 @@ public class Tile {
         return this.sideIrrigationState.get(direction);
     }
 
-    public List<UnitVector> getIrrigatedTowards() {
-        //TODO : replace its usages by getIrrigationState
-        return irrigatedTowards;
-    }
-
     /**
      * Irrigate the tile : the tile is now irrigated, knows where the irrigation canal is.
      * when called on a {@code Tile} that wasn't irrigated yet, the bamboo grows. If called on an already irrigated
@@ -147,11 +136,6 @@ public class Tile {
         }
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
-
-        if (!irrigatedTowards.contains(direction)) {
-            this.irrigatedTowards.add(direction);
-        }
-
         this.sideIrrigationState.put(direction, IrrigationState.IRRIGATED);
 
     }

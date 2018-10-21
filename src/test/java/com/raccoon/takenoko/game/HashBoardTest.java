@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class HashBoardTest {
     @Mock
     Tile tile2;
 
-    Board b;
+    private Board b;
 
     private Game g;
 
@@ -158,7 +159,7 @@ public class HashBoardTest {
     public void irrigatedTowardsSomething() {
         assertTrue("Tile next to last irrigated tile, and in the right direction, is not irrigated", t3.isIrrigated());
         // K is the unit Vector (0, 1)
-        assertTrue("Next tile irrigated is irrigated in the wrong direction.", t3.getIrrigatedTowards().contains(UnitVector.K));
+        assertEquals("Next tile irrigated is irrigated in the wrong direction.", IrrigationState.IRRIGATED, t3.getIrrigationState(UnitVector.K));
     }
 
     /*

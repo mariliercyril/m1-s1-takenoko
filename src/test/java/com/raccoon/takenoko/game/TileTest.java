@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
@@ -15,8 +16,8 @@ import static org.junit.Assert.assertFalse;
 public class TileTest {
     private Game g;
 
-    Tile origin;
-    Tile t1;
+    private Tile origin;
+    private Tile t1;
 
     @Before
     public void setup() {
@@ -66,7 +67,7 @@ public class TileTest {
     public void tileNextToLakeIsIrrigated() {
         assertTrue("Tile is not irrigated even though asked.", t1.isIrrigated());
         // N is the unit Vector (0, -1)
-        assertTrue("Tile has not been irrigated in the right direction", t1.getIrrigatedTowards().contains(UnitVector.N));
+        assertEquals("Tile has not been irrigated in the right direction", IrrigationState.IRRIGATED, t1.getIrrigationState(UnitVector.N));
     }
 
 }
