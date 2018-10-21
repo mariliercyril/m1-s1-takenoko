@@ -196,4 +196,22 @@ public class PandaObjectiveTest {
         assertThrows(UnsupportedOperationException.class, () -> pandaObjective.checkIfCompleted(firstTile, hashBoard));
 	}
 
+	@Test
+    void objectiveDifferentiationTest() {
+        // So that the mock player returns the stomach
+        when(mockPlayer.getStomach()).thenReturn(stomach);
+
+        PandaObjective objective2chunks = new PandaObjective(Color.GREEN);
+
+        stomach.put(Color.GREEN, 1);
+        stomach.put(Color.YELLOW, 1);
+        stomach.put(Color.PINK, 1);
+
+        objective2chunks.checkIfCompleted(mockPlayer);
+
+        assertFalse( objective2chunks.isCompleted(), "Objective validated with 3 different chunks, even though it was supposed to need 2 chunks of the same color");
+
+
+    }
+
 }
