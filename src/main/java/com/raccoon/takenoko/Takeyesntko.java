@@ -55,7 +55,7 @@ public class Takeyesntko {
      */
     public static int launch1000gamesNoJutsu() {
         verbose = false;
-        int nbGames = 1000;
+        float nbGames = 1000;
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
@@ -94,19 +94,19 @@ public class Takeyesntko {
 
         // printing out results
         verbose = true;
-        print(" -- Launched " + nbGames + " games!");
+        print(String.format(" -- Launched %6.0f games!", nbGames));
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i] / 10, scores[i]));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (nbGames), scores[i]));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %d percents)", voidedGames, (voidedGames * 100 / nbGames)));
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / nbGames)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
         for (int w : wins) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %d)%n", totalGames + voidedGames, nbGames));
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, nbGames));
         return totalGames + voidedGames;
     }
 
