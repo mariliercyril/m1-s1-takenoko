@@ -81,23 +81,12 @@ public class RandomBot extends Player {
         while (score < 2) {
             if (r.nextBoolean() && r.nextBoolean()) {
                 // ban unavailable actions
-                // can't put irrigation if none has been taken
-                if (available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't validate an objective if I don't have any
-                if (available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't draw objective if I already have 2
-                if (available[cursor] == Action.DRAW_OBJECTIVE && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't play the same action twice
-                if (choosen.contains(available[cursor])) {
+                if (( available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0 )                  // can't put irrigation if none has been taken
+                        || ( available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null ) // can't validate an objective if I don't have any
+                        || ( available[cursor] == Action.DRAW_OBJECTIVE
+                            && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES )                     // can't draw objective if I already have 2
+                        || ( choosen.contains(available[cursor]) ))                                                    // can't play the same action twice
+                {
                     cursor = ++cursor % available.length;
                     continue;
                 }
@@ -114,16 +103,18 @@ public class RandomBot extends Player {
     @Override
     protected Objective chooseObjectiveToValidate() {
 
-    	List<Objective> completedObjectives = new ArrayList<>();
+        List<Objective> completedObjectives = new ArrayList<>();
         for (Objective objective : this.getObjectives()) {  // We go through all the objectives
 
             if (objective.isCompleted()) {            // If we find one completed,
                 completedObjectives.add(objective);  // we add it to the completed objectives list
             }
-         }
+        }
 
         Collections.shuffle(completedObjectives);
-         if (completedObjectives.size() > 0) { return completedObjectives.get(0); }  // We randomly return a completed objective
+        if (completedObjectives.size() > 0) {
+            return completedObjectives.get(0);
+        }  // We randomly return a completed objective
 
         return null;  // If no objective is completed, we just return null
     }

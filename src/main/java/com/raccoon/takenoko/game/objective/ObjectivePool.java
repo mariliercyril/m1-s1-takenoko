@@ -6,6 +6,7 @@ import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 
+import javax.naming.ldap.PagedResultsResponseControl;
 import java.util.*;
 
 /**
@@ -47,9 +48,9 @@ public class ObjectivePool {
 
         // instanciation of the generic deck
         deck = new EnumMap<>(ObjectiveType.class);
-        deck.put(ObjectiveType.PATTERN, patternObjectives);
-        deck.put(ObjectiveType.PANDA, bambooObjectives);
-        deck.put(ObjectiveType.GARDENER, gardenerObjectives);
+        deck.put(ObjectiveType.PATTERN, new ArrayList<>());
+        deck.put(ObjectiveType.PANDA, new ArrayList<>());
+        deck.put(ObjectiveType.GARDENER, new ArrayList<>());
 
         /* Instanciation of the objectives and filling of the lists.
         First version, we juste create 10 card for each colour and each objective.
@@ -58,6 +59,7 @@ public class ObjectivePool {
             for (Color color : Color.values()) {
                 AlignmentParcelObjective newObjective = new AlignmentParcelObjective(color);
                 patternObjectives.add(newObjective);
+                deck.get(ObjectiveType.PATTERN).add(newObjective);
             }
         }
         Collections.shuffle(patternObjectives);
@@ -65,6 +67,7 @@ public class ObjectivePool {
             for (Color color : Color.values()) {
                 PandaObjective newObjective = new PandaObjective(color);
                 bambooObjectives.add(newObjective);
+                deck.get(ObjectiveType.PANDA).add(newObjective);
             }
         }
         Collections.shuffle(bambooObjectives);
@@ -72,6 +75,7 @@ public class ObjectivePool {
             for (Color color : Color.values()) {
                 GardenerObjective newGObjective = new GardenerObjective(i, color, 1);
                 gardenerObjectives.add(newGObjective);
+                deck.get(ObjectiveType.GARDENER).add(newGObjective);
             }
         }
         Collections.shuffle(gardenerObjectives);
@@ -83,7 +87,7 @@ public class ObjectivePool {
      * @return an objective yet unplayed in this game ATTENTION can be null if asked deck is empty
      */
     public Objective draw(ObjectiveType t) {
-        if (!deck.get(t).isEmpty()) { return deck.get(t).get(0); }
+        if (!deck.get(t).isEmpty()) { return deck.get(t).remove(0); }
         return null;
     }
 

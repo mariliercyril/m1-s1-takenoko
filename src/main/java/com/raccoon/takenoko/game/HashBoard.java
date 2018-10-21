@@ -130,22 +130,29 @@ public class HashBoard implements Board {
             tile.irrigate(directionOfThePond);
 
             // then we gather the vectors from our tile to our potential neighbours
-            UnitVector firstNeighbourDirection = directionOfThePond.rotation(-1);
-            UnitVector secondNeighbourDirection = directionOfThePond.rotation(1);
+            UnitVector firstNeighbourDirection;
 
-            if (board.containsKey(firstNeighbourDirection.getVector().applyTo(position))) {
-                // If we have a neighbour there
-                // we tell our tile to be irrigable on this border
-                tile.setIrrigable(firstNeighbourDirection);
-                // and to the adjacent tile as well
-                board.get(firstNeighbourDirection.getVector().applyTo(position)).setIrrigable(firstNeighbourDirection.opposite());
-            }
-            if (board.containsKey(secondNeighbourDirection.getVector().applyTo(position))) {
-                // If we have a neighbour there
-                // we tell our tile to be irrigable on this border
-                tile.setIrrigable(secondNeighbourDirection);
-                // and to the adjacent tile as well
-                board.get(secondNeighbourDirection.getVector().applyTo(position)).setIrrigable(secondNeighbourDirection.opposite());
+            try {
+                firstNeighbourDirection = directionOfThePond.rotation(-1);
+
+                UnitVector secondNeighbourDirection = directionOfThePond.rotation(1);
+
+                if (board.containsKey(firstNeighbourDirection.getVector().applyTo(position))) {
+                    // If we have a neighbour there
+                    // we tell our tile to be irrigable on this border
+                    tile.setIrrigable(firstNeighbourDirection);
+                    // and to the adjacent tile as well
+                    board.get(firstNeighbourDirection.getVector().applyTo(position)).setIrrigable(firstNeighbourDirection.opposite());
+                }
+                if (board.containsKey(secondNeighbourDirection.getVector().applyTo(position))) {
+                    // If we have a neighbour there
+                    // we tell our tile to be irrigable on this border
+                    tile.setIrrigable(secondNeighbourDirection);
+                    // and to the adjacent tile as well
+                    board.get(secondNeighbourDirection.getVector().applyTo(position)).setIrrigable(secondNeighbourDirection.opposite());
+                }
+            } catch(NullPointerException npe) {
+                return;
             }
         }
 
