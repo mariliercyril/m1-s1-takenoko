@@ -163,7 +163,7 @@ public class BamBot extends RandomBot {
             }
         }
 
-        if (completedObjectives.size() > 0) {
+        if (!completedObjectives.isEmpty()) {
             for (Objective completed : completedObjectives) {
                 if (completed instanceof PandaObjective) {
                     return completed;
