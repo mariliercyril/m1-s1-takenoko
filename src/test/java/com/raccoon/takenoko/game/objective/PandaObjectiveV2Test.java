@@ -45,4 +45,23 @@ public class PandaObjectiveV2Test {
         obj2.checkIfCompleted(player);
         assertTrue(obj2.isCompleted());
     }
+
+    @Test
+    public void objectiveDifferentiationTest() {
+
+        Objective pandaObjective = new PandaObjectiveV2(0, 2, 0, 1);  // Two bamboos of the same color
+        Map<Color, Integer> stomach = new EnumMap<>(Color.class);
+
+        when(player.getStomach()).thenReturn(stomach);
+
+        stomach.put(Color.GREEN, 1);
+        stomach.put(Color.YELLOW, 1);
+        stomach.put(Color.PINK, 1);
+
+        pandaObjective.checkIfCompleted(player);
+
+        assertFalse("Objective validated with 3 different chunks, even though it was supposed to need 2 chunks of the same color", pandaObjective.isCompleted());
+
+
+    }
 }

@@ -19,6 +19,7 @@ public class PandaObjectiveV2 extends Objective {
         goal.put(Color.PINK, pink);
 
         this.score = value;
+
     }
 
     @Override
