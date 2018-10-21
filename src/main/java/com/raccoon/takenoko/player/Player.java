@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
@@ -222,7 +223,7 @@ public abstract class Player {
     protected abstract Objective chooseObjectiveToValidate();
 
     public final boolean putDownIrrigation(Game game, Point pos, UnitVector direction) {
-        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction)) {
+        if (irrigations > 0 && game.getBoard().get(pos).getIrrigationState(direction).equals(IrrigationState.IRRIGABLE)) {
             irrigations--;
             return game.getBoard().irrigate(pos, direction);
         }

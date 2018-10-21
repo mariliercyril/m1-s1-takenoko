@@ -214,9 +214,9 @@ public class HashBoard implements Board {
         // Get the coordinates of the second tile involved in this irrigation
         Point otherPositionToIrrigate = new Point(direction.getVector().applyTo(p));
 
-        if (board.containsKey(otherPositionToIrrigate) && this.get(p).getIrrigationState(direction).equals(IrrigationState.IRRIGABLE)) {
-            // If the position actually consists in two tiles adjacent connected to the irrigation network
-            //TODO : Replace the canIrrigate with a check of the irrigationState
+        if (this.get(p).getIrrigationState(direction).equals(IrrigationState.IRRIGABLE)) {
+            // The IrrigationState is IRRIGABLE only when we have two adjacent tiles connected to the irrigation network
+
             this.get(p).irrigate(direction);    // We irrigate the tile
             this.get(otherPositionToIrrigate).irrigate(direction.opposite());   // and the adjacent one
 
@@ -257,24 +257,5 @@ public class HashBoard implements Board {
     public List<Tile> getAllTiles() {
         return new ArrayList<>(board.values());
     }
-
-    @Override
-    public boolean canIrrigate(Point p, UnitVector direction) {
-
-        Tile t = this.get(p);
-        Tile tNext = this.get(direction.getVector().applyTo(p));
-
-        // We must put down the irrigation between two tiles
-        if (Objects.isNull(tNext)) { return false; }
-
-        List<UnitVector> l = t.getIrrigatedTowards();
-        List<UnitVector> lNext = tNext.getIrrigatedTowards();
-
-        return l.contains(direction.rotation(1))            // current tile's direction's left border
-                || l.contains(direction.rotation(-1))       // current tile's direction's right border
-                || lNext.contains(direction.rotation(1))    // next tile's direction's left border
-                || lNext.contains(direction.rotation(-1));  // next tile's direction's right border
-    }
-
 
 }

@@ -18,10 +18,11 @@ public class Tile {
      */
 
     private Point position;
+    private Color color;
 
     private int bambooSize;
     private boolean irrigated;
-    private Color color;
+    private boolean irrigable;
 
     private List<UnitVector> irrigatedTowards;
 
@@ -43,6 +44,7 @@ public class Tile {
         }
         this.irrigated = false;
         this.color = null;
+        this.irrigable = false;
         position = new Point(0,0);
         initializeSideIrrigation();
     }
@@ -55,17 +57,19 @@ public class Tile {
         this.color = color;
         bambooSize = 0;
         irrigatedTowards = new ArrayList<>();
-        this.irrigated = false;
         initializeSideIrrigation();
+        this.irrigated = false;
+        this.irrigable = false;
 
     }
 
     private void initializeSideIrrigation() {
-
+        // Initialize the map, setting all the border as NOT IRRIGATED
         this.sideIrrigationState = new EnumMap<>(UnitVector.class);
         for (UnitVector vector : UnitVector.values()) {
             sideIrrigationState.put(vector, IrrigationState.NOT_IRRIGATED);
         }
+
     }
 
     /*
@@ -102,6 +106,10 @@ public class Tile {
      */
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public boolean isIrrigable() {
+        return irrigable;
     }
 
     /*
@@ -157,6 +165,7 @@ public class Tile {
         if (this.sideIrrigationState.get(direction).equals(IrrigationState.NOT_IRRIGATED)) {
             this.sideIrrigationState.put(direction, IrrigationState.IRRIGABLE);
         }
+        this.irrigable = true;
     }
 
 

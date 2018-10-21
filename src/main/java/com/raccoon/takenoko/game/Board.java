@@ -55,11 +55,4 @@ public interface Board {
      */
     List<Tile> getAllTiles();
 
-    /**
-     * Checks if the tile can be irrigated in a particular direction following the restricting rules
-     * @param p the position of tile we want to irigate
-     * @param direction the direction in which we want to irrigate
-     * @return true if we can put an irrigation there
-     */
-    boolean canIrrigate(Point p, UnitVector direction);
 }
