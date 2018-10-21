@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
@@ -145,8 +147,9 @@ public abstract class Player {
                 if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
                     throw new ForbiddenActionException("Player tried to draw an objective with a full hand already");
                 }
-                objectives.add(game.drawObjective());
-                Takeyesntko.print(String.format("Player has drawn an objective, he now has %d in his hand : %s", objectives.size(), Arrays.toString(new List[]{objectives})));
+                ObjectiveType type = this.whatTypeToDraw(game.getObjectivePool());
+                objectives.add(game.drawObjective(type));
+                Takeyesntko.print(String.format("Player has drawn a %s objective, he now has %d objectives in his hand", type, objectives.size()));
                 break;
             case PUT_DOWN_IRRIGATION:
                 if (this.putDownIrrigation(game)) {
@@ -171,6 +174,8 @@ public abstract class Player {
                 Takeyesntko.print(a + " UNSUPPORTED");
         }
     }
+
+    protected abstract ObjectiveType whatTypeToDraw(ObjectivePool pool);
 
     public abstract boolean keepIrrigation();
 

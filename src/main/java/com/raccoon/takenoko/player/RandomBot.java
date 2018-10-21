@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
@@ -141,5 +143,13 @@ public class RandomBot extends Player {
         Collections.shuffle(Arrays.asList(directionsTable));
 
         return putDownIrrigation(game, boardTiles.get(0).getPosition(), directionsTable[0]);
+    }
+
+    @Override
+    protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
+        List<ObjectiveType> types = Arrays.asList(ObjectiveType.values());
+        types.removeIf(pool::isDeckEmpty);
+        Collections.shuffle(types);
+        return types.get(0);
     }
 }

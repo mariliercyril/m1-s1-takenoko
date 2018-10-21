@@ -3,6 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.BamBot;
@@ -217,12 +218,12 @@ public class Game {
      *
      * @return the first objective card of the deck
      */
-    public Objective drawObjective() {
+    public Objective drawObjective(ObjectiveType t) {
         /*
         This might be replaced by a direct call to the draw method of the objectivePool
         in the classes needing it
          */
-        return this.objectivePool.draw();   // We just get the objective from the pool
+        return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
 
     public void purge() {

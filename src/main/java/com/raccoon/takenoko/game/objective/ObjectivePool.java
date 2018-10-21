@@ -24,11 +24,11 @@ public class ObjectivePool {
     ***** CAUTION ***** : This is a draft, has to be updated with an interface or a mother class
     for all the types. For now we just have one objective per type.
     */
-    private List<PandaObjective> bambooObjectives;
-    private List<AlignmentParcelObjective> patternObjectives;
-    private List<GardenerObjective> gardenerObjectives;
+    private List<Objective> bambooObjectives;
+    private List<Objective> patternObjectives;
+    private List<Objective> gardenerObjectives;
 
-    private Deque<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
+    private EnumMap<ObjectiveType, List<Objective>> deck;
 
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
@@ -41,10 +41,15 @@ public class ObjectivePool {
         this.game = game;
 
         // Instanciation of the lists
-        allObjectives = new ArrayList<>();
         bambooObjectives = new ArrayList<>();
         patternObjectives = new ArrayList<>();
         gardenerObjectives = new ArrayList<>();
+
+        // instanciation of the generic deck
+        deck = new EnumMap<>(ObjectiveType.class);
+        deck.put(ObjectiveType.PATTERN, patternObjectives);
+        deck.put(ObjectiveType.PANDA, bambooObjectives);
+        deck.put(ObjectiveType.GARDENER, gardenerObjectives);
 
         /* Instanciation of the objectives and filling of the lists.
         First version, we juste create 10 card for each colour and each objective.
@@ -52,39 +57,34 @@ public class ObjectivePool {
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
                 AlignmentParcelObjective newObjective = new AlignmentParcelObjective(color);
-                this.allObjectives.add(newObjective);
                 patternObjectives.add(newObjective);
             }
         }
+        Collections.shuffle(patternObjectives);
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
                 PandaObjective newObjective = new PandaObjective(color);
-                this.allObjectives.add(newObjective);
                 bambooObjectives.add(newObjective);
             }
         }
+        Collections.shuffle(bambooObjectives);
         for (int i = 1; i < 4; i++) {
             for (Color color : Color.values()) {
                 GardenerObjective newGObjective = new GardenerObjective(i, color, 1);
-                this.allObjectives.add(newGObjective);
                 gardenerObjectives.add(newGObjective);
             }
         }
-
-        // Initialisation of the deck
-        deck = new ArrayDeque<>();
-        Collections.shuffle(allObjectives);
-        deck.addAll(allObjectives);
+        Collections.shuffle(gardenerObjectives);
     }
 
     /**
      * Draws an objective from the deck.
      *
-     * @return an objective yet unplayed in this game
+     * @return an objective yet unplayed in this game ATTENTION can be null if asked deck is empty
      */
-    public Objective draw() {
-        // TODO : Treat the case of an empty stack, when no more objectives are available
-        return this.deck.pop();
+    public Objective draw(ObjectiveType t) {
+        if (!deck.get(t).isEmpty()) { return deck.get(t).get(0); }
+        return null;
     }
 
     /**
@@ -136,9 +136,13 @@ public class ObjectivePool {
     }
 
     private void updateGardenerObjectives(Board b) {
-        for (GardenerObjective go : gardenerObjectives) {
+        for (Objective go : gardenerObjectives) {
             go.checkIfCompleted(b);
         }
+    }
+
+    public boolean isDeckEmpty(ObjectiveType t) {
+        return deck.get(t).isEmpty();
     }
 
 }

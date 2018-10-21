@@ -1,5 +1,7 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
@@ -7,6 +9,7 @@ import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
+
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.tool.Tools;
 
@@ -18,16 +21,16 @@ public class BamBot extends RandomBot {
 
     @Override
     protected Point whereToPutDownTile(Game game, Tile t) {
-       Map<Point, Integer> possibleBambooGrowth = new HashMap<>();
+        Map<Point, Integer> possibleBambooGrowth = new HashMap<>();
 
-       for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
-           possibleBambooGrowth.put(available, 0);
-           for (Tile adjacent : game.getBoard().getNeighbours(available)) {
+        for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
+            possibleBambooGrowth.put(available, 0);
+            for (Tile adjacent : game.getBoard().getNeighbours(available)) {
                 if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    possibleBambooGrowth.put(available, possibleBambooGrowth.get(available)+1);
+                    possibleBambooGrowth.put(available, possibleBambooGrowth.get(available) + 1);
                 }
-           }
-       }
+            }
+        }
 
         return Tools.mapMaxKey(possibleBambooGrowth);
     }
@@ -46,7 +49,7 @@ public class BamBot extends RandomBot {
             tileGrowth.put(t, 0);
             for (Tile adjacent : game.getBoard().getNeighbours(bestMoves.get(t))) {
                 if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    tileGrowth.put(t, tileGrowth.get(t)+1);
+                    tileGrowth.put(t, tileGrowth.get(t) + 1);
                 }
             }
         }
@@ -71,7 +74,7 @@ public class BamBot extends RandomBot {
             destination = game.getBoard().get(p);
             for (Tile adjacent : game.getBoard().getNeighbours(p)) {
                 if (adjacent.getColor() == destination.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    outcomes.put(p, outcomes.get(p)+1);
+                    outcomes.put(p, outcomes.get(p) + 1);
                 }
             }
         }
@@ -152,22 +155,29 @@ public class BamBot extends RandomBot {
     @Override
     protected Objective chooseObjectiveToValidate() {   // The player validates the bamboo objectives first
         // For now, he doesn't try to validate the highest-scoring objective
+
         List<Objective> completedObjectives = new ArrayList<>();
         for (Objective obj : getObjectives()) {
             if (obj.isCompleted()) {
                 completedObjectives.add(obj);
             }
-         }
+        }
 
-         if (completedObjectives.size() > 0) {
-             for (Objective completed : completedObjectives) {
-                 if (completed instanceof PandaObjective) {
-                     return completed;
-                 }
-             }
-             return completedObjectives.get(0);
-         }
+        if (completedObjectives.size() > 0) {
+            for (Objective completed : completedObjectives) {
+                if (completed instanceof PandaObjective) {
+                    return completed;
+                }
+            }
+            return completedObjectives.get(0);
+        }
 
         return null;
+    }
+
+    @Override
+    protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
+        if (!pool.isDeckEmpty(ObjectiveType.PANDA)) { return ObjectiveType.PANDA; }
+        return super.whatTypeToDraw(pool);
     }
 }
