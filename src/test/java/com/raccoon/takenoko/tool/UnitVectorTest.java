@@ -25,7 +25,12 @@ public class UnitVectorTest {
 	@DisplayName("assert true when the opposite of an unitVector is the expected unitVector")
 	public void testOpposite_true() {
 
-		assertTrue(unitVector.opposite().equals(UnitVector.M));
+		assertTrue(UnitVector.I.opposite().equals(UnitVector.L));
+		assertTrue(UnitVector.J.opposite().equals(UnitVector.M));
+		assertTrue(UnitVector.K.opposite().equals(UnitVector.N));
+		assertTrue(UnitVector.L.opposite().equals(UnitVector.I));
+		assertTrue(UnitVector.M.opposite().equals(UnitVector.J));
+		assertTrue(UnitVector.N.opposite().equals(UnitVector.K));
 	}
 
 	@Test

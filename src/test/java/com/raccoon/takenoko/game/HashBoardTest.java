@@ -168,18 +168,18 @@ public class HashBoardTest {
         assertTrue("Can't irrigate path directly next to pond.", b.canIrrigate(t5.getPosition(), UnitVector.I));
 
         // can't irrigate tile in a direction that has no neighbour
-    	// L is the unit Vector (-1, 0), the opposite unit Vector of I
-        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), UnitVector.I.opposite()));
+    	// L is the unit Vector (-1, 0)
+        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), UnitVector.L));
 
         // can't irrigate if there is no irrigation coming from pond tile to this intersection
-    	// L is the unit Vector (-1, 0), the opposite unit Vector of I
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), UnitVector.I.opposite()));
+    	// L is the unit Vector (-1, 0)
+        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), UnitVector.L));
     	// J is the unit Vector (1, 1)
         assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t5.getPosition(), UnitVector.J));
 
         // can irrigate if there is an irrigation path from pond to here
-    	// M is the unit Vector (-1, 0), the opposite unit Vector of J
-        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), UnitVector.J.opposite()));
+    	// M is the unit Vector (-1, 0)
+        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), UnitVector.M));
 
         // assertTrue(t5.isIrrigated());
         // assertTrue(t6.isIrrigated());

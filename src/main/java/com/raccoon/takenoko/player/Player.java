@@ -184,7 +184,14 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-                this.stomach.put(objective.getColor(), this.stomach.get(objective.getColor()) - 2);
+            	Color objectiveColor = objective.getColor();
+            	if (objectiveColor != null) {
+            		this.stomach.put(objectiveColor, this.stomach.get(objectiveColor) - 2);
+            	} else {
+            		for (Color color : Color.values()) {
+            			this.stomach.put(color, this.stomach.get(color) - 1);
+            		}
+            	}
             }
         }
     }

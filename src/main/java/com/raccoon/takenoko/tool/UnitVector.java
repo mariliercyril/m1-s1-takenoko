@@ -10,32 +10,32 @@ package com.raccoon.takenoko.tool;
 public enum UnitVector {
 
 	/**
-	 * The singleton instance for the unit vector <i>i</i>.
+	 * The singleton instance for the unit vector <i>i</i> = (1, 0).
 	 */
 	I(new Vector(1, 0)),
 
 	/**
-	 * The singleton instance for the unit vector <i>j</i>.
+	 * The singleton instance for the unit vector <i>j</i> = (1, 1).
 	 */
 	J(new Vector(1, 1)),
 
 	/**
-	 * The singleton instance for the unit vector <i>k</i>.
+	 * The singleton instance for the unit vector <i>k</i> = (0, 1).
 	 */
 	K(new Vector(0, 1)),
 
 	/**
-	 * The singleton instance for the unit vector <i>l</i>.
+	 * The singleton instance for the unit vector <i>l</i> = (-1, 0).
 	 */
 	L(new Vector(-1, 0)),
 
 	/**
-	 * The singleton instance for the unit vector <i>m</i>.
+	 * The singleton instance for the unit vector <i>m</i> = (-1, -1).
 	 */
 	M(new Vector(-1, -1)),
 
 	/**
-	 * The singleton instance for the unit vector <i>n</i>.
+	 * The singleton instance for the unit vector <i>n</i> = (0, -1).
 	 */
 	N(new Vector(0, -1));
 
@@ -58,6 +58,8 @@ public enum UnitVector {
 
     /**
      * Returns the opposite {@code UnitVector} of the enum element.
+     * (This method corresponds to do "rotation(3)".)
+     * 
      * @return an enum element, the opposite of the one its called to
      */
 	public UnitVector opposite() {

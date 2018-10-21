@@ -4,6 +4,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.UnitVector;
 
@@ -111,17 +112,18 @@ public class RandomBot extends Player {
     @Override
     protected Objective chooseObjectiveToValidate() {
 
+    	List<Objective> completedObjectives = new ArrayList<>();
         for (Objective objective : this.getObjectives()) {  // We go through all the objectives
 
-            if (objective.isCompleted()) {   // If we find one completed,
-                return objective;           // we return it
+            if (objective.isCompleted()) {            // If we find one completed,
+                completedObjectives.add(objective);  // we add it to the completed objectives list
             }
+         }
 
-        }
-        Collections.shuffle(this.getObjectives());
-        if (this.getObjectives().size() > 0) { return this.getObjectives().get(0); }
+        Collections.shuffle(completedObjectives);
+         if (completedObjectives.size() > 0) { return completedObjectives.get(0); }  // We randomly return a completed objective
 
-        return null;    // If no objective is completed, we just return null
+        return null;  // If no objective is completed, we just return null
     }
 
     @Override
