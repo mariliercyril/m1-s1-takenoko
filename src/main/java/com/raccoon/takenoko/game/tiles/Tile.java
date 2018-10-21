@@ -179,11 +179,6 @@ public class Tile {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
     public String toString() {
         return "Tile " + this.getColor() + " at " + this.getPosition();
     }
