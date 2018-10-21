@@ -55,20 +55,14 @@ public class HashBoard implements Board {
         of the specified position
          */
 
-        Point[] tab = new Point[6];
+        UnitVector[] unitVectors = UnitVector.values();
+        Point[] neighbouringCoordinates = new Point[6];
 
+        for (int i = 0; i < unitVectors.length; i++) {
+            neighbouringCoordinates[i] = unitVectors[i].getVector().applyTo(position);
+        }
 
-
-
-        Point[] vectors = new Point[6];
-        vectors[0] = new Point(position.x - 1, position.y);
-        vectors[1] = new Point(position.x - 1, position.y - 1);
-        vectors[2] = new Point(position.x, position.y - 1);
-        vectors[3] = new Point(position.x, position.y + 1);
-        vectors[4] = new Point(position.x + 1, position.y + 1);
-        vectors[5] = new Point(position.x + 1, position.y);
-
-        return vectors;
+        return neighbouringCoordinates;
 
     }
 
