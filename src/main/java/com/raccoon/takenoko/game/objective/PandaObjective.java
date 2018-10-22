@@ -4,36 +4,39 @@ import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.player.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
  * The {@code PandaObjective} class implements the <i>panda</i> {@link Objective}
- * which consists in "<b>having eaten at least two bamboo chunks of which the color is an expected color</b>"
- * or in "<b>having eaten at least one bamboo chunk of each of the color</b> (GREEN, YELLOW, PINK)".
+ * which consist in "<b>having eaten at least two bamboo chunks of one expected color</b>"
+ * or in "<b>having eaten at least one bamboo chunk of each of the three colors</b> (GREEN, YELLOW and PINK)".
  * <p>
- * The score base, for the first Objective type, is equal to 3; consequently, the scores are:
+ * The scores are:
  * <ul>
- * <li>3 for (at least) two GREEN bamboo chunks</li>
- * <li>4 for (at least) two YELLOW bamboo chunks</li>
- * <li>5 for (at least) two PINK bamboo chunks</li>
+ * <li>3 for the {@code PandaObjective} which consists in "<i>having eaten (at least) two GREEN bamboo chunks</i>"</li>
+ * <li>4 for the {@code PandaObjective} which consists in "<i>having eaten (at least) two YELLOW bamboo chunks</i>"</li>
+ * <li>5 for the {@code PandaObjective} which consists in "<i>having eaten (at least) two PINK bamboo chunks</i>"</li>
+ * <li>6 for the {@code PandaObjective} which consists in "<i>having eaten (at least) one bamboo chunk of each of the three colors</i>"</li>
  * </ul>
  */
 public class PandaObjective extends Objective {
 
-	private static final int SCORE_BASE = 3;
+	private List<Color> color = new ArrayList<>();
 
 	/**
-	 * Constructs a {@code PandaObjective} of the first type
-	 * (i.e. a {@code PandaObjective} <i>with a specified color</i>).
+	 * Constructs a {@code PandaObjective}.
 	 * 
 	 * @param color
-	 *  the color of the bamboo chunks which should have been eaten
+	 *  color (as a Color array) of the bamboo chunks which should have been eaten
 	 */
-	public PandaObjective(Color color) {
+	public PandaObjective(Color... color) {
 
 		super();
-		score = SCORE_BASE + ((color == null) ? SCORE_BASE : color.ordinal());
-		this.color = color;
+		score();
+		this.color = Arrays.asList(color);
 	}
 
 	@Override
@@ -42,13 +45,45 @@ public class PandaObjective extends Objective {
 		// Gets the player's stomach to dissect it
 		Map<Color, Integer> stomach = player.getStomach();
 
-		// Is completed if the stomach in question contains at least 2 bamboo chunks
-		// with the expected color (color of Objective)
-		// or if it contains at least 1 bamboo chunk per color
-		if (stomach.get(color) > 1) {
-			isCompleted = true;
-		} else if (stomach.values().stream().allMatch(n -> n > 0)) {
-			isCompleted = true;
+		switch (color.size()) {
+			// PandaObjective with one color (as a parameter) is completed
+			// if the stomach contains at least 2 bamboo chunks of the color in question
+			case 1:
+				if (stomach.get(color.get(0)) >= 2) {
+					isCompleted = true;
+				}
+				break;
+			// PandaObjective with the three colors (as parameters) is completed
+			// if the stomach contains at least 1 bamboo chunk per color
+			case 3:
+				if (stomach.values().stream().allMatch(n -> n >= 1)) {
+					isCompleted = true;
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Assigns the value to score according to the {@code PandaObjective} case.
+	 */
+	private void score() {
+
+		switch (color.size()) {
+			case 1:
+				switch (color.get(0)) {
+					case GREEN:
+						score = 3;
+						break;
+					case YELLOW:
+						score = 4;
+						break;
+					case PINK:
+						score = 5;
+						break;
+				}
+			case 3:
+				score = 6;
+				break;
 		}
 	}
 
