@@ -190,10 +190,11 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-            	Color objectiveColor = objective.getColor();
-            	if (objectiveColor != null) {
-            		this.stomach.put(objectiveColor, this.stomach.get(objectiveColor) - 2);
-            	} else {
+            	List<Color> objectiveColors = ((PandaObjective)objective).getColors();
+            	if (objectiveColors.size() == 1) {
+            		this.stomach.put(objectiveColors.get(0), this.stomach.get(objectiveColors.get(0)) - 2);
+            	}
+            	if (objectiveColors.size() == 3) {
             		for (Color color : Color.values()) {
             			this.stomach.put(color, this.stomach.get(color) - 1);
             		}

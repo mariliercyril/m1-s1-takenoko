@@ -29,8 +29,6 @@ public class AlignmentParcelObjective extends Objective {
 	// The position of the "pond" Tile: No alignment allowed with it
 	private static final Point ORIGIN_POINT = new Point(0, 0);
 
-	private static final int SCORE_BASE = 2;
-
 	private boolean areAligned;
 
 	/**
@@ -42,8 +40,8 @@ public class AlignmentParcelObjective extends Objective {
 	public AlignmentParcelObjective(Color color) {
 
 		super();
-		score = SCORE_BASE + color.ordinal();
 		this.color = color;
+		score();
 
 		areAligned = false;
 	}
@@ -97,6 +95,24 @@ public class AlignmentParcelObjective extends Objective {
 		 */
 		if (areAligned && ((tiles.stream()).allMatch(t -> (t.getColor()).equals(color)))) {
 			isCompleted = true;
+		}
+	}
+
+	/**
+	 * Assigns the value to score according to the {@code PandaObjective} case.
+	 */
+	private void score() {
+
+		switch (color) {
+			case GREEN:
+				score = 2;
+				break;
+			case YELLOW:
+				score = 3;
+				break;
+			case PINK:
+				score = 4;
+				break;
 		}
 	}
 

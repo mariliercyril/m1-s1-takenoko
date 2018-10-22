@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class PandaObjective extends Objective {
 
-	private List<Color> color = new ArrayList<>();
+	private List<Color> colors = new ArrayList<>();
 
 	/**
 	 * Constructs a {@code PandaObjective}.
@@ -35,8 +35,8 @@ public class PandaObjective extends Objective {
 	public PandaObjective(Color... color) {
 
 		super();
+		this.colors = Arrays.asList(color);
 		score();
-		this.color = Arrays.asList(color);
 	}
 
 	@Override
@@ -45,21 +45,15 @@ public class PandaObjective extends Objective {
 		// Gets the player's stomach to dissect it
 		Map<Color, Integer> stomach = player.getStomach();
 
-		switch (color.size()) {
-			// PandaObjective with one color (as a parameter) is completed
-			// if the stomach contains at least 2 bamboo chunks of the color in question
-			case 1:
-				if (stomach.get(color.get(0)) >= 2) {
-					isCompleted = true;
-				}
-				break;
-			// PandaObjective with the three colors (as parameters) is completed
-			// if the stomach contains at least 1 bamboo chunk per color
-			case 3:
-				if (stomach.values().stream().allMatch(n -> n >= 1)) {
-					isCompleted = true;
-				}
-				break;
+		// PandaObjective with one color (as a parameter) is completed
+		// if the stomach contains at least 2 bamboo chunks of the color in question
+		if ((colors.size() == 1) && (stomach.get(colors.get(0)) >= 2)) {
+			isCompleted = true;
+		}
+		// PandaObjective with the three colors (as parameters) is completed
+		// if the stomach contains at least 1 bamboo chunk per color
+		if ((colors.size() == 3) && (stomach.values().stream().allMatch(n -> n >= 1))) {
+			isCompleted = true;
 		}
 	}
 
@@ -68,23 +62,30 @@ public class PandaObjective extends Objective {
 	 */
 	private void score() {
 
-		switch (color.size()) {
-			case 1:
-				switch (color.get(0)) {
-					case GREEN:
-						score = 3;
-						break;
-					case YELLOW:
-						score = 4;
-						break;
-					case PINK:
-						score = 5;
-						break;
-				}
-			case 3:
-				score = 6;
-				break;
+		if (colors.size() == 1) {
+			switch (colors.get(0)) {
+				case GREEN:
+					score = 3;
+					break;
+				case YELLOW:
+					score = 4;
+					break;
+				case PINK:
+					score = 5;
+					break;
+				default:
+					// Do nothing
+			}
 		}
+		if (colors.size() == 3) {
+			score = 6;
+		}
+	}
+
+	// WARNING: Maybe, this method would replace the method getColor().
+	public List<Color> getColors() {
+
+		return colors;
 	}
 
 }
