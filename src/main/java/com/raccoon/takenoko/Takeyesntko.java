@@ -3,6 +3,7 @@ package com.raccoon.takenoko;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.player.Player;
 
+import com.raccoon.takenoko.tool.Constants;
 import org.apache.log4j.Logger;
 
 public class Takeyesntko {
@@ -63,7 +64,7 @@ public class Takeyesntko {
         int voidedGames = 0;
         String[] playersTypes = new String[nbPlayers];
 
-        for (int i = 0; i < nbGames; i++) {
+        for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
             Game game = new Game();
             game.start();
 
@@ -95,19 +96,19 @@ public class Takeyesntko {
 
         // printing out results
         verbose = true;
-        print(String.format(" -- Launched %6.0f games!", nbGames));
+        print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (nbGames), scores[i]));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), scores[i]));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / nbGames)));
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
         for (int w : wins) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, nbGames));
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, Constants.NUMBER_OF_GAMES_FOR_STATS));
         return totalGames + voidedGames;
     }
 

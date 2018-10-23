@@ -9,4 +9,6 @@ public final class Constants {
 
     public static final int MAX_BAMBOO_SIZE = 4;
     public static final int USUAL_BAMBOO_GROWTH = 1;
+
+    public static final float NUMBER_OF_GAMES_FOR_STATS = 1000;
 }
