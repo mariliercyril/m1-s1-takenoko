@@ -5,6 +5,7 @@ import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +26,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    public CommandLineRunner commandLineRunner(@Autowired Game game) {
         return args -> {
 
             print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
@@ -63,6 +64,7 @@ public class Takeyesntko {
 
         Game game = new Game();
         game.start();
+
     }
 
     /**
