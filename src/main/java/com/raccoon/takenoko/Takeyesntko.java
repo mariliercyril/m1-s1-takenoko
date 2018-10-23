@@ -4,6 +4,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.player.Player;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +25,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    public CommandLineRunner commandLineRunner(@Autowired Game game) {
         return args -> {
 
             print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
@@ -41,7 +42,7 @@ public class Takeyesntko {
             if (args.length <= 0) {
                 launch1000gamesNoJutsu();
             } else {
-                launch1gameNoJutsu();
+                launch1gameNoJutsu(game);
             }
 
         };
@@ -61,10 +62,10 @@ public class Takeyesntko {
     /**
      * Launches the game, verbose mode
      */
-    public static void launch1gameNoJutsu() {
+    public static void launch1gameNoJutsu(Game game) {
 
-        Game game = new Game();
         game.start();
+
     }
 
     /**
