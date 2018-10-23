@@ -54,8 +54,9 @@ public class Takeyesntko {
      * Launches 1000 games and prints out the output
      */
     public static int launchManyGamesNoJutsu() {
+
         verbose = false;
-        float nbGames = 1000;
+
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
