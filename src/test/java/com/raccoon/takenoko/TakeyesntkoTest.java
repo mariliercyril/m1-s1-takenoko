@@ -1,8 +1,6 @@
 package com.raccoon.takenoko;
 
-import com.raccoon.takenoko.Takeyesntko;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -20,7 +18,7 @@ public class TakeyesntkoTest {
     @Test
     public void plays1000games() {
         try {
-            assertEquals("Did not launch the 1000 games or counting failed", 1000, Takeyesntko.launch1000gamesNoJutsu());
+            assertEquals("Did not launch the 1000 games or counting failed", 1000, Takeyesntko.launchManyGamesNoJutsu());
         }catch(Throwable e){
             fail("Launched 1000 games, exception raised : " + Arrays.toString(e.getStackTrace()));
         }

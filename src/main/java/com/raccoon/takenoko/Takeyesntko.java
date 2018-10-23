@@ -24,7 +24,7 @@ public class Takeyesntko {
         Arguments parsing
          */
         if (args.length <= 0) {
-            launch1000gamesNoJutsu();
+            launchManyGamesNoJutsu();
         } else {
             launch1gameNoJutsu();
         }
@@ -53,7 +53,7 @@ public class Takeyesntko {
     /**
      * Launches 1000 games and prints out the output
      */
-    public static int launch1000gamesNoJutsu() {
+    public static int launchManyGamesNoJutsu() {
         verbose = false;
         float nbGames = 1000;
         int nbPlayers = 4;
