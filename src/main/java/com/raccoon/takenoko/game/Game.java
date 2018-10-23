@@ -11,6 +11,8 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
 /**
  * Class representing the games, and allowing to interract with it
  */
+@Component
+@Scope("prototype")
 public class Game {
 
     private Board board;                    // The game board, with all the tiles

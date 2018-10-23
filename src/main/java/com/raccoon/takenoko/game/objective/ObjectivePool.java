@@ -5,6 +5,8 @@ import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.naming.ldap.PagedResultsResponseControl;
 import java.util.*;
@@ -13,6 +15,8 @@ import java.util.*;
  * The pool of objectives needed in a game, and all the means to interact with it.
  * Provides the notify methods to induce a completion checking for the right objectives.
  */
+@Component
+@Scope("prorotype")
 public class ObjectivePool {
 
     private Game game;      // The game to which this pool belongs
