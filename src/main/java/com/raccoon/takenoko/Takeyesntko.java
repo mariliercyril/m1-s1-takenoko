@@ -3,8 +3,8 @@ package com.raccoon.takenoko;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.player.Player;
 
+import com.raccoon.takenoko.tool.Constants;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +25,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired Game game) {
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
 
             print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
@@ -35,17 +35,14 @@ public class Takeyesntko {
             print("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
             print("                                                         Presented by angry raccoons\n");
 
-            /*
-            Arguments parsing
-            */
-
-            if (args.length <= 0) {
-                launch1000gamesNoJutsu();
-            } else {
-                launch1gameNoJutsu(game);
-            }
-
-        };
+        /*
+        Arguments parsing
+         */
+        if (args.length <= 0) {
+            launchManyGamesNoJutsu();
+        } else {
+            launch1gameNoJutsu();
+        }
     }
 
     /**
@@ -62,25 +59,26 @@ public class Takeyesntko {
     /**
      * Launches the game, verbose mode
      */
-    public static void launch1gameNoJutsu(Game game) {
+    public static void launch1gameNoJutsu() {
 
+        Game game = new Game();
         game.start();
-
     }
 
     /**
      * Launches 1000 games and prints out the output
      */
-    public static int launch1000gamesNoJutsu() {
+    public static int launchManyGamesNoJutsu() {
+
         verbose = false;
-        float nbGames = 1000;
+
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
         int[] scores = new int[nbPlayers];
         int voidedGames = 0;
         String[] playersTypes = new String[nbPlayers];
 
-        for (int i = 0; i < nbGames; i++) {
+        for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
             Game game = new Game();
             game.start();
 
@@ -112,19 +110,19 @@ public class Takeyesntko {
 
         // printing out results
         verbose = true;
-        print(String.format(" -- Launched %6.0f games!", nbGames));
+        print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (nbGames), scores[i]));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), scores[i]));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / nbGames)));
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
         for (int w : wins) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, nbGames));
+        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, Constants.NUMBER_OF_GAMES_FOR_STATS));
         return totalGames + voidedGames;
     }
 
