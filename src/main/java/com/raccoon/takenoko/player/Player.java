@@ -141,7 +141,7 @@ public abstract class Player {
                 Takeyesntko.print(String.format("Player choosed to validate the objective %s !", objective));
                 validateObjective(objective);
                 // we may have emptied a stomach
-                game.getObjectivePool().notifyStomachEmpty(this);
+                game.getObjectivePool().notifyStomachEmptied(this);
                 break;
             case DRAW_OBJECTIVE:
                 if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective

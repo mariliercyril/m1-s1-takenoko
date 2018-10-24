@@ -30,9 +30,7 @@ public class PandaObjective extends Objective {
 
 	/**
 	 * Constructs a {@code PandaObjective}.
-	 * 
-	 * @param color
-	 *  color (as a Color array) of the bamboo chunks which should have been eaten
+	 *
 	 */
 	public PandaObjective(Color... colors) {
 
@@ -53,11 +51,11 @@ public class PandaObjective extends Objective {
 		if ((colors.size() == 1) && (stomach.get(colors.get(0)) >= 2)) {
 			isCompleted = true;
 		}
-		// PandaObjective with the three colors (as parameters) is completed
-		// if the stomach contains at least 1 bamboo chunk per color
-		if ((colors.size() == 3) && (stomach.values().stream().allMatch(n -> n >= 1))) {
-			isCompleted = true;
-		}
+		else {
+            // PandaObjective with the three colors (as parameters) is completed
+            // if the stomach contains at least 1 bamboo chunk per color
+            isCompleted = (colors.size() == 3) && (stomach.values().stream().allMatch(n -> n >= 1));
+        }
 	}
 
 	/**

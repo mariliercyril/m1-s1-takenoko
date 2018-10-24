@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 public class Takeyesntko {
@@ -76,7 +73,7 @@ public class Takeyesntko {
     */
     private void launchManyGamesNoJutsu() {
 
-        verbose = false;
+        Takeyesntko.setVerbose(false);
 
         int nbPlayers = 4;
         int[] wins = new int[nbPlayers];
@@ -115,7 +112,7 @@ public class Takeyesntko {
         }
 
         // printing out results
-        verbose = true;
+        Takeyesntko.setVerbose(true);
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
         for (int i = 0; i < wins.length; i++) {

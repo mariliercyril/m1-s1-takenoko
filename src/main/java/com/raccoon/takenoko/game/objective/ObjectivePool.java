@@ -20,8 +20,6 @@ public class ObjectivePool {
 
     private Game game;      // The game to which this pool belongs
 
-    private List<Objective> allObjectives;  // The list of all the objectives in the game, maybe useless
-
     /*
     The list of objectives by type, needed to check for the completion of a specific
     type of objective. Useful because not all the events affect all the objectives completion.
@@ -110,7 +108,7 @@ public class ObjectivePool {
      *
      * @param player the {@code Player} who triggered the action. The changes will have happened in his stomach.
      */
-    public void notifyStomachEmpty(Player player) {
+    public void notifyStomachEmptied(Player player) {
         updatePandaObjectives(player);
     }
 
