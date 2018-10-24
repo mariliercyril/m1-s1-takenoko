@@ -5,6 +5,7 @@ import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,12 +22,17 @@ public class Takeyesntko {
 
     private static boolean verbose = true;
 
+    @Autowired
+    private ObjectFactory<Game> gameObjectFactory;
+
     public static void main(String[] args) {
+
         SpringApplication.run(Takeyesntko.class, args);
+
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired Game game) {
+    public CommandLineRunner commandLineRunner() {
         return args -> {
 
             print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
@@ -36,14 +42,14 @@ public class Takeyesntko {
             print("   |__|   /_/     \\_\\ |__|\\__\\  |_______| |__|  \\__| |________| |__|\\__\\  |________| ");
             print("                                                         Presented by angry raccoons\n");
 
-        /*
-        Arguments parsing
-         */
-        if (args.length <= 0) {
-            launchManyGamesNoJutsu();
-        } else {
-            launch1gameNoJutsu();
-        }
+            if (args.length > 0) {
+                launch1gameNoJutsu();
+            }
+            else {
+                launchManyGamesNoJutsu();
+            }
+
+        };
     }
 
     /**
@@ -60,17 +66,15 @@ public class Takeyesntko {
     /**
      * Launches the game, verbose mode
      */
-    public static void launch1gameNoJutsu() {
-
-        Game game = new Game();
+    private void launch1gameNoJutsu() {
+        Game game = gameObjectFactory.getObject();
         game.start();
-
     }
 
     /**
      * Launches 1000 games and prints out the output
-     */
-    public static int launchManyGamesNoJutsu() {
+    */
+    private void launchManyGamesNoJutsu() {
 
         verbose = false;
 
@@ -81,7 +85,7 @@ public class Takeyesntko {
         String[] playersTypes = new String[nbPlayers];
 
         for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
-            Game game = new Game();
+            Game game = gameObjectFactory.getObject();
             game.start();
 
             // First check that it isn't a void game (all players at 0)
@@ -125,7 +129,7 @@ public class Takeyesntko {
             totalGames += w;
         }
         print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, Constants.NUMBER_OF_GAMES_FOR_STATS));
-        return totalGames + voidedGames;
+
     }
 
     /**
