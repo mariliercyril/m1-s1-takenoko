@@ -162,29 +162,27 @@ public class HashBoardTest {
         assertEquals("Next tile irrigated is irrigated in the wrong direction.", IrrigationState.IRRIGATED, t3.getIrrigationState(UnitVector.K));
     }
 
-    /*
     @Test
-    public void canIrrigateTest() {
-        // can irrigate roads directly leaving the pond tile
-    	// I is the unit Vector (1, 0)
-        assertTrue("Can't irrigate path directly next to pond.", b.canIrrigate(t5.getPosition(), UnitVector.I));
+    public void isIrrigable() {
+        // test case with current setup
+        assertFalse("Should not be irrigable for there is no water path to it", t7.isIrrigable());
+        assertTrue("Should be irrigable as it in sext to pond.", t4.isIrrigable());
 
-        // can't irrigate tile in a direction that has no neighbour
-    	// L is the unit Vector (-1, 0)
-        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), UnitVector.L));
+        // add an irrigation and check consequences
+        assertTrue("If previous test passed, should be irrigated.", b.irrigate(t4.getPosition(), UnitVector.I));
+        assertTrue("Just set a path to it, should be irrigable.", t6.isIrrigable());
+        assertTrue("Just eset a path to it, should be irrigable by now.", t7.isIrrigable());
 
-        // can't irrigate if there is no irrigation coming from pond tile to this intersection
-    	// L is the unit Vector (-1, 0)
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), UnitVector.L));
-    	// J is the unit Vector (1, 1)
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t5.getPosition(), UnitVector.J));
+        // set a tile at an irrigable place and check if I can put down an irrigation between them.
+        /*
+        b.set(new Point(2, 0), new Tile(Color.PINK));
+        assertEquals("Just put down a tile at the right place, this place should be irrigable.", IrrigationState.IRRIGABLE, t1.getIrrigationState(UnitVector.I));
+        */
 
-        // can irrigate if there is an irrigation path from pond to here
-    	// M is the unit Vector (-1, 0)
-        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), UnitVector.M));
-
-        // assertTrue(t5.isIrrigated());
-        // assertTrue(t6.isIrrigated());
+        // irrigate an entire tile and check consequences on said tile
+        b.irrigate(t1.getPosition(), UnitVector.J);
+        b.irrigate(t1.getPosition(), UnitVector.I);
+        assertFalse("Tile should be entirely irrigated, can't set an irrigation there anymore.", t1.isIrrigable());
     }
-    */
+
 }

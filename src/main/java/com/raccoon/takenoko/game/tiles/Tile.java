@@ -40,7 +40,7 @@ public class Tile {
         this.irrigated = false;
         this.color = null;
         this.irrigable = false;
-        position = new Point(0,0);
+        position = new Point(0, 0);
         initializeSideIrrigation();
     }
 
@@ -96,6 +96,7 @@ public class Tile {
 
     /**
      * Allows to set the position of the tile, useful when the tile is put down
+     *
      * @param position a point which will be the position of the Tile
      */
     public void setPosition(Point position) {
@@ -114,7 +115,9 @@ public class Tile {
 
     /**
      * Allows to know the state of a tile border regarding its irrigation.
+     *
      * @param direction the UnitVector pointing to the border we want to check
+     *
      * @return the irrigation state
      */
     public IrrigationState getIrrigationState(UnitVector direction) {
@@ -125,6 +128,7 @@ public class Tile {
      * Irrigate the tile : the tile is now irrigated, knows where the irrigation canal is.
      * when called on a {@code Tile} that wasn't irrigated yet, the bamboo grows. If called on an already irrigated
      * {@code Tile} just remember where the irrigation canal is.
+     *
      * @param direction a element from UnitVector, indicating the side to put the canal on.
      */
     public void irrigate(UnitVector direction) {
@@ -138,32 +142,37 @@ public class Tile {
         // Whether we are irrigated or not, we remember the presence of a new canal :
         this.sideIrrigationState.put(direction, IrrigationState.IRRIGATED);
 
+        if (!this.sideIrrigationState.containsValue(IrrigationState.IRRIGABLE)) {
+            this.irrigable = false;
+        }
     }
 
     /**
      * Set the irrigable state of a {@code Tile}. Doesn't do anything if the side is already irrigable or irrigated.
+     *
      * @param direction the UnitVector pointing toward the side to set irrigable.
      */
     public void setIrrigable(UnitVector direction) {
 
         if (this.sideIrrigationState.get(direction).equals(IrrigationState.NOT_IRRIGATED)) {
             this.sideIrrigationState.put(direction, IrrigationState.IRRIGABLE);
+            this.irrigable = true;
         }
-        this.irrigable = true;
     }
 
 
     /**
      * Increase the size of the bamboo on the tile. We make sure after increasing the the size doesn't exceed the max size.
+     *
      * @param bambooSize the size to add to the bamboo
      */
     public void increaseBambooSize(int bambooSize) {
 
-        if(this.irrigated && Objects.nonNull(this.color)) {
+        if (this.irrigated && Objects.nonNull(this.color)) {
             this.bambooSize += bambooSize;
         }
 
-        if (this.getBambooSize() > Constants.MAX_BAMBOO_SIZE && this.irrigated ) {
+        if (this.getBambooSize() > Constants.MAX_BAMBOO_SIZE && this.irrigated) {
             this.bambooSize = Constants.MAX_BAMBOO_SIZE;
         }
     }

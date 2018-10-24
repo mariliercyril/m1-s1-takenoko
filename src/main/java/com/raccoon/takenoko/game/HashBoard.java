@@ -108,11 +108,11 @@ public class HashBoard implements Board {
         List<Point> neighbourPositions = this.getFreeNeighbouringPositions(position);   // We get the list of the free positions adjacent to one of the new tile
 
         /*
-        ********************************************************
-        * All this code just to treat the case of the irrigation
-        * of the tiles next to the pond.
-        * This is the initialisation of the conditions to build a coherent
-        * irrigation network.
+         ********************************************************
+         * All this code just to treat the case of the irrigation
+         * of the tiles next to the pond.
+         * This is the initialisation of the conditions to build a coherent
+         * irrigation network.
          */
         if (Arrays.asList(getNeighbouringCoordinates(position)).contains(new Point(0, 0))) {
 
@@ -121,7 +121,7 @@ public class HashBoard implements Board {
             As we don't have a way to get a UnitVector from a corresponding vector.
             */
             for (int i = 0; i < UnitVector.values().length; i++) {
-                if (UnitVector.values()[i].getVector().equals((new Vector(position)).getOpposite())) {
+                if (UnitVector.values()[i].getVector().equals(( new Vector(position) ).getOpposite())) {
                     directionOfThePond = UnitVector.values()[i];
                 }
             }
@@ -151,7 +151,7 @@ public class HashBoard implements Board {
                     // and to the adjacent tile as well
                     board.get(secondNeighbourDirection.getVector().applyTo(position)).setIrrigable(secondNeighbourDirection.opposite());
                 }
-            } catch(NullPointerException npe) {
+            } catch (NullPointerException npe) {
                 return;
             }
         }
@@ -232,7 +232,7 @@ public class HashBoard implements Board {
             for (int angle : angles) {
                 UnitVector directionVector = direction.rotation(angle);
                 Point irrigablePosition = directionVector.getVector().applyTo(p);
-                if(board.containsKey(irrigablePosition)) {
+                if (board.containsKey(irrigablePosition)) {
                     // If we have a tile that becomes irrigable
                     Tile irrigableTile = board.get(irrigablePosition);
 
@@ -258,5 +258,11 @@ public class HashBoard implements Board {
     public List<Tile> getAllTiles() {
         return new ArrayList<>(board.values());
     }
-
+    
+    @Override
+    public List<Tile> getIrrigablePositions() {
+        List<Tile> allT = getAllTiles();
+        allT.removeIf(Tile::isIrrigable);
+        return allT;
+    }
 }
