@@ -1,6 +1,5 @@
 package com.raccoon.takenoko.tool;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -126,10 +125,10 @@ public final class PropertiesFileReader {
 			InputStream inputStream = getClass().getResourceAsStream(propertiesFilePath);
 			properties.load(inputStream);
 			inputStream.close();
-		} catch (FileNotFoundException fnfe) {
-			LOGGER.debug("properties file", fnfe);
-		} catch (IOException ioe) {
-			LOGGER.debug("input from the properties file", ioe);
+		} catch (NullPointerException npe) {
+			LOGGER.debug("the properties file name is null", npe);
+		} catch (IOException | IllegalArgumentException ie) {
+			LOGGER.debug("the input from the properties file is failed", ie);
 		}
 
 		return properties;
