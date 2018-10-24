@@ -14,21 +14,20 @@ public final class PropertiesFileReader {
 
 	private static final String PROPERTIES_FILE_EXTENSION = "properties";
 
-	private static Properties properties = new Properties();
-
-	private static PropertiesFileReader instance;
+	private static final String KEY_NAME_FORMAT = "%s" + Separator.POINT.getSign() + "%s";
 
 	private PropertiesFileReader() {
 	}
 
-	public static PropertiesFileReader getInstance() {
+    private static class PropertiesFileReaderHolder {
 
-		if (null == instance) {
-			instance = new PropertiesFileReader();
-		}
+        private static final PropertiesFileReader INSTANCE = new PropertiesFileReader();
+    }
 
-		return instance;
-	}
+    public static PropertiesFileReader getInstance() {
+
+        return PropertiesFileReaderHolder.INSTANCE;
+    }
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -36,7 +35,26 @@ public final class PropertiesFileReader {
 		throw new CloneNotSupportedException();
 	}
 
-	public void getProperties(String propertiesFileName) {
+	public String getStringProperty(String propertiesFileName, String key, String defaultValue) {
+
+		String keyName = String.format(KEY_NAME_FORMAT, propertiesFileName, key);
+
+		return (this.readPropertiesFile(propertiesFileName)).getProperty(keyName, defaultValue);
+	}
+
+	public int getIntProperty(String propertiesFileName, String key, int defaultValue) {
+
+		return Integer.parseInt(this.getStringProperty(propertiesFileName, key, String.valueOf(defaultValue)));
+	}
+
+	public float getFloatProperty(String propertiesFileName, String key, float defaultValue) {
+
+		return Float.parseFloat(this.getStringProperty(propertiesFileName, key, String.valueOf(defaultValue)));
+	}
+
+	private Properties readPropertiesFile(String propertiesFileName) {
+
+		Properties properties = new Properties();
 
 		String propertiesFilePath = Separator.SLASH.getSign() + propertiesFileName + Separator.POINT.getSign() + PROPERTIES_FILE_EXTENSION;
 		try {
@@ -48,21 +66,8 @@ public final class PropertiesFileReader {
 		} catch (IOException ioe) {
 			LOGGER.debug("Input", ioe);
 		}
-	}
 
-	public String getStringProperty(String key, String defaultValue) {
-
-		return properties.getProperty(key, defaultValue);
-	}
-
-	public int getIntProperty(String key, int defaultValue) {
-
-		return Integer.parseInt(properties.getProperty(key, String.valueOf(defaultValue)));
-	}
-
-	public float getFloatProperty(String key, float defaultValue) {
-
-		return Float.parseFloat(properties.getProperty(key, String.valueOf(defaultValue)));
+		return properties;
 	}
 
 }
