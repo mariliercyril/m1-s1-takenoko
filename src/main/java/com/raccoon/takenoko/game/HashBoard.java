@@ -260,7 +260,7 @@ public class HashBoard implements Board {
     }
     
     @Override
-    public List<Tile> getIrrigablePositions() {
+    public List<Tile> getIrrigableTiles() {
         List<Tile> allT = getAllTiles();
         allT.removeIf(Tile::isIrrigable);
         return allT;

@@ -69,6 +69,6 @@ public interface Board {
      *
      * @return all the tiles where an irrigation can be put down.
      */
-    List<Tile> getIrrigablePositions();
+    List<Tile> getIrrigableTiles();
 
 }
