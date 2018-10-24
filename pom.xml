@@ -43,6 +43,7 @@
 
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
 
+                    <arguments><argument>seeABattle</argument></arguments>
 
                 </configuration>
 
