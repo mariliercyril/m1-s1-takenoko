@@ -2,6 +2,9 @@ package com.raccoon.takenoko.tool;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,17 +30,6 @@ public class PropertiesFileReaderTest {
 	public void testClone() {
 
         assertThrows(CloneNotSupportedException.class, () -> propertiesFileReader.clone());
-	}
-
-	/*
-	 * When the CheckIfCompleted method is used with a tile and a board (as paramters)
-	 */
-	@Test
-	@DisplayName("assert that it throws NullPointerException"
-			+ "when the file of which the name is as a parameter is not found by the PropertiesFileReader")
-	public void testReadPropertiesFile() {
-
-        assertThrows(NullPointerException.class, () -> propertiesFileReader.getStringProperty("fileName", "key", "defaultValue"));
 	}
 
 }
