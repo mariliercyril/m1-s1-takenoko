@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BamBotTest {
 
-    private Map<Point, Color> tileColors;
+
     private Game g;
     private Player bot;
     // I don't want to write Color.GREEN every time I need it (which is a lot)

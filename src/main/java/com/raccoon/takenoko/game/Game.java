@@ -11,6 +11,7 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,7 @@ public class Game {
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
 
+    @Autowired
     private ObjectivePool objectivePool;    // The pool of objective cards
 
     /*
@@ -74,7 +76,6 @@ public class Game {
         board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
 
-        objectivePool = new ObjectivePool();    // Initialisation of the objective pool
     }
 
     /**
@@ -88,7 +89,6 @@ public class Game {
         this.players = players;
         board = new HashBoard(new Tile());
         initTileDeck();
-        this.objectivePool = new ObjectivePool();
     }
 
     @PostConstruct
