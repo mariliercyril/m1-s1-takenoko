@@ -11,13 +11,18 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
  */
+@Component
+@Scope("prototype")
 public class Game {
 
     private Board board;                    // The game board, with all the tiles
@@ -69,7 +74,7 @@ public class Game {
         board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
 
-        objectivePool = new ObjectivePool(this);    // Initialisation of the objective pool
+        objectivePool = new ObjectivePool();    // Initialisation of the objective pool
     }
 
     /**
@@ -83,7 +88,12 @@ public class Game {
         this.players = players;
         board = new HashBoard(new Tile());
         initTileDeck();
-        this.objectivePool = new ObjectivePool(this);
+        this.objectivePool = new ObjectivePool();
+    }
+
+    @PostConstruct
+    public void init() {
+        this.objectivePool.setGame(this);
     }
 
     /*

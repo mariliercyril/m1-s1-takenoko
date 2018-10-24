@@ -5,14 +5,17 @@ import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import javax.naming.ldap.PagedResultsResponseControl;
 import java.util.*;
 
 /**
  * The pool of objectives needed in a game, and all the means to interact with it.
  * Provides the notify methods to induce a completion checking for the right objectives.
  */
+@Component
+@Scope("prototype")
 public class ObjectivePool {
 
     private Game game;      // The game to which this pool belongs
@@ -34,12 +37,8 @@ public class ObjectivePool {
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
      *
-     * @param game The Game this pool belongs to
      */
-    public ObjectivePool(Game game) {
-
-        // Hookup of the game we belong to
-        this.game = game;
+    public ObjectivePool() {
 
         // Instanciation of the lists
         bambooObjectives = new ArrayList<>();
@@ -79,6 +78,10 @@ public class ObjectivePool {
             }
         }
         Collections.shuffle(gardenerObjectives);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     /**
