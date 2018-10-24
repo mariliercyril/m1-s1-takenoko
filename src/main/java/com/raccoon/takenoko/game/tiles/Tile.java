@@ -154,7 +154,7 @@ public class Tile {
      */
     public void setIrrigable(UnitVector direction) {
 
-        if (this.sideIrrigationState.get(direction).equals(IrrigationState.NOT_IRRIGATED)) {
+        if (!this.sideIrrigationState.get(direction).equals(IrrigationState.IRRIGATED)) {
             this.sideIrrigationState.put(direction, IrrigationState.IRRIGABLE);
             this.irrigable = true;
         }
@@ -184,6 +184,16 @@ public class Tile {
     public void decreaseBambooSize() {
         if (this.bambooSize > 0) {
             this.bambooSize--;
+        }
+    }
+
+    /**
+     *
+     * @param direction the direction in which we want to set a potential irrigation
+     */
+    public void setPendingIrrigable(UnitVector direction){
+        if (this.sideIrrigationState.get(direction).equals(IrrigationState.NOT_IRRIGATED)) {
+            this.sideIrrigationState.put(direction, IrrigationState.TO_BE_IRRIGABLE);
         }
     }
 

@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HashBoardTest {
@@ -47,17 +48,17 @@ public class HashBoardTest {
     public void setUp() {
         g = new Game();
         b = g.getBoard();
-        b.set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
+        b.set(new Point(0, 1), new Tile(Color.GREEN));
 
         // put down some tiles
-        b.set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.PINK));
-        b.set(new Point(0, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
-        b.set(new Point(1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        b.set(new Point(1, 0), new Tile(Color.PINK));
+        b.set(new Point(0, -1), new Tile(Color.GREEN));
+        b.set(new Point(1, -1), new Tile(Color.YELLOW));
 
-        b.set(new Point(1, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        b.set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        b.set(new Point(2, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        b.set(new Point(2, 2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        b.set(new Point(1, 1), new Tile(Color.YELLOW));
+        b.set(new Point(0, 1), new Tile(Color.YELLOW));
+        b.set(new Point(2, 1), new Tile(Color.YELLOW));
+        b.set(new Point(2, 2), new Tile(Color.YELLOW));
 
         // keep them somewhere (for lisibility)
         Tile origin = b.get(new Point(0, 0));
@@ -75,6 +76,9 @@ public class HashBoardTest {
         b.irrigate(t1.getPosition(), UnitVector.M);
         b.irrigate(t1.getPosition(), UnitVector.N);
         b.irrigate(t1.getPosition(), UnitVector.K);
+
+        when(tile1.getIrrigationState(any())).thenReturn(IrrigationState.IRRIGABLE);
+        when(tile2.getIrrigationState(any())).thenReturn(IrrigationState.IRRIGABLE);
     }
 
     @Test
@@ -88,6 +92,7 @@ public class HashBoardTest {
         board.set(new Point(0, 1), tile1);
 
         verify(tile1).setPosition(eq(new Point(0, 1)));  // Check that the tile coordinates has been set here again
+
 
         assertEquals(board.get(new Point(0, 1)), tile1);
 
@@ -134,19 +139,19 @@ public class HashBoardTest {
 
         Point start = new Point(0, 0);
 
-        board.set(new Point(0, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        board.set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        board.set(new Point(1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(0, -1), new Tile(Color.YELLOW));
+        board.set(new Point(1, 0), new Tile(Color.YELLOW));
+        board.set(new Point(1, -1), new Tile(Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(0, -1)));
         assertTrue(board.getAccessiblePositions(start).contains(new Point(1, 0)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(1, -1)));
         assertFalse(board.getAccessiblePositions(start).contains(new Point(-1, -2)));
 
-        board.set(new Point(-1, -1), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        board.set(new Point(-1, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        board.set(new Point(-2, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
-        board.set(new Point(0, -2), new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW));
+        board.set(new Point(-1, -1), new Tile(Color.YELLOW));
+        board.set(new Point(-1, -2), new Tile(Color.YELLOW));
+        board.set(new Point(-2, -2), new Tile(Color.YELLOW));
+        board.set(new Point(0, -2), new Tile(Color.YELLOW));
         board.set(new Point(2, 0), new Tile(Color.YELLOW));
 
         assertTrue(board.getAccessiblePositions(start).contains(new Point(-2, -2)));
@@ -171,17 +176,17 @@ public class HashBoardTest {
         // add an irrigation and check consequences
         assertTrue("If previous test passed, should be irrigated.", b.irrigate(t4.getPosition(), UnitVector.I));
         assertTrue("Just set a path to it, should be irrigable.", t6.isIrrigable());
-        assertTrue("Just eset a path to it, should be irrigable by now.", t7.isIrrigable());
+        assertTrue("Just set a path to it, should be irrigable by now.", t7.isIrrigable());
+        assertEquals("should be irrigable in this direction once a tile is put down", IrrigationState.TO_BE_IRRIGABLE, t1.getIrrigationState(UnitVector.I));
 
         // set a tile at an irrigable place and check if I can put down an irrigation between them.
-        /*
         b.set(new Point(2, 0), new Tile(Color.PINK));
         assertEquals("Just put down a tile at the right place, this place should be irrigable.", IrrigationState.IRRIGABLE, t1.getIrrigationState(UnitVector.I));
-        */
+        assertEquals("Just put down a tile at the right place, the new tile should be irrigable.", IrrigationState.IRRIGABLE, b.get(new Point(2, 0)).getIrrigationState(UnitVector.I.opposite()));
 
         // irrigate an entire tile and check consequences on said tile
-        b.irrigate(t1.getPosition(), UnitVector.J);
         b.irrigate(t1.getPosition(), UnitVector.I);
+        b.irrigate(t1.getPosition(), UnitVector.J);
         assertFalse("Tile should be entirely irrigated, can't set an irrigation there anymore.", t1.isIrrigable());
     }
 
