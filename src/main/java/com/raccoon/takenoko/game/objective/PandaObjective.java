@@ -6,6 +6,7 @@ import com.raccoon.takenoko.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,8 @@ import java.util.Map;
  */
 public class PandaObjective extends Objective {
 
-	private List<Color> colors = new ArrayList<>();
+	private List<Color> colors;
+	private Map<Color, Integer> pattern;
 
 	/**
 	 * Constructs a {@code PandaObjective}.
@@ -32,10 +34,11 @@ public class PandaObjective extends Objective {
 	 * @param color
 	 *  color (as a Color array) of the bamboo chunks which should have been eaten
 	 */
-	public PandaObjective(Color... color) {
+	public PandaObjective(Color... colors) {
 
 		super();
-		this.colors = Arrays.asList(color);
+		this.colors = new ArrayList<>(Arrays.asList(colors));
+		pattern = new EnumMap<>(Color.class);
 		score();
 	}
 
@@ -55,6 +58,26 @@ public class PandaObjective extends Objective {
 		if ((colors.size() == 3) && (stomach.values().stream().allMatch(n -> n >= 1))) {
 			isCompleted = true;
 		}
+	}
+
+	/**
+	 * Gets the expected pattern for completing the PandaObjective in question.
+	 * 
+	 * @return pattern
+	 * 	the expected pattern depending on colors
+	 */
+	public Map<Color, Integer> getPatternForCompleting() {
+
+		if (colors.size() == 1) {
+			pattern.put(colors.get(0), 2);
+		}
+		if (colors.size() == 3) {
+			for (Color color : colors) {
+				pattern.put(color, 1);
+			}
+		}
+
+		return pattern;
 	}
 
 	/**

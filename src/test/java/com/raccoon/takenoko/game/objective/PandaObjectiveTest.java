@@ -9,9 +9,11 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 
 import java.awt.Point;
-
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -214,18 +216,48 @@ public class PandaObjectiveTest {
 	}
 
 	@Test
-    void objectiveDifferentiationTest() {
-        // So that the mock player returns the stomach
-        when(mockPlayer.getStomach()).thenReturn(stomach);
+	public void objectiveDifferentiationTest() {
 
-        PandaObjective objective2chunks = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(Color.GREEN);
 
+    	// Fills the stomach with bamboo chunks
         stomach.put(Color.GREEN, 1);
         stomach.put(Color.YELLOW, 1);
         stomach.put(Color.PINK, 1);
 
-        objective2chunks.checkIfCompleted(mockPlayer);
-        assertFalse(objective2chunks.isCompleted(), "Objective validated with 3 different chunks, even though it was supposed to need 2 chunks of the same color");
+        // So that the mock player returns the stomach
+        when(mockPlayer.getStomach()).thenReturn(stomach);
+
+        pandaObjective.checkIfCompleted(mockPlayer);
+        assertFalse(pandaObjective.isCompleted(), "Objective validated with 3 different chunks, even though it was supposed to need 2 chunks of the same color");
+    }
+
+	@Test
+    @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 1st case")
+	public void testGetPatternForCompleting_trueFirstCase() {
+
+		pandaObjective = new PandaObjective(Color.GREEN);
+
+		// Create a reference pattern
+		Map<Color, Integer> motif = new EnumMap<>(Color.class);
+		motif.put(Color.GREEN, 2);
+
+        assertEquals(pandaObjective.getPatternForCompleting(), motif);
+    }
+
+	@Test
+    @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 2nd case")
+	public void testGetPatternForCompleting_trueSecondCase() {
+
+		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+
+		// Create a reference pattern
+		Map<Color, Integer> motif = new EnumMap<>(Color.class);
+		motif.put(Color.GREEN, 1);
+		motif.put(Color.YELLOW, 1);
+		motif.put(Color.PINK, 1);
+
+        assertEquals(pandaObjective.getPatternForCompleting(), motif);
     }
 
 }
