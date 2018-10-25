@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
-    <version>OCT24-snapshot</version> <!-- CHANGE ME -->
+    <version>OCT24</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -45,17 +45,28 @@
 
                 <executions>
                     <execution>
+                        <id>oneGame</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
+                            <arguments>
+                                <argument>seeABattle</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <goals>
                             <goal>java</goal>
                         </goals>
                     </execution>
+
                 </executions>
 
                 <configuration>
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
-                    <!--<arguments>
-                        <argument>toto</argument>
-                    </arguments>-->
                 </configuration>
 
             </plugin>

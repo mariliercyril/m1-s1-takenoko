@@ -16,7 +16,6 @@ import com.raccoon.takenoko.tool.UnitVector;
 
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BamBot extends RandomBot {
 
@@ -109,6 +108,7 @@ public class BamBot extends RandomBot {
         return available.get(0);
     }
 
+    @Override
     protected Action[] planActions(Game game) {
         Action[] actionSet = new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};  // Safety action set
 
@@ -139,11 +139,11 @@ public class BamBot extends RandomBot {
 
         }
 
-        return null;
+        return new Action[0];
     }
 
      private boolean addAction(List actions, Action act) {
-        if(actions.stream().filter(a -> (a == Action.PUT_DOWN_IRRIGATION | a == Action.VALID_OBJECTIVE)).toArray().length < 2 && !actions.contains(act)) {
+        if(actions.stream().filter(a -> (a == Action.PUT_DOWN_IRRIGATION || a == Action.VALID_OBJECTIVE)).toArray().length < 2 && !actions.contains(act)) {
             actions.add(act);
             return true;
         }
