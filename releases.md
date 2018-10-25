@@ -55,3 +55,12 @@ The players can now put some irrigation channels and manage the irrigation of th
 *   We now have a logger, managing all the output of the game
 *   **[refact]** The objectives are now managed in a pool, allowing to seamlessly update them when needed
 
+
+## OCT24 : AI
+*   The bambot is now way more efficient than the random bot
+*   The random bot has been improved, it deals with all the implemented aspects of the game
+*   We implemented a lot of useful tools allowing to get informations for the bots :
+    *   We can provide them easily the position where an irrigation channel can be put
+    *   We can provide them with the irrigated tiles
+    *   And a lot more
+*   **[refact]** Spring integration ! Our game is now built with the spring framework
