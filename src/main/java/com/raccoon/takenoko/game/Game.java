@@ -96,6 +96,19 @@ public class Game {
         this.objectivePool.setGame(this);
     }
 
+    // used only by this class
+    private void initTileDeck() {
+        tilesDeck = new LinkedList<>();
+        Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
+
+        for (Color c : colors) {
+            for (int i = 0; i < c.getQuantite(); i++) {
+                tilesDeck.push(new Tile(c));
+            }
+        }
+        Collections.shuffle(tilesDeck);
+    }
+
     /*
      *************************************************
      *                 Get/Set
@@ -186,19 +199,6 @@ public class Game {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
 
         return players.get(0);
-    }
-
-    // used only by this class
-    private void initTileDeck() {
-        tilesDeck = new LinkedList<>();
-        Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
-
-        for (Color c : colors) {
-            for (int i = 0; i < c.getQuantite(); i++) {
-                tilesDeck.push(new Tile(c));
-            }
-        }
-        Collections.shuffle(tilesDeck);
     }
 
     private void printRanking() {

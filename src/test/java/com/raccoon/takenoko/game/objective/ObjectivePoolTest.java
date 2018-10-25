@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class ObjectivePoolTest {
+class ObjectivePoolTest {
 
     @Mock
     Player player;
@@ -92,5 +92,15 @@ public class ObjectivePoolTest {
 
         assertFalse(this.pandaObjective.isCompleted(), "No more bamboos in the stomach, still a panda objective completed");
 
+    }
+
+    @Test
+    void objectiveTypeTest() {
+
+        assertEquals(ObjectiveType.GARDENER, objectivePool.getObjectiveType(gardenerObjective), "The panda objective we drawn is not recognised as a panda objective");
+        assertEquals(ObjectiveType.PANDA, objectivePool.getObjectiveType(pandaObjective), "The gardener objective we drawn is not recognised as a gardener objective");
+        assertEquals(ObjectiveType.PATTERN, objectivePool.getObjectiveType(patternObjective), "The pattern objective we drawn is not recognised as a pattern objective");
+
+        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(Color.GREEN, Color.GREEN)), "Pool testing an objective from outside without complaining");
     }
 }

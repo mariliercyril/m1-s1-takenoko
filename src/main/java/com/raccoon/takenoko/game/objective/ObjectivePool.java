@@ -150,4 +150,19 @@ public class ObjectivePool {
         return deck.get(t).isEmpty();
     }
 
+    /**
+     * Allows to get the type of an objective, without having to use the {@code instanceof} tool.
+     * @param objective An Objective
+     * @return the type of the objective
+     */
+    public ObjectiveType getObjectiveType(Objective objective) {
+
+        if (this.bambooObjectives.contains(objective)) return ObjectiveType.PANDA;
+        if (this.gardenerObjectives.contains(objective)) return ObjectiveType.GARDENER;
+        if (this.patternObjectives.contains(objective)) return ObjectiveType.PATTERN;
+
+        throw new RuntimeException("Objective not member of this pool");
+
+    }
+
 }
