@@ -27,6 +27,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>log4j.properties</include>
+                    <include>takeyesntko.properties</include>
                 </includes>
             </resource>
         </resources>
