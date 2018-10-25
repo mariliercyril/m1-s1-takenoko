@@ -6,6 +6,8 @@ import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.player.Player;
 
+import java.util.Map;
+
 /**
  * This class provides a skeletal implementation for the <b>objectives</b> of the game
  * (<i>parcel</i> objectives, <i>gardener</i> objectives, <i>panda</i> objectives)
@@ -95,6 +97,17 @@ public abstract class Objective {
     }
 
     /**
+     * Gets the expected pattern for completing the PandaObjective in question.
+     *
+     * @return pattern
+     * 	the expected pattern depending on colors
+     */
+    public Map<Color, Integer> getPatternForCompleting() {
+
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Returns a string representation of the objective.
      * Here, the {@code toString} method returns a string that represents this object with its <i>type</i>
      * and, between curly brackets, its <i>completed state</i>, the <i>score</i> and the <i>color which is expected</i>;
@@ -109,4 +122,5 @@ public abstract class Objective {
 
         return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score, color);
     }
+
 }
