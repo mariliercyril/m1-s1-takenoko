@@ -101,7 +101,7 @@ public class RandomBot extends Player {
 
     @Override
     protected Objective chooseObjectiveToValidate() {
-
+        Random rand = new Random();
         List<Objective> completedObjectives = new ArrayList<>();
         for (Objective objective : this.getObjectives()) {  // We go through all the objectives
 
@@ -115,6 +115,14 @@ public class RandomBot extends Player {
             return completedObjectives.get(0);
         }  // We randomly return a completed objective
 
+/*
+        List<Objective> objs = this.getObjectives();
+        if (objs.size() > 0) {
+            Objective trial = objs.get(rand.nextInt(objs.size()));
+            if (trial.isCompleted()) {
+                return trial;
+            }
+        }*/
         return null;  // If no objective is completed, we just return null
     }
 
@@ -137,7 +145,7 @@ public class RandomBot extends Player {
 
     @Override
     protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
-        List<ObjectiveType> types = Arrays.asList(ObjectiveType.values());
+        List<ObjectiveType> types = new ArrayList<>(Arrays.asList(ObjectiveType.values()));
         types.removeIf(pool::isDeckEmpty);
         Collections.shuffle(types);
         return types.get(0);

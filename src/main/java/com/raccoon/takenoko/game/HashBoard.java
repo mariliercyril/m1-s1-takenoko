@@ -217,6 +217,8 @@ public class HashBoard implements Board {
             **********************************************************************************
             DANGER ZONE : I'll comment, refactor and explain this later. Pontential source of bug.
             Variables have to have a better name
+
+
              */
 
             int[] angles = {-1, 1};

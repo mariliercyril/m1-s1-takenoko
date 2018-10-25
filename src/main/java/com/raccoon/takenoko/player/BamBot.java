@@ -12,12 +12,15 @@ import java.awt.*;
 
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.tool.Tools;
+import com.raccoon.takenoko.tool.UnitVector;
 
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BamBot extends RandomBot {
 
+    private Point lastPlacedTile;
 
     @Override
     protected Point whereToPutDownTile(Game game, Tile t) {
@@ -31,8 +34,8 @@ public class BamBot extends RandomBot {
                 }
             }
         }
-
-        return Tools.mapMaxKey(possibleBambooGrowth);
+        this.lastPlacedTile = Tools.mapMaxKey(possibleBambooGrowth);
+        return lastPlacedTile;
     }
 
     @Override
@@ -106,7 +109,6 @@ public class BamBot extends RandomBot {
         return available.get(0);
     }
 
-    @Override
     protected Action[] planActions(Game game) {
         Action[] actionSet = new Action[]{Action.PUT_DOWN_TILE, Action.MOVE_GARDENER, Action.VALID_OBJECTIVE};  // Safety action set
 
@@ -114,16 +116,7 @@ public class BamBot extends RandomBot {
             return actionSet;
         }
 
-        boolean hasWantedObjective = false;
-
-        // Always wants to have one "have x bamboos of each color" objective
-        for (Objective obj : getObjectives()) {
-            if (obj instanceof PandaObjective) {
-                hasWantedObjective = true;
-                break;
-            }
-        }
-        if (!hasWantedObjective && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {   //  Rule to pick a new objective
+        if (!game.getObjectivePool().isDeckEmpty(ObjectiveType.PANDA) && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {   //  Rule to pick a new objective
             actionSet[0] = Action.DRAW_OBJECTIVE;
         }
 
@@ -132,6 +125,33 @@ public class BamBot extends RandomBot {
         }
 
         return actionSet;
+    }
+
+    protected Action[] planActionsNew(Game game) {
+        List<Action> actionList = new ArrayList<>();
+        boolean done = false;
+
+        if (canDraw(game)) {
+            addAction(actionList, Action.DRAW_OBJECTIVE);
+        }
+
+        if (!done && isMovingPandaUseful(game)) {
+
+        }
+
+        return null;
+    }
+
+     private boolean addAction(List actions, Action act) {
+        if(actions.stream().filter(a -> (a == Action.PUT_DOWN_IRRIGATION | a == Action.VALID_OBJECTIVE)).toArray().length < 2 && !actions.contains(act)) {
+            actions.add(act);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canDraw(Game game) {    // Returns true if there are panda objectives left
+        return !game.getObjectivePool().isDeckEmpty(ObjectiveType.PANDA) && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES;
     }
 
     private boolean isMovingPandaUseful(Game game) {    //  Tells if there is any bamboo to be eaten
@@ -158,6 +178,7 @@ public class BamBot extends RandomBot {
 
         List<Objective> completedObjectives = new ArrayList<>();
         for (Objective obj : getObjectives()) {
+            obj.checkIfCompleted(this);
             if (obj.isCompleted()) {
                 completedObjectives.add(obj);
             }
@@ -179,5 +200,22 @@ public class BamBot extends RandomBot {
     protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
         if (!pool.isDeckEmpty(ObjectiveType.PANDA)) { return ObjectiveType.PANDA; }
         return super.whatTypeToDraw(pool);
+    }
+
+    @Override
+    protected boolean putDownIrrigation(Game game) {
+        boolean successfulIrrigation = false;
+        if (Objects.nonNull(this.lastPlacedTile)) { //  If a tile has been placed since the last time we irrigated
+            UnitVector[] directionsTable = UnitVector.values();
+            for (int i = 0; !successfulIrrigation && (i < directionsTable.length); i++) {   // We try to irrigate the tile
+                successfulIrrigation = putDownIrrigation(game, this.lastPlacedTile, directionsTable[i]);
+            }
+        }
+
+        if (successfulIrrigation) {
+            this.lastPlacedTile = null;
+        }
+
+        return successfulIrrigation;
     }
 }
