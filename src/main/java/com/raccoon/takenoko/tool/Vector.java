@@ -6,7 +6,7 @@ import java.awt.Point;
  * The {@code Vector} class defines any vector of a 2-dimensional space.
  * <p>
  * In addition to defining a vector, this class provides methods for the vectors, such as:<ul>
- * <li>{@code apply(Point)}</li>
+ * <li>{@code applyTo(Point)}</li>
  * <li>{@code getOpposite()}</li>
  * <li>{@code sum(Vector...)}</li>
  * </ul>
@@ -66,7 +66,7 @@ public final class Vector extends Point {
 	 * 
 	 * @return the point resulting from the application of a vector to a point
 	 */
-	public Point apply(Point point) {
+	public Point applyTo(Point point) {
 
 		return new Point(point.x + this.x, point.y + this.y);
 	}
@@ -100,29 +100,6 @@ public final class Vector extends Point {
 		}
 
 		return new Vector(x, y);
-	}
-
-	/**
-	 * Returns the rotation of a vector <i>v</i>.
-	 * 
-	 * @param angle
-	 *  the angle as the number of rotations, <i>n</i>, to be done
-	 *  for getting the <i>n</i>-th vector in the clockwise sense
-	 *  as well as the trigonometric sense from <i>v</i>
-	 * 
-	 * @return the vector resulting from the rotation
-	 */
-	public Vector rotation(int angle) {
-
-		Vector[] unitVectors = UnitVector.getVectors();
-
-		for (int i = 0; i < unitVectors.length; i++) {
-			if (this.equals(unitVectors[i])) {
-				return unitVectors[(i + ((angle < 0) ? 6 : 0) + (angle % 6)) % 6];
-			}
-		}
-
-		return this;
 	}
 
 }

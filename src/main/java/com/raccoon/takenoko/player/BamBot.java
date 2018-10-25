@@ -1,35 +1,40 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;
-import com.raccoon.takenoko.game.Color;
+
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.tool.Tools;
+import com.raccoon.takenoko.tool.UnitVector;
 
 import java.util.*;
 import java.util.List;
 
 public class BamBot extends RandomBot {
 
+    private Point lastPlacedTile;
 
     @Override
     protected Point whereToPutDownTile(Game game, Tile t) {
-       Map<Point, Integer> possibleBambooGrowth = new HashMap<>();
+        Map<Point, Integer> possibleBambooGrowth = new HashMap<>();
 
-       for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
-           possibleBambooGrowth.put(available, 0);
-           for (Tile adjacent : game.getBoard().getNeighbours(available)) {
+        for (Point available : game.getBoard().getAvailablePositions()) {    // Checking the possible outcomes of placing the tile
+            possibleBambooGrowth.put(available, 0);
+            for (Tile adjacent : game.getBoard().getNeighbours(available)) {
                 if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    possibleBambooGrowth.put(available, possibleBambooGrowth.get(available)+1);
+                    possibleBambooGrowth.put(available, possibleBambooGrowth.get(available) + 1);
                 }
-           }
-       }
-
-        return Tools.mapMaxKey(possibleBambooGrowth);
+            }
+        }
+        this.lastPlacedTile = Tools.mapMaxKey(possibleBambooGrowth);
+        return lastPlacedTile;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class BamBot extends RandomBot {
             tileGrowth.put(t, 0);
             for (Tile adjacent : game.getBoard().getNeighbours(bestMoves.get(t))) {
                 if (t.getColor() == adjacent.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    tileGrowth.put(t, tileGrowth.get(t)+1);
+                    tileGrowth.put(t, tileGrowth.get(t) + 1);
                 }
             }
         }
@@ -71,7 +76,7 @@ public class BamBot extends RandomBot {
             destination = game.getBoard().get(p);
             for (Tile adjacent : game.getBoard().getNeighbours(p)) {
                 if (adjacent.getColor() == destination.getColor() && adjacent.isIrrigated() && adjacent.getBambooSize() < 4) {
-                    outcomes.put(p, outcomes.get(p)+1);
+                    outcomes.put(p, outcomes.get(p) + 1);
                 }
             }
         }
@@ -95,7 +100,7 @@ public class BamBot extends RandomBot {
         //  Looks for the first tile of the needed color
 
         for (Point p : available) {
-            if (game.getBoard().get(p).getColor() == minColor) {
+            if (game.getBoard().get(p).getColor() == minColor && game.getBoard().get(p).getBambooSize() > 0) {
                 return p;
             }
         }
@@ -111,16 +116,7 @@ public class BamBot extends RandomBot {
             return actionSet;
         }
 
-        boolean hasWantedObjective = false;
-
-        // Always wants to have one "have x bamboos of each color" objective
-        for (Objective obj : getObjectives()) {
-            if (obj instanceof PandaObjective) {
-                hasWantedObjective = true;
-                break;
-            }
-        }
-        if (!hasWantedObjective && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {   //  Rule to pick a new objective
+        if (!game.getObjectivePool().isDeckEmpty(ObjectiveType.PANDA) && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES) {   //  Rule to pick a new objective
             actionSet[0] = Action.DRAW_OBJECTIVE;
         }
 
@@ -129,6 +125,33 @@ public class BamBot extends RandomBot {
         }
 
         return actionSet;
+    }
+
+    protected Action[] planActionsNew(Game game) {
+        List<Action> actionList = new ArrayList<>();
+        boolean done = false;
+
+        if (canDraw(game)) {
+            addAction(actionList, Action.DRAW_OBJECTIVE);
+        }
+
+        if (!done && isMovingPandaUseful(game)) {
+
+        }
+
+        return new Action[0];
+    }
+
+     private boolean addAction(List actions, Action act) {
+        if(actions.stream().filter(a -> (a == Action.PUT_DOWN_IRRIGATION || a == Action.VALID_OBJECTIVE)).toArray().length < 2 && !actions.contains(act)) {
+            actions.add(act);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canDraw(Game game) {    // Returns true if there are panda objectives left
+        return !game.getObjectivePool().isDeckEmpty(ObjectiveType.PANDA) && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES;
     }
 
     private boolean isMovingPandaUseful(Game game) {    //  Tells if there is any bamboo to be eaten
@@ -152,22 +175,47 @@ public class BamBot extends RandomBot {
     @Override
     protected Objective chooseObjectiveToValidate() {   // The player validates the bamboo objectives first
         // For now, he doesn't try to validate the highest-scoring objective
+
         List<Objective> completedObjectives = new ArrayList<>();
         for (Objective obj : getObjectives()) {
+            obj.checkIfCompleted(this);
             if (obj.isCompleted()) {
                 completedObjectives.add(obj);
             }
-         }
+        }
 
-         if (completedObjectives.size() > 0) {
-             for (Objective completed : completedObjectives) {
-                 if (completed instanceof PandaObjective) {
-                     return completed;
-                 }
-             }
-             return completedObjectives.get(0);
-         }
+        if (!completedObjectives.isEmpty()) {
+            for (Objective completed : completedObjectives) {
+                if (completed instanceof PandaObjective) {
+                    return completed;
+                }
+            }
+            return completedObjectives.get(0);
+        }
 
         return null;
+    }
+
+    @Override
+    protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
+        if (!pool.isDeckEmpty(ObjectiveType.PANDA)) { return ObjectiveType.PANDA; }
+        return super.whatTypeToDraw(pool);
+    }
+
+    @Override
+    protected boolean putDownIrrigation(Game game) {
+        boolean successfulIrrigation = false;
+        if (Objects.nonNull(this.lastPlacedTile)) { //  If a tile has been placed since the last time we irrigated
+            UnitVector[] directionsTable = UnitVector.values();
+            for (int i = 0; !successfulIrrigation && (i < directionsTable.length); i++) {   // We try to irrigate the tile
+                successfulIrrigation = putDownIrrigation(game, this.lastPlacedTile, directionsTable[i]);
+            }
+        }
+
+        if (successfulIrrigation) {
+            this.lastPlacedTile = null;
+        }
+
+        return successfulIrrigation;
     }
 }

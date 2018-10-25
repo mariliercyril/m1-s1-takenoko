@@ -1,9 +1,9 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.tiles.Tile;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.awt.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class gardenerObjectiveTest {
+public class GardenerObjectiveTest {
 
     private Board b;
     private Objective go1;

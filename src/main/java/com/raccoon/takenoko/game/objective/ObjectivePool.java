@@ -1,10 +1,12 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.*;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
-import com.raccoon.takenoko.tool.Constants;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -12,11 +14,11 @@ import java.util.*;
  * The pool of objectives needed in a game, and all the means to interact with it.
  * Provides the notify methods to induce a completion checking for the right objectives.
  */
+@Component
+@Scope("prototype")
 public class ObjectivePool {
 
     private Game game;      // The game to which this pool belongs
-
-    private List<Objective> allObjectives;  // The list of all the objectives in the game, maybe useless
 
     /*
     The list of objectives by type, needed to check for the completion of a specific
@@ -24,27 +26,28 @@ public class ObjectivePool {
     ***** CAUTION ***** : This is a draft, has to be updated with an interface or a mother class
     for all the types. For now we just have one objective per type.
     */
-    private List<PandaObjective> bambooObjectives;
-    private List<AlignmentParcelObjective> patternObjectives;
-    private List<GardenerObjective> gardenerObjectives;
+    private List<Objective> bambooObjectives;
+    private List<Objective> patternObjectives;
+    private List<Objective> gardenerObjectives;
 
-    private Deque<Objective> deck;      // The deck of objectives, containing the objectives before they are drawn
+    private EnumMap<ObjectiveType, List<Objective>> deck;
 
     /**
      * Constructs a pool of objectives ready to be drawn in a random order.
      *
-     * @param game The Game this pool belongs to
      */
-    public ObjectivePool(Game game) {
-
-        // Hookup of the game we belong to
-        this.game = game;
+    public ObjectivePool() {
 
         // Instanciation of the lists
-        allObjectives = new ArrayList<>();
         bambooObjectives = new ArrayList<>();
         patternObjectives = new ArrayList<>();
         gardenerObjectives = new ArrayList<>();
+
+        // instanciation of the generic deck
+        deck = new EnumMap<>(ObjectiveType.class);
+        deck.put(ObjectiveType.PATTERN, new ArrayList<>());
+        deck.put(ObjectiveType.PANDA, new ArrayList<>());
+        deck.put(ObjectiveType.GARDENER, new ArrayList<>());
 
         /* Instanciation of the objectives and filling of the lists.
         First version, we juste create 10 card for each colour and each objective.
@@ -52,39 +55,41 @@ public class ObjectivePool {
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
                 AlignmentParcelObjective newObjective = new AlignmentParcelObjective(color);
-                this.allObjectives.add(newObjective);
                 patternObjectives.add(newObjective);
+                deck.get(ObjectiveType.PATTERN).add(newObjective);
             }
         }
+        Collections.shuffle(patternObjectives);
         for (int i = 0; i < 10; i++) {
             for (Color color : Color.values()) {
                 PandaObjective newObjective = new PandaObjective(color);
-                this.allObjectives.add(newObjective);
                 bambooObjectives.add(newObjective);
+                deck.get(ObjectiveType.PANDA).add(newObjective);
             }
         }
+        Collections.shuffle(bambooObjectives);
         for (int i = 1; i < 4; i++) {
             for (Color color : Color.values()) {
                 GardenerObjective newGObjective = new GardenerObjective(i, color, 1);
-                this.allObjectives.add(newGObjective);
                 gardenerObjectives.add(newGObjective);
+                deck.get(ObjectiveType.GARDENER).add(newGObjective);
             }
         }
+        Collections.shuffle(gardenerObjectives);
+    }
 
-        // Initialisation of the deck
-        deck = new ArrayDeque<>();
-        Collections.shuffle(allObjectives);
-        deck.addAll(allObjectives);
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     /**
      * Draws an objective from the deck.
      *
-     * @return an objective yet unplayed in this game
+     * @return an objective yet unplayed in this game ATTENTION can be null if asked deck is empty
      */
-    public Objective draw() {
-        // TODO : Treat the case of an empty stack, when no more objectives are available
-        return this.deck.pop();
+    public Objective draw(ObjectiveType t) {
+        if (!deck.get(t).isEmpty()) { return deck.get(t).remove(0); }
+        return null;
     }
 
     /**
@@ -103,7 +108,7 @@ public class ObjectivePool {
      *
      * @param player the {@code Player} who triggered the action. The changes will have happened in his stomach.
      */
-    public void notifyStomachEmpty(Player player) {
+    public void notifyStomachEmptied(Player player) {
         updatePandaObjectives(player);
     }
 
@@ -136,9 +141,28 @@ public class ObjectivePool {
     }
 
     private void updateGardenerObjectives(Board b) {
-        for (GardenerObjective go : gardenerObjectives) {
+        for (Objective go : gardenerObjectives) {
             go.checkIfCompleted(b);
         }
+    }
+
+    public boolean isDeckEmpty(ObjectiveType t) {
+        return deck.get(t).isEmpty();
+    }
+
+    /**
+     * Allows to get the type of an objective, without having to use the {@code instanceof} tool.
+     * @param objective An Objective
+     * @return the type of the objective
+     */
+    public ObjectiveType getObjectiveType(Objective objective) {
+
+        if (this.bambooObjectives.contains(objective)) return ObjectiveType.PANDA;
+        if (this.gardenerObjectives.contains(objective)) return ObjectiveType.GARDENER;
+        if (this.patternObjectives.contains(objective)) return ObjectiveType.PATTERN;
+
+        throw new RuntimeException("Objective not member of this pool");
+
     }
 
 }

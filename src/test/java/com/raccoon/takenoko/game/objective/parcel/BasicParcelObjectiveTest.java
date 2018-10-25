@@ -1,7 +1,7 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import com.raccoon.takenoko.game.Color;
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.HashBoard;
 

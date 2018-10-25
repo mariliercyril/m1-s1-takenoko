@@ -1,7 +1,9 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.IrrigationState;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HashBoardTest {
@@ -27,7 +30,7 @@ public class HashBoardTest {
     @Mock
     Tile tile2;
 
-    Board b;
+    private Board b;
 
     private Game g;
 
@@ -70,9 +73,12 @@ public class HashBoardTest {
         t7 = b.get(new Point(2, 2));
 
         // irrigate them where possible
-        b.irrigate(t1.getPosition(), new Vector(-1, -1));
-        b.irrigate(t1.getPosition(), new Vector(0, -1));
-        b.irrigate(t1.getPosition(), new Vector(0, 1));
+        b.irrigate(t1.getPosition(), UnitVector.M);
+        b.irrigate(t1.getPosition(), UnitVector.N);
+        b.irrigate(t1.getPosition(), UnitVector.K);
+
+        when(tile1.getIrrigationState(any())).thenReturn(IrrigationState.IRRIGABLE);
+        when(tile2.getIrrigationState(any())).thenReturn(IrrigationState.IRRIGABLE);
     }
 
     @Test
@@ -86,6 +92,7 @@ public class HashBoardTest {
         board.set(new Point(0, 1), tile1);
 
         verify(tile1).setPosition(eq(new Point(0, 1)));  // Check that the tile coordinates has been set here again
+
 
         assertEquals(board.get(new Point(0, 1)), tile1);
 
@@ -108,7 +115,7 @@ public class HashBoardTest {
     @Test
     public void irrigationTest() {
         HashBoard board = new HashBoard(tile0);
-        Tile test_wet = new Tile(Color.YELLOW);
+        Tile test_wet = new Tile(com.raccoon.takenoko.game.tiles.Color.YELLOW);
         board.set(new Point(0, 1), test_wet);
         board.set(new Point(1, 1), tile1);   // We need a tile here to put another one in (1, 2) for the next test
         assertTrue("The tile should be irrigated because it's adjacent to the pond", test_wet.isIrrigated());
@@ -120,8 +127,8 @@ public class HashBoardTest {
 
     @Test
     public void irrigateTest() {
-        assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t2.getPosition(), UnitVector.K.getVector()));
-        assertFalse("Irrigation put on a tile with no other tile adjacent", b.irrigate(t3.getPosition(), UnitVector.K.getVector().getOpposite()));
+        assertTrue("Irrigation can't be put between to correct tiles", b.irrigate(t1.getPosition(), UnitVector.J));
+        assertFalse("Irrigation put on a tile with no other tile adjacent", b.irrigate(t3.getPosition(), UnitVector.K.opposite()));
 
     }
 
@@ -156,25 +163,31 @@ public class HashBoardTest {
     @Test
     public void irrigatedTowardsSomething() {
         assertTrue("Tile next to last irrigated tile, and in the right direction, is not irrigated", t3.isIrrigated());
-        assertTrue("Next tile irrigated is irrigated in the wrong direction.", t3.getIrrigatedTowards().contains(new Vector(0, 1)));
+        // K is the unit Vector (0, 1)
+        assertEquals("Next tile irrigated is irrigated in the wrong direction.", IrrigationState.IRRIGATED, t3.getIrrigationState(UnitVector.K));
     }
 
     @Test
-    public void canIrrigateTest() {
-        // can irrigate roads directly leaving the pond tile
-        assertTrue("Can't irrigate path directly next to pond.", b.canIrrigate(t5.getPosition(), new Vector(1, 0)));
+    public void isIrrigable() {
+        // test case with current setup
+        assertFalse("Should not be irrigable for there is no water path to it", t7.isIrrigable());
+        assertTrue("Should be irrigable as it in sext to pond.", t4.isIrrigable());
 
-        // can't irrigate tile in a direction that has no neighbour
-        assertFalse("Can irrigate a tile in a direction where there is no tile", b.canIrrigate(t5.getPosition(), new Vector(-1, 0)));
+        // add an irrigation and check consequences
+        assertTrue("If previous test passed, should be irrigated.", b.irrigate(t4.getPosition(), UnitVector.I));
+        assertTrue("Just set a path to it, should be irrigable.", t6.isIrrigable());
+        assertTrue("Just set a path to it, should be irrigable by now.", t7.isIrrigable());
+        assertEquals("should be irrigable in this direction once a tile is put down", IrrigationState.TO_BE_IRRIGABLE, t1.getIrrigationState(UnitVector.I));
 
-        // can't irrigate if there is no irrigation coming from pond tile to this intersection
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t7.getPosition(), new Vector(-1, 0)));
-        assertFalse("Can irrigate a tile even though there is no path coming from pond", b.canIrrigate(t5.getPosition(), new Vector(1, 1)));
+        // set a tile at an irrigable place and check if I can put down an irrigation between them.
+        b.set(new Point(2, 0), new Tile(Color.PINK));
+        assertEquals("Just put down a tile at the right place, this place should be irrigable.", IrrigationState.IRRIGABLE, t1.getIrrigationState(UnitVector.I));
+        assertEquals("Just put down a tile at the right place, the new tile should be irrigable.", IrrigationState.IRRIGABLE, b.get(new Point(2, 0)).getIrrigationState(UnitVector.I.opposite()));
 
-        // can irrigate if there is an irrigation path from pond to here
-        assertTrue("Can't irrigate a tile even though there is a path coming from pond", b.canIrrigate(t6.getPosition(), new Vector(-1, -1)));
-
-        // assertTrue(t5.isIrrigated());
-        // assertTrue(t6.isIrrigated());
+        // irrigate an entire tile and check consequences on said tile
+        b.irrigate(t1.getPosition(), UnitVector.I);
+        b.irrigate(t1.getPosition(), UnitVector.J);
+        assertFalse("Tile should be entirely irrigated, can't set an irrigation there anymore.", t1.isIrrigable());
     }
+
 }

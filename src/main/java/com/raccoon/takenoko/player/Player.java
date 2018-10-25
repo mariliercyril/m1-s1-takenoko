@@ -1,14 +1,17 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.IrrigationState;
+import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
-import com.raccoon.takenoko.tool.Vector;
+import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.Point;
 import java.util.*;
@@ -24,7 +27,7 @@ public abstract class Player {
     private int id;
     private List<Objective> objectives;
     private static int counter = 0;
-    private HashMap<Color, Integer> stomach;
+    private Map<Color, Integer> stomach;
     private int irrigations;
 
     public Player() {
@@ -59,7 +62,7 @@ public abstract class Player {
         this.objectives.add(objective);
     }
 
-    public HashMap<Color, Integer> getStomach() {
+    public Map<Color, Integer> getStomach() {
         return stomach;
     }
 
@@ -77,7 +80,7 @@ public abstract class Player {
 
         // check if the actions are compatible (exactly 2 costly actions)
         int validityCheck = 0;
-        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) { ; }
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost());
         if (validityCheck != 2) {
             throw new ForbiddenActionException("Player tried to play an incorrect number of actions.");
         }
@@ -138,14 +141,15 @@ public abstract class Player {
                 Takeyesntko.print(String.format("Player choosed to validate the objective %s !", objective));
                 validateObjective(objective);
                 // we may have emptied a stomach
-                game.getObjectivePool().notifyStomachEmpty(this);
+                game.getObjectivePool().notifyStomachEmptied(this);
                 break;
             case DRAW_OBJECTIVE:
                 if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
                     throw new ForbiddenActionException("Player tried to draw an objective with a full hand already");
                 }
-                objectives.add(game.drawObjective());
-                Takeyesntko.print(String.format("Player has drawn an objective, he now has %d in his hand : %s", objectives.size(), Arrays.toString(new List[]{objectives})));
+                ObjectiveType type = this.whatTypeToDraw(game.getObjectivePool());
+                objectives.add(game.drawObjective(type));
+                Takeyesntko.print(String.format("Player has drawn a %s objective, he now has %d objectives in his hand", type, objectives.size()));
                 break;
             case PUT_DOWN_IRRIGATION:
                 if (this.putDownIrrigation(game)) {
@@ -171,6 +175,8 @@ public abstract class Player {
         }
     }
 
+    protected abstract ObjectiveType whatTypeToDraw(ObjectivePool pool);
+
     public abstract boolean keepIrrigation();
 
     private void validateObjective(Objective objective) {
@@ -184,7 +190,15 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-                this.stomach.put(objective.getColor(), this.stomach.get(objective.getColor()) - 2);
+            	List<Color> objectiveColors = ((PandaObjective)objective).getColors();
+            	if (objectiveColors.size() == 1) {
+            		this.stomach.put(objectiveColors.get(0), this.stomach.get(objectiveColors.get(0)) - 2);
+            	}
+            	if (objectiveColors.size() == 3) {
+            		for (Color color : Color.values()) {
+            			this.stomach.put(color, this.stomach.get(color) - 1);
+            		}
+            	}
             }
         }
     }
@@ -214,8 +228,8 @@ public abstract class Player {
 
     protected abstract Objective chooseObjectiveToValidate();
 
-    public final boolean putDownIrrigation(Game game, Point pos, Vector direction) {
-        if (irrigations > 0 && game.getBoard().canIrrigate(pos, direction)) {
+    public final boolean putDownIrrigation(Game game, Point pos, UnitVector direction) {
+        if (irrigations > 0 && game.getBoard().get(pos).getIrrigationState(direction).equals(IrrigationState.IRRIGABLE)) {
             irrigations--;
             return game.getBoard().irrigate(pos, direction);
         }

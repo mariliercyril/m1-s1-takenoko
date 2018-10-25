@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.game.objective.Objective;
 
@@ -29,8 +29,6 @@ public class AlignmentParcelObjective extends Objective {
 	// The position of the "pond" Tile: No alignment allowed with it
 	private static final Point ORIGIN_POINT = new Point(0, 0);
 
-	private static final int SCORE_BASE = 2;
-
 	private boolean areAligned;
 
 	/**
@@ -43,7 +41,7 @@ public class AlignmentParcelObjective extends Objective {
 
 		super();
 		this.color = color;
-		setScore(color);
+		score();
 
 		areAligned = false;
 	}
@@ -101,14 +99,21 @@ public class AlignmentParcelObjective extends Objective {
 	}
 
 	/**
-	 * Sets the score according to the color.
-	 * 
-	 * @param color
-	 * 	the color which is associated with the objective
+	 * Assigns the value to score according to the {@code PandaObjective} case.
 	 */
-	private void setScore(Color color) {
+	private void score() {
 
-		score = SCORE_BASE + color.ordinal();
+		switch (color) {
+			case GREEN:
+				score = 2;
+				break;
+			case YELLOW:
+				score = 3;
+				break;
+			case PINK:
+				score = 4;
+				break;
+		}
 	}
 
 }

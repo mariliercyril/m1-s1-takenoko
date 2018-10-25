@@ -1,12 +1,13 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Tile;
+import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.UnitVector;
-import com.raccoon.takenoko.tool.Vector;
 
 import java.awt.Point;
 import java.util.*;
@@ -79,23 +80,12 @@ public class RandomBot extends Player {
         while (score < 2) {
             if (r.nextBoolean() && r.nextBoolean()) {
                 // ban unavailable actions
-                // can't put irrigation if none has been taken
-                if (available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't validate an objective if I don't have any
-                if (available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't draw objective if I already have 2
-                if (available[cursor] == Action.DRAW_OBJECTIVE && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES) {
-                    cursor = ++cursor % available.length;
-                    continue;
-                }
-                // can't play the same action twice
-                if (choosen.contains(available[cursor])) {
+                if (( available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0 )                  // can't put irrigation if none has been taken
+                        || ( available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null ) // can't validate an objective if I don't have any
+                        || ( available[cursor] == Action.DRAW_OBJECTIVE
+                            && this.getObjectives().size() >= Constants.MAX_AMOUNT_OF_OBJECTIVES )                     // can't draw objective if I already have 2
+                        || ( choosen.contains(available[cursor]) ))                                                    // can't play the same action twice
+                {
                     cursor = ++cursor % available.length;
                     continue;
                 }
@@ -112,17 +102,20 @@ public class RandomBot extends Player {
     @Override
     protected Objective chooseObjectiveToValidate() {
 
+        List<Objective> completedObjectives = new ArrayList<>();
         for (Objective objective : this.getObjectives()) {  // We go through all the objectives
 
-            if (objective.isCompleted()) {   // If we find one completed,
-                return objective;           // we return it
+            if (objective.isCompleted()) {            // If we find one completed,
+                completedObjectives.add(objective);  // we add it to the completed objectives list
             }
-
         }
-        Collections.shuffle(this.getObjectives());
-        if (this.getObjectives().size() > 0) { return this.getObjectives().get(0); }
 
-        return null;    // If no objective is completed, we just return null
+        Collections.shuffle(completedObjectives);
+        if (completedObjectives.size() > 0) {
+            return completedObjectives.get(0);
+        }  // We randomly return a completed objective
+
+        return null;  // If no objective is completed, we just return null
     }
 
     @Override
@@ -136,9 +129,17 @@ public class RandomBot extends Player {
         Collections.shuffle(boardTiles);
         boardTiles.removeIf(p -> p.getPosition().equals(new Point(0, 0)));
 
-        Vector[] directionsTable = UnitVector.getVectors();
+        UnitVector[] directionsTable = UnitVector.values();
         Collections.shuffle(Arrays.asList(directionsTable));
 
         return putDownIrrigation(game, boardTiles.get(0).getPosition(), directionsTable[0]);
+    }
+
+    @Override
+    protected ObjectiveType whatTypeToDraw(ObjectivePool pool) {
+        List<ObjectiveType> types = new ArrayList<>(Arrays.asList(ObjectiveType.values()));
+        types.removeIf(pool::isDeckEmpty);
+        Collections.shuffle(types);
+        return types.get(0);
     }
 }

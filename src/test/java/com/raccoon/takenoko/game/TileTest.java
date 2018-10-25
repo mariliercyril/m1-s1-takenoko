@@ -1,6 +1,9 @@
 package com.raccoon.takenoko.game;
 
-import com.raccoon.takenoko.tool.Vector;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.IrrigationState;
+import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,16 +16,16 @@ import static org.junit.Assert.assertFalse;
 public class TileTest {
     private Game g;
 
-    Tile origin;
-    Tile t1;
+    private Tile origin;
+    private Tile t1;
 
     @Before
     public void setup() {
         g = new Game();
-        g.getBoard().set(new Point(0, 1), new Tile(Color.GREEN));
+        g.getBoard().set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
 
         // put down some tiles
-        g.getBoard().set(new Point(1, 0), new Tile(Color.PINK));
+        g.getBoard().set(new Point(1, 0), new Tile(com.raccoon.takenoko.game.tiles.Color.PINK));
         g.getBoard().set(new Point(0, -1), new Tile(Color.GREEN));
 
         // keep them somewhere (for lisibility)
@@ -30,8 +33,8 @@ public class TileTest {
         t1 = g.getBoard().get(new Point(1, 0));
 
         // irrigate them where possible
-        t1.irrigate(new Vector(-1, -1));
-        t1.irrigate(new Vector(0, -1));
+        t1.irrigate(UnitVector.M);
+        t1.irrigate(UnitVector.N);
 
         g.getGardener().move(g.getBoard(), new Point(0, 1));
     }
@@ -63,7 +66,8 @@ public class TileTest {
     @Test
     public void tileNextToLakeIsIrrigated() {
         assertTrue("Tile is not irrigated even though asked.", t1.isIrrigated());
-        assertTrue("Tile has not been irrigated in the right direction", t1.getIrrigatedTowards().contains(new Vector(0, -1)));
+        // N is the unit Vector (0, -1)
+        assertEquals("Tile has not been irrigated in the right direction", IrrigationState.IRRIGATED, t1.getIrrigationState(UnitVector.N));
     }
 
 }

@@ -3,18 +3,27 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
+import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
  */
+@Component
+@Scope("prototype")
 public class Game {
 
     private Board board;                    // The game board, with all the tiles
@@ -25,6 +34,7 @@ public class Game {
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
 
+    @Autowired
     private ObjectivePool objectivePool;    // The pool of objective cards
 
     /*
@@ -66,7 +76,6 @@ public class Game {
         board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
 
-        objectivePool = new ObjectivePool(this);    // Initialisation of the objective pool
     }
 
     /**
@@ -80,7 +89,24 @@ public class Game {
         this.players = players;
         board = new HashBoard(new Tile());
         initTileDeck();
-        this.objectivePool = new ObjectivePool(this);
+    }
+
+    @PostConstruct
+    public void init() {
+        this.objectivePool.setGame(this);
+    }
+
+    // used only by this class
+    private void initTileDeck() {
+        tilesDeck = new LinkedList<>();
+        Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
+
+        for (Color c : colors) {
+            for (int i = 0; i < c.getQuantite(); i++) {
+                tilesDeck.push(new Tile(c));
+            }
+        }
+        Collections.shuffle(tilesDeck);
     }
 
     /*
@@ -129,7 +155,14 @@ public class Game {
 
     public void start() {           // Starts the game: while the game isn't over, each player plays
         int i = 0;
+        int turnNumber = 0;
         while (!gameOver()) {
+
+            if (i == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
+                Takeyesntko.print("\n######################################################");
+                Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
+            }
+
             Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " " + players.get(i).getClass().getSimpleName() + " is playing now.");
             try {
                 players.get(i).play(this);
@@ -168,19 +201,6 @@ public class Game {
         return players.get(0);
     }
 
-    // used only by this class
-    private void initTileDeck() {
-        tilesDeck = new LinkedList<>();
-        Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
-
-        for (Color c : colors) {
-            for (int i = 0; i < c.getQuantite(); i++) {
-                tilesDeck.push(new Tile(c));
-            }
-        }
-        Collections.shuffle(tilesDeck);
-    }
-
     private void printRanking() {
         players.sort((Player p1, Player p2) -> p2.getScore() - p1.getScore());
         Takeyesntko.print("\n RANKING");
@@ -208,12 +228,12 @@ public class Game {
      *
      * @return the first objective card of the deck
      */
-    public Objective drawObjective() {
+    public Objective drawObjective(ObjectiveType t) {
         /*
         This might be replaced by a direct call to the draw method of the objectivePool
         in the classes needing it
          */
-        return this.objectivePool.draw();   // We just get the objective from the pool
+        return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
 
     public void purge() {

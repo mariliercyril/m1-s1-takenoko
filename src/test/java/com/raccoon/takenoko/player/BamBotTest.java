@@ -1,9 +1,9 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.Color;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.Tile;
-import com.raccoon.takenoko.game.objective.panda.PandaObjective;
+import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.Before;
@@ -18,13 +18,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BamBotTest {
 
-    private Map<Point, Color> tileColors;
+
     private Game g;
     private Player bot;
     // I don't want to write Color.GREEN every time I need it (which is a lot)
@@ -35,19 +34,17 @@ public class BamBotTest {
     @Mock
     private PandaObjective pObj1;
     @Mock
-    private PandaObjective pObj2;
-    @Mock
     private AlignmentParcelObjective aObj1;
-    @Mock
-    private AlignmentParcelObjective aObj2;
 
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));
     }
 
     private void irrigate(int x, int y, UnitVector v) {
-        g.getBoard().irrigate(new Point(x,y), v.getVector());
+        g.getBoard().irrigate(new Point(x,y), v);
     }
+
+
 
     @Before
     public void init() {
@@ -57,6 +54,47 @@ public class BamBotTest {
 
     @Test
     public void whereToPutDownTile() {
+        place(0,1, yellow);
+        place(1,1, pink);
+        place(1,0,yellow);
+        place(0, -1, pink);
+        place(-1, -1, green);
+        place(-1, 0, green);
+
+        place(1,2, pink);
+        place(2, 1, pink);
+        place(1, -1, yellow);
+        place(-1, -2, yellow);
+        place(-1, 1, pink);
+
+        place(0,2, yellow);
+        place(2,0, green);
+        place(0,2, green);
+        place(-2, -2, green);
+        place(-2, 0, green);
+
+        Tile pinkTile = new Tile(pink);
+        Tile greenTile = new Tile(green);
+
+        assertNotNull(bot.whereToPutDownTile(g, pinkTile));
+        assertNotNull(bot.whereToPutDownTile(g, greenTile));
+
+        irrigate(1,1, UnitVector.L);
+        irrigate(1,1, UnitVector.K);
+        irrigate(1,1, UnitVector.J);
+        irrigate(1,1, UnitVector.I);
+
+        assertEquals(new Point(2,2), bot.whereToPutDownTile(g, pinkTile));
+        assertNotNull(bot.whereToPutDownTile(g, greenTile));
+
+        irrigate(-1, 0, UnitVector.N);
+        irrigate(-1, 0, UnitVector.M);
+        irrigate(-2, 0, UnitVector.N);
+        irrigate(-1, -1, UnitVector.L);
+        irrigate(-2, -2, UnitVector.K);
+
+        assertEquals(new Point(-2, -1), bot.whereToPutDownTile(g, greenTile));
+        assertEquals(new Point(2,2), bot.whereToPutDownTile(g, pinkTile));
     }
 
     @Test
@@ -124,8 +162,27 @@ public class BamBotTest {
         assertTrue(possibleBest.contains(bot.whereToMoveGardener(g, g.getBoard().getAccessiblePositions(g.getGardener().getPosition()))));
     }
 
+
     @Test
     public void whereToMovePanda() {
+        place(0, 1, pink);
+        place(1,1, pink);
+        place(1, 0, green);
+
+        irrigate(1, 1, UnitVector.N);
+        irrigate(1, 1, UnitVector.I);
+        irrigate(1, 1, UnitVector.J);
+
+        bot.getStomach().put(pink, 1);  // The player already has a pink bamboo in his stomach
+
+        assertEquals(new Point(1, 0), bot.whereToMovePanda(g, g.getBoard().getAccessiblePositions(g.getPanda().getPosition())));    // He goes to eat the green bamboo
+        bot.getStomach().put(green, 1); // He eats the green bamboo
+
+        place(2, 1, yellow);
+        place(2, 2, yellow);
+        g.getGardener().move(g.getBoard(), new Point(2, 2));
+
+        //assertEquals(new Point(2, 2), bot.whereToMovePanda(g, g.getBoard().getAccessiblePositions(g.getPanda().getPosition())));    // Now he only needs yellow
     }
 
     @Test

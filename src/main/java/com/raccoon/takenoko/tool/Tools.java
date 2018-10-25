@@ -1,9 +1,12 @@
 package com.raccoon.takenoko.tool;
 
 import java.util.Map;
-import java.util.Set;
 
 public final class Tools {
+
+    private Tools() {
+
+    }
 
     /**
      *
