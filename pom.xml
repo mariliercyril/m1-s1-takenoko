@@ -2,6 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
+
     <version>OCT24</version> <!-- CHANGE ME -->
 
     <properties>
@@ -67,6 +68,7 @@
 
                 <configuration>
                     <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
+
                 </configuration>
 
             </plugin>
