@@ -1,7 +1,6 @@
 package com.raccoon.takenoko.tool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
