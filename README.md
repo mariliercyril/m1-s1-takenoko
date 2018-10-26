@@ -10,7 +10,7 @@ The goal is to grow the most bamboos by skillfully managing the plots and satisf
 
 ## Built With
 
-[Maven](https://maven.apache.org/) - Dependency Management
+[Maven](https://maven.apache.org/) - Dependency Management  
 [Spring Boot](https://spring.io) - Application Framework
 
 ## Tools links
