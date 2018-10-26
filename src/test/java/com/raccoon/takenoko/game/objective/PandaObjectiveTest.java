@@ -9,6 +9,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 
 import java.awt.Point;
+
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ import static org.mockito.Mockito.when;
  */
 public class PandaObjectiveTest {
 
-    // A player (which should be a mock) 
+    // A player (which should be a mock)
 	private static Player mockPlayer;
 
 	private HashMap<Color, Integer> stomach;
