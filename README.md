@@ -10,13 +10,12 @@ The goal is to grow the most bamboos by skillfully managing the plots and satisf
 
 ## Built With
 
-[Maven](https://maven.apache.org/) - Dependency Management
+[Maven](https://maven.apache.org/) - Dependency Management  
 [Spring Boot](https://spring.io) - Application Framework
 
 ## Tools links
 
-[Javadoc](http://www-mips.unice.fr/~gl800548/)
-
+[Javadoc](http://www-mips.unice.fr/~gl800548/)  
 [Sonar](http://ggdom.freeboxos.fr:9000/dashboard?id=takenoko%3Atakenoko)
 
 ## Authors
