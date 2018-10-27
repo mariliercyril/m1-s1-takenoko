@@ -120,7 +120,7 @@ public abstract class Player {
                 break;
             case MOVE_GARDENER:
                 List<Point> gardenerAccessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
-                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);
+                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);  // Actually, we give the game in parameter… giving the list of accessible position is redundant
                 // check that point is in available points array
                 if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
