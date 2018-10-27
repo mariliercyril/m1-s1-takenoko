@@ -40,7 +40,7 @@ public class PandaObjectiveTest {
     private PandaObjective pandaObjective;
 
 	@BeforeAll
-	public static void createsMockPlayer() {
+	public static void createMockPlayer() {
 
 	    // Creates the mock player
 		mockPlayer = mock(Player.class);
