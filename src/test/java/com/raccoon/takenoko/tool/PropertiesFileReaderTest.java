@@ -51,7 +51,7 @@ public class PropertiesFileReaderTest {
 	}
 
 	@Test
-	@DisplayName("assert that it equals NullPointerException when we try to get properties from a file which does not exist")
+	@DisplayName("assert that it equals to NullPointerException when we try to get properties from a file which does not exist")
 	public void testGetProperty_whenFileDoesNotExist() {
 
 		// Tries to get property with the name of a file which does not exist
@@ -66,7 +66,7 @@ public class PropertiesFileReaderTest {
 	}
 
 	@Test
-	@DisplayName("assert that it equals NullPointerException when we try to get properties from a file of which the name is null")
+	@DisplayName("assert that it equals to NullPointerException when we try to get properties from a file of which the name is null")
 	public void testGetProperty_whenFileNameIsNull() {
 
 		// Tries to get property with the name of a file of which the name is null

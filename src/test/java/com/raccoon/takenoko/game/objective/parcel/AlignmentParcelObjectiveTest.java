@@ -1,9 +1,10 @@
 package com.raccoon.takenoko.game.objective.parcel;
 
-import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.HashBoard;
+
+import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.Tile;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -227,10 +228,10 @@ public class AlignmentParcelObjectiveTest {
 	}
 
 	/*
-	 * When the CheckIfCompleted method is used with a player (s a paramter)
+	 * When the CheckIfCompleted method is used with a player (s a parameter)
 	 */
 	@Test
-	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a player (as a paramter)")
+	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a player (as a parameter)")
 	public void testCheckIfCompletedWithPlayer() {
 
 		// Creates a stomach
@@ -243,6 +244,16 @@ public class AlignmentParcelObjectiveTest {
         when(mockPlayer.getStomach()).thenReturn(stomach);
 
         assertThrows(UnsupportedOperationException.class, () -> alignmentParcelObjective.checkIfCompleted(mockPlayer));
+	}
+
+	/*
+	 * When the CheckIfCompleted method is used with a board (as a parameter)
+	 */
+	@Test
+	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a board (as a parameter)")
+	public void testCheckIfCompletedWithBoard() {
+
+        assertThrows(UnsupportedOperationException.class, () -> alignmentParcelObjective.checkIfCompleted(hashBoard));
 	}
 
 }

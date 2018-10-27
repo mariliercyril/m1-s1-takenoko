@@ -195,7 +195,7 @@ public class PandaObjectiveTest {
     }
 
 	/*
-	 * When the CheckIfCompleted method is used with a tile and a board (as paramters)
+	 * When the CheckIfCompleted method is used with a tile and a board (as parameters)
 	 */
 	@Test
 	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a tile and a board (as parameters)")

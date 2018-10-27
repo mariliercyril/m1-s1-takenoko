@@ -84,18 +84,15 @@ public class PandaObjective extends Objective {
 	private void score() {
 
 		if (colors.size() == 1) {
-			switch (colors.get(0)) {
-				case GREEN:
-					score = 3;
-					break;
-				case YELLOW:
-					score = 4;
-					break;
-				case PINK:
-					score = 5;
-					break;
-				default:
-					// Do nothing
+			color = colors.get(0);
+			if (this.getColor().equals(Color.GREEN)) {
+				score = 3;
+			}
+			if (this.getColor().equals(Color.YELLOW)) {
+				score = 4;
+			}
+			if (this.getColor().equals(Color.PINK)) {
+				score = 5;
 			}
 		}
 		if (colors.size() == 3) {

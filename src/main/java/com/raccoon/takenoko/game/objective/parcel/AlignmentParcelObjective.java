@@ -103,16 +103,14 @@ public class AlignmentParcelObjective extends Objective {
 	 */
 	private void score() {
 
-		switch (color) {
-			case GREEN:
-				score = 2;
-				break;
-			case YELLOW:
-				score = 3;
-				break;
-			case PINK:
-				score = 4;
-				break;
+		if (color.equals(Color.GREEN)) {
+			score = 2;
+		}
+		if (color.equals(Color.YELLOW)) {
+			score = 3;
+		}
+		if (color.equals(Color.PINK)) {
+			score = 4;
 		}
 	}
 
