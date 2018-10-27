@@ -1,13 +1,16 @@
 package com.raccoon.takenoko.tool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 
 import org.apache.log4j.spi.LoggingEvent;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,42 +24,81 @@ import static org.mockito.Mockito.verify;
  */
 public class PropertiesFileReaderTest {
 
-	private static PropertiesFileReader propertiesFileReader;
+	// Gets the LOGGER of the PropertiesFileReader
+	private static final Logger LOGGER = Logger.getLogger(PropertiesFileReader.class);
 
-	@BeforeAll
-	public static void createsMockPlayer() {
+	// Gets the SINGLE instance of the PropertiesFileReader
+	private static final PropertiesFileReader PROPERTIES_FILE_READER = PropertiesFileReader.getInstance();
 
-		propertiesFileReader = PropertiesFileReader.getInstance();
-	}
+    // An appender (which should be a mock)
+	private Appender mockAppender;
 
-	@Test
-	@DisplayName("assert that it equals NullPointerException when we try to get properties from a file which does not exist"
-			+ "(or a file of which the name is null)")
-	public void testGetProperty() {
+	@BeforeEach
+	public void setUp() {
 
-		// Gets the LOGGER of the PropertiesFileReader
-		final Logger LOGGER = Logger.getLogger(PropertiesFileReader.class);
-		// A mock appender
-		Appender mockAppender = mock(Appender.class);
+	    // Creates a mock appender
+		mockAppender = mock(Appender.class);
 
 		// Adds the mock appender to the LOGGER
 		LOGGER.addAppender(mockAppender);
+	}
 
+	@AfterEach
+	public void cleanUp() {
+
+		// Removes the mock appender from the LOGGER
+		LOGGER.removeAppender(mockAppender);
+	}
+
+	@Test
+	@DisplayName("assert that it equals NullPointerException when we try to get properties from a file which does not exist")
+	public void testGetProperty_whenFileDoesNotExist() {
 
 		// Tries to get property with the name of a file which does not exist
-		propertiesFileReader.getStringProperty("fileName", "key", "defaultValue");
+		PROPERTIES_FILE_READER.getStringProperty("fileName", "key", "defaultValue");
 
 		// Captures the return of the LOGGER, which has just been captured
 		// when we try to get property with the name of a file which does not exist
 		ArgumentCaptor<LoggingEvent> argument = ArgumentCaptor.forClass(LoggingEvent.class);
 		verify(mockAppender).doAppend(argument.capture());
 
-		// Asserts the same thing when we try to get property with a file name which is null
-		assertEquals(NullPointerException.class.getName(), argument.getValue().getMessage().toString());
+		assertEquals(NullPointerException.class.getName(), argument.getValue().getThrowableInformation().getThrowable().toString());
+	}
 
+	@Test
+	@DisplayName("assert that it equals NullPointerException when we try to get properties from a file of which the name is null")
+	public void testGetProperty_whenFileNameIsNull() {
 
-		// Removes the mock appender from the LOGGER
-		LOGGER.removeAppender(mockAppender);
+		// Tries to get property with the name of a file of which the name is null
+		PROPERTIES_FILE_READER.getStringProperty(null, "key", "defaultValue");
+
+		// Captures the return of the LOGGER, which has just been captured
+		// when we try to get property with a file name which is null
+		ArgumentCaptor<LoggingEvent> argument = ArgumentCaptor.forClass(LoggingEvent.class);
+		verify(mockAppender).doAppend(argument.capture());
+
+		assertEquals(NullPointerException.class.getName(), argument.getValue().getThrowableInformation().getThrowable().toString());
+	}
+
+	@Test
+	@DisplayName("assert that it is true when we try to get a property which exists")
+	public void testGetProperty_whenTryToGetKey() {
+
+		assertTrue((PROPERTIES_FILE_READER.getStringProperty("test", "key", "defaultValue")).equals("value"));
+	}
+
+	@Test
+	@DisplayName("assert that it is false when we try to get a property which does not exist, 1st case: the default value is not the expected value")
+	public void testGetProperty_whenTryToGetTooFirstCase() {
+
+		assertFalse((PROPERTIES_FILE_READER.getStringProperty("test", "too", "defaultValue")).equals("value"));
+	}
+
+	@Test
+	@DisplayName("assert that it is true when we try to get a property which does not exist, 2nd case: the default value is the expected value")
+	public void testGetProperty_whenTryToGetTooSecondCase() {
+
+		assertTrue((PROPERTIES_FILE_READER.getStringProperty("test", "too", "defaultValue")).equals("defaultValue"));
 	}
 
 }
