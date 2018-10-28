@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * The {@code PandaObjective} class implements the <i>panda</i> {@link Objective}
- * which consist in "<b>having eaten bamboo chunks of expected colors</b>".
+ * which consist in "<b>having eaten expected numbers of bamboo chunks</b>".
  * <p>
  * The scores for the original patterns are:
  * <ul>
@@ -44,8 +44,7 @@ public class PandaObjective extends Objective {
 	 * Gets the pattern of the current PandaObjective,
 	 * i.e. the expected pattern for completing the PandaObjective in question.
 	 * 
-	 * @return pattern
-	 * 	the expected pattern
+	 * @return the expected pattern
 	 */
 	public Pattern getPattern() {
 
@@ -62,19 +61,19 @@ public class PandaObjective extends Objective {
 		int stomachID = godelize(stomach.get(Color.GREEN), stomach.get(Color.YELLOW), stomach.get(Color.PINK));
 
 		// PandaObjective, with a (panda) pattern (as a parameter), is completed
-		// if the stomach ID is a multiple of the PandaObjective pattern ID.
-		// (For example, if the stomach contains 0 green bamboo chunk, 2 yellow bamboo chunks and 4 pink bamboo chunks,
+		// if the stomach ID is a multiple of the pattern ID.
+		// (For example, if the stomach contains 0 GREEN bamboo chunk, 2 YELLOW bamboo chunks and 4 PINK bamboo chunks,
 		// its ID is equal to 5625; if the pattern consists in having eaten (at least) two PINK bamboo chunks,
 		// its ID is equal to 25: 5625 is a multiple of 25 (5625 / 25 = 225)..."
 		isCompleted = (stomachID % pattern.id == 0);
 	}
 
 	/**
-	 * A pattern of PandaObjective, such as '<i>i</i>'.
+	 * A pattern of PandaObjective, such as the pattern of PandaObjective which consists in
+	 * <i>having eaten (at least) two GREEN bamboo chunks</i>.
 	 * <p>{@code Pattern} is an internal enum representing all the patterns of PandaObjective.
 	 * Each of these patterns is defined by a ID, which is the number resulting of a Gödelization
-	 * from the numbers of bamboo chunks of each color (GREEN, YELLOW and PINK),
-	 * and the score when the PandaObjective of which is the pattern is completed.</p>
+	 * from the numbers of bamboo chunks, and the score when the PandaObjective is completed.</p>
 	 */
 	public static enum Pattern {
 
@@ -109,6 +108,11 @@ public class PandaObjective extends Objective {
 			this.score = score;
 		}
 
+		/**
+		 * Returns the ID of the pattern.
+		 * 
+		 * @return the ID of the pattern
+		 */
 		public int getID() {
 
 			return id;
@@ -120,19 +124,18 @@ public class PandaObjective extends Objective {
 	 * Returns the number, <i>G</i>, resulting of the Gödelization which consists in doing the following calculation:
 	 * let <i>Pn</i> be the <i>n</i>-th prime number,
 	 * let <i>g</i> be the number of <b>green</b> bamboo chunks,
-	 * let <i>y</i> be the number of <b>yellow</b> bamboo chunks and
-	 * let <i>p</i> be the number of <b>pink</b> bamboo chunks;
+	 * <i>y</i> be the number of <b>yellow</b> bamboo chunks and
+	 * <i>p</i> be the number of <b>pink</b> bamboo chunks;
 	 * <i>G</i> = <i>P</i>1^<i>g</i> * <i>P</i>2^<i>y</i> * <i>P</i>3^<i>p</i>.
 	 * 
 	 * @param green
-	 *  the number of <b>green</b> bamboo chunks
+	 *  the number of GREEN bamboo chunks
 	 * @param yellow
-	 *  the number of <b>yellow</b> bamboo chunks
+	 *  the number of YELLOW bamboo chunks
 	 * @param pink
-	 *  the number of <b>pink</b> bamboo chunks
+	 *  the number of PINK bamboo chunks
 	 * 
 	 * @return the ID
-	 *  a number resulting of a Gödelization
 	 */
 	private static int godelize(int green, int yellow, int pink) {
 
