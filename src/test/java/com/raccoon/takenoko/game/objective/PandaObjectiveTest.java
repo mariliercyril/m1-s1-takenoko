@@ -10,9 +10,7 @@ import com.raccoon.takenoko.player.Player;
 
 import java.awt.Point;
 
-import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,7 +59,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains 2 bamboo chunks with the expected color")
     public void testCheckIfCompleted_trueFristCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 2);
@@ -78,7 +76,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains at least 2 bamboo chunks with the expected color")
     public void testCheckIfCompleted_trueSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 3);
@@ -95,7 +93,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains 1 bamboo chunk per color")
 	public void testCheckIfCompleted_trueeThirdCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_THREE_COLORS);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -114,7 +112,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains at least 1 bamboo chunk per color")
 	public void testCheckIfCompleted_trueeFourthCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_THREE_COLORS);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -133,7 +131,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains only 1 bamboo chunk with the expected color")
     public void testCheckIfCompleted_falseFirstCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with only one bamboo chunk
 		stomach.put(Color.GREEN, 1);
@@ -150,7 +148,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains 2 bamboo chunks but only 1 bamboo chunk with the expected color")
     public void testCheckIfCompleted_falseSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -168,7 +166,7 @@ public class PandaObjectiveTest {
     		+ "the stomach contains 2 bamboo chunks but with an unexpected color")
     public void testCheckIfCompleted_falseThirdCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.YELLOW, 2);
@@ -185,7 +183,7 @@ public class PandaObjectiveTest {
     		+ "the stomach is empty")
     public void testCheckIfCompleted_falseFourthCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_THREE_COLORS);
 
         // So that the mock player returns the stomach 
         when(mockPlayer.getStomach()).thenReturn(stomach);
@@ -201,7 +199,7 @@ public class PandaObjectiveTest {
 	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a tile and a board (as parameters)")
 	public void testCheckIfCompletedWithTileAndBoard() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
 		// Create the "pond" Tile (initial Tile)
 		Tile pondTile = new Tile();
@@ -219,7 +217,7 @@ public class PandaObjectiveTest {
 	@Test
 	public void objectiveDifferentiationTest() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
         stomach.put(Color.GREEN, 1);
@@ -235,30 +233,29 @@ public class PandaObjectiveTest {
 
 	@Test
     @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 1st case")
-	public void testGetPatternForCompleting_trueFirstCase() {
+	public void testGetPattern_trueFirstCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
 
-		// Create a reference pattern
-		Map<Color, Integer> motif = new EnumMap<>(Color.class);
-		motif.put(Color.GREEN, 2);
-
-        assertEquals(pandaObjective.getPatternForCompleting(), motif);
+        assertEquals(PandaObjective.Pattern.ORIGINAL_GREEN, pandaObjective.getPattern());
     }
 
 	@Test
     @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 2nd case")
-	public void testGetPatternForCompleting_trueSecondCase() {
+	public void testGetPattern_trueSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_THREE_COLORS);
 
-		// Create a reference pattern
-		Map<Color, Integer> motif = new EnumMap<>(Color.class);
-		motif.put(Color.GREEN, 1);
-		motif.put(Color.YELLOW, 1);
-		motif.put(Color.PINK, 1);
+        assertEquals(PandaObjective.Pattern.ORIGINAL_THREE_COLORS, pandaObjective.getPattern());
+    }
 
-        assertEquals(pandaObjective.getPatternForCompleting(), motif);
+	@Test
+    @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 2nd case")
+	public void testGetPatternID() {
+
+		pandaObjective = new PandaObjective(PandaObjective.Pattern.ORIGINAL_GREEN);
+
+        assertEquals(4, pandaObjective.getPattern().getID());
     }
 
 }

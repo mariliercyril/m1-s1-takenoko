@@ -103,13 +103,13 @@ public class AlignmentParcelObjective extends Objective {
 	 */
 	private void score() {
 
-		if (color.equals(Color.GREEN)) {
+		if (this.getColor().equals(Color.GREEN)) {
 			score = 2;
 		}
-		if (color.equals(Color.YELLOW)) {
+		if (this.getColor().equals(Color.YELLOW)) {
 			score = 3;
 		}
-		if (color.equals(Color.PINK)) {
+		if (this.getColor().equals(Color.PINK)) {
 			score = 4;
 		}
 	}

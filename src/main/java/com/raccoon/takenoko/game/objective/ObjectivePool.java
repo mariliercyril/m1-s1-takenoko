@@ -61,8 +61,8 @@ public class ObjectivePool {
         }
         Collections.shuffle(patternObjectives);
         for (int i = 0; i < 10; i++) {
-            for (Color color : Color.values()) {
-                PandaObjective newObjective = new PandaObjective(color);
+            for (PandaObjective.Pattern pandaPattern : PandaObjective.Pattern.values()) {
+                PandaObjective newObjective = new PandaObjective(pandaPattern);
                 bambooObjectives.add(newObjective);
                 deck.get(ObjectiveType.PANDA).add(newObjective);
             }
