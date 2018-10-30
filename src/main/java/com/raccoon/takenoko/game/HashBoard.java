@@ -263,4 +263,28 @@ public class HashBoard implements Board {
         allT.removeIf(Tile::isIrrigable);
         return allT;
     }
+
+    @Override
+    public Set<Tile> getAllTilesDistance(Point pos, int n) {
+        Set<Tile> memory = new HashSet<>();
+
+        if (n <= 0) {
+            return new HashSet<>(Collections.singletonList(this.get(pos)));
+        }
+
+        if (Objects.nonNull(this.get(pos))) {
+            for (UnitVector v : UnitVector.values()) {
+                // we look in all directions
+
+                // we add the current tile
+                memory.add(this.get(pos));
+                // we add our neighbour
+                memory.add(this.get(v.getVector().applyTo(pos)));
+                // We search for its neighbours
+                memory.addAll(getAllTilesDistance(v.getVector().applyTo(pos), n - 1));
+            }
+        }
+
+        return memory;
+    }
 }
