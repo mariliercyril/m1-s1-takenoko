@@ -17,13 +17,13 @@ public class Tile {
      *************************************************
      */
 
-    private ImprovementType improvement;
     private Point position;
     private Color color;
-
+    private boolean enclosed;
     private int bambooSize;
     private boolean irrigated;
     private boolean irrigable;
+    private int growthFactor;   // Set to 2 if there is a fertilizer improvement
 
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
@@ -37,7 +37,8 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-        this.improvement = ImprovementType.NONE;
+        this.growthFactor = 1;
+        this.enclosed = false;
         this.irrigated = false;
         this.color = null;
         this.irrigable = false;
@@ -170,7 +171,7 @@ public class Tile {
     public void increaseBambooSize(int bambooSize) {
 
         if (this.irrigated && Objects.nonNull(this.color)) {
-            this.bambooSize += bambooSize;
+            this.bambooSize += growthFactor * bambooSize;
         }
 
         if (this.getBambooSize() > Constants.MAX_BAMBOO_SIZE && this.irrigated) {
@@ -203,21 +204,19 @@ public class Tile {
         return "Tile " + this.getColor() + " at " + this.getPosition();
     }
 
-    public ImprovementType getImprovement() {
-        return improvement;
+    protected void setIrrigated(boolean irrigated) {
+        this.irrigated = irrigated;
     }
 
-    /**
-     *
-     * @param improvement The improvement to put on the tile
-     * @return says whether or not the improvement was successful
-     */
-    public boolean improve(ImprovementType improvement) {
-        boolean success = false;
-        if (this.improvement == ImprovementType.NONE) {
-            this.improvement = improvement;
-            success = true;
-        }
-        return success;
+    protected void setEnclosure(boolean enclosed) {
+        this.enclosed = enclosed;
+    }
+
+    public boolean isEnclosed() {
+        return enclosed;
+    }
+
+    protected void setGrowthFactor(int g) {
+        this.growthFactor = g;
     }
 }
