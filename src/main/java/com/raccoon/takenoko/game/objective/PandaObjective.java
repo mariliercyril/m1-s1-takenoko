@@ -75,7 +75,7 @@ public class PandaObjective extends Objective {
 	 * Each of these patterns is defined by a ID, which is the number resulting of a Gödelization
 	 * from the numbers of bamboo chunks, and the score when the PandaObjective is completed.</p>
 	 */
-	public static enum Pattern {
+	public enum Pattern {
 
 		/**
 		 * The singleton instance for the original pattern of PandaObjective which consists in
