@@ -23,7 +23,7 @@ public class Tile {
     private int bambooSize;
     private boolean irrigated;
     private boolean irrigable;
-    private int growthFactor;   // Set to 2 if there is a fertilizer improvement
+    private int growthSpeed;   // Set to 2 if there is a fertilizer improvement
 
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
@@ -37,7 +37,7 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-        this.growthFactor = 1;
+        this.growthSpeed = Constants.USUAL_BAMBOO_GROWTH;
         this.enclosed = false;
         this.irrigated = false;
         this.color = null;
@@ -50,7 +50,7 @@ public class Tile {
      * Constructs a new tile of the specified color
      */
     public Tile(Color color) {
-
+        this.growthSpeed = Constants.USUAL_BAMBOO_GROWTH;
         this.color = color;
         bambooSize = 0;
         initializeSideIrrigation();
@@ -138,7 +138,7 @@ public class Tile {
         if (!this.irrigated) {  // If we are not yet irrigated
             this.irrigated = true;  // we become irrigated
             // and a bamboo grows
-            this.increaseBambooSize(Constants.USUAL_BAMBOO_GROWTH);
+            this.increaseBambooSize();
         }
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
@@ -166,12 +166,11 @@ public class Tile {
     /**
      * Increase the size of the bamboo on the tile. We make sure after increasing the the size doesn't exceed the max size.
      *
-     * @param bambooSize the size to add to the bamboo
      */
-    public void increaseBambooSize(int bambooSize) {
+    public void increaseBambooSize() {
 
         if (this.irrigated && Objects.nonNull(this.color)) {
-            this.bambooSize += growthFactor * bambooSize;
+            this.bambooSize += growthSpeed;
         }
 
         if (this.getBambooSize() > Constants.MAX_BAMBOO_SIZE && this.irrigated) {
@@ -216,7 +215,7 @@ public class Tile {
         return enclosed;
     }
 
-    protected void setGrowthFactor(int g) {
-        this.growthFactor = g;
+    protected void setGrowthSpeed(int speed) {
+        this.growthSpeed = speed;
     }
 }

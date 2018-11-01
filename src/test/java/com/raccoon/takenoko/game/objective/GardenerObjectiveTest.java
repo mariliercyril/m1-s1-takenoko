@@ -38,8 +38,8 @@ public class GardenerObjectiveTest {
     @Test
     public void isCompletedIfThereAreEnoughBamboos() {
         Tile t = b.get(new Point(1, 0));
-        t.increaseBambooSize(1);
-        t.increaseBambooSize(1);
+        t.increaseBambooSize();
+        t.increaseBambooSize();
         go1.checkIfCompleted(b);
         assertTrue("Gardener objective isn't completed even though there are enough bamboos of the right color on the board", go1.isCompleted());
 

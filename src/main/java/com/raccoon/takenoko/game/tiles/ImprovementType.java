@@ -10,15 +10,15 @@ public enum ImprovementType {
             case WATERSHED:
                 boolean wasIrrigated = t.isIrrigated();
                 t.setIrrigated(true);   // First irrigation growth rule
-                if (wasIrrigated) {
-                    t.increaseBambooSize(Constants.USUAL_BAMBOO_GROWTH);
+                if (!wasIrrigated) {
+                    t.increaseBambooSize();
                 }
                 break;
             case ENCLOSURE:
                 t.setEnclosure(true);
                 break;
             case FERTILIZER:
-                t.setGrowthFactor(2);
+                t.setGrowthSpeed(2*Constants.USUAL_BAMBOO_GROWTH);
                 break;
                 default:
                     break;

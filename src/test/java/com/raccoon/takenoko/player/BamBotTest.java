@@ -147,16 +147,16 @@ public class BamBotTest {
         // Making the second cluster worst than the first one by saturating it with bamboos
         Tile currentGrow = g.getBoard().get(new Point(0, 1));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
         currentGrow  = g.getBoard().get(new Point(-1, 1));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
 
         currentGrow = g.getBoard().get(new Point(-2, 0));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
 
         assertTrue(possibleBest.contains(bot.whereToMoveGardener(g, g.getBoard().getAccessiblePositions(g.getGardener().getPosition()))));

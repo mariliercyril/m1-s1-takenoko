@@ -27,6 +27,8 @@ public class Panda {
     }
 
     private void eat(Board board, Point position) {
-        board.get(position).decreaseBambooSize();
+        if (!board.get(position).isEnclosed()) {    // The panda can't eat if there is an enclosure
+            board.get(position).decreaseBambooSize();
+        }
     }
 }

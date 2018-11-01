@@ -46,7 +46,7 @@ public class TileTest {
 
     @Test
     public void cantPutBambooOnLake() {
-        origin.increaseBambooSize(1);
+        origin.increaseBambooSize();
         assertEquals("Grew a bamboo on the lake tile.", 0, origin.getBambooSize());
     }
 
