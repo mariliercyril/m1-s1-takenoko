@@ -1,6 +1,7 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.game.objective.PatternObjective;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;

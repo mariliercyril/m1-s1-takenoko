@@ -219,7 +219,7 @@ public class Game {
 
         this.board.set(tile.getPosition(), tile);   // The tile is put in the right position in the board
         // Notification that a tile has been put, the completion of some objectives could be changed
-        this.objectivePool.notifyTilePut(tile);
+        this.objectivePool.notifyTilePut(tile, getBoard());
 
     }
 
