@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game.tiles;
 
 import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.Test;
 
 import java.awt.*;
@@ -25,7 +26,11 @@ public class ImprovementTypeTest {
         assertEquals(0, t3.getBambooSize());
 
         // Improving the tile in (-1,1) with a watershed
-        ImprovementType.WATERSHED.improve(t3);
+        try {
+            ImprovementType.WATERSHED.improve(t3);
+        } catch (ForbiddenActionException e) {
+            e.printStackTrace();
+        }
 
         // Testing the effects of the watershed
         assertEquals(1, t3.getBambooSize());
@@ -35,7 +40,11 @@ public class ImprovementTypeTest {
         assertEquals(2, t3.getBambooSize());
 
         // Improving the tile in (-1, 0) with an enclosure
-        ImprovementType.ENCLOSURE.improve(t2);
+        try {
+            ImprovementType.ENCLOSURE.improve(t2);
+        } catch (ForbiddenActionException e) {
+            e.printStackTrace();
+        }
 
         // Testing the effects of the enclosure
         assertEquals(2, t2.getBambooSize());
@@ -43,8 +52,11 @@ public class ImprovementTypeTest {
         assertEquals(2, t2.getBambooSize());
 
         // Improving the tile in (0, 1) with fertilizer
-        ImprovementType.FERTILIZER.improve(t1);
-
+        try {
+            ImprovementType.FERTILIZER.improve(t1);
+        } catch (ForbiddenActionException e) {
+            e.printStackTrace();
+        }
         // Testing the effects of the fertilizer
         assertEquals(1, t1.getBambooSize());
         game.getGardener().move(game.getBoard(), new Point(0,1));

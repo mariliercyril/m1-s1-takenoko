@@ -2,11 +2,13 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.Point;
@@ -141,5 +143,26 @@ public class RandomBot extends Player {
         types.removeIf(pool::isDeckEmpty);
         Collections.shuffle(types);
         return types.get(0);
+    }
+
+    @Override
+    public void tileImprovement(Game game, List<Tile> improvableTiles) { // is random for now but should be overriden in child classes according to the bot's strategies
+        if (game.noMoreImprovements()) {    // For safety
+            return;
+        }
+        List<ImprovementType> availableImprovements = new ArrayList<>();
+        for (ImprovementType imp : ImprovementType.values()) {  // We get all the different improvements still available
+            if (game.isImprovementAvailable(imp)) {
+                availableImprovements.add(imp);
+            }
+        }
+        Collections.shuffle(improvableTiles);
+        Collections.shuffle(availableImprovements);
+        ImprovementType improvement = game.takeImprovement(availableImprovements.get(0));
+        try {
+            improvement.improve(improvableTiles.get(0));
+        } catch (ForbiddenActionException e) {
+            e.printStackTrace();
+        }
     }
 }

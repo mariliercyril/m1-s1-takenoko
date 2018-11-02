@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
@@ -33,6 +34,7 @@ public class Game {
 
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
+    private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
     @Autowired
     private ObjectivePool objectivePool;    // The pool of objective cards
@@ -75,7 +77,7 @@ public class Game {
 
         board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
-
+        initImprovements();
     }
 
     /**
@@ -89,6 +91,7 @@ public class Game {
         this.players = players;
         board = new HashBoard(new Tile());
         initTileDeck();
+        initImprovements();
     }
 
     @PostConstruct
@@ -239,6 +242,35 @@ public class Game {
     public void purge() {
         board = new HashBoard(new Tile());
         initTileDeck();
+        initImprovements();
         Player.reinitCounter();
+    }
+
+    public boolean isImprovementAvailable(ImprovementType improvement) {    // Tells if there is an improvement of the given type available
+        return improvements.get(improvement) > 0;
+    }
+
+    public ImprovementType takeImprovement(ImprovementType improvement) {
+        if (isImprovementAvailable(improvement)) {
+            improvements.put(improvement, improvements.get(improvement) - 1);
+            return improvement;
+        } else {
+            return null;
+        }
+    }
+
+    public void initImprovements() {
+        this.improvements = new EnumMap<>(ImprovementType.class);
+        for (ImprovementType it : ImprovementType.values()) {  // at the beginning, we have two improvements of each type
+            improvements.put(it, 2);
+        }
+    }
+
+    public boolean noMoreImprovements() {
+        boolean res = true;
+        for (ImprovementType improvement : improvements.keySet()) {
+            res = res && !isImprovementAvailable(improvement);
+        }
+        return res;
     }
 }

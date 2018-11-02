@@ -1,11 +1,15 @@
 package com.raccoon.takenoko.game.tiles;
 
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 public enum ImprovementType {
     ENCLOSURE, FERTILIZER, WATERSHED;
 
-    public void improve(Tile t) {
+    public void improve(Tile t) throws ForbiddenActionException {
+        if (t.isImproved()) {
+            throw(new ForbiddenActionException("Tried to improve a tile that already had an improvement !"));
+        }
         switch(this) {
             case WATERSHED:
                 boolean wasIrrigated = t.isIrrigated();
@@ -23,5 +27,6 @@ public enum ImprovementType {
                 default:
                     break;
         }
+        t.setImproved(true);
     }
 }

@@ -24,7 +24,7 @@ public class Tile {
     private boolean irrigated;
     private boolean irrigable;
     private int growthSpeed;   // Set to 2 if there is a fertilizer improvement
-
+    private boolean improved;
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
     /*
@@ -44,6 +44,7 @@ public class Tile {
         this.irrigable = false;
         position = new Point(0, 0);
         initializeSideIrrigation();
+        improved = false;
     }
 
     /**
@@ -56,6 +57,7 @@ public class Tile {
         initializeSideIrrigation();
         this.irrigated = false;
         this.irrigable = false;
+        improved = false;
 
     }
 
@@ -217,5 +219,13 @@ public class Tile {
 
     protected void setGrowthSpeed(int speed) {
         this.growthSpeed = speed;
+    }
+
+    public boolean isImproved() {
+        return improved;
+    }
+
+    public void setImproved(boolean improved) {
+        this.improved = improved;
     }
 }

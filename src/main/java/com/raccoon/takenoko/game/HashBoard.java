@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
@@ -39,6 +40,7 @@ public class HashBoard implements Board {
 
         this.set(new Point(0, 0), firstTile);
         firstTile.setPosition(new Point(0, 0));
+        firstTile.setImproved(true);    // We consider the pond tile to be already improved
     }
 
     /*
