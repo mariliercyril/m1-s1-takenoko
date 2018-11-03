@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class Takeyesntko {
 
-    static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
+    private static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
     private static boolean verbose = true;
 
@@ -102,7 +102,7 @@ public class Takeyesntko {
             }
             if (numberOfNullResults == nbPlayers) {
                 voidedGames++;
-                game.purge();
+                //game.purge();
                 continue;
             }
 
@@ -113,7 +113,7 @@ public class Takeyesntko {
             for (Player pl : game.getPlayers()) {
                 playersTypes[pl.getId() - 1] = pl.getClass().getSimpleName();
             }
-            game.purge();
+            //game.purge();
         }
 
         // printing out results

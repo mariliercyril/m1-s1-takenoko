@@ -5,17 +5,25 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class PatternObjectiveTest {
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+class PatternObjectiveTest {
     private Board b;
     private ArrayList<PatternObjective> objList;
 
@@ -24,11 +32,10 @@ public class PatternObjectiveTest {
     private PatternObjective pTriangle; // triangle shaped pattern
     private PatternObjective pDualColorZ; // dual color Zshaped pattern
 
-    @Before
-    public void setUp() {
-        // we setup our game and board and put down a first tile
-        Game g = new Game();
-        b = g.getBoard();
+    @BeforeEach
+    void setUp(@Autowired Game game) {
+
+        b = game.getBoard();
         b.set(new Point(1, 1), new Tile(Color.PINK));
 
         // I create all the PatternObjectives that I am going to test
@@ -43,15 +50,15 @@ public class PatternObjectiveTest {
     }
 
     @Test
-    public void noTilesAllFalse() {
-        assertFalse("Pattern Aligned should not be completed yet as there are no tiles on the board.", pAligned.isCompleted());
-        assertFalse("Pattern VShape should not be completed yet as there are no tiles on the board.", pVShape.isCompleted());
-        assertFalse("Pattern Triangle should not be completed yet as there are no tiles on the board.", pTriangle.isCompleted());
-        assertFalse("Pattern DualColorZ should not be completed yet as there are no tiles on the board.", pDualColorZ.isCompleted());
+    void noTilesAllFalse() {
+        assertFalse(pAligned.isCompleted(), "Pattern Aligned should not be completed yet as there are no tiles on the board.");
+        assertFalse(pVShape.isCompleted(), "Pattern VShape should not be completed yet as there are no tiles on the board.");
+        assertFalse(pTriangle.isCompleted(), "Pattern Triangle should not be completed yet as there are no tiles on the board.");
+        assertFalse(pDualColorZ.isCompleted(), "Pattern DualColorZ should not be completed yet as there are no tiles on the board.");
     }
 
     @Test
-    public void notValidIfNotIrrigated() {
+    void notValidIfNotIrrigated() {
         this.placeAllTiles();
 
         pAligned.checkIfCompleted(b.get(new Point(1,1)), b); // we only check our basic tiles
@@ -59,14 +66,14 @@ public class PatternObjectiveTest {
         pTriangle.checkIfCompleted(b.get(new Point(2,1)), b); // we only check our basic tiles
         pDualColorZ.checkIfCompleted(b.get(new Point(-1, -1)), b); // we only check our basic tiles
 
-        assertFalse("Pattern Aligned should not be completed yet as none of the tiles are irrigated", pAligned.isCompleted());
-        assertFalse("Pattern VShape should not be completed yet as none of the tiles are irrigated", pVShape.isCompleted());
-        assertFalse("Pattern Triangle should not be completed yet as none of the tiles are irrigated", pTriangle.isCompleted());
-        assertFalse("Pattern DualColorZ should not be completed yet as none of the tiles are irrigated", pDualColorZ.isCompleted());
+        assertFalse(pAligned.isCompleted(), "Pattern Aligned should not be completed yet as none of the tiles are irrigated");
+        assertFalse(pVShape.isCompleted(), "Pattern VShape should not be completed yet as none of the tiles are irrigated");
+        assertFalse(pTriangle.isCompleted(), "Pattern Triangle should not be completed yet as none of the tiles are irrigated");
+        assertFalse(pDualColorZ.isCompleted(), "Pattern DualColorZ should not be completed yet as none of the tiles are irrigated");
     }
 
     @Test
-    public void validIfIrrigated() {
+    void validIfIrrigated() {
         this.placeAllTiles();
         this.irrigateAllTiles();
 
@@ -76,10 +83,10 @@ public class PatternObjectiveTest {
         pDualColorZ.checkIfCompleted(b.get(new Point(-1, -1)), b); // we only check our basic tiles
 
 
-        assertTrue("Pattern Aligned should be completed by now.", pAligned.isCompleted());
-        assertTrue("Pattern VShape should be completed by now.", pVShape.isCompleted());
-        assertTrue("Pattern Triangle should be completed by now.", pTriangle.isCompleted());
-        assertTrue("Pattern DualColorZ should be completed by now.", pDualColorZ.isCompleted());
+        assertTrue(pAligned.isCompleted(), "Pattern Aligned should be completed by now.");
+        assertTrue(pVShape.isCompleted(), "Pattern VShape should be completed by now.");
+        assertTrue(pTriangle.isCompleted(), "Pattern Triangle should be completed by now.");
+        assertTrue(pDualColorZ.isCompleted(), "Pattern DualColorZ should be completed by now.");
     }
 
 

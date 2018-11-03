@@ -2,24 +2,41 @@ package com.raccoon.takenoko.game.tiles;
 
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ImprovementTypeTest {
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+class ImprovementTypeTest {
+
+    private Game game;
+
+    @BeforeEach
+    void setUp(@Autowired Game game) {
+        this.game = game;
+    }
 
     @Test
-    public void improve() {
-        Game game = new Game();
+    void improve() {
+
         Tile t1 = new Tile(Color.GREEN);
         Tile t2 = new Tile(Color.YELLOW);
         Tile t3 = new Tile(Color.YELLOW);
 
-        game.getBoard().set(new Point(0,1), t1);
-        game.getBoard().set(new Point(-1, 0), t2);
-        game.getBoard().set(new Point(-1, 1), t3);
+        this.game.getBoard().set(new Point(0,1), t1);
+        this.game.getBoard().set(new Point(-1, 0), t2);
+        this.game.getBoard().set(new Point(-1, 1), t3);
 
         // Initial conditions : only the tiles around the pond should be irrigated and have a piece of bamboo
         assertEquals(1, t2.getBambooSize());

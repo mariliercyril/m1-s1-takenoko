@@ -27,7 +27,7 @@ import java.util.List;
 @Scope("prototype")
 public class Game {
 
-    private Board board;                    // The game board, with all the tiles
+
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
@@ -36,8 +36,12 @@ public class Game {
     private Gardener gardener;              // The gardener (obviously)
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
+    /* Spring components */
     @Autowired
     private ObjectivePool objectivePool;    // The pool of objective cards
+
+    @Autowired
+    private Board board;                    // The game board, with all the tiles
 
     /*
      *************************************************
@@ -75,7 +79,6 @@ public class Game {
             players.add(newPlayer);
         }
 
-        board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
         initImprovements();
     }
@@ -89,7 +92,6 @@ public class Game {
         this.gardener = new Gardener();
         this.panda = new Panda();
         this.players = players;
-        board = new HashBoard(new Tile());
         initTileDeck();
         initImprovements();
     }
@@ -238,14 +240,11 @@ public class Game {
          */
         return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
-
+/*
     public void purge() {
-        board = new HashBoard(new Tile());
-        initTileDeck();
-        initImprovements();
         Player.reinitCounter();
     }
-
+*/
     public boolean isImprovementAvailable(ImprovementType improvement) {    // Tells if there is an improvement of the given type available
         return improvements.get(improvement) > 0;
     }
