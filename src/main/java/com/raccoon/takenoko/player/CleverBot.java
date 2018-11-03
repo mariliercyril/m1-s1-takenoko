@@ -10,6 +10,7 @@ import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.*;
 import java.util.*;
@@ -113,6 +114,11 @@ public class CleverBot extends Player {
     @Override
     protected Objective chooseObjectiveToValidate() {
         return null;
+    }
+
+    @Override
+    public void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException {
+
     }
 
     private List<Action> tryToValidatePandaObjective(Game game) {

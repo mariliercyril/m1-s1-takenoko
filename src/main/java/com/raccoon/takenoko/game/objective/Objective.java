@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public abstract class Objective {
 
-    protected static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
+    private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
 
     protected boolean isCompleted;
     protected int score;
