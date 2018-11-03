@@ -13,6 +13,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 @SpringBootApplication
 public class Takeyesntko {
 
@@ -77,8 +80,10 @@ public class Takeyesntko {
         Takeyesntko.setVerbose(false);
 
         int nbPlayers = 4;
-        int[] wins = new int[nbPlayers];
-        int[] scores = new int[nbPlayers];
+        Map<Integer, Integer> playerWins = new HashMap<>();
+        for (int i = 1 ; i <= nbPlayers ; i++) {
+            playerWins.put(i, 0);
+        }
         int voidedGames = 0;
         String[] playersTypes = new String[nbPlayers];
 
@@ -102,11 +107,10 @@ public class Takeyesntko {
             }
 
             // increments the wins of the winner
-            wins[game.getWinner().getId() - 1] += 1;
+            playerWins.put(game.getWinner().getId(), playerWins.get(game.getWinner().getId()) + 1);
 
             // counts the points
             for (Player pl : game.getPlayers()) {
-                scores[pl.getId() - 1] += pl.getScore();
                 playersTypes[pl.getId() - 1] = pl.getClass().getSimpleName();
             }
             game.purge();
@@ -114,20 +118,21 @@ public class Takeyesntko {
 
         // printing out results
         Takeyesntko.setVerbose(true);
+        List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()); // Sorting the players according to their score
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
         print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
-        for (int i = 0; i < wins.length; i++) {
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", ( i + 1 ), playersTypes[i], (float)wins[i]*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), scores[i]));
+        for (int i = sortedWinners.size() - 1; i >= 0; i--) {
+            int currentPlayer = sortedWinners.get(i).getKey();
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", currentPlayer, playersTypes[currentPlayer - 1], (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), sortedWinners.get(i).getValue()));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
-        for (int w : wins) {
+        for (int w : playerWins.values()) {
             totalGames += w;
         }
-        print(String.format(" -- Checksum : won + voided games adds up to %d (should be %3.0f)%n", totalGames + voidedGames, Constants.NUMBER_OF_GAMES_FOR_STATS));
-
+        print(String.format(" -- Checksum : won + voided games add up to %d (should be %3.0f)%n", totalGames + voidedGames, Constants.NUMBER_OF_GAMES_FOR_STATS));
     }
 
     /**
