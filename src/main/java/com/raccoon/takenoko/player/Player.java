@@ -195,16 +195,9 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-            	PandaObjective.Pattern pandaPattern = ((PandaObjective)objective).getPattern();
+            	Map<Color, Integer> pandaMotif = ((PandaObjective)objective).getMotifForCompleting();
             	for (Color color : Color.values()) {
-            		if (pandaPattern.equals(PandaObjective.Pattern.values()[color.ordinal()])) {
-            			this.stomach.put(color, this.stomach.get(color) - 2);
-            		}
-            	}
-            	if (pandaPattern.equals(PandaObjective.Pattern.ORIGINAL_THREE_COLORS)) {
-            		for (Color color : Color.values()) {
-            			this.stomach.put(color, this.stomach.get(color) - 1);
-            		}
+            		this.stomach.put(color, this.stomach.get(color) - pandaMotif.get(color));
             	}
             }
         }
