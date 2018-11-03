@@ -1,7 +1,7 @@
 package com.raccoon.takenoko.tool;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Appender;
@@ -47,7 +47,6 @@ public class PropertiesFileReaderTest {
 		LOGGER.removeAppender(mockAppender);
 	}
 
-	@Disabled
 	@Test
 	@DisplayName("assert that it equals to NullPointerException when we try to get properties from a file which does not exist")
 	public void testGetProperty_whenFileDoesNotExist() {
@@ -60,10 +59,9 @@ public class PropertiesFileReaderTest {
 		ArgumentCaptor<LoggingEvent> argument = ArgumentCaptor.forClass(LoggingEvent.class);
 		verify(mockAppender).doAppend(argument.capture());
 
-		assertEquals(NullPointerException.class.getName(), argument.getValue().getThrowableInformation().getThrowable().toString());
+		assertThrows(NullPointerException.class, () -> argument.getValue().getThrowableInformation().getThrowable().toString());
 	}
 
-	@Disabled
 	@Test
 	@DisplayName("assert that it equals to NullPointerException when we try to get properties from a file of which the name is null")
 	public void testGetProperty_whenFileNameIsNull() {
@@ -76,10 +74,9 @@ public class PropertiesFileReaderTest {
 		ArgumentCaptor<LoggingEvent> argument = ArgumentCaptor.forClass(LoggingEvent.class);
 		verify(mockAppender).doAppend(argument.capture());
 
-		assertEquals(NullPointerException.class.getName(), argument.getValue().getThrowableInformation().getThrowable().toString());
+		assertThrows(NullPointerException.class, () -> argument.getValue().getThrowableInformation().getThrowable().toString());
 	}
 
-	@Disabled
 	@Test
 	@DisplayName("assert that it is true when we try to get a property which exists")
 	public void testGetProperty_whenTryToGetKey() {

@@ -67,9 +67,7 @@ public final class PropertiesFileReader {
 			Properties properties = this.getProperties(String.format(PROPERTIES_FILE_PATH_FORMAT, propertiesFileName));
 			property = properties.getProperty(String.format(KEY_NAME_FORMAT, propertiesFileName, key), defaultValue);
 		} catch (NullPointerException | IOException e) {
-			LOGGER.error(PropertiesFileReader.class.getCanonicalName()
-					+ Separator.POINT.getSign() + "getProperties()"
-					+ Separator.COLON.getSign(), e);
+			LOGGER.error(e);
 		}
 
 		return property;
