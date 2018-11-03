@@ -59,8 +59,8 @@ public class ObjectivePool {
 
         // panda objectives
         for (int i = 0; i < 10; i++) {
-            for (PandaObjective.Pattern pandaPattern : PandaObjective.Pattern.values()) {
-                PandaObjective newObjective = new PandaObjective(pandaPattern);
+            for (PandaObjective.Motif pandaMotif : PandaObjective.Motif.values()) {
+                PandaObjective newObjective = new PandaObjective(pandaMotif);
                 bambooObjectives.add(newObjective);
                 deck.get(ObjectiveType.PANDA).add(newObjective);
             }
