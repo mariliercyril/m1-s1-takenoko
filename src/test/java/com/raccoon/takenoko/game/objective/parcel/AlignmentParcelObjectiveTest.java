@@ -29,24 +29,20 @@ import static org.mockito.Mockito.when;
  */
 public class AlignmentParcelObjectiveTest {
 
-	private static Tile pondTile;
+	//private static Tile pondTile;
 	private Board hashBoard;
 
 	private Tile firstTile;
 
 	private AlignmentParcelObjective alignmentParcelObjective;
 
-	@BeforeAll
-	public static void constructPondTile() {
 
-		pondTile = new Tile();
-	}
 
 	@BeforeEach
 	public void initialize() {
 
 		// Injects the "pond" Tile (initial Tile) in the Board
-		hashBoard = new HashBoard(pondTile);
+		hashBoard = new HashBoard();
 	}
 
 	private void setTest(Point position, Color color) {

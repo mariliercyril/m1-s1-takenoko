@@ -4,23 +4,31 @@ import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class GardenerObjectiveTest {
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+class GardenerObjectiveTest {
 
     private Board b;
     private Objective go1;
 
-    @Before
-    public void setup() {
-        Game g = new Game();
-        b = g.getBoard();
+    @BeforeEach
+    void setup(@Autowired Game game) {
+
+        this.b = game.getBoard();
 
         b.set(new Point(1, 1), new Tile(Color.PINK));
         b.set(new Point(0, 1), new Tile(Color.YELLOW));
@@ -30,18 +38,18 @@ public class GardenerObjectiveTest {
     }
 
     @Test
-    public void isntCompletedIfNoBambooGrew() {
+    void isntCompletedIfNoBambooGrew() {
         go1.checkIfCompleted(b);
-        assertFalse("Gardener objective is completed even if number of chunks is wrong", go1.isCompleted());
+        assertFalse(go1.isCompleted(), "Gardener objective is completed even if number of chunks is wrong");
     }
 
     @Test
-    public void isCompletedIfThereAreEnoughBamboos() {
+    void isCompletedIfThereAreEnoughBamboos() {
         Tile t = b.get(new Point(1, 0));
         t.increaseBambooSize();
         t.increaseBambooSize();
         go1.checkIfCompleted(b);
-        assertTrue("Gardener objective isn't completed even though there are enough bamboos of the right color on the board", go1.isCompleted());
+        assertTrue(go1.isCompleted(), "Gardener objective isn't completed even though there are enough bamboos of the right color on the board");
 
     }
 }

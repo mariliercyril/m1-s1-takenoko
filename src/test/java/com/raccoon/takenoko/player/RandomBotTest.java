@@ -6,15 +6,19 @@ import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -24,22 +28,25 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 
-@RunWith(MockitoJUnitRunner.class)
-public class RandomBotTest {
+
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
+class RandomBotTest {
+
     private Player p;
     private Game g;
 
-    @Mock
-    private AlignmentParcelObjective mockObjective;
 
     @Mock
     private RandomBot mockedBot;
 
-    @Before
-    public void build() {
+    @BeforeEach
+    void build(@Autowired Game game) {
     	Takeyesntko.setVerbose(false);
 
-        g = new Game();
+        g = game;
         p = new RandomBot();
 
         Tile greenTile0 = new Tile(Color.GREEN);
@@ -50,18 +57,15 @@ public class RandomBotTest {
         g.getBoard().set(new Point(1, 1), pinkTile0);
         g.getBoard().set(new Point(1, 2), greenTile1);
 
-        mockObjective.checkIfCompleted(any(), any());
-        when(mockObjective.isCompleted()).thenReturn(true);
     }
 
     @Test
-    public void testCreation() {
+    void testCreation() {
         assertEquals(0, p.getScore());
     }
 
-    @Ignore("Not compliant with spring")
     @Test
-    public void testPlayIncidenceOnBoard() {
+    void testPlayIncidenceOnBoard() {
         try {
             p.play(g);
         } catch (ForbiddenActionException e) {
@@ -72,7 +76,7 @@ public class RandomBotTest {
     }
 
     @Test
-    public void testWhereToPutGardener() {
+    void testWhereToPutGardener() {
         List<Point> accessiblePositions = g.getBoard().getAccessiblePositions(g.getGardener().getPosition());
 
         assertNotNull(p.whereToMoveGardener(g, accessiblePositions));
@@ -80,7 +84,7 @@ public class RandomBotTest {
     }
 
     @Test
-    public void failingPlannedActions() {
+    void failingPlannedActions() {
         when(mockedBot.planActions(any())).thenReturn(new Action[]{});
         Point beforePoint = g.getGardener().getPosition();
         List<Point> av = g.getBoard().getAvailablePositions();
@@ -98,13 +102,11 @@ public class RandomBotTest {
     }
 
     @Test
-    public void failingMovingGardener() {
+    void failingMovingGardener() {
         g.getBoard().set(new Point(1, 1), new Tile(Color.GREEN));
         g.getBoard().set(new Point(2, 1), new Tile(Color.GREEN));
         Point beforePoint = g.getGardener().getPosition();
 
-        when(mockedBot.whereToMoveGardener(any(), any())).thenReturn(new Point(2, 1));
-        // planActions returns null if we don't add this line.
         when(mockedBot.planActions(any())).thenReturn(new Action[]{Action.MOVE_GARDENER, Action.VALID_OBJECTIVE});
 
         try {
