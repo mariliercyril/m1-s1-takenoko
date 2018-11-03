@@ -147,7 +147,7 @@ public class RandomBot extends Player {
     }
 
     @Override
-    public void tileImprovement(Game game, List<Tile> improvableTiles) { // is random for now but should be overriden in child classes according to the bot's strategies
+    public void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException { // is random for now but should be overriden in child classes according to the bot's strategies
         if (game.noMoreImprovements()) {    // For safety
             return;
         }
@@ -160,10 +160,6 @@ public class RandomBot extends Player {
         Collections.shuffle(improvableTiles);
         Collections.shuffle(availableImprovements);
         ImprovementType improvement = game.takeImprovement(availableImprovements.get(0));
-        try {
-            improvement.improve(improvableTiles.get(0));
-        } catch (ForbiddenActionException e) {
-            e.printStackTrace();
-        }
+        improvement.improve(improvableTiles.get(0));
     }
 }

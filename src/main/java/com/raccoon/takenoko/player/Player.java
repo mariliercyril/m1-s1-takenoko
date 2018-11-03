@@ -243,7 +243,7 @@ public abstract class Player {
         return false;
     }
 
-    public void throwDice(Game game) {
+    public void throwDice(Game game) throws ForbiddenActionException{
         Random rand = new Random();
         switch (rand.nextInt() % 6) {
             case 0:
@@ -259,5 +259,5 @@ public abstract class Player {
         }
     }
 
-    public abstract void tileImprovement(Game game, List<Tile> improvableTiles);
+    public abstract void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException;
 }
