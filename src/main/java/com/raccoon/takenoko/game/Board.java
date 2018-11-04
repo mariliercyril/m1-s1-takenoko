@@ -1,6 +1,5 @@
 package com.raccoon.takenoko.game;
 
-import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 

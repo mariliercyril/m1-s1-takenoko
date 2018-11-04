@@ -240,11 +240,7 @@ public class Game {
          */
         return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
-/*
-    public void purge() {
-        Player.reinitCounter();
-    }
-*/
+
     public boolean isImprovementAvailable(ImprovementType improvement) {    // Tells if there is an improvement of the given type available
         return improvements.get(improvement) > 0;
     }

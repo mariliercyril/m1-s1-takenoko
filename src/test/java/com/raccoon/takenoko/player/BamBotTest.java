@@ -1,10 +1,10 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.objective.PatternObjective;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.objective.PandaObjective;
-import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ class BamBotTest {
     @Mock
     private PandaObjective pObj1;
     @Mock
-    private AlignmentParcelObjective aObj1;
+    private PatternObjective aObj1;
 
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));

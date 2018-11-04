@@ -1,7 +1,6 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.objective.PatternObjective;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
@@ -102,7 +101,6 @@ public class Takeyesntko {
             }
             if (numberOfNullResults == nbPlayers) {
                 voidedGames++;
-                //game.purge();
                 continue;
             }
 
@@ -113,7 +111,6 @@ public class Takeyesntko {
             for (Player pl : game.getPlayers()) {
                 playersTypes[pl.getId() - 1] = pl.getClass().getSimpleName();
             }
-            //game.purge();
         }
 
         // printing out results

@@ -9,7 +9,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
 
 public class PatternObjective extends Objective {
 
@@ -38,11 +37,6 @@ public class PatternObjective extends Objective {
         this.colors = new ArrayList<>(Collections.nCopies(vectors.size(), color));
         this.vectors = vectors;
         this.score = score;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return super.isCompleted();
     }
 
     @Override

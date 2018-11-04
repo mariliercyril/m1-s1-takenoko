@@ -2,7 +2,6 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
-import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
@@ -37,7 +36,7 @@ public abstract class Player {
         counter++;
         id = counter;
         objectives = new ArrayList<>();
-        stomach = new HashMap<>();
+        stomach = new EnumMap<>(Color.class);
         stomach.put(Color.GREEN, 0);
         stomach.put(Color.YELLOW, 0);
         stomach.put(Color.PINK, 0);
@@ -241,7 +240,7 @@ public abstract class Player {
         switch (rand.nextInt() % 6) {
             case 0:
                 List<Tile> improvableTiles = game.getBoard().getAllTiles().stream().filter(t -> !t.isImproved()).collect(Collectors.toList());  // We get all improvable tiles
-                if (!game.noMoreImprovements() && improvableTiles.size() > 0) {   // For now, if there are no more improvements to take, we throw the dice again
+                if (!game.noMoreImprovements() && ! improvableTiles.isEmpty()) {   // For now, if there are no more improvements to take, we throw the dice again
                     tileImprovement(game, improvableTiles);
                 } else {
                     throwDice(game);
