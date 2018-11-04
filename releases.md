@@ -64,3 +64,9 @@ The players can now put some irrigation channels and manage the irrigation of th
     *   We can provide them with the irrigated tiles
     *   And a lot more
 *   **[refact]** Spring integration ! Our game is now built with the spring framework
+
+## OCT31 : Improvements
+*   The improvements are represented in the game : the enclosure, the fertilizer and the watershed
+*   A first side of the weather dice is represented, the clouds
+*   For now, the player picks an available improvement and put it down immediately
+*   **[refact]** More spring integration : the Board is now implemented as a spring component
