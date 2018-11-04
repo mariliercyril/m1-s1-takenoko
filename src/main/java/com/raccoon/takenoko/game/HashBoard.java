@@ -5,11 +5,15 @@ import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+@Component
+@Scope("prototype")
 public class HashBoard implements Board {
 
     /*
@@ -22,14 +26,13 @@ public class HashBoard implements Board {
      */
 
     /**
-     * Constructs a new HashBoard, initialized with a Tile in its center (0, 0).
+     * Constructs a new HashBoard, initialized with a "pond" Tile in its center (0, 0).
      * The representation is hexagonal. Each horizontal line share a common 'y' component of its coordinates, each
      * diagonal from bottom left to top right share a common 'x' component of its coordinates, and each diagonal from
      * top left to bottom right has both its coordinates components evolving in the oposite direction (i.e. [-1, +1], or [+1, -1]).
      *
-     * @param firstTile The Tile to put on the center of the board.
      */
-    public HashBoard(Tile firstTile) {
+    public HashBoard() {
 
         this.board = new HashMap<>();
 
@@ -37,8 +40,10 @@ public class HashBoard implements Board {
 
         this.availablePositions = new ArrayList<>(Arrays.asList(this.getNeighbouringCoordinates(firstPosition)));
 
+        Tile firstTile = new Tile();
         this.set(new Point(0, 0), firstTile);
         firstTile.setPosition(new Point(0, 0));
+        firstTile.setImproved(true);    // We consider the pond tile to be already improved
     }
 
     /*
@@ -262,5 +267,29 @@ public class HashBoard implements Board {
         List<Tile> allT = getAllTiles();
         allT.removeIf(Tile::isIrrigable);
         return allT;
+    }
+
+    @Override
+    public Set<Tile> getAllTilesDistance(Point pos, int n) {
+        Set<Tile> memory = new HashSet<>();
+
+        if (n <= 0) {
+            return new HashSet<>(Collections.singletonList(this.get(pos)));
+        }
+
+        if (Objects.nonNull(this.get(pos))) {
+            for (UnitVector v : UnitVector.values()) {
+                // we look in all directions
+
+                // we add the current tile
+                memory.add(this.get(pos));
+                // we add our neighbour
+                memory.add(this.get(v.getVector().applyTo(pos)));
+                // We search for its neighbours
+                memory.addAll(getAllTilesDistance(v.getVector().applyTo(pos), n - 1));
+            }
+        }
+
+        return memory;
     }
 }

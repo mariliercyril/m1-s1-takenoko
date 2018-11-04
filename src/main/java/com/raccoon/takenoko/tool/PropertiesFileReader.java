@@ -17,6 +17,9 @@ public final class PropertiesFileReader {
 
 	private static final String PROPERTIES_FILE_EXTENSION = "properties";
 
+	private static final String PROPERTIES_FILE_SUFFIX = Separator.POINT.getSign() + PROPERTIES_FILE_EXTENSION;
+	private static final String PROPERTIES_FILE_PATH_FORMAT = Separator.SLASH.getSign() + "%s" + PROPERTIES_FILE_SUFFIX;
+
 	private static final String KEY_NAME_FORMAT = "%s" + Separator.POINT.getSign() + "%s";
 
 	// The PropertiesFileReader Singleton should never be instantiated from outside the class.
@@ -43,14 +46,6 @@ public final class PropertiesFileReader {
         return PropertiesFileReaderHolder.INSTANCE;
     }
 
-    // Neutralizing the method.
-    // (We should not be able to clone the PropertiesFileReader.)
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-
-		throw new CloneNotSupportedException();
-	}
-
 	/**
 	 * Returns the {@code String} value corresponding to a key in the properties file.
 	 * 
@@ -66,9 +61,16 @@ public final class PropertiesFileReader {
 	 */
 	public String getStringProperty(String propertiesFileName, String key, String defaultValue) {
 
-		String keyName = String.format(KEY_NAME_FORMAT, propertiesFileName, key);
+		String property = "";
 
-		return (this.readPropertiesFile(propertiesFileName)).getProperty(keyName, defaultValue);
+		try {
+			Properties properties = this.getProperties(String.format(PROPERTIES_FILE_PATH_FORMAT, propertiesFileName));
+			property = properties.getProperty(String.format(KEY_NAME_FORMAT, propertiesFileName, key), defaultValue);
+		} catch (NullPointerException | IOException e) {
+			LOGGER.error(e);
+		}
+
+		return property;
 	}
 
 	/**
@@ -115,21 +117,16 @@ public final class PropertiesFileReader {
 	 * 
 	 * @return properties
 	 *  the properties as a list
+	 * 
+	 * @throws IOException 
 	 */
-	private Properties readPropertiesFile(String propertiesFileName) {
+	private Properties getProperties(String propertiesFilePath) throws IOException {
 
 		Properties properties = new Properties();
 
-		String propertiesFilePath = Separator.SLASH.getSign() + propertiesFileName + Separator.POINT.getSign() + PROPERTIES_FILE_EXTENSION;
-		try {
-			InputStream inputStream = getClass().getResourceAsStream(propertiesFilePath);
-			properties.load(inputStream);
-			inputStream.close();
-		} catch (NullPointerException npe) {
-			LOGGER.debug("the properties file name is null", npe);
-		} catch (IOException | IllegalArgumentException ie) {
-			LOGGER.debug("the input from the properties file is failed", ie);
-		}
+		InputStream inputStream = this.getClass().getResourceAsStream(propertiesFilePath);
+		properties.load(inputStream);
+		inputStream.close();
 
 		return properties;
 	}

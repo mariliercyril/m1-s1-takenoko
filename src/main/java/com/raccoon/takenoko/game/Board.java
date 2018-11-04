@@ -1,10 +1,12 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Set;
 
 public interface Board {
 
@@ -70,5 +72,13 @@ public interface Board {
      * @return all the tiles where an irrigation can be put down.
      */
     List<Tile> getIrrigableTiles();
+
+    /**
+     *
+     * @param pos the position where we are looking
+     * @param n the radius
+     * @return all tiles in a radius of n around the position
+     */
+    Set<Tile> getAllTilesDistance(Point pos, int n);
 
 }

@@ -6,22 +6,29 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BamBotTest {
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
+class BamBotTest {
 
 
     private Game g;
@@ -46,14 +53,14 @@ public class BamBotTest {
 
 
 
-    @Before
-    public void init() {
-        g = new Game(1);
-        bot = g.getPlayers().get(0);
+    @BeforeEach
+    void init(@Autowired Game game) {
+        g = game;
+        bot = g.getPlayers().get(0);    // Be careful, how to be sure this won't be another implementation of player ?
     }
 
     @Test
-    public void whereToPutDownTile() {
+    void whereToPutDownTile() {
         place(0,1, yellow);
         place(1,1, pink);
         place(1,0,yellow);
@@ -97,12 +104,9 @@ public class BamBotTest {
         assertEquals(new Point(2,2), bot.whereToPutDownTile(g, pinkTile));
     }
 
-    @Test
-    public void chooseTile() {
-    }
 
     @Test
-    public void whereToMoveGardener() {
+    void whereToMoveGardener() {
         // First ring
         place(0,1, green);
         place(1,1, yellow);
@@ -147,16 +151,16 @@ public class BamBotTest {
         // Making the second cluster worst than the first one by saturating it with bamboos
         Tile currentGrow = g.getBoard().get(new Point(0, 1));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
         currentGrow  = g.getBoard().get(new Point(-1, 1));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
 
         currentGrow = g.getBoard().get(new Point(-2, 0));
         while (currentGrow.getBambooSize() < 4) {
-            currentGrow.increaseBambooSize(1);
+            currentGrow.increaseBambooSize();
         }
 
         assertTrue(possibleBest.contains(bot.whereToMoveGardener(g, g.getBoard().getAccessiblePositions(g.getGardener().getPosition()))));
@@ -164,7 +168,7 @@ public class BamBotTest {
 
 
     @Test
-    public void whereToMovePanda() {
+    void whereToMovePanda() {
         place(0, 1, pink);
         place(1,1, pink);
         place(1, 0, green);
@@ -186,11 +190,11 @@ public class BamBotTest {
     }
 
     @Test
-    public void planActions() {
+    void planActions() {
     }
 
     @Test
-    public void chooseObjectiveToValidate() {
+    void chooseObjectiveToValidate() {
 
         assertEquals(0, bot.getObjectives().size());    // No objective in hand -> null
         assertNull(bot.chooseObjectiveToValidate());

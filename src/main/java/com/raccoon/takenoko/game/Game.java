@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
@@ -26,16 +27,21 @@ import java.util.List;
 @Scope("prototype")
 public class Game {
 
-    private Board board;                    // The game board, with all the tiles
+
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
 
     private Panda panda;                    // Probably the panda
     private Gardener gardener;              // The gardener (obviously)
+    private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
+    /* Spring components */
     @Autowired
     private ObjectivePool objectivePool;    // The pool of objective cards
+
+    @Autowired
+    private Board board;                    // The game board, with all the tiles
 
     /*
      *************************************************
@@ -73,9 +79,8 @@ public class Game {
             players.add(newPlayer);
         }
 
-        board = new HashBoard(new Tile());     //  The pond tile is placed first
         initTileDeck();
-
+        initImprovements();
     }
 
     /**
@@ -87,8 +92,8 @@ public class Game {
         this.gardener = new Gardener();
         this.panda = new Panda();
         this.players = players;
-        board = new HashBoard(new Tile());
         initTileDeck();
+        initImprovements();
     }
 
     @PostConstruct
@@ -219,7 +224,7 @@ public class Game {
 
         this.board.set(tile.getPosition(), tile);   // The tile is put in the right position in the board
         // Notification that a tile has been put, the completion of some objectives could be changed
-        this.objectivePool.notifyTilePut(tile);
+        this.objectivePool.notifyTilePut(tile, getBoard());
 
     }
 
@@ -235,10 +240,36 @@ public class Game {
          */
         return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
-
+/*
     public void purge() {
-        board = new HashBoard(new Tile());
-        initTileDeck();
         Player.reinitCounter();
+    }
+*/
+    public boolean isImprovementAvailable(ImprovementType improvement) {    // Tells if there is an improvement of the given type available
+        return improvements.get(improvement) > 0;
+    }
+
+    public ImprovementType takeImprovement(ImprovementType improvement) {
+        if (isImprovementAvailable(improvement)) {
+            improvements.put(improvement, improvements.get(improvement) - 1);
+            return improvement;
+        } else {
+            return null;
+        }
+    }
+
+    public void initImprovements() {
+        this.improvements = new EnumMap<>(ImprovementType.class);
+        for (ImprovementType it : ImprovementType.values()) {  // at the beginning, we have two improvements of each type
+            improvements.put(it, 2);
+        }
+    }
+
+    public boolean noMoreImprovements() {
+        boolean res = true;
+        for (ImprovementType improvement : improvements.keySet()) {
+            res = res && !isImprovementAvailable(improvement);
+        }
+        return res;
     }
 }

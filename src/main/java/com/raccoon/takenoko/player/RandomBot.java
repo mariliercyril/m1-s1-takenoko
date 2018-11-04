@@ -2,11 +2,13 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.tool.Constants;
+import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.Point;
@@ -60,7 +62,8 @@ public class RandomBot extends Player {
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
         Collections.shuffle(available);
-        return available.get(0);
+        Point goTo = available.get(0);
+        return goTo;
     }
 
     @Override
@@ -71,14 +74,14 @@ public class RandomBot extends Player {
         Action[] available = Action.values();
 
         // if there is no tile yet, we NEED to put one down
-        if (game.getBoard().getNeighbours(new Point(0, 0)).size() <= 0) {
+        if (game.getBoard().getNeighbours(new Point(0, 0)).isEmpty()) {
             choosen.add(Action.PUT_DOWN_TILE);
             score += Action.PUT_DOWN_TILE.getCost();
             cursor++;
         }
 
         while (score < 2) {
-            if (r.nextBoolean() && r.nextBoolean()) {
+            if (r.nextDouble() > 0.75) {
                 // ban unavailable actions
                 if (( available[cursor] == Action.PUT_DOWN_IRRIGATION && this.getIrrigations() <= 0 )                  // can't put irrigation if none has been taken
                         || ( available[cursor] == Action.VALID_OBJECTIVE && this.chooseObjectiveToValidate() == null ) // can't validate an objective if I don't have any
@@ -111,7 +114,7 @@ public class RandomBot extends Player {
         }
 
         Collections.shuffle(completedObjectives);
-        if (completedObjectives.size() > 0) {
+        if (!completedObjectives.isEmpty()) {
             return completedObjectives.get(0);
         }  // We randomly return a completed objective
 
@@ -141,5 +144,22 @@ public class RandomBot extends Player {
         types.removeIf(pool::isDeckEmpty);
         Collections.shuffle(types);
         return types.get(0);
+    }
+
+    @Override
+    public void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException { // is random for now but should be overriden in child classes according to the bot's strategies
+        if (game.noMoreImprovements()) {    // For safety
+            return;
+        }
+        List<ImprovementType> availableImprovements = new ArrayList<>();
+        for (ImprovementType imp : ImprovementType.values()) {  // We get all the different improvements still available
+            if (game.isImprovementAvailable(imp)) {
+                availableImprovements.add(imp);
+            }
+        }
+        Collections.shuffle(improvableTiles);
+        Collections.shuffle(availableImprovements);
+        ImprovementType improvement = game.takeImprovement(availableImprovements.get(0));
+        improvement.improve(improvableTiles.get(0));
     }
 }

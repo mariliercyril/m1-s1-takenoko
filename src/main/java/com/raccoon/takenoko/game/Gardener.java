@@ -25,7 +25,7 @@ public class Gardener {
     public void move(Board board, Point position) {
         Takeyesntko.print("Gardener moves from " + this.position + " to " + position);
         this.position = position;
-        board.get(this.position).increaseBambooSize(1); //  Grow the bamboo where the gardener is
+        board.get(this.position).increaseBambooSize(); //  Grow the bamboo where the gardener is
         this.grow(board.getNeighbours(this.position), board.get(this.position).getColor()); // ... And on the surrounding tiles of the same color
     }
 
@@ -37,7 +37,7 @@ public class Gardener {
     private void grow(List<Tile> tiles, Color color) {
         for (Tile t : tiles) {
             if (t.getColor() == color) {
-                t.increaseBambooSize(1);
+                t.increaseBambooSize();
             }
         }
     }

@@ -2,6 +2,7 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
@@ -15,6 +16,7 @@ import com.raccoon.takenoko.tool.UnitVector;
 
 import java.awt.Point;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class representig the player taking part in the game. To be extended by a bot to
@@ -75,6 +77,9 @@ public abstract class Player {
      * @param game the game in which the player is playing
      */
     public final void play(Game game) throws ForbiddenActionException {
+
+        throwDice(game);
+
         // 1st step : ask bot to plan actions
         Action[] plannedActions = planActions(game);
 
@@ -190,14 +195,9 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-            	List<Color> objectiveColors = ((PandaObjective)objective).getColors();
-            	if (objectiveColors.size() == 1) {
-            		this.stomach.put(objectiveColors.get(0), this.stomach.get(objectiveColors.get(0)) - 2);
-            	}
-            	if (objectiveColors.size() == 3) {
-            		for (Color color : Color.values()) {
-            			this.stomach.put(color, this.stomach.get(color) - 1);
-            		}
+            	Map<Color, Integer> pandaMotif = ((PandaObjective)objective).getMotifForCompleting();
+            	for (Color color : Color.values()) {
+            		this.stomach.put(color, this.stomach.get(color) - pandaMotif.get(color));
             	}
             }
         }
@@ -235,4 +235,22 @@ public abstract class Player {
         }
         return false;
     }
+
+    public void throwDice(Game game) throws ForbiddenActionException{
+        Random rand = new Random();
+        switch (rand.nextInt() % 6) {
+            case 0:
+                List<Tile> improvableTiles = game.getBoard().getAllTiles().stream().filter(t -> !t.isImproved()).collect(Collectors.toList());  // We get all improvable tiles
+                if (!game.noMoreImprovements() && improvableTiles.size() > 0) {   // For now, if there are no more improvements to take, we throw the dice again
+                    tileImprovement(game, improvableTiles);
+                } else {
+                    throwDice(game);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public abstract void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException;
 }

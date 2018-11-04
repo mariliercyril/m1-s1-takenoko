@@ -4,24 +4,31 @@ import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TileTest {
+@RunWith(JUnitPlatform.class)
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+class TileTest {
     private Game g;
 
     private Tile origin;
     private Tile t1;
 
-    @Before
-    public void setup() {
-        g = new Game();
+    @BeforeEach
+    void setup(@Autowired Game game) {
+        g = game;
         g.getBoard().set(new Point(0, 1), new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN));
 
         // put down some tiles
@@ -40,34 +47,34 @@ public class TileTest {
     }
 
     @Test
-    public void canIncreaseBambooSize() {
-        assertTrue("Didn't grow bamboo on tile even though it is irrigated.", t1.getBambooSize() > 0);
+    void canIncreaseBambooSize() {
+        assertTrue( t1.getBambooSize() > 0, "Didn't grow bamboo on tile even though it is irrigated.");
     }
 
     @Test
-    public void cantPutBambooOnLake() {
-        origin.increaseBambooSize(1);
-        assertEquals("Grew a bamboo on the lake tile.", 0, origin.getBambooSize());
+    void cantPutBambooOnLake() {
+        origin.increaseBambooSize();
+        assertEquals(0, origin.getBambooSize(), "Grew a bamboo on the lake tile.");
     }
 
     @Test
-    public void canDecreaseBambooSize() {
+    void canDecreaseBambooSize() {
         int currentSize = t1.getBambooSize();
         t1.decreaseBambooSize();
-        assertTrue("Didn't decrease bamboo size even though asked.", t1.getBambooSize() < currentSize);
+        assertTrue(t1.getBambooSize() < currentSize, "Didn't decrease bamboo size even though asked.");
     }
 
     @Test
-    public void cantEatWhereThereIsNoBamboo() {
+    void cantEatWhereThereIsNoBamboo() {
         origin.decreaseBambooSize();
-        assertFalse("Ate a bamboo on a tile where there was no bamboo.", origin.getBambooSize() < 0);
+        assertFalse(origin.getBambooSize() < 0, "Ate a bamboo on a tile where there was no bamboo.");
     }
 
     @Test
-    public void tileNextToLakeIsIrrigated() {
-        assertTrue("Tile is not irrigated even though asked.", t1.isIrrigated());
+    void tileNextToLakeIsIrrigated() {
+        assertTrue(t1.isIrrigated(), "Tile is not irrigated even though asked.");
         // N is the unit Vector (0, -1)
-        assertEquals("Tile has not been irrigated in the right direction", IrrigationState.IRRIGATED, t1.getIrrigationState(UnitVector.N));
+        assertEquals(IrrigationState.IRRIGATED, t1.getIrrigationState(UnitVector.N), "Tile has not been irrigated in the right direction");
     }
 
 }

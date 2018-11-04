@@ -3,6 +3,11 @@ package com.raccoon.takenoko.tool;
 public enum Separator {
 
 	/**
+	 * The singleton instance for the <b>colon</b> separator (":").
+	 */
+	COLON(":"),
+
+	/**
 	 * The singleton instance for the <b>point</b> separator (".").
 	 */
 	POINT("."),

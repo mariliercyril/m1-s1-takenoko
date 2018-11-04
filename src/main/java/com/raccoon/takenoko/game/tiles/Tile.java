@@ -19,11 +19,12 @@ public class Tile {
 
     private Point position;
     private Color color;
-
+    private boolean enclosed;
     private int bambooSize;
     private boolean irrigated;
     private boolean irrigable;
-
+    private int growthSpeed;   // Set to 2 if there is a fertilizer improvement
+    private boolean improved;
     private Map<UnitVector, IrrigationState> sideIrrigationState;
 
     /*
@@ -36,24 +37,27 @@ public class Tile {
      * Constructs a "pond" tile, that is to say the first tile to put on the board with specifics properties.
      */
     public Tile() {
-
+        this.growthSpeed = Constants.USUAL_BAMBOO_GROWTH;
+        this.enclosed = false;
         this.irrigated = false;
         this.color = null;
         this.irrigable = false;
         position = new Point(0, 0);
         initializeSideIrrigation();
+        improved = false;
     }
 
     /**
      * Constructs a new tile of the specified color
      */
     public Tile(Color color) {
-
+        this.growthSpeed = Constants.USUAL_BAMBOO_GROWTH;
         this.color = color;
         bambooSize = 0;
         initializeSideIrrigation();
         this.irrigated = false;
         this.irrigable = false;
+        improved = false;
 
     }
 
@@ -136,7 +140,7 @@ public class Tile {
         if (!this.irrigated) {  // If we are not yet irrigated
             this.irrigated = true;  // we become irrigated
             // and a bamboo grows
-            this.increaseBambooSize(Constants.USUAL_BAMBOO_GROWTH);
+            this.increaseBambooSize();
         }
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
@@ -164,12 +168,11 @@ public class Tile {
     /**
      * Increase the size of the bamboo on the tile. We make sure after increasing the the size doesn't exceed the max size.
      *
-     * @param bambooSize the size to add to the bamboo
      */
-    public void increaseBambooSize(int bambooSize) {
+    public void increaseBambooSize() {
 
         if (this.irrigated && Objects.nonNull(this.color)) {
-            this.bambooSize += bambooSize;
+            this.bambooSize += growthSpeed;
         }
 
         if (this.getBambooSize() > Constants.MAX_BAMBOO_SIZE && this.irrigated) {
@@ -200,5 +203,29 @@ public class Tile {
     @Override
     public String toString() {
         return "Tile " + this.getColor() + " at " + this.getPosition();
+    }
+
+    protected void setIrrigated(boolean irrigated) {
+        this.irrigated = irrigated;
+    }
+
+    protected void setEnclosure(boolean enclosed) {
+        this.enclosed = enclosed;
+    }
+
+    public boolean isEnclosed() {
+        return enclosed;
+    }
+
+    protected void setGrowthSpeed(int speed) {
+        this.growthSpeed = speed;
+    }
+
+    public boolean isImproved() {
+        return improved;
+    }
+
+    public void setImproved(boolean improved) {
+        this.improved = improved;
     }
 }

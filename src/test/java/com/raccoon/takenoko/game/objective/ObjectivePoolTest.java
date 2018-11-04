@@ -1,7 +1,6 @@
 package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.player.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +62,7 @@ class ObjectivePoolTest {
 
         assertTrue(gardenerObjective instanceof GardenerObjective, "Drawn a gardener objective, ended up with another kind of objective…");
         assertTrue(pandaObjective instanceof PandaObjective, "Drawn a panda objective, ended up with another kind of objective…");
-        assertTrue(patternObjective instanceof AlignmentParcelObjective, "Drawn a pattern objective, ended up with another kind of objective…");
+        assertTrue(patternObjective instanceof PatternObjective, "Drawn a pattern objective, ended up with another kind of objective…");
 
     }
 
@@ -101,6 +100,6 @@ class ObjectivePoolTest {
         assertEquals(ObjectiveType.PANDA, objectivePool.getObjectiveType(pandaObjective), "The gardener objective we drawn is not recognised as a gardener objective");
         assertEquals(ObjectiveType.PATTERN, objectivePool.getObjectiveType(patternObjective), "The pattern objective we drawn is not recognised as a pattern objective");
 
-        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(Color.GREEN, Color.GREEN)), "Pool testing an objective from outside without complaining");
+        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN)), "Pool testing an objective from outside without complaining");
     }
 }

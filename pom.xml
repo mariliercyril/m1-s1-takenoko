@@ -3,7 +3,7 @@
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
 
-    <version>OCT24</version> <!-- CHANGE ME -->
+    <version>OCT31</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -27,9 +27,19 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>log4j.properties</include>
+                    <include>takeyesntko.properties</include>
                 </includes>
             </resource>
         </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>log4j.properties</include>
+                    <include>test.properties</include>
+                </includes>
+            </testResource>
+        </testResources>
 
         <plugins>
 

@@ -2,7 +2,7 @@ package com.raccoon.takenoko.tool;
 
 /**
  * An unit vector, such as '<i>i</i>'.
- * <p>{@code UnitVector} is an enum representing above all the necessary unit vectors –
+ * <p>{@code UnitVector} is an enum representing all the necessary unit vectors –
  * not only the vectors (1, 0) and (0, 1), but also the vectors (1, 1), (-1, 0), (-1, -1) and (0, -1) –
  * ordered in the trigonometric (anticlockwise) sense, for facilitating the tile position operations.
  * Each of these six vectors is defined by a {@link Vector} provided as a parameter.</p>

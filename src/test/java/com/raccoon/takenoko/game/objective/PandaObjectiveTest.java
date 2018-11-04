@@ -29,9 +29,9 @@ import static org.mockito.Mockito.when;
 /**
  * This class allows to test the method {@code checkIfCompleted} of the class {@link PandaObjective}.
  */
-public class PandaObjectiveTest {
+class PandaObjectiveTest {
 
-    // A player (which should be a mock) 
+    // A player (which should be a mock)
 	private static Player mockPlayer;
 
 	private HashMap<Color, Integer> stomach;
@@ -39,14 +39,14 @@ public class PandaObjectiveTest {
     private PandaObjective pandaObjective;
 
 	@BeforeAll
-	public static void createsMockPlayer() {
+	static void createMockPlayer() {
 
 	    // Creates the mock player
 		mockPlayer = mock(Player.class);
 	}
 
 	@BeforeEach
-	public void initialize() {
+	void initialize() {
 
 		// Creates a stomach and initializes it
 		stomach = new HashMap<>();
@@ -58,9 +58,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert true when pandaObjective is completed, 1st case:"
     		+ "the stomach contains 2 bamboo chunks with the expected color")
-    public void testCheckIfCompleted_trueFristCase() {
+    void testCheckIfCompleted_trueFristCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 2);
@@ -75,9 +75,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert true when pandaObjective is completed, 2nd case:"
     		+ "the stomach contains at least 2 bamboo chunks with the expected color")
-    public void testCheckIfCompleted_trueSecondCase() {
+    void testCheckIfCompleted_trueSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 3);
@@ -92,9 +92,9 @@ public class PandaObjectiveTest {
 	@Test
     @DisplayName("assert true when pandaObjective is completed, 3rd case:"
     		+ "the stomach contains 1 bamboo chunk per color")
-	public void testCheckIfCompleted_trueeThirdCase() {
+	void testCheckIfCompleted_trueeThirdCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -111,9 +111,9 @@ public class PandaObjectiveTest {
 	@Test
     @DisplayName("assert true when pandaObjective is completed, 4th case:"
     		+ "the stomach contains at least 1 bamboo chunk per color")
-	public void testCheckIfCompleted_trueeFourthCase() {
+	void testCheckIfCompleted_trueeFourthCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -130,9 +130,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert false when pandaObjective is not completed, 1st case:"
     		+ "the stomach contains only 1 bamboo chunk with the expected color")
-    public void testCheckIfCompleted_falseFirstCase() {
+    void testCheckIfCompleted_falseFirstCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with only one bamboo chunk
 		stomach.put(Color.GREEN, 1);
@@ -147,9 +147,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert false when pandaObjective is not completed, 2nd case:"
     		+ "the stomach contains 2 bamboo chunks but only 1 bamboo chunk with the expected color")
-    public void testCheckIfCompleted_falseSecondCase() {
+    void testCheckIfCompleted_falseSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
@@ -165,9 +165,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert false when pandaObjective is not completed, 3rd case:"
     		+ "the stomach contains 2 bamboo chunks but with an unexpected color")
-    public void testCheckIfCompleted_falseThirdCase() {
+    void testCheckIfCompleted_falseThirdCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.YELLOW, 2);
@@ -182,9 +182,9 @@ public class PandaObjectiveTest {
     @Test
     @DisplayName("assert false when pandaObjective is not completed, 4th case:"
     		+ "the stomach is empty")
-    public void testCheckIfCompleted_falseFourthCase() {
+    void testCheckIfCompleted_falseFourthCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
 
         // So that the mock player returns the stomach 
         when(mockPlayer.getStomach()).thenReturn(stomach);
@@ -194,21 +194,20 @@ public class PandaObjectiveTest {
     }
 
 	/*
-	 * When the CheckIfCompleted method is used with a tile and a board (as paramters)
+	 * When the CheckIfCompleted method is used with a tile and a board (as parameters)
 	 */
 	@Test
 	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a tile and a board (as parameters)")
-	public void testCheckIfCompletedWithTileAndBoard() {
+	void testCheckIfCompletedWithTileAndBoard() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
-		// Create the "pond" Tile (initial Tile)
-		Tile pondTile = new Tile();
+
 		// Create a first Tile (a first parcel)
 		Tile firstTile = new Tile(Color.GREEN);
 
 		// Injects the "pond" Tile in the Board
-		Board hashBoard = new HashBoard(pondTile);
+		Board hashBoard = new HashBoard();
 		// Places the first Tile
 		hashBoard.set(new Point(1, 1), firstTile);
 
@@ -216,9 +215,9 @@ public class PandaObjectiveTest {
 	}
 
 	@Test
-	public void objectiveDifferentiationTest() {
+	void objectiveDifferentiationTest() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
     	// Fills the stomach with bamboo chunks
         stomach.put(Color.GREEN, 1);
@@ -233,31 +232,33 @@ public class PandaObjectiveTest {
     }
 
 	@Test
-    @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 1st case")
-	public void testGetPatternForCompleting_trueFirstCase() {
+    @DisplayName("assert true when return the expected motif depending on colors of the PandaObjective, 1st case")
+	void testGetMotif_trueFirstCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
 
-		// Create a reference pattern
+		// Create a reference motif
 		Map<Color, Integer> motif = new EnumMap<>(Color.class);
 		motif.put(Color.GREEN, 2);
+		motif.put(Color.YELLOW, 0);
+		motif.put(Color.PINK, 0);
 
-        assertEquals(pandaObjective.getPatternForCompleting(), motif);
+		assertEquals(pandaObjective.getMotifForCompleting(), motif);
     }
 
 	@Test
-    @DisplayName("assert true when return the expected pattern depending on colors of the PandaObjective, 2nd case")
-	public void testGetPatternForCompleting_trueSecondCase() {
+    @DisplayName("assert true when return the expected motif depending on colors of the PandaObjective, 2nd case")
+	void testGetMotif_trueSecondCase() {
 
-		pandaObjective = new PandaObjective(Color.GREEN, Color.YELLOW, Color.PINK);
+		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
 
-		// Create a reference pattern
+		// Create a reference motif
 		Map<Color, Integer> motif = new EnumMap<>(Color.class);
 		motif.put(Color.GREEN, 1);
 		motif.put(Color.YELLOW, 1);
 		motif.put(Color.PINK, 1);
 
-        assertEquals(pandaObjective.getPatternForCompleting(), motif);
+		assertEquals(pandaObjective.getMotifForCompleting(), motif);
     }
 
 }
