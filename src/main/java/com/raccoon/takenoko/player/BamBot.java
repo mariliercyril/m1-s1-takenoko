@@ -127,33 +127,6 @@ public class BamBot extends RandomBot {
         return actionSet;
     }
 
-    protected Action[] planActionsNew(Game game) {
-        List<Action> actionList = new ArrayList<>();
-        boolean done = false;
-
-        if (canDraw(game)) {
-            addAction(actionList, Action.DRAW_OBJECTIVE);
-        }
-
-        if (!done && isMovingPandaUseful(game)) {
-
-        }
-
-        return new Action[0];
-    }
-
-     private boolean addAction(List actions, Action act) {
-        if(actions.stream().filter(a -> (a == Action.PUT_DOWN_IRRIGATION || a == Action.VALID_OBJECTIVE)).toArray().length < 2 && !actions.contains(act)) {
-            actions.add(act);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean canDraw(Game game) {    // Returns true if there are panda objectives left
-        return !game.getObjectivePool().isDeckEmpty(ObjectiveType.PANDA) && getObjectives().size() < Constants.MAX_AMOUNT_OF_OBJECTIVES;
-    }
-
     private boolean isMovingPandaUseful(Game game) {    //  Tells if there is any bamboo to be eaten
         for (Point p : game.getBoard().getAccessiblePositions(game.getPanda().getPosition())) {
             if (game.getBoard().get(p).getBambooSize() > 0) {
