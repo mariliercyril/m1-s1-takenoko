@@ -142,10 +142,15 @@ public abstract class Player {
                 break;
             case VALID_OBJECTIVE:
                 Objective objective = this.chooseObjectiveToValidate();
-                Takeyesntko.print(String.format("Player choosed to validate the objective %s !", objective));
-                validateObjective(objective);
-                // we may have emptied a stomach
-                game.getObjectivePool().notifyStomachEmptied(this);
+                if(Objects.nonNull(objective)){
+                    Takeyesntko.print(String.format("Player choosed to validate the objective %s !", objective));
+                    validateObjective(objective);
+                    // we may have emptied a stomach
+                    game.getObjectivePool().notifyStomachEmptied(this);
+                }
+                else{
+                    Takeyesntko.print("Player changed his mind and doesn't validate an objective.");
+                }
                 break;
             case DRAW_OBJECTIVE:
                 if (objectives.size() > Constants.MAX_AMOUNT_OF_OBJECTIVES) {    // We check if we are allowed to add an objective
