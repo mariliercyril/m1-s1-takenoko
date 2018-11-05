@@ -257,4 +257,8 @@ public abstract class Player {
     }
 
     public abstract void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException;
+
+    public void giveEmperor() {
+        score += 2;
+    }
 }
