@@ -48,10 +48,10 @@ public class VectorTest {
 	public void testSum_true() {
 
 		Vector v1 = (UnitVector.I).getVector();
-		Vector v2 = (UnitVector.K).getVector();
-		Vector vn = new Vector(new Point(1, 1));
+		Vector v2 = new Vector(new Point(1, 1));
+		Vector vn = new Vector(new Point(1, 0), new Point(1, 2));
 
-		assertTrue((Vector.sum(v1, v2, vn)).equals(new Point(2, 2)));
+		assertTrue((Vector.sum(v1, v2, vn)).equals(new Point(2, 3)));
 	}
 
 }

@@ -38,6 +38,7 @@ public class Game {
 
     @Autowired
     private Gardener gardener;              // The gardener (obviously)
+
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
     /* Spring components */
@@ -49,6 +50,8 @@ public class Game {
 
     @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
     private BotFactory botFactory;
+
+    private Player hasEmperor;
 
     /*
      *************************************************
@@ -164,8 +167,23 @@ public class Game {
      */
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
+        boolean emperorDistributed = false;
+        if(tilesDeck.isEmpty()){
+            return true;
+        }
+
         for (Player p : players) {
-            if (p.getScore() >= 9 || tilesDeck.isEmpty()) { return true; }
+            if(p == this.hasEmperor){ // we compare if the player that has the emperor points to this player
+                return true;
+            }
+            if (p.getScore() >= 9) {
+                if(!emperorDistributed) {
+                    emperorDistributed = true;
+                    p.giveEmperor();
+                    Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
+                    this.hasEmperor = p;
+                }
+            }
         }
 
         return false;
