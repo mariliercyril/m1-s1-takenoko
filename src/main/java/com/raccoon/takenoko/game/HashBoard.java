@@ -6,13 +6,13 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import com.raccoon.takenoko.tool.Vector;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-@Component
+@Service("hashBoard")
 @Scope("prototype")
 public class HashBoard implements Board {
 
