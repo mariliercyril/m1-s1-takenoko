@@ -47,9 +47,6 @@ public class Game {
     @Autowired
     private Board board;                    // The game board, with all the tiles
 
-    @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
-    private BotFactory botFactory;
-
     private Player hasEmperor;
 
     /*
@@ -269,7 +266,7 @@ public class Game {
         }
     }
 
-    public void initImprovements() {
+    private void initImprovements() {
         this.improvements = new EnumMap<>(ImprovementType.class);
         for (ImprovementType it : ImprovementType.values()) {  // at the beginning, we have two improvements of each type
             improvements.put(it, 2);
