@@ -35,7 +35,10 @@ public class Game {
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
 
+    @Autowired
     private Panda panda;                    // Probably the panda
+
+    @Autowired
     private Gardener gardener;              // The gardener (obviously)
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
@@ -72,8 +75,8 @@ public class Game {
 
         this.numberOfPlayers = numberOfPlayers;
 
-        this.gardener = new Gardener();
         this.panda = new Panda();
+        panda.setGame(this);
 
         this.players = new ArrayList<>();
 
@@ -91,6 +94,7 @@ public class Game {
     public Game(List<Player> players) {
         this.gardener = new Gardener();
         this.panda = new Panda();
+        panda.setGame(this);
         this.players = players;
         initTileDeck();
         initImprovements();
@@ -99,6 +103,8 @@ public class Game {
     @PostConstruct
     public void init() {
         this.objectivePool.setGame(this);
+        this.gardener.setGame(this);
+        this.panda.setGame(this);
         try {
             addPlayers();
         }
