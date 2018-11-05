@@ -25,7 +25,7 @@ class PawnTest {
     private Board testBoard;
 
     private Gardener testGardener;
-    private Panda testPanda = new Panda();
+    private Panda testPanda;
 
     private Tile greenTile0 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
     private Tile greenTile1 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
@@ -39,6 +39,7 @@ class PawnTest {
     void setUp(@Autowired Game game) {
         this.testBoard = game.getBoard();
         this.testGardener = game.getGardener();
+        this.testPanda = game.getPanda();
     }
 
     @Test
@@ -62,10 +63,10 @@ class PawnTest {
         testGardener.move(new Point(0,1));
         assertEquals(2, greenTile1.getBambooSize(), "The tile adjacent to the tile where the gardener moved didn't grow a bamboo");
 
-        testPanda.move(testBoard, new Point(1,2));  // For the purpose of this test, it doesn't matter whether the panda is actually allowed to the tiles, we are only testing the effects of the panda arriving
+        testPanda.move(new Point(1,2));  // For the purpose of this test, it doesn't matter whether the panda is actually allowed to the tiles, we are only testing the effects of the panda arriving
         // The following tests also make sure that the surrounding tiles weren't affected by the panda
         assertEquals(1, greenTile1.getBambooSize(), "The tile where the panda landed didn't have one piece of bamboo eaten");
-        testPanda.move(testBoard, new Point(1,0));
+        testPanda.move(new Point(1,0));
         assertEquals(0, greenTile3.getBambooSize(), "The tile where the panda landed had a piece of bamboo eaten even though there wasn't any bamboo to eat");
         assertEquals(2, greenTile0.getBambooSize(), "The tile where the gardener is moved didn't grow a bamboo");
         assertEquals(1, pinkTile0.getBambooSize(), "The tile adjacent to the gardener grew a bamboo but wasn't of the same colour");

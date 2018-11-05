@@ -65,7 +65,7 @@ class ImprovementTypeTest {
 
         // Testing the effects of the enclosure
         assertEquals(2, t2.getBambooSize());
-        game.getPanda().move(game.getBoard(), new Point(-1, 0));
+        game.getPanda().move(new Point(-1, 0));
         assertEquals(2, t2.getBambooSize());
 
         // Improving the tile in (0, 1) with fertilizer

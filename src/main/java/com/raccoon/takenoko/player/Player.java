@@ -167,7 +167,7 @@ public abstract class Player {
                     throw new ForbiddenActionException("Player tried to put the panda in a non accessible position.");
                 }
                 boolean destinationHadBamboo = game.getBoard().get(whereToMovePanda).getBambooSize() > 0; // Checks if there is bamboo on the destination tile
-                game.getPanda().move(game.getBoard(), whereToMovePanda);
+                game.getPanda().move(whereToMovePanda);
 
                 if (destinationHadBamboo) {
                     eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
