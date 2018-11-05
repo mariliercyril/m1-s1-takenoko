@@ -7,6 +7,7 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -14,7 +15,7 @@ import java.util.*;
  * The pool of objectives needed in a game, and all the means to interact with it.
  * Provides the notify methods to induce a completion checking for the right objectives.
  */
-@Component
+@Service
 @Scope("prototype")
 public class ObjectivePool {
 

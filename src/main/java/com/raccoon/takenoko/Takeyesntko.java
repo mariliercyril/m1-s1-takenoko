@@ -1,6 +1,7 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
@@ -35,6 +36,8 @@ public class Takeyesntko {
     public CommandLineRunner commandLineRunner() {
         return args -> {
 
+
+
             print(" ________      _       __   __   ______    __    __   ________   __   __   ________  ");
             print("|__    __|   /   \\    |  | /  / |   ___|  |  \\  |  | |   __   | |  | /  / |   __   | ");
             print("   |  |     / /_\\ \\   |  |/  /  |  |__    |  |\\ |  | |  |  |  | |  |/  /  |  |  |  | ");
@@ -51,6 +54,13 @@ public class Takeyesntko {
 
         };
     }
+
+    @Bean(name = "everyOther")
+    public BotFactory botFactory() {
+        return new BotFactory();
+    }
+
+
 
     /**
      * Allows a conditionnal print

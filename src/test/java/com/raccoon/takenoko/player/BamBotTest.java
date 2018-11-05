@@ -56,7 +56,8 @@ class BamBotTest {
     @BeforeEach
     void init(@Autowired Game game) {
         g = game;
-        bot = g.getPlayers().get(0);    // Be careful, how to be sure this won't be another implementation of player ?
+        bot = g.getPlayers().get(1);    // Be careful, how to be sure this won't be another implementation of player ?
+        // Actually had to be fixed because with a minor change in the code the implementation was different…
     }
 
     @Test

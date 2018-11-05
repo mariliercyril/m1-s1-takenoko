@@ -10,23 +10,26 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
  */
-@Component
+@Service
 @Scope("prototype")
 public class Game {
 
+    private int numberOfPlayers;        // Only useful for spring to add the correct amount of players…
 
     private List<Player> players;           // The Players participating the game
 
@@ -42,6 +45,10 @@ public class Game {
 
     @Autowired
     private Board board;                    // The game board, with all the tiles
+
+    @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
+
+    private BotFactory botFactory;
 
     /*
      *************************************************
@@ -63,21 +70,14 @@ public class Game {
      */
     public Game(int numberOfPlayers) {
 
+        this.numberOfPlayers = numberOfPlayers;
+
         this.gardener = new Gardener();
         this.panda = new Panda();
 
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
-        Player newPlayer;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            if (i % 2 == 0) {
-                newPlayer = new BamBot();
-            } else {
-                newPlayer = new RandomBot();
-            }
-            players.add(newPlayer);
-        }
 
         initTileDeck();
         initImprovements();
@@ -99,9 +99,15 @@ public class Game {
     @PostConstruct
     public void init() {
         this.objectivePool.setGame(this);
+        try {
+            addPlayers();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    // used only by this class
+    // Initialize the deck of tiles, with the right amount of tile of each colour
     private void initTileDeck() {
         tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
@@ -112,6 +118,15 @@ public class Game {
             }
         }
         Collections.shuffle(tilesDeck);
+    }
+
+    private void addPlayers() throws Exception {
+        // If we didn't use the constructor with players in it we add them in the game
+        if (players.isEmpty()) {
+            for (int i = 0; i < this.numberOfPlayers; i++) {
+                this.players.add(botFactory.getObject());
+            }
+        }
     }
 
     /*
@@ -159,22 +174,23 @@ public class Game {
     }
 
     public void start() {           // Starts the game: while the game isn't over, each player plays
-        int i = 0;
+
+        int playerNumber = 0;
         int turnNumber = 0;
         while (!gameOver()) {
 
-            if (i == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
+            if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
             }
 
-            Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " " + players.get(i).getClass().getSimpleName() + " is playing now.");
+            Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " " + players.get(playerNumber).getClass().getSimpleName() + " is playing now.");
             try {
-                players.get(i).play(this);
+                players.get(playerNumber).play(this);
             } catch (ForbiddenActionException e) {
-                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(i).getId() + "!");
+                Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(playerNumber).getId() + "!");
             }
-            i = ( i + 1 ) % players.size();   // To keep i between 0 and the size of the list of players
+            playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
         }
         printRanking();
     }
