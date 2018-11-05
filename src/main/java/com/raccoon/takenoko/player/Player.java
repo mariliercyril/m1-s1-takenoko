@@ -2,7 +2,6 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
-import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
@@ -37,7 +36,7 @@ public abstract class Player {
         counter++;
         id = counter;
         objectives = new ArrayList<>();
-        stomach = new HashMap<>();
+        stomach = new EnumMap<>(Color.class);
         stomach.put(Color.GREEN, 0);
         stomach.put(Color.YELLOW, 0);
         stomach.put(Color.PINK, 0);
@@ -85,7 +84,7 @@ public abstract class Player {
 
         // check if the actions are compatible (exactly 2 costly actions)
         int validityCheck = 0;
-        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost());
+        for (int i = 0; i < plannedActions.length; validityCheck += plannedActions[i++].getCost()) { ; }
         if (validityCheck != 2) {
             throw new ForbiddenActionException("Player tried to play an incorrect number of actions.");
         }
@@ -120,12 +119,12 @@ public abstract class Player {
                 break;
             case MOVE_GARDENER:
                 List<Point> gardenerAccessible = game.getBoard().getAccessiblePositions(game.getGardener().getPosition());
-                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);
+                Point whereToMoveGardener = whereToMoveGardener(game, gardenerAccessible);  // Actually, we give the game in parameter… giving the list of accessible position is redundant
                 // check that point is in available points array
                 if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
                 }
-                game.getGardener().move(game.getBoard(), whereToMoveGardener);
+                game.getGardener().move(whereToMoveGardener);
                 game.getObjectivePool().notifyBambooGrowth(game.getBoard());
                 break;
             case DRAW_IRRIGATION:
@@ -168,7 +167,7 @@ public abstract class Player {
                     throw new ForbiddenActionException("Player tried to put the panda in a non accessible position.");
                 }
                 boolean destinationHadBamboo = game.getBoard().get(whereToMovePanda).getBambooSize() > 0; // Checks if there is bamboo on the destination tile
-                game.getPanda().move(game.getBoard(), whereToMovePanda);
+                game.getPanda().move(whereToMovePanda);
 
                 if (destinationHadBamboo) {
                     eatBamboo(game.getBoard().get(game.getPanda().getPosition()).getColor()); // The panda eats a piece of bamboo on the tile where it lands
@@ -195,10 +194,10 @@ public abstract class Player {
                    different amount of bamboos. This action could be managed by the objectives themselves
                    or by the Game maybe.
                  */
-            	Map<Color, Integer> pandaMotif = ((PandaObjective)objective).getMotifForCompleting();
-            	for (Color color : Color.values()) {
-            		this.stomach.put(color, this.stomach.get(color) - pandaMotif.get(color));
-            	}
+                Map<Color, Integer> pandaMotif = ( (PandaObjective) objective ).getMotifForCompleting();
+                for (Color color : Color.values()) {
+                    this.stomach.put(color, this.stomach.get(color) - pandaMotif.get(color));
+                }
             }
         }
     }
@@ -236,12 +235,12 @@ public abstract class Player {
         return false;
     }
 
-    public void throwDice(Game game) throws ForbiddenActionException{
+    public void throwDice(Game game) throws ForbiddenActionException {
         Random rand = new Random();
         switch (rand.nextInt() % 6) {
             case 0:
                 List<Tile> improvableTiles = game.getBoard().getAllTiles().stream().filter(t -> !t.isImproved()).collect(Collectors.toList());  // We get all improvable tiles
-                if (!game.noMoreImprovements() && improvableTiles.size() > 0) {   // For now, if there are no more improvements to take, we throw the dice again
+                if (!game.noMoreImprovements() && !improvableTiles.isEmpty()) {   // For now, if there are no more improvements to take, we throw the dice again
                     tileImprovement(game, improvableTiles);
                 } else {
                     throwDice(game);
@@ -253,4 +252,8 @@ public abstract class Player {
     }
 
     public abstract void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException;
+
+    public void giveEmperor() {
+        score += 2;
+    }
 }

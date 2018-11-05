@@ -43,7 +43,7 @@ class TileTest {
         t1.irrigate(UnitVector.M);
         t1.irrigate(UnitVector.N);
 
-        g.getGardener().move(g.getBoard(), new Point(0, 1));
+        g.getGardener().move(new Point(0, 1));
     }
 
     @Test

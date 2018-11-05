@@ -1,10 +1,10 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.objective.PatternObjective;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.objective.PandaObjective;
-import com.raccoon.takenoko.game.objective.parcel.AlignmentParcelObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +13,12 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.annotation.Resource;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -41,7 +43,10 @@ class BamBotTest {
     @Mock
     private PandaObjective pObj1;
     @Mock
-    private AlignmentParcelObjective aObj1;
+    private PatternObjective aObj1;
+
+    @Resource(name = "&everyOther")
+    FactoryBean<Player> playerFactory;
 
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));
@@ -56,7 +61,13 @@ class BamBotTest {
     @BeforeEach
     void init(@Autowired Game game) {
         g = game;
-        bot = g.getPlayers().get(0);    // Be careful, how to be sure this won't be another implementation of player ?
+        try {
+            g.addPlayers(4, playerFactory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bot = g.getPlayers().get(1);    // Be careful, how to be sure this won't be another implementation of player ?
+        // Actually had to be fixed because with a minor change in the code the implementation was different…
     }
 
     @Test
@@ -184,7 +195,7 @@ class BamBotTest {
 
         place(2, 1, yellow);
         place(2, 2, yellow);
-        g.getGardener().move(g.getBoard(), new Point(2, 2));
+        g.getGardener().move(new Point(2, 2));
 
         //assertEquals(new Point(2, 2), bot.whereToMovePanda(g, g.getBoard().getAccessiblePositions(g.getPanda().getPosition())));    // Now he only needs yellow
     }

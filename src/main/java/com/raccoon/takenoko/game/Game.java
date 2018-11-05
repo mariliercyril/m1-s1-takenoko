@@ -7,34 +7,38 @@ import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
-import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
-import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.List;
 
 /**
  * Class representing the games, and allowing to interract with it
  */
-@Component
+@Service
 @Scope("prototype")
 public class Game {
-
 
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
 
-    private Panda panda;                    // Probably the panda
-    private Gardener gardener;              // The gardener (obviously)
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
+
+    @Autowired
+    private Panda panda;                    // Probably the panda
+
+    @Autowired
+    private Gardener gardener;              // The gardener (obviously)
 
     /* Spring components */
     @Autowired
@@ -43,41 +47,27 @@ public class Game {
     @Autowired
     private Board board;                    // The game board, with all the tiles
 
+    @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
+    private BotFactory botFactory;
+
+    private Player hasEmperor;
+
     /*
      *************************************************
      *                 Constructors
      *************************************************
      */
 
+
     /**
-     * Constructs a 4 players game
+     * Construct a game without players
+     *
      */
     public Game() {
-        this(4);
-    }
-
-    /**
-     * Construct a game with new players, all with the randomBot implementation
-     *
-     * @param numberOfPlayers the number of players to add to the game
-     */
-    public Game(int numberOfPlayers) {
-
-        this.gardener = new Gardener();
-        this.panda = new Panda();
 
         this.players = new ArrayList<>();
 
         Player.reinitCounter();
-        Player newPlayer;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            if (i % 2 == 0) {
-                newPlayer = new BamBot();
-            } else {
-                newPlayer = new RandomBot();
-            }
-            players.add(newPlayer);
-        }
 
         initTileDeck();
         initImprovements();
@@ -90,7 +80,6 @@ public class Game {
      */
     public Game(List<Player> players) {
         this.gardener = new Gardener();
-        this.panda = new Panda();
         this.players = players;
         initTileDeck();
         initImprovements();
@@ -99,9 +88,11 @@ public class Game {
     @PostConstruct
     public void init() {
         this.objectivePool.setGame(this);
+        this.gardener.setGame(this);
+        this.panda.setGame(this);
     }
 
-    // used only by this class
+    // Initialize the deck of tiles, with the right amount of tile of each colour
     private void initTileDeck() {
         tilesDeck = new LinkedList<>();
         Color[] colors = new Color[]{Color.PINK, Color.GREEN, Color.YELLOW};
@@ -112,6 +103,15 @@ public class Game {
             }
         }
         Collections.shuffle(tilesDeck);
+    }
+
+    public void addPlayers(int numberOfPlayers, FactoryBean<Player> factory) throws Exception {
+        // If we didn't use the constructor with players in it we add them in the game
+        if (players.isEmpty()) {
+            for (int i = 0; i < numberOfPlayers; i++) {
+                this.players.add(factory.getObject());
+            }
+        }
     }
 
     /*
@@ -151,30 +151,45 @@ public class Game {
      */
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
+        boolean emperorDistributed = false;
+        if (tilesDeck.isEmpty()) {
+            return true;
+        }
+
         for (Player p : players) {
-            if (p.getScore() >= 9 || tilesDeck.isEmpty()) { return true; }
+            if (p == this.hasEmperor) { // we compare if the player that has the emperor points to this player
+                return true;
+            }
+            if (p.getScore() >= 9 && !emperorDistributed) {
+                emperorDistributed = true;
+                p.giveEmperor();
+                Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
+                this.hasEmperor = p;
+            }
+
         }
 
         return false;
     }
 
     public void start() {           // Starts the game: while the game isn't over, each player plays
-        int i = 0;
+
+        int playerNumber = 0;
         int turnNumber = 0;
         while (!gameOver()) {
 
-            if (i == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
+            if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
             }
 
-            Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " " + players.get(i).getClass().getSimpleName() + " is playing now.");
+            Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " " + players.get(playerNumber).getClass().getSimpleName() + " is playing now.");
             try {
-                players.get(i).play(this);
+                players.get(playerNumber).play(this);
             } catch (ForbiddenActionException e) {
-                Takeyesntko.print("\nPlayer #" + players.get(i).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(i).getId() + "!");
+                Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(playerNumber).getId() + "!");
             }
-            i = ( i + 1 ) % players.size();   // To keep i between 0 and the size of the list of players
+            playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
         }
         printRanking();
     }
@@ -240,11 +255,7 @@ public class Game {
          */
         return this.objectivePool.draw(t);   // We just get the objective from the pool
     }
-/*
-    public void purge() {
-        Player.reinitCounter();
-    }
-*/
+
     public boolean isImprovementAvailable(ImprovementType improvement) {    // Tells if there is an improvement of the given type available
         return improvements.get(improvement) > 0;
     }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GardenerObjective extends Objective {
     private int nbrToCValidate;
+    private Color color;
 
     public GardenerObjective(int nbrToCValidate, Color c, int score) {
         this.nbrToCValidate = nbrToCValidate;

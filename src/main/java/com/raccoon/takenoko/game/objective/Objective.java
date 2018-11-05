@@ -1,10 +1,12 @@
 package com.raccoon.takenoko.game.objective;
 
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.player.Player;
+
+import java.util.Map;
 
 /**
  * This class provides a skeletal implementation for the <b>objectives</b> of the game
@@ -16,11 +18,10 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
-    protected static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
+    private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d}";
 
     protected boolean isCompleted;
     protected int score;
-    protected Color color;
 
     /**
      * Sole constructor. (For invocation by subclass constructors.)
@@ -84,14 +85,16 @@ public abstract class Objective {
         return score;
     }
 
-    /**
-     * Returns the color which is expected for the objective to be completed.
-     *
-     * @return the color which is expected for the objective to be completed
-     */
-    public Color getColor() {
 
-        return color;
+    /**
+     * Gets the expected pattern for completing the PandaObjective in question.
+     *
+     * @return pattern
+     * 	the expected pattern depending on colors
+     */
+    public Map<Color, Integer> getPatternForCompleting() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -107,6 +110,7 @@ public abstract class Objective {
     @Override
     public String toString() {
 
-        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score, color);
+        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score);
     }
+
 }

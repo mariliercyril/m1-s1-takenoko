@@ -1,5 +1,5 @@
 # Takenoko releases
-:copyright: presented by Angry Raccoons
+presented by Angry Raccoons
 
 ## 1.0.0 : First iteration
 First draft of the game : minimal representation 
@@ -69,4 +69,13 @@ The players can now put some irrigation channels and manage the irrigation of th
 *   The improvements are represented in the game : the enclosure, the fertilizer and the watershed
 *   A first side of the weather dice is represented, the clouds
 *   For now, the player picks an available improvement and put it down immediately
+*   Final pattern objective are now playable as in the real game
 *   **[refact]** More spring integration : the Board is now implemented as a spring component
+
+## FINAL
+The project has ended : Here is our final touches for this final iteration.
+### What's been done
+*   End of game : the emperor is distributed and the game goes on until we reach the player having won the emperor
+*   1000 games : now have the wanter battles : Bambot VS RandomBot and BamBot VS BamBot
+*   1000 games : we present the stats the client wanted and display them in a pretty way
+*   **[refact]** Panda and Gardener are now components !
