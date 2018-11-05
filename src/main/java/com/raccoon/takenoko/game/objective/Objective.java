@@ -2,7 +2,6 @@ package com.raccoon.takenoko.game.objective;
 
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -16,11 +15,10 @@ import com.raccoon.takenoko.player.Player;
  */
 public abstract class Objective {
 
-    protected static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
+    private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d}";
 
     protected boolean isCompleted;
     protected int score;
-    protected Color color;
 
     /**
      * Sole constructor. (For invocation by subclass constructors.)
@@ -85,16 +83,6 @@ public abstract class Objective {
     }
 
     /**
-     * Returns the color which is expected for the objective to be completed.
-     *
-     * @return the color which is expected for the objective to be completed
-     */
-    public Color getColor() {
-
-        return color;
-    }
-
-    /**
      * Returns a string representation of the objective.
      * Here, the {@code toString} method returns a string that represents this object with its <i>type</i>
      * and, between curly brackets, its <i>completed state</i>, the <i>score</i> and the <i>color which is expected</i>;
@@ -107,6 +95,6 @@ public abstract class Objective {
     @Override
     public String toString() {
 
-        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score, color);
+        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score);
     }
 }
