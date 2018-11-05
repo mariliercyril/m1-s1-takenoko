@@ -1,8 +1,8 @@
 package com.raccoon.takenoko.game.objective;
 
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Board;
-import com.raccoon.takenoko.game.tiles.Color;
 
 import com.raccoon.takenoko.player.Player;
 
@@ -18,11 +18,10 @@ import java.util.Map;
  */
 public abstract class Objective {
 
-    private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d, color=%S}";
+    private static final String RESULT_FORMAT = "%s{isCompleted=%B, score=%d}";
 
     protected boolean isCompleted;
     protected int score;
-    protected Color color;
 
     /**
      * Sole constructor. (For invocation by subclass constructors.)
@@ -86,15 +85,6 @@ public abstract class Objective {
         return score;
     }
 
-    /**
-     * Returns the color which is expected for the objective to be completed.
-     *
-     * @return the color which is expected for the objective to be completed
-     */
-    public Color getColor() {
-
-        return color;
-    }
 
     /**
      * Gets the expected pattern for completing the PandaObjective in question.
@@ -120,7 +110,7 @@ public abstract class Objective {
     @Override
     public String toString() {
 
-        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score, color);
+        return String.format(RESULT_FORMAT, ( this.getClass() ).getSimpleName(), isCompleted, score);
     }
 
 }

@@ -14,6 +14,7 @@ public class PatternObjective extends Objective {
 
     private final ArrayList<Color> colors;
     private final ArrayList<UnitVector> vectors;
+    private Color color;
 
     /**
      * Caution : the colors list needs to have 1 more element than the vectors.
