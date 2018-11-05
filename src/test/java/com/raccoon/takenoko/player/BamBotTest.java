@@ -13,10 +13,12 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.annotation.Resource;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ class BamBotTest {
     @Mock
     private PatternObjective aObj1;
 
+    @Resource(name = "&everyOther")
+    FactoryBean<Player> playerFactory;
+
     private void place(int x, int y, Color c) {
         g.getBoard().set(new Point(x,y), new Tile(c));
     }
@@ -56,6 +61,11 @@ class BamBotTest {
     @BeforeEach
     void init(@Autowired Game game) {
         g = game;
+        try {
+            g.addPlayers(4, playerFactory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         bot = g.getPlayers().get(1);    // Be careful, how to be sure this won't be another implementation of player ?
         // Actually had to be fixed because with a minor change in the code the implementation was different…
     }

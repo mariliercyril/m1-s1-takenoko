@@ -11,6 +11,7 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -27,19 +28,17 @@ import java.util.List;
 @Scope("prototype")
 public class Game {
 
-    private int numberOfPlayers;        // Only useful for spring to add the correct amount of players…
-
     private List<Player> players;           // The Players participating the game
 
     private LinkedList<Tile> tilesDeck;     // The deck in which players get the tiles
+
+    private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
     @Autowired
     private Panda panda;                    // Probably the panda
 
     @Autowired
     private Gardener gardener;              // The gardener (obviously)
-
-    private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
     /* Spring components */
     @Autowired
@@ -59,24 +58,12 @@ public class Game {
      *************************************************
      */
 
+
     /**
-     * Constructs a 4 players game
+     * Construct a game without players
+     *
      */
     public Game() {
-        this(4);
-    }
-
-    /**
-     * Construct a game with new players, all with the randomBot implementation
-     *
-     * @param numberOfPlayers the number of players to add to the game
-     */
-    public Game(int numberOfPlayers) {
-
-        this.numberOfPlayers = numberOfPlayers;
-
-        this.panda = new Panda();
-        panda.setGame(this);
 
         this.players = new ArrayList<>();
 
@@ -93,8 +80,6 @@ public class Game {
      */
     public Game(List<Player> players) {
         this.gardener = new Gardener();
-        this.panda = new Panda();
-        panda.setGame(this);
         this.players = players;
         initTileDeck();
         initImprovements();
@@ -105,7 +90,6 @@ public class Game {
         this.objectivePool.setGame(this);
         this.gardener.setGame(this);
         this.panda.setGame(this);
-        addPlayers();
     }
 
     // Initialize the deck of tiles, with the right amount of tile of each colour
@@ -121,11 +105,11 @@ public class Game {
         Collections.shuffle(tilesDeck);
     }
 
-    private void addPlayers() {
+    public void addPlayers(int numberOfPlayers, FactoryBean<Player> factory) throws Exception {
         // If we didn't use the constructor with players in it we add them in the game
         if (players.isEmpty()) {
-            for (int i = 0; i < this.numberOfPlayers; i++) {
-                this.players.add(botFactory.getObject());
+            for (int i = 0; i < numberOfPlayers; i++) {
+                this.players.add(factory.getObject());
             }
         }
     }

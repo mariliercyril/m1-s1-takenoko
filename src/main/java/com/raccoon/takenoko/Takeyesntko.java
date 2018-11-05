@@ -1,11 +1,13 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.player.BamBotFactory;
 import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +15,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,8 @@ public class Takeyesntko {
 
     @Autowired
     private ObjectFactory<Game> gameObjectFactory;
+
+
 
     public static void main(String[] args) {
 
@@ -49,7 +54,8 @@ public class Takeyesntko {
                 launch1gameNoJutsu();
             }
             else {
-                launchManyGamesNoJutsu();
+                launchManyGamesNoJutsu(4, new BotFactory());
+                launchManyGamesNoJutsu(2, new BamBotFactory());
             }
 
         };
@@ -59,7 +65,8 @@ public class Takeyesntko {
     public BotFactory botFactory() {
         return new BotFactory();
     }
-
+    @Bean(name = "giveMeBambots")
+    public BamBotFactory bamBotFactory() {return new BamBotFactory();}
 
 
     /**
@@ -84,20 +91,26 @@ public class Takeyesntko {
     /**
      * Launches 1000 games and prints out the output
     */
-    private void launchManyGamesNoJutsu() {
+    private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
 
         Takeyesntko.setVerbose(false);
 
-        int nbPlayers = 4;
         Map<Integer, Integer> playerWins = new HashMap<>();
-        for (int i = 1 ; i <= nbPlayers ; i++) {
+        int[] scores = new int [playerNumber];
+
+        for (int i = 1 ; i <= playerNumber ; i++) {
             playerWins.put(i, 0);
         }
         int voidedGames = 0;
-        String[] playersTypes = new String[nbPlayers];
+        String[] playersTypes = new String[playerNumber];
 
         for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
             Game game = gameObjectFactory.getObject();
+            try {
+                game.addPlayers(playerNumber, playerFactory);
+            } catch (Exception e) {
+                print("Something went wrong while adding the players");
+            }
             game.start();
 
             // First check that it isn't a void game (all players at 0)
@@ -109,7 +122,7 @@ public class Takeyesntko {
                     numberOfNullResults++;
                 }
             }
-            if (numberOfNullResults == nbPlayers) {
+            if (numberOfNullResults == playerNumber) {
                 voidedGames++;
                 continue;
             }
@@ -120,6 +133,7 @@ public class Takeyesntko {
             // counts the points
             for (Player pl : game.getPlayers()) {
                 playersTypes[pl.getId() - 1] = pl.getClass().getSimpleName();
+                scores[pl.getId() - 1] += pl.getScore();
             }
         }
 
@@ -127,10 +141,10 @@ public class Takeyesntko {
         Takeyesntko.setVerbose(true);
         List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()); // Sorting the players according to their score
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
-        print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Score"));
+        print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Avg. Score\t"));
         for (int i = sortedWinners.size() - 1; i >= 0; i--) {
             int currentPlayer = sortedWinners.get(i).getKey();
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |%9d |", currentPlayer, playersTypes[currentPlayer - 1], (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), sortedWinners.get(i).getValue()));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |        %5.2f\t|", currentPlayer, playersTypes[currentPlayer - 1], (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS));
         }
         print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
