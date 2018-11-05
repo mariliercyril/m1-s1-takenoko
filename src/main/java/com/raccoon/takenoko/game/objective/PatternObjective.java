@@ -44,12 +44,8 @@ public class PatternObjective extends Objective {
     public void checkIfCompleted(Tile tile, Board board) {
 
         // as tiles can't move on the board, pattern objectives don't get invalidated
-        // so no need to check again when a pattern is valid
-        if(this.isCompleted){
-            return;
-        }
         // if the tile we check is not the start of our pattern (not the right color or not irrigated) we don't need to do the rest
-        if (Objects.isNull(tile) || tile.getColor() != this.color || !tile.isIrrigated()) {
+        if (this.isCompleted || Objects.isNull(tile) || tile.getColor() != this.color || !tile.isIrrigated()) {
             return;
         }
 
