@@ -2,16 +2,19 @@ package com.raccoon.takenoko.game;
 
 import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.annotation.Resource;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,16 +24,27 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class GameTest {
 
+    @Resource(name = "&everyOther")
+    FactoryBean<Player> playerFactory;
+
+
     private Game game;
 
     @BeforeEach
     void setUp(@Autowired Game game) {
         Takeyesntko.setVerbose(false);
         this.game = game;
+        try {
+            game.addPlayers(4, playerFactory);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test
     void gameOver() {
+
         game.start();                   // Play one game
         assertTrue(game.gameOver(), "Game never ends");    // When the game ends, it should be over
     }
