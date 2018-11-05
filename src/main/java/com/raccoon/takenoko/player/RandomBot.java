@@ -68,7 +68,8 @@ public class RandomBot extends Player {
 
     @Override
     protected Action[] planActions(Game game) {
-        int score = 0, cursor = 0;
+        int score = 0;
+        int cursor = 0;
         Random r = new Random();
         ArrayList<Action> choosen = new ArrayList<>();
         Action[] available = Action.values();

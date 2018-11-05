@@ -168,22 +168,21 @@ public class Game {
 
     public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
         boolean emperorDistributed = false;
-        if(tilesDeck.isEmpty()){
+        if (tilesDeck.isEmpty()) {
             return true;
         }
 
         for (Player p : players) {
-            if(p == this.hasEmperor){ // we compare if the player that has the emperor points to this player
+            if (p == this.hasEmperor) { // we compare if the player that has the emperor points to this player
                 return true;
             }
-            if (p.getScore() >= 9) {
-                if(!emperorDistributed) {
-                    emperorDistributed = true;
-                    p.giveEmperor();
-                    Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
-                    this.hasEmperor = p;
-                }
+            if (p.getScore() >= 9 && !emperorDistributed) {
+                emperorDistributed = true;
+                p.giveEmperor();
+                Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
+                this.hasEmperor = p;
             }
+
         }
 
         return false;
