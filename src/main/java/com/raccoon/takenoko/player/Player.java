@@ -124,7 +124,7 @@ public abstract class Player {
                 if (!gardenerAccessible.contains(whereToMoveGardener)) {
                     throw new ForbiddenActionException("Player tried to put the gardener in a non accessible position.");
                 }
-                game.getGardener().move(game.getBoard(), whereToMoveGardener);
+                game.getGardener().move(whereToMoveGardener);
                 game.getObjectivePool().notifyBambooGrowth(game.getBoard());
                 break;
             case DRAW_IRRIGATION:

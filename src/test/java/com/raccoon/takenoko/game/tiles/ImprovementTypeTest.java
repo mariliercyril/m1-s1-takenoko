@@ -52,7 +52,7 @@ class ImprovementTypeTest {
         // Testing the effects of the watershed
         assertEquals(1, t3.getBambooSize());
         assertTrue(t3.isIrrigated());
-        game.getGardener().move(game.getBoard(), new Point(-1, 0));
+        game.getGardener().move(new Point(-1, 0));
 
         assertEquals(2, t3.getBambooSize());
 
@@ -76,7 +76,7 @@ class ImprovementTypeTest {
         }
         // Testing the effects of the fertilizer
         assertEquals(1, t1.getBambooSize());
-        game.getGardener().move(game.getBoard(), new Point(0,1));
+        game.getGardener().move(new Point(0,1));
         assertEquals(3, t1.getBambooSize());
     }
 }

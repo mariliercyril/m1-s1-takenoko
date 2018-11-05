@@ -24,7 +24,7 @@ class PawnTest {
 
     private Board testBoard;
 
-    private Gardener testGardener = new Gardener();
+    private Gardener testGardener;
     private Panda testPanda = new Panda();
 
     private Tile greenTile0 = new Tile(com.raccoon.takenoko.game.tiles.Color.GREEN);
@@ -36,8 +36,9 @@ class PawnTest {
 
 
     @BeforeEach
-    void setUp(@Autowired Board board) {
-        this.testBoard = board;
+    void setUp(@Autowired Game game) {
+        this.testBoard = game.getBoard();
+        this.testGardener = game.getGardener();
     }
 
     @Test
@@ -58,7 +59,7 @@ class PawnTest {
 
         assertEquals(1, testBoard.get(new Point(1, 2)).getBambooSize());
 
-        testGardener.move(testBoard, new Point(0,1));
+        testGardener.move(new Point(0,1));
         assertEquals(2, greenTile1.getBambooSize(), "The tile adjacent to the tile where the gardener moved didn't grow a bamboo");
 
         testPanda.move(testBoard, new Point(1,2));  // For the purpose of this test, it doesn't matter whether the panda is actually allowed to the tiles, we are only testing the effects of the panda arriving
