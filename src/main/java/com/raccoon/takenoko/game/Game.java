@@ -7,9 +7,7 @@ import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
-import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
-import com.raccoon.takenoko.player.RandomBot;
 import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
@@ -50,7 +48,6 @@ public class Game {
     private Board board;                    // The game board, with all the tiles
 
     @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
-
     private BotFactory botFactory;
 
     /*
@@ -105,12 +102,7 @@ public class Game {
         this.objectivePool.setGame(this);
         this.gardener.setGame(this);
         this.panda.setGame(this);
-        try {
-            addPlayers();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        addPlayers();
     }
 
     // Initialize the deck of tiles, with the right amount of tile of each colour
@@ -126,7 +118,7 @@ public class Game {
         Collections.shuffle(tilesDeck);
     }
 
-    private void addPlayers() throws Exception {
+    private void addPlayers() {
         // If we didn't use the constructor with players in it we add them in the game
         if (players.isEmpty()) {
             for (int i = 0; i < this.numberOfPlayers; i++) {

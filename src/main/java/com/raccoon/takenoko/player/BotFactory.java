@@ -14,7 +14,7 @@ public class BotFactory implements FactoryBean<Player> {
      */
 
     @Override
-    public Player getObject() throws Exception {
+    public Player getObject() {
         if (counter++ % 2 == 0) {
             return new RandomBot();
         }
