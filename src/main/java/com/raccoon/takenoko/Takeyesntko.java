@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,7 +38,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner() {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("everyOther") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("giveMeBambots") FactoryBean<Player> gimmeBambots) {
         return args -> {
 
 
@@ -50,11 +51,11 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu();
+                launch1gameNoJutsu(4, everyOtherFactory);
             }
             else {
-                launchManyGamesNoJutsu(4, new BotFactory());
-                launchManyGamesNoJutsu(2, new BamBotFactory());
+                launchManyGamesNoJutsu(4, everyOtherFactory);
+                launchManyGamesNoJutsu(2, gimmeBambots);
             }
 
         };
@@ -64,8 +65,11 @@ public class Takeyesntko {
     public BotFactory botFactory() {
         return new BotFactory();
     }
+
     @Bean(name = "giveMeBambots")
-    public BamBotFactory bamBotFactory() {return new BamBotFactory();}
+    public BamBotFactory bamBotFactory() {
+        return new BamBotFactory();
+    }
 
 
     /**
@@ -82,8 +86,13 @@ public class Takeyesntko {
     /**
      * Launches the game, verbose mode
      */
-    private void launch1gameNoJutsu() {
+    private void launch1gameNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
         Game game = gameObjectFactory.getObject();
+        try {
+            game.addPlayers(playerNumber, playerFactory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         game.start();
     }
 

@@ -8,7 +8,6 @@ import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
-import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.springframework.beans.factory.FactoryBean;
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.List;
 
@@ -46,9 +44,6 @@ public class Game {
 
     @Autowired
     private Board board;                    // The game board, with all the tiles
-
-    @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
-    private BotFactory botFactory;
 
     private Player hasEmperor;
 
@@ -269,7 +264,7 @@ public class Game {
         }
     }
 
-    public void initImprovements() {
+    private void initImprovements() {
         this.improvements = new EnumMap<>(ImprovementType.class);
         for (ImprovementType it : ImprovementType.values()) {  // at the beginning, we have two improvements of each type
             improvements.put(it, 2);
