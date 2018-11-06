@@ -62,8 +62,7 @@ public class RandomBot extends Player {
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
         Collections.shuffle(available);
-        Point goTo = available.get(0);
-        return goTo;
+        return available.get(0);
     }
 
     @Override

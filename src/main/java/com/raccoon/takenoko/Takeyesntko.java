@@ -91,7 +91,7 @@ public class Takeyesntko {
         try {
             game.addPlayers(playerNumber, playerFactory);
         } catch (Exception e) {
-            e.printStackTrace();
+            print("Something went wrong while adding the players");
         }
         game.start();
     }
