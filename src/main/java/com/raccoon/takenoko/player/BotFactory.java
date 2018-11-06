@@ -4,7 +4,11 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class BotFactory implements FactoryBean<Player> {
 
-    private static int counter = 0;
+    private int counter;
+
+    public BotFactory() {
+        counter = 0;
+    }
 
     /*
     Instead of re initialize a counter we could think of a Player constructor asking an Id as a parameter.
@@ -13,7 +17,7 @@ public class BotFactory implements FactoryBean<Player> {
 
     @Override
     public Player getObject() {
-        if (counter++ % 2 == 0) {
+        if (this.counter++ % 2 == 0) {
             return new RandomBot();
         }
         return new BamBot();
