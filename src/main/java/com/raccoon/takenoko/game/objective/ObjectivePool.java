@@ -53,8 +53,9 @@ public class ObjectivePool {
         // pattern objectives :
         List<PatternObjective> allPatterns = this.getPatternObjectives();
         patternObjectives.addAll(allPatterns);
-        deck.get(ObjectiveType.PATTERN).addAll(allPatterns);
         Collections.shuffle(patternObjectives);
+        deck.get(ObjectiveType.PATTERN).addAll(allPatterns);
+
 
         // panda objectives
         for (int i = 0; i < 10; i++) {
@@ -67,14 +68,9 @@ public class ObjectivePool {
         Collections.shuffle(bambooObjectives);
 
         // Gardener objectives
-        for (int i = 1; i < 4; i++) {
-            for (Color color : Color.values()) {
-                GardenerObjective newGObjective = new GardenerObjective(i, color, 1);
-                gardenerObjectives.add(newGObjective);
-                deck.get(ObjectiveType.GARDENER).add(newGObjective);
-            }
-        }
+        gardenerObjectives.addAll(this.getGardenerObjectives());
         Collections.shuffle(gardenerObjectives);
+        deck.get(ObjectiveType.GARDENER).addAll(gardenerObjectives);
     }
 
     public void setGame(Game game) {
@@ -195,6 +191,19 @@ public class ObjectivePool {
         patterns.add(new PatternObjective(new ArrayList<>(Arrays.asList(UnitVector.I, UnitVector.M, UnitVector.I)), new ArrayList<>(Arrays.asList( Color.PINK, Color.PINK, Color.YELLOW, Color.YELLOW )), 5));
 
         return patterns;
+    }
+
+    private List<GardenerObjective> getGardenerObjectives() { // 5 6 7 vert jaune rose
+        ArrayList<GardenerObjective> bambooPatterns = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            bambooPatterns.add(new GardenerObjective(4, Color.GREEN, 5));
+            bambooPatterns.add(new GardenerObjective(4, Color.YELLOW, 6));
+            bambooPatterns.add(new GardenerObjective(4, Color.PINK, 7));
+        }
+
+
+        return  bambooPatterns;
     }
 
 }
