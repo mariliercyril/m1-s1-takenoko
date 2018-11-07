@@ -3,7 +3,7 @@
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
 
-    <version>FINAL</version> <!-- CHANGE ME -->
+    <version>POST-FINAL</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
