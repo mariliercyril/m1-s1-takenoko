@@ -54,8 +54,7 @@ public class Takeyesntko {
                 launch1gameNoJutsu();
             }
             else {
-                launchManyGamesNoJutsu(4, new BotFactory());
-                launchManyGamesNoJutsu(2, new BamBotFactory());
+                launchManyGamesNoJutsu(1, new BamBotFactory());
             }
 
         };
