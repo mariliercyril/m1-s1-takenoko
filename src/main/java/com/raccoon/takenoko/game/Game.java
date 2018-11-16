@@ -11,11 +11,11 @@ import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.List;
 
@@ -32,17 +32,17 @@ public class Game {
 
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
-    @Autowired
+    @Resource
     private Panda panda;                    // Probably the panda
 
-    @Autowired
+    @Resource
     private Gardener gardener;              // The gardener (obviously)
 
     /* Spring components */
-    @Autowired
+    @Resource
     private ObjectivePool objectivePool;    // The pool of objective cards
 
-    @Autowired
+    @Resource(name = "preSetBoard")
     private Board board;                    // The game board, with all the tiles
 
     private Player hasEmperor;
