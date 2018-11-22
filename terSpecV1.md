@@ -13,9 +13,9 @@ Loic Germerie--Guizouarn, Theo Qui
 ### How the game engine will be changed
 - The tiles are all placed randomly at the beggining of the game
 - All the tiles are irrigated
-- A shoot of bamboo grows on every tile each turn <b>or</b> they start at size 4 and no longer grow
-- Each turn, the player picks an objective
-- The game ends when there is no objective card left in the deck
+- Every tile has a bamboo shoot of size 1 that doesn't grow
+- Each turn, the player picks an objective and discards every objective that isn't completable
+- The game ends when there is no more completable objective
 
 ### Why these changes are necessary
 - They simplify the game while keeping it complex enough to make the AI interesting
