@@ -93,7 +93,7 @@ public class Takeyesntko {
         } catch (Exception e) {
             print("Something went wrong while adding the players");
         }
-        game.start();
+        game.start(false);
     }
 
     /**
@@ -119,8 +119,11 @@ public class Takeyesntko {
             } catch (Exception e) {
                 print("Something went wrong while adding the players");
             }
-            game.start();
-
+            if (i != 100) {
+                game.start(false);
+            } else {
+                game.start(true);
+            }
             // First check that it isn't a void game (all players at 0)
             int numberOfNullResults = 0;
             for (Player pl : game.getPlayers()) {

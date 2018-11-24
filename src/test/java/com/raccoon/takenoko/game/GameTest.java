@@ -45,13 +45,13 @@ class GameTest {
     @Test
     void gameOver() {
 
-        game.start();                   // Play one game
+        game.start(false);                   // Play one game
         assertTrue(game.gameOver(), "Game never ends");    // When the game ends, it should be over
     }
 
     @Test
     void start() {
-        game.start();
+        game.start(false);
         assertNotNull(game.getBoard().get(new Point(0, 0)), "There is noooooo board~");     // As good as it gets for now
     }
 

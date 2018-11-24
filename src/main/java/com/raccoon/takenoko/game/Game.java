@@ -10,6 +10,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import com.raccoon.takenoko.tool.GameRecorder;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -167,12 +168,15 @@ public class Game {
         return false;
     }
 
-    public void start() {           // Starts the game: while the game isn't over, each player plays
-
+    public void start(boolean recording) {           // Starts the game: while the game isn't over, each player plays
+        GameRecorder recorder = new GameRecorder();
+        if (recording) {
+            recorder.startRecording();
+        }
         int playerNumber = 0;
         int turnNumber = 0;
         while (!gameOver()) {
-
+            recorder.recordStep(this);
             if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
@@ -186,6 +190,8 @@ public class Game {
             }
             playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
         }
+        recorder.recordStep(this);
+        recorder.stopRecording();
         printRanking();
     }
 
