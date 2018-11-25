@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
-class ObjectivePoolTest {
+class OriginalObjectivePoolTest {
 
     @Mock
     Player player;

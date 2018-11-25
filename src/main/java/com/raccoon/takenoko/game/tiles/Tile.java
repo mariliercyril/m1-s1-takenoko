@@ -180,6 +180,9 @@ public class Tile {
         }
     }
 
+    public void setBambooSize(int bambooSize) {
+        this.bambooSize = bambooSize;
+    }
 
     /**
      * Remove on chunk of bamboo on the {@code Tile}

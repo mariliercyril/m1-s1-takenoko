@@ -1,11 +1,8 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.objective.ObjectivePool;
-import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.objective.*;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.objective.Objective;
-import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 
 import java.awt.*;

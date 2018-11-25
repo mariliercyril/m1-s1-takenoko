@@ -38,7 +38,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("everyOther") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("giveMeBambots") FactoryBean<Player> gimmeBambots) {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("botFactory") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("bamBotFactory") FactoryBean<Player> gimmeBambots) {
         return args -> {
 
 
@@ -59,17 +59,6 @@ public class Takeyesntko {
 
         };
     }
-
-    @Bean(name = "everyOther")
-    public BotFactory botFactory() {
-        return new BotFactory();
-    }
-
-    @Bean(name = "giveMeBambots")
-    public BamBotFactory bamBotFactory() {
-        return new BamBotFactory();
-    }
-
 
     /**
      * Allows a conditionnal print
