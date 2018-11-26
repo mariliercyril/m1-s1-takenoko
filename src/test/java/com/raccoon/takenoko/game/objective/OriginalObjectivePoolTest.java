@@ -101,6 +101,6 @@ class OriginalObjectivePoolTest {
         assertEquals(ObjectiveType.PANDA, objectivePool.getObjectiveType(pandaObjective), "The gardener objective we drawn is not recognised as a gardener objective");
         assertEquals(ObjectiveType.PATTERN, objectivePool.getObjectiveType(patternObjective), "The pattern objective we drawn is not recognised as a pattern objective");
 
-        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN)), "Pool testing an objective from outside without complaining");
+        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(2,0,0,0)), "Pool testing an objective from outside without complaining");
     }
 }

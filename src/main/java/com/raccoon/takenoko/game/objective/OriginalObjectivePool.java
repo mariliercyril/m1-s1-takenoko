@@ -42,21 +42,15 @@ public class OriginalObjectivePool extends ObjectivePool {
         Collections.shuffle(patternObjectives);
         this.deck.get(ObjectiveType.PATTERN).addAll(allPatterns);
 
-
-        // panda objectives
-        for (int i = 0; i < 10; i++) {
-            for (PandaObjective.Motif pandaMotif : PandaObjective.Motif.values()) {
-                PandaObjective newObjective = new PandaObjective(pandaMotif);
-                this.bambooObjectives.add(newObjective);
-                this.deck.get(ObjectiveType.PANDA).add(newObjective);
-            }
-        }
+        // Panda objectives
+        this.bambooObjectives.addAll(getPandaObjectives());
+        this.deck.get(ObjectiveType.PANDA).addAll(this.bambooObjectives);
         Collections.shuffle(bambooObjectives);
 
         // Gardener objectives
-        gardenerObjectives.addAll(this.getGardenerObjectives());
-        Collections.shuffle(gardenerObjectives);
-        deck.get(ObjectiveType.GARDENER).addAll(gardenerObjectives);
+        this.gardenerObjectives.addAll(this.getGardenerObjectives());
+        Collections.shuffle(this.gardenerObjectives);
+        this.deck.get(ObjectiveType.GARDENER).addAll(this.gardenerObjectives);
     }
 
 
@@ -102,6 +96,19 @@ public class OriginalObjectivePool extends ObjectivePool {
 
 
         return  bambooPatterns;
+    }
+
+    private List<PandaObjective> getPandaObjectives() {
+        ArrayList<PandaObjective> pandaObjectives = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            pandaObjectives.add(new PandaObjective(2,0,0,3));
+            pandaObjectives.add(new PandaObjective(0,2,0,4));
+            pandaObjectives.add(new PandaObjective(0,0,2, 5));
+            pandaObjectives.add(new PandaObjective(1,1,1, 6));
+        }
+
+        return pandaObjectives;
     }
 
 }
