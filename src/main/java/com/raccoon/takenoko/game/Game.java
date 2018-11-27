@@ -146,26 +146,14 @@ public class Game {
      *************************************************
      */
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
-        boolean emperorDistributed = false;
-        if (tilesDeck.isEmpty()) {
-            return true;
-        }
+    public boolean gameOver() {     // The game is over as soon as a player reaches a given score
 
         for (Player p : players) {
-            if (p == this.hasEmperor) { // we compare if the player that has the emperor points to this player
-                return true;
+            if (p.getScore() >= Constants.MAX_SCORE) {  // If a player reached the max score
+                return true;                            // the game is over
             }
-            if (p.getScore() >= 9 && !emperorDistributed) {
-                emperorDistributed = true;
-                p.giveEmperor();
-                Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
-                this.hasEmperor = p;
-            }
-
         }
-
-        return false;
+        return false;       // Else it's not
     }
 
     public void start(boolean recording) {           // Starts the game: while the game isn't over, each player plays

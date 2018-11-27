@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 class GameTest {
 
-    @Resource(name = "&everyOther")
+    @Resource(name = "&botFactory")
     FactoryBean<Player> playerFactory;
 
 

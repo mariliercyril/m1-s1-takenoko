@@ -1,14 +1,11 @@
 package com.raccoon.takenoko.player;
 
-import com.raccoon.takenoko.game.objective.ObjectivePool;
-import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.objective.*;
 import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.Takeyesntko;
-import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.UnitVector;
@@ -76,8 +73,6 @@ public abstract class Player {
      * @param game the game in which the player is playing
      */
     public final void play(Game game) throws ForbiddenActionException {
-
-        throwDice(game);
 
         // 1st step : ask bot to plan actions
         Action[] plannedActions = planActions(game);
@@ -218,7 +213,7 @@ public abstract class Player {
 
     protected abstract Point whereToMovePanda(Game game, List<Point> available);
 
-    protected void eatBamboo(Color color) {
+    private void eatBamboo(Color color) {
         if (Objects.nonNull(color)) {
             stomach.put(color, stomach.get(color) + 1);
             Takeyesntko.print(String.format("Player has eaten a %s bamboo ! He now has %d %s bamboo(s) in his stomach", color, stomach.get(color), color));
@@ -233,22 +228,6 @@ public abstract class Player {
             return game.getBoard().irrigate(pos, direction);
         }
         return false;
-    }
-
-    public void throwDice(Game game) throws ForbiddenActionException {
-        Random rand = new Random();
-        switch (rand.nextInt() % 6) {
-            case 0:
-                List<Tile> improvableTiles = game.getBoard().getAllTiles().stream().filter(t -> !t.isImproved()).collect(Collectors.toList());  // We get all improvable tiles
-                if (!game.noMoreImprovements() && !improvableTiles.isEmpty()) {   // For now, if there are no more improvements to take, we throw the dice again
-                    tileImprovement(game, improvableTiles);
-                } else {
-                    throwDice(game);
-                }
-                break;
-            default:
-                break;
-        }
     }
 
     public abstract void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException;

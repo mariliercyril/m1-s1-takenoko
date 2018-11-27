@@ -56,11 +56,10 @@ class PandaObjectiveTest {
 	}
 
     @Test
-    @DisplayName("assert true when pandaObjective is completed, 1st case:"
-    		+ "the stomach contains 2 bamboo chunks with the expected color")
-    void testCheckIfCompleted_trueFristCase() {
+    @DisplayName("Check that a single colour objective is completed with a compliant stomach")
+    void testCheckIfCompletedSingleColour() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+		pandaObjective = new PandaObjective(2,0,0,0);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 2);
@@ -69,128 +68,84 @@ class PandaObjectiveTest {
         when(mockPlayer.getStomach()).thenReturn(stomach);
 
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertTrue(pandaObjective.isCompleted());
-    }
+        assertTrue(pandaObjective.isCompleted(), "Objective not completed although we had just the right amount of bamboos in the stomach");
 
-    @Test
-    @DisplayName("assert true when pandaObjective is completed, 2nd case:"
-    		+ "the stomach contains at least 2 bamboo chunks with the expected color")
-    void testCheckIfCompleted_trueSecondCase() {
+		// Reinitialisation of the completion flag
+        pandaObjective.isCompleted = false;
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
-
-    	// Fills the stomach with bamboo chunks
-		stomach.put(Color.GREEN, 3);
-
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
+        // New stomach configuration, also valid
+        stomach.put(Color.GREEN, 3);
 
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertTrue(pandaObjective.isCompleted());
+        assertTrue(pandaObjective.isCompleted(), "Objective not completed although we had more bamboo than needed in the stomach");
     }
 
 	@Test
-    @DisplayName("assert true when pandaObjective is completed, 3rd case:"
-    		+ "the stomach contains 1 bamboo chunk per color")
-	void testCheckIfCompleted_trueeThirdCase() {
+    @DisplayName("Check that a three colours objective is completed with a compliant stomach")
+	void testCheckIfCompletedThreeColours() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
+        // Stub of the mocked player
+        when(mockPlayer.getStomach()).thenReturn(stomach);
+
+		pandaObjective = new PandaObjective(1,1,1,0);
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
 		stomach.put(Color.YELLOW, 1);
 		stomach.put(Color.PINK, 1);
 
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
-
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertTrue(pandaObjective.isCompleted());
-	}
+        assertTrue(pandaObjective.isCompleted(), "Three colours objective not completed with one bamboo of each type in the stomach");
 
-	@Test
-    @DisplayName("assert true when pandaObjective is completed, 4th case:"
-    		+ "the stomach contains at least 1 bamboo chunk per color")
-	void testCheckIfCompleted_trueeFourthCase() {
+        // Re-initialisation of the completion flag
+        pandaObjective.isCompleted = false;
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
-
-    	// Fills the stomach with bamboo chunks
-		stomach.put(Color.GREEN, 1);
+        // We'll try with more bamboos than needed this time
 		stomach.put(Color.YELLOW, 2);
-		stomach.put(Color.PINK, 1);
-
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
 
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertTrue(pandaObjective.isCompleted());
+        assertTrue(pandaObjective.isCompleted(), "Three colours objective not completed with more bamboo than needed in the stomach");
 	}
 
     @Test
-    @DisplayName("assert false when pandaObjective is not completed, 1st case:"
-    		+ "the stomach contains only 1 bamboo chunk with the expected color")
-    void testCheckIfCompleted_falseFirstCase() {
+    @DisplayName("Check we don't complete objectives when the requirement are not met")
+    void testCheckIfCompletedntSingleColor() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+	    // Stub of the mock player
+        when(mockPlayer.getStomach()).thenReturn(stomach);
+
+		pandaObjective = new PandaObjective(2, 0, 0, 0);
 
     	// Fills the stomach with only one bamboo chunk
 		stomach.put(Color.GREEN, 1);
 
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
-
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertFalse(pandaObjective.isCompleted());
-    }
-
-    @Test
-    @DisplayName("assert false when pandaObjective is not completed, 2nd case:"
-    		+ "the stomach contains 2 bamboo chunks but only 1 bamboo chunk with the expected color")
-    void testCheckIfCompleted_falseSecondCase() {
-
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+        assertFalse(pandaObjective.isCompleted(), "Objective completed with less bamboos than needed");
 
     	// Fills the stomach with bamboo chunks
 		stomach.put(Color.GREEN, 1);
 		stomach.put(Color.YELLOW, 1);
 
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
-
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertFalse(pandaObjective.isCompleted());
-    }
+        assertFalse(pandaObjective.isCompleted(), "Objective completed with the right amount of bamboos but from different colour");
 
-    @Test
-    @DisplayName("assert false when pandaObjective is not completed, 3rd case:"
-    		+ "the stomach contains 2 bamboo chunks but with an unexpected color")
-    void testCheckIfCompleted_falseThirdCase() {
-
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
-
-    	// Fills the stomach with bamboo chunks
 		stomach.put(Color.YELLOW, 2);
 
-        // So that the mock player returns the stomach 
-        when(mockPlayer.getStomach()).thenReturn(stomach);
-
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertFalse(pandaObjective.isCompleted());
+        assertFalse(pandaObjective.isCompleted(), "Objective completed with the right amount of bamboos but from the wrong colour");
     }
 
     @Test
-    @DisplayName("assert false when pandaObjective is not completed, 4th case:"
-    		+ "the stomach is empty")
-    void testCheckIfCompleted_falseFourthCase() {
+    @DisplayName("Check we don't complete three colours objectives wrongly")
+    void testCheckIfCompletedntThreeColors() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
-
-        // So that the mock player returns the stomach 
+        // Stub of the mock player
         when(mockPlayer.getStomach()).thenReturn(stomach);
 
+		pandaObjective = new PandaObjective(1,1,1,0);
+
         pandaObjective.checkIfCompleted(mockPlayer);
-        assertFalse(pandaObjective.isCompleted());
+        assertFalse(pandaObjective.isCompleted(), "Objective completed with an empty stomach");
     }
 
 	/*
@@ -200,7 +155,7 @@ class PandaObjectiveTest {
 	@DisplayName("assert that it throws UnsupportedOperationException when the CheckIfCompleted method is used with a tile and a board (as parameters)")
 	void testCheckIfCompletedWithTileAndBoard() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+		pandaObjective = new PandaObjective(2,0,0,0);
 
 
 		// Create a first Tile (a first parcel)
@@ -217,7 +172,7 @@ class PandaObjectiveTest {
 	@Test
 	void objectiveDifferentiationTest() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+		pandaObjective = new PandaObjective(2,0,0,0);
 
     	// Fills the stomach with bamboo chunks
         stomach.put(Color.GREEN, 1);
@@ -235,7 +190,7 @@ class PandaObjectiveTest {
     @DisplayName("assert true when return the expected motif depending on colors of the PandaObjective, 1st case")
 	void testGetMotif_trueFirstCase() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN);
+		pandaObjective = new PandaObjective(2,0,0,0);
 
 		// Create a reference motif
 		Map<Color, Integer> motif = new EnumMap<>(Color.class);
@@ -250,7 +205,7 @@ class PandaObjectiveTest {
     @DisplayName("assert true when return the expected motif depending on colors of the PandaObjective, 2nd case")
 	void testGetMotif_trueSecondCase() {
 
-		pandaObjective = new PandaObjective(PandaObjective.Motif.ORIGINAL_THREE_COLORS);
+		pandaObjective = new PandaObjective(1,1,1,0);
 
 		// Create a reference motif
 		Map<Color, Integer> motif = new EnumMap<>(Color.class);

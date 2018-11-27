@@ -1,7 +1,11 @@
 package com.raccoon.takenoko.player;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("prototype")
 public class BotFactory implements FactoryBean<Player> {
 
     private int counter;

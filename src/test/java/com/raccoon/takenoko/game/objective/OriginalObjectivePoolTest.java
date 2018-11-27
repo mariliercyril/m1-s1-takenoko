@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
-class ObjectivePoolTest {
+class OriginalObjectivePoolTest {
 
     @Mock
     Player player;
@@ -40,7 +41,7 @@ class ObjectivePoolTest {
     private Map<Color,Integer> stomach;
 
     @BeforeEach
-    void setUp(@Autowired ObjectivePool objectivePool) {
+    void setUp(@Autowired @Qualifier("originalObjectivePool") ObjectivePool objectivePool) {
 
         this.objectivePool = objectivePool;
 
@@ -100,6 +101,6 @@ class ObjectivePoolTest {
         assertEquals(ObjectiveType.PANDA, objectivePool.getObjectiveType(pandaObjective), "The gardener objective we drawn is not recognised as a gardener objective");
         assertEquals(ObjectiveType.PATTERN, objectivePool.getObjectiveType(patternObjective), "The pattern objective we drawn is not recognised as a pattern objective");
 
-        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(PandaObjective.Motif.ORIGINAL_GREEN)), "Pool testing an objective from outside without complaining");
+        assertThrows(RuntimeException.class, () -> objectivePool.getObjectiveType(new PandaObjective(2,0,0,0)), "Pool testing an objective from outside without complaining");
     }
 }
