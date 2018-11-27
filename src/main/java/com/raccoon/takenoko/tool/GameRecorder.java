@@ -30,8 +30,9 @@ public class GameRecorder {
         }
     }
 
-    public void recordStep(Game game) {
+    public void recordStep(Game game, int turn, int player) {
         if (recording) {
+            writer.println("TRN\t" + turn + "\t" + player);
             for (Tile t : game.getBoard().getAllTiles()) {
                 writer.println("TIL\t" + t.getPosition().getX() + "\t" + t.getPosition().getY() + "\t" + colorChar(t) + "\t" + irrigatedChar(t) + "\t" + t.getBambooSize());
             }

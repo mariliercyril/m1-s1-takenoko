@@ -1,6 +1,8 @@
 package com.raccoon.takenoko.player;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")

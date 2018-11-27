@@ -68,6 +68,14 @@ void parseLine(String line) {
     image(panda, 33*pos_x-15, 38*pos_y);
   } else if (values[0].equals("GRD")) {
     image(gardener, 33*pos_x+15, 38*pos_y);
+  } else if (values[0].equals("TRN")) {
+    fill(20);
+    stroke(20);
+    rect(-300,-200,-300, -200);
+    fill(255);
+    textSize(20);
+    text("turn " + values[1], -580, -380);
+    text("player " + values[2], -580, -350);
   } else {
     fill(colors.valueOf(values[3]).getColor());
     if (values[4].equals("I")) {

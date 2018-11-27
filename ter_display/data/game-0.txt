@@ -1,700 +1,216 @@
-TIL	0.0	0.0	B	D	0
+TRN	0	1
+TIL	0.0	0.0	B	I	0
+TIL	2.0	2.0	Y	D	4
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	4
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	4
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	4
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
 PDA	0.0	0.0
 GRD	0.0	0.0
 ###
+TRN	1	1
 TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	2
-PDA	0.0	0.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	1
-PDA	-1.0	-1.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	1
-PDA	-1.0	-1.0
+TIL	2.0	2.0	Y	D	4
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	4
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	3
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	4
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
+PDA	1.0	0.0
 GRD	0.0	0.0
 ###
+TRN	2	1
 TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	2
-PDA	-1.0	-1.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	2
-PDA	-1.0	-1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-PDA	-1.0	-1.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-PDA	-1.0	-1.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-PDA	0.0	0.0
-GRD	-1.0	-1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	2
-PDA	0.0	0.0
-GRD	1.0	1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	1
-PDA	1.0	1.0
-GRD	1.0	1.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	1
-PDA	1.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
+TIL	2.0	2.0	Y	D	4
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	4
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	3
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	3
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
 PDA	1.0	2.0
 GRD	0.0	0.0
 ###
+TRN	3	1
 TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-PDA	0.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	1
-PDA	1.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	1
-TIL	-1.0	1.0	Y	D	0
-PDA	1.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-PDA	1.0	2.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-PDA	-1.0	0.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-PDA	0.0	0.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	0.0	0.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	1.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	0.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	1
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	0
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	1.0	1.0
-GRD	0.0	0.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	1.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	1.0	2.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-PDA	1.0	2.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-PDA	1.0	3.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-PDA	1.0	2.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-PDA	2.0	3.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-PDA	2.0	3.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	2
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-PDA	1.0	3.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	3
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-PDA	1.0	1.0
-GRD	-1.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	3
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	1.0	2.0
-GRD	-1.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	3
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	-1.0	0.0
-GRD	-1.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	3
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	1
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	0.0	0.0
-GRD	-1.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	1.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-PDA	2.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	2.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
+TIL	2.0	2.0	Y	D	3
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	4
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	3
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	3
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
+TIL	0.0	-3.0	G	D	0
 PDA	2.0	2.0
-GRD	0.0	2.0
+GRD	0.0	0.0
 ###
+TRN	4	1
 TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	1.0	1.0
-GRD	0.0	2.0
+TIL	2.0	2.0	Y	D	3
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	3
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	3
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	3
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
+TIL	0.0	-3.0	G	D	0
+TIL	0.0	3.0	P	D	0
+PDA	3.0	2.0
+GRD	0.0	0.0
 ###
+TRN	5	1
 TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-1.0	-2.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	2.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	-3.0	2.0	G	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-1.0	-2.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-PDA	-3.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	-3.0	2.0	G	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-1.0	-2.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-TIL	-2.0	3.0	P	D	0
-PDA	-2.0	1.0
-GRD	0.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	-3.0	2.0	G	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	4
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-1.0	-2.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-TIL	-2.0	3.0	P	D	0
-PDA	-2.0	1.0
-GRD	-3.0	2.0
-###
-TIL	0.0	0.0	B	I	0
-TIL	-2.0	0.0	G	D	0
-TIL	0.0	2.0	Y	D	0
-TIL	-2.0	-2.0	G	D	0
-TIL	2.0	2.0	P	D	0
-TIL	-2.0	2.0	G	D	0
-TIL	-3.0	0.0	G	D	0
-TIL	1.0	3.0	P	D	0
-TIL	-3.0	-2.0	P	D	0
-TIL	-3.0	2.0	G	D	0
-TIL	0.0	1.0	Y	I	2
-TIL	-2.0	-1.0	Y	D	0
-TIL	-2.0	1.0	G	D	0
-TIL	2.0	1.0	Y	D	0
-TIL	0.0	-1.0	G	I	1
-TIL	-3.0	1.0	G	D	0
-TIL	-3.0	-1.0	P	D	0
-TIL	-1.0	-1.0	Y	I	3
-TIL	1.0	1.0	Y	I	1
-TIL	-1.0	1.0	Y	I	3
-TIL	1.0	2.0	P	D	0
-TIL	-1.0	0.0	Y	I	0
-TIL	-1.0	2.0	Y	D	0
-TIL	-1.0	-2.0	G	D	0
-TIL	2.0	3.0	G	D	0
-TIL	0.0	3.0	G	D	0
-TIL	-2.0	3.0	P	D	0
-TIL	-2.0	-3.0	P	D	0
-PDA	-1.0	1.0
-GRD	-3.0	2.0
+TIL	2.0	2.0	Y	D	3
+TIL	2.0	0.0	Y	D	4
+TIL	0.0	2.0	P	D	4
+TIL	-2.0	0.0	P	D	4
+TIL	-2.0	-2.0	Y	D	4
+TIL	0.0	-2.0	P	D	4
+TIL	3.0	2.0	P	D	3
+TIL	1.0	3.0	G	D	4
+TIL	-3.0	-2.0	Y	D	4
+TIL	-1.0	-3.0	G	D	4
+TIL	0.0	1.0	Y	I	4
+TIL	0.0	-1.0	P	I	4
+TIL	2.0	1.0	Y	D	4
+TIL	-2.0	-1.0	Y	D	4
+TIL	2.0	-1.0	P	D	4
+TIL	-2.0	1.0	Y	D	4
+TIL	3.0	1.0	P	D	4
+TIL	-3.0	-1.0	G	D	4
+TIL	1.0	1.0	Y	I	4
+TIL	-1.0	-1.0	G	I	4
+TIL	-1.0	1.0	G	D	4
+TIL	1.0	-1.0	G	D	4
+TIL	1.0	0.0	P	I	3
+TIL	-1.0	0.0	P	I	4
+TIL	1.0	2.0	G	D	2
+TIL	-1.0	-2.0	G	D	4
+TIL	-1.0	2.0	G	D	4
+TIL	1.0	-2.0	P	D	4
+TIL	-2.0	-4.0	P	D	0
+TIL	2.0	3.0	Y	D	4
+TIL	-2.0	-3.0	G	D	4
+TIL	0.0	-3.0	G	D	0
+TIL	0.0	3.0	P	D	0
+PDA	1.0	2.0
+GRD	0.0	0.0
 ###
