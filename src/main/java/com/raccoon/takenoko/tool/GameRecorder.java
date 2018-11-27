@@ -19,8 +19,7 @@ public class GameRecorder {
 
     public void startRecording() {
         try {
-            System.out.println("HEY DUDE");
-            writer = new PrintWriter("game-" + recordedGames + ".txt", "UTF-8");
+            writer = new PrintWriter("ter_display/data/game-" + recordedGames + ".txt", "UTF-8");
             recording = true;
             recordedGames++;
         } catch (FileNotFoundException e) {
@@ -44,7 +43,7 @@ public class GameRecorder {
 
     private String colorChar(Tile t) {
         if (Objects.isNull(t.getColor())) {
-            return "B";
+            return "BLUE";
         }
         return t.getColor().toString();
     }

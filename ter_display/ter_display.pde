@@ -106,7 +106,7 @@ void keyPressed() {
 }
 
 enum colors {
-  G(#00FF00), P(#F00FB8), Y(#F5EA16), B(#0000FF);
+  GREEN(#00FF00), PINK(#F00FB8), YELLOW(#F5EA16), BLUE(#0000FF);
 
   private int hexColor;
 

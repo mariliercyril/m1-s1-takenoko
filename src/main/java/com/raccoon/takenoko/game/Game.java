@@ -62,7 +62,6 @@ public class Game {
     public Game() {
 
         this.players = new ArrayList<>();
-
         Player.reinitCounter();
 
         initTileDeck();
