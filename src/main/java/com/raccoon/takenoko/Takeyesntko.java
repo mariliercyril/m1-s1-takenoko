@@ -1,8 +1,7 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.player.BamBotFactory;
-import com.raccoon.takenoko.player.BotFactory;
+import com.raccoon.takenoko.player.factories.BamBotFactory;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
@@ -38,7 +37,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("botFactory") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("bamBotFactory") FactoryBean<Player> gimmeBambots) {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("bamBotFactory") FactoryBean<Player> gimmeBambots) {
         return args -> {
 
 
@@ -51,10 +50,10 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu(4, everyOtherFactory);
+                launch1gameNoJutsu(1, everyOtherFactory);
             }
             else {
-                launchManyGamesNoJutsu(1, new BamBotFactory());
+                launchManyGamesNoJutsu(1, everyOtherFactory);
             }
 
         };

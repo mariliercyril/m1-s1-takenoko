@@ -69,7 +69,7 @@ public class Game {
     }
 
     /**
-     * Constructs a game with a given list of players. Useful to test and give a specific composition of bots to the game.
+     * Constructs a game with a given list of players. Useful to test and give a specific composition of factories to the game.
      *
      * @param players the list of {@code Players} to add to the game
      */

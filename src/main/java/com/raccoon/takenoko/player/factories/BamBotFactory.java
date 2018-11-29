@@ -1,5 +1,7 @@
-package com.raccoon.takenoko.player;
+package com.raccoon.takenoko.player.factories;
 
+import com.raccoon.takenoko.player.BamBot;
+import com.raccoon.takenoko.player.Player;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
