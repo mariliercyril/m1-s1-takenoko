@@ -19,8 +19,7 @@ public class GameRecorder {
 
     public void startRecording() {
         try {
-            System.out.println("HEY DUDE");
-            writer = new PrintWriter("game-" + recordedGames + ".txt", "UTF-8");
+            writer = new PrintWriter("ter_display/data/game-" + recordedGames + ".txt", "UTF-8");
             recording = true;
             recordedGames++;
         } catch (FileNotFoundException e) {
@@ -30,8 +29,9 @@ public class GameRecorder {
         }
     }
 
-    public void recordStep(Game game) {
+    public void recordStep(Game game, int turn, int player) {
         if (recording) {
+            writer.println("TRN\t" + turn + "\t" + player);
             for (Tile t : game.getBoard().getAllTiles()) {
                 writer.println("TIL\t" + t.getPosition().getX() + "\t" + t.getPosition().getY() + "\t" + colorChar(t) + "\t" + irrigatedChar(t) + "\t" + t.getBambooSize());
             }
@@ -43,7 +43,7 @@ public class GameRecorder {
 
     private String colorChar(Tile t) {
         if (Objects.isNull(t.getColor())) {
-            return "B";
+            return "BLUE";
         }
         return t.getColor().toString();
     }

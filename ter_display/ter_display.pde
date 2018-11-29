@@ -68,6 +68,14 @@ void parseLine(String line) {
     image(panda, 33*pos_x-15, 38*pos_y);
   } else if (values[0].equals("GRD")) {
     image(gardener, 33*pos_x+15, 38*pos_y);
+  } else if (values[0].equals("TRN")) {
+    fill(20);
+    stroke(20);
+    rect(-300,-200,-300, -200);
+    fill(255);
+    textSize(20);
+    text("turn " + values[1], -580, -380);
+    text("player " + values[2], -580, -350);
   } else {
     fill(colors.valueOf(values[3]).getColor());
     if (values[4].equals("I")) {
@@ -98,7 +106,7 @@ void keyPressed() {
 }
 
 enum colors {
-  G(#00FF00), P(#F00FB8), Y(#F5EA16), B(#0000FF);
+  GREEN(#00FF00), PINK(#F00FB8), YELLOW(#F5EA16), BLUE(#0000FF);
 
   private int hexColor;
 

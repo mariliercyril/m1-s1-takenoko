@@ -62,7 +62,6 @@ public class Game {
     public Game() {
 
         this.players = new ArrayList<>();
-
         Player.reinitCounter();
 
         initTileDeck();
@@ -164,7 +163,7 @@ public class Game {
         int playerNumber = 0;
         int turnNumber = 0;
         while (!gameOver()) {
-            recorder.recordStep(this);
+            recorder.recordStep(this, turnNumber, playerNumber+1);
             if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
@@ -178,7 +177,7 @@ public class Game {
             }
             playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
         }
-        recorder.recordStep(this);
+        recorder.recordStep(this, turnNumber, playerNumber+1);
         recorder.stopRecording();
         printRanking();
     }

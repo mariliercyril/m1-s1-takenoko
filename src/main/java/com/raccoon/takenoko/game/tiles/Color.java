@@ -1,7 +1,7 @@
 package com.raccoon.takenoko.game.tiles;
 
 public enum Color {
-    GREEN(11,"G"), YELLOW(9,"Y"), PINK(7,"P");    // The tiles come in three possible colors 11, 9, 7
+    GREEN(11,"GREEN"), YELLOW(9,"YELLOW"), PINK(7,"PINK");    // The tiles come in three possible colors 11, 9, 7
 
     // number of tiles to generate in that color
     int quantite;
