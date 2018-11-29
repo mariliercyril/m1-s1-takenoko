@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -18,11 +19,24 @@ public abstract class ObjectivePool {
     ***** CAUTION ***** : This is a draft, has to be updated with an interface or a mother class
     for all the types. For now we just have one objective per type.
     */
-    protected List<Objective> bambooObjectives;
-    protected List<Objective> patternObjectives;
-    protected List<Objective> gardenerObjectives;
+    List<Objective> bambooObjectives;
+    List<Objective> patternObjectives;
+    List<Objective> gardenerObjectives;
 
-    protected EnumMap<ObjectiveType, List<Objective>> deck;
+    EnumMap<ObjectiveType, List<Objective>> deck;
+
+    protected ObjectivePool() {
+        // Instanciation of the lists
+        this.bambooObjectives = new ArrayList<>();
+        this.patternObjectives = new ArrayList<>();
+        this.gardenerObjectives = new ArrayList<>();
+
+        // instanciation of the generic deck
+        this.deck = new EnumMap<>(ObjectiveType.class);
+        this.deck.put(ObjectiveType.PATTERN, new ArrayList<>());
+        this.deck.put(ObjectiveType.PANDA, new ArrayList<>());
+        this.deck.put(ObjectiveType.GARDENER, new ArrayList<>());
+    }
 
     public void setGame(Game game) {
         this.game = game;

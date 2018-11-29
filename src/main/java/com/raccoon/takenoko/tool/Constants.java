@@ -18,4 +18,10 @@ public final class Constants {
 
 	public static final int MAX_SCORE = 2;
 
+	public static final int NUMBER_OF_2_GREEN_PANDA_OBJECTIVE = 5;
+    public static final int NUMBER_OF_2_PINK_PANDA_OBJECTIVE = 3;
+    public static final int NUMBER_OF_2_YELLOW_PANDA_OBJECTIVE = 4;
+    public static final int NUMBER_OF_3_CHUNKS_PANDA_OBJECTIVE = 3;
+
+
 }

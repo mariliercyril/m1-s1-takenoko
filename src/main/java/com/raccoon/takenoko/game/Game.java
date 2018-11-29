@@ -40,7 +40,7 @@ public class Game {
     private Gardener gardener;              // The gardener (obviously)
 
     /* Spring components */
-    @Resource
+    @Resource(name = "originalObjectivePool")
     private ObjectivePool objectivePool;    // The pool of objective cards
 
     @Resource(name = "preSetBoard")

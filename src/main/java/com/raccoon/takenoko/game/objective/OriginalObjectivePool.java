@@ -24,16 +24,7 @@ public class OriginalObjectivePool extends ObjectivePool {
      */
     public OriginalObjectivePool() {
 
-        // Instanciation of the lists
-        this.bambooObjectives = new ArrayList<>();
-        this.patternObjectives = new ArrayList<>();
-        this.gardenerObjectives = new ArrayList<>();
-
-        // instanciation of the generic deck
-        this.deck = new EnumMap<>(ObjectiveType.class);
-        this.deck.put(ObjectiveType.PATTERN, new ArrayList<>());
-        this.deck.put(ObjectiveType.PANDA, new ArrayList<>());
-        this.deck.put(ObjectiveType.GARDENER, new ArrayList<>());
+        super();
 
         // Instanciation of the objectives and filling of the lists.
         // pattern objectives :
