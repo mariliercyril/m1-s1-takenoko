@@ -3,6 +3,7 @@ package com.raccoon.takenoko.player.factories;
 import com.raccoon.takenoko.player.BamBot;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.player.RandomBot;
+import com.raccoon.takenoko.player.RandomTerBot;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class BotFactory implements FactoryBean<Player> {
     @Override
     public Player getObject() {
         if (this.counter++ % 2 == 0) {
-            return new RandomBot();
+            return new RandomTerBot();
         }
         return new BamBot();
     }
