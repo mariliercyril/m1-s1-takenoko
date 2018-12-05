@@ -102,7 +102,13 @@ void parse(String[] game) {
 }
 
 void keyPressed() {
-  currentLine++;
+  if (keyCode == LEFT) {
+    currentLine--;
+  } 
+  
+  if (keyCode == RIGHT) {
+    currentLine++;
+  }
 }
 
 enum colors {
