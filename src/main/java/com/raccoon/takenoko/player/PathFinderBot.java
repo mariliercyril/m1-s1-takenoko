@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.player;
 
+import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
@@ -9,8 +10,7 @@ import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 public class PathFinderBot extends Player {
@@ -91,6 +91,11 @@ public class PathFinderBot extends Player {
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
         // TODO : add the logic here, for now just a random Panda mover
+
+        Map<Point, Boolean> visitedPositions = new HashMap<>();
+
+
+
         Collections.shuffle(available);
         return available.get(0);
     }
@@ -102,6 +107,39 @@ public class PathFinderBot extends Player {
         return objective;
     }
 
+    /*
+    *****************************************
+    *       Private internal methods        *
+    ****************************************/
+
+    public int shortestPath(Board board, Point start, Point goal) {
+
+        int steps = 2;
+
+        Deque<Point> pointsToVisit = new ArrayDeque<>();
+
+        Map<Point, Point> trace = new HashMap<>();
+
+        pointsToVisit.addLast(start);
+
+        while(! pointsToVisit.isEmpty()) {
+            Point current = pointsToVisit.poll();
+            for (Point accessible : board.getAccessiblePositions(current)) {
+                if (!trace.containsKey(accessible)) {
+                    if (accessible.equals(goal)) {
+                        // TODO : Compute the paths !!!
+                        return steps;
+                    }
+                    else {
+                        trace.put(accessible, current);
+                        pointsToVisit.addLast(accessible);
+                    }
+                }
+            }
+        }
+
+        return steps;
+    }
 
     /*
     *********************************************************************************
