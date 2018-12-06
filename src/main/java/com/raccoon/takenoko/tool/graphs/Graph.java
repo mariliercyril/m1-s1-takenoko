@@ -19,7 +19,9 @@ public class Graph {
     }
 
     public void connectNodes(Node n1, Node n2) {
-        n1.addNeighbour(n2);
-        n2.addNeighbour(n1);
+        if (n1 != n2) {
+            n1.addNeighbour(n2);
+            n2.addNeighbour(n1);
+        }
     }
 }
