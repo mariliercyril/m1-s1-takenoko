@@ -112,13 +112,13 @@ public class PathFinderBot extends Player {
     *       Private internal methods        *
     ****************************************/
 
-    public int shortestPath(Board board, Point start, Point goal) {
-
-        int steps = 2;
+    List<Point> shortestPath(Board board, Point start, Point goal) {
 
         Deque<Point> pointsToVisit = new ArrayDeque<>();
 
         Map<Point, Point> trace = new HashMap<>();
+
+        trace.put(start, null);
 
         pointsToVisit.addLast(start);
 
@@ -127,8 +127,7 @@ public class PathFinderBot extends Player {
             for (Point accessible : board.getAccessiblePositions(current)) {
                 if (!trace.containsKey(accessible)) {
                     if (accessible.equals(goal)) {
-                        // TODO : Compute the paths !!!
-                        return steps;
+                        return computePath(trace, current);
                     }
                     else {
                         trace.put(accessible, current);
@@ -138,7 +137,20 @@ public class PathFinderBot extends Player {
             }
         }
 
-        return steps;
+        return new ArrayList<>();
+    }
+
+    private List<Point> computePath(Map<Point, Point> trace, Point lastParentPoint) {
+        List<Point> result = new ArrayList<>();
+
+        Point current = lastParentPoint;
+
+        while (trace.get(current) != null) {
+            result.add(current);
+            current = trace.get(current);
+        }
+
+        return result;
     }
 
     /*
@@ -173,7 +185,7 @@ public class PathFinderBot extends Player {
     }
 
     @Override
-    public void tileImprovement(Game game, List<Tile> improvableTiles) throws ForbiddenActionException {
+    public void tileImprovement(Game game, List<Tile> improvableTiles) {
 
     }
 }

@@ -37,7 +37,7 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> everyOtherFactory, @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> RandomTerBotFactory) {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory, @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
         return args -> {
 
 
@@ -50,10 +50,10 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu(1, RandomTerBotFactory);
+                launch1gameNoJutsu(1, pathFinderFactory);
             }
             else {
-                launchManyGamesNoJutsu(1, RandomTerBotFactory);
+                launchManyGamesNoJutsu(1, pathFinderFactory);
             }
 
         };

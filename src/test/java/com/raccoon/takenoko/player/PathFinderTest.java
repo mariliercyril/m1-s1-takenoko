@@ -10,28 +10,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 import javax.annotation.Resource;
-import java.awt.*;
+import java.awt.Point;
+import java.util.List;
 
 @RunWith(JUnitPlatform.class)
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class PathFinderTest {
+class PathFinderTest {
 
     @Resource(name="preSetBoard")
     Board board;
 
-    PathFinderBot pfb = new PathFinderBot();
+    private PathFinderBot pfb = new PathFinderBot();
 
 
     @Test
-    public void shortestPathTest() {
-        assertEquals(2, pfb.shortestPath(board, new Point(0,0), new Point (2,2)));
+    void shortestPathTest() {
+        assertEquals(0, pfb.shortestPath(board, new Point(0,0), new Point (2,2)).size());
 
-        assertEquals(2, pfb.shortestPath(board, new Point(0,0), new Point (-2,3)));
+        List<Point> path = pfb.shortestPath(board, new Point(0,0), new Point (-1,2));
+
+        assertEquals(1, path.size());
     }
 }
