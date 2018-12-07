@@ -141,6 +141,15 @@ public class PathFinderBot extends Player {
         return null;
     }
 
+    Map<Point, Map<Point, List<Point>>> paths(Board board, List<Point> starts) {
+        Map<Point, Map<Point, List<Point>>> result = new HashMap<>();
+
+
+
+        return result;
+    }
+
+
     private List<Point> computePath(Map<Point, Point> trace, Point lastParentPoint) {
         List<Point> result = new ArrayList<>();
 
