@@ -50,7 +50,7 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu(1, pathFinderFactory);
+                launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
                 launchManyGamesNoJutsu(1, pathFinderFactory);
@@ -80,7 +80,7 @@ public class Takeyesntko {
         } catch (Exception e) {
             print("Something went wrong while adding the players");
         }
-        game.start(false);
+        game.start(true);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.raccoon.takenoko.game;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Tools;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -18,22 +19,27 @@ import java.util.Random;
 @Scope("prototype")
 public class PreSetBoard extends HashBoard {
 
-    public PreSetBoard() {
-        super();
-        randomFill();
-    }
 
-    public PreSetBoard(String filename) {
-        super();
-        try(BufferedReader br = new BufferedReader(new FileReader(filename))) { // Try with resources (auto close)
-            String line = br.readLine();
+    public PreSetBoard(@Value("#{systemProperties['boardFile']}") String filename) {
 
-            while (line != null && !line.equals("###")) {
-                Tools.parseLine(line, this);
-                line = br.readLine();
+
+        super();
+
+        if (filename == null) {
+            randomFill();
+        }
+        else {
+
+            try(BufferedReader br = new BufferedReader(new FileReader(filename))) { // Try with resources (auto close)
+                String line = br.readLine();
+
+                while (line != null && !line.equals("###")) {
+                    Tools.parseLine(line, this);
+                    line = br.readLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -49,19 +55,32 @@ public class PreSetBoard extends HashBoard {
         For now we just fill a list with 10 tiles of each colour
         There is a bamboo of size 4 on each of them
          */
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 5; i++) {
             Tile newTile = new Tile(Color.GREEN);
-            newTile.setBambooSize(4);
+            newTile.setBambooSize(10);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 3; i++) {
             Tile newTile = new Tile(Color.PINK);
-            newTile.setBambooSize(4);
+            newTile.setBambooSize(10);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 4; i++) {
             Tile newTile = new Tile(Color.YELLOW);
-            newTile.setBambooSize(4);
+            newTile.setBambooSize(10);
+            tiles.add(newTile);
+        }
+
+        for (int i = 0; i < 6; i++) {
+            Tile newTile = new Tile(Color.GREEN);
+            tiles.add(newTile);
+        }
+        for (int i = 0; i < 4; i++) {
+            Tile newTile = new Tile(Color.PINK);
+            tiles.add(newTile);
+        }
+        for (int i = 0; i < 5; i++) {
+            Tile newTile = new Tile(Color.YELLOW);
             tiles.add(newTile);
         }
 

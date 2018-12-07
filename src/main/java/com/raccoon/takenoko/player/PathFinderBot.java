@@ -109,7 +109,7 @@ public class PathFinderBot extends Player {
 
     /*
     *****************************************
-    *       Private internal methods        *
+    *           Internal methods            *
     ****************************************/
 
     List<Point> shortestPath(Board board, Point start, Point goal) {
@@ -136,8 +136,9 @@ public class PathFinderBot extends Player {
                 }
             }
         }
-
-        return new ArrayList<>();
+        // If we didn't return anything we are in the case of a non connex component
+        // shouldn't happen in a board
+        return null;
     }
 
     private List<Point> computePath(Map<Point, Point> trace, Point lastParentPoint) {

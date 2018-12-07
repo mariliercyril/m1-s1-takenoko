@@ -140,7 +140,7 @@ public class Tile {
         if (!this.irrigated) {  // If we are not yet irrigated
             this.irrigated = true;  // we become irrigated
             // and a bamboo grows
-            this.increaseBambooSize();
+            //this.increaseBambooSize();
         }
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
