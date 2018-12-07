@@ -1,27 +1,33 @@
 package com.raccoon.takenoko.tool.graphs;
 
+import com.raccoon.takenoko.game.tiles.Tile;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Graph {
-    private List<Node> nodes;
+    private Map<Tile, List<Edge>> adjacency;
 
     public Graph() {
-        this.nodes = new ArrayList<>();
+        this.adjacency = new HashMap<>();
     }
 
-    public List<Node> getNodes() {
-        return nodes;
+    public void addNode(Tile t) {
+        if (!adjacency.containsKey(t)) {
+            adjacency.put(t, new ArrayList<>());
+        }
     }
 
-    public void addNode(Node n) {
-        nodes.add(n);
-    }
+    public void addEdge(Tile t, Tile n, int weight) {  // t and n MUST BE in the graph
+        addNode(t); // for safety
+        addNode(n);
 
-    public void connectNodes(Node n1, Node n2) {
-        if (n1 != n2) {
-            n1.addNeighbour(n2);
-            n2.addNeighbour(n1);
+        Edge newEdge = new Edge(t, n, weight);
+        if (!adjacency.get(t).contains(newEdge)) {
+            adjacency.get(t).add(newEdge);
+            adjacency.get(n).add(newEdge);
         }
     }
 }
