@@ -35,4 +35,16 @@ public class Edge {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public Tile getLeft() {
+        return left;
+    }
+
+    public Tile getRight() {
+        return right;
+    }
 }
