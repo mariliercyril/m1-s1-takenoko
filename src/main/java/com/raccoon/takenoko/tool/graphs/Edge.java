@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Edge {
     private Tile left;
     private Tile right;
-    int weight;
+    private int weight;
 
     public Edge(Tile a, Tile b, int weight) {
         this.left = a;
@@ -30,5 +30,9 @@ public class Edge {
     @Override
     public int hashCode() {
         return Objects.hash(left, right);
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

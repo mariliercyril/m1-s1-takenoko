@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Graph {
     private Map<Tile, List<Edge>> adjacency;
+    private List<Edge> edges;
 
     public Graph() {
         this.adjacency = new HashMap<>();
@@ -20,7 +21,7 @@ public class Graph {
         }
     }
 
-    public void addEdge(Tile t, Tile n, int weight) {  // t and n MUST BE in the graph
+    public void addEdge(Tile t, Tile n, int weight) {
         addNode(t); // for safety
         addNode(n);
 
@@ -29,5 +30,16 @@ public class Graph {
             adjacency.get(t).add(newEdge);
             adjacency.get(n).add(newEdge);
         }
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public void removeEdge(Tile a, Tile b) {
+        Edge toRmv = new Edge(a, b, 0);
+        edges.remove(toRmv);
+        adjacency.get(a).remove(toRmv);
+        adjacency.get(b).remove(toRmv);
     }
 }
