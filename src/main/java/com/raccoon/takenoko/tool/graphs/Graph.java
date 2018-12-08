@@ -49,4 +49,8 @@ public class Graph {
         adjacency.get(a).remove(toRmv);
         adjacency.get(b).remove(toRmv);
     }
+
+    public void removeEdge(Edge e) {
+        removeEdge(e.getLeft(), e.getRight());
+    }
 }
