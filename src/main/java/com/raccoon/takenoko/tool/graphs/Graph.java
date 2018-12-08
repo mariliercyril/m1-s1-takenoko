@@ -27,12 +27,16 @@ public class Graph {
         addNode(n);
 
         Edge newEdge = new Edge(t, n, weight);
-        if (!adjacency.get(t).contains(newEdge)) {
-            adjacency.get(t).add(newEdge);
-            adjacency.get(n).add(newEdge);
-            edges.add(newEdge)
-        }
+        this.addEdge(newEdge);
 
+    }
+
+    public void addEdge(Edge edge) {
+        if (!adjacency.get(edge.getLeft()).contains(edge)) {
+            adjacency.get(edge.getLeft()).add(edge);
+            adjacency.get(edge.getRight()).add(edge);
+            edges.add(edge);
+        }
     }
 
     public List<Edge> getEdges() {
@@ -44,9 +48,5 @@ public class Graph {
         edges.remove(toRmv);
         adjacency.get(a).remove(toRmv);
         adjacency.get(b).remove(toRmv);
-    }
-
-    public void removeEdge(Edge e) {
-        removeEdge(e.getLeft(), e.getRight());
     }
 }
