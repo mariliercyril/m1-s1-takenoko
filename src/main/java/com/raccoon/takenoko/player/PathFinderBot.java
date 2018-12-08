@@ -127,7 +127,8 @@ public class PathFinderBot extends Player {
             for (Point accessible : board.getAccessiblePositions(current)) {
                 if (!trace.containsKey(accessible)) {
                     if (accessible.equals(goal)) {
-                        return computePath(trace, current);
+                        trace.put(accessible, current);
+                        return computePath(trace, accessible);
                     }
                     else {
                         trace.put(accessible, current);
@@ -142,18 +143,45 @@ public class PathFinderBot extends Player {
     }
 
     Map<Point, Map<Point, List<Point>>> paths(Board board, List<Point> starts) {
+
         Map<Point, Map<Point, List<Point>>> result = new HashMap<>();
 
+        for (Point start : starts) {
+            Deque<Point> pointsToVisit = new ArrayDeque<>();
+            Map<Point, Point> trace = new HashMap<>();
+
+            trace.put(start, null);
+
+            pointsToVisit.addLast(start);
+
+            while(! pointsToVisit.isEmpty()) {
+                Point current = pointsToVisit.poll();
+                for (Point accessible : board.getAccessiblePositions(current)) {
+                    if (!trace.containsKey(accessible)) {   // If we didn't visit this vertex already
+                        trace.put(accessible, current);     // we say we just did, remembering where we came from
+                        pointsToVisit.addLast(accessible);  // and we remember we have to check where we can go from there
+                    }
+                }
+            }
+
+            result.put(start, new HashMap<>());
+
+            for (Point point : trace.keySet()) {
+                result.get(start).put(point, computePath(trace, point));
+            }
+
+
+        }
 
 
         return result;
     }
 
 
-    private List<Point> computePath(Map<Point, Point> trace, Point lastParentPoint) {
+    private List<Point> computePath(Map<Point, Point> trace, Point arrival) {
         List<Point> result = new ArrayList<>();
 
-        Point current = lastParentPoint;
+        Point current = arrival;
 
         while (trace.get(current) != null) {
             result.add(current);
