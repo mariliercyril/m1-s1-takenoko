@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.tiles.IrrigationState;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -47,6 +48,7 @@ class TileTest {
     }
 
     @Test
+    @Disabled("Not compliant with the TER version of the game engine")
     void canIncreaseBambooSize() {
         assertTrue( t1.getBambooSize() > 0, "Didn't grow bamboo on tile even though it is irrigated.");
     }
@@ -58,6 +60,7 @@ class TileTest {
     }
 
     @Test
+    @Disabled("Not compliant with the TER version of the game engine")
     void canDecreaseBambooSize() {
         int currentSize = t1.getBambooSize();
         t1.decreaseBambooSize();

@@ -7,7 +7,6 @@ import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Constants;
-import com.raccoon.takenoko.tool.ForbiddenActionException;
 
 import java.awt.*;
 import java.util.*;
@@ -142,21 +141,21 @@ public class PathFinderBot extends Player {
         return null;
     }
 
-    Map<Point, Map<Point, List<Point>>> paths(Board board, List<Point> starts) {
+    Map<Tile, Map<Tile, List<Tile>>> paths(Board board, List<Tile> starts) {
 
-        Map<Point, Map<Point, List<Point>>> result = new HashMap<>();
+        Map<Tile, Map<Tile, List<Tile>>> result = new HashMap<>();
 
-        for (Point start : starts) {
-            Deque<Point> pointsToVisit = new ArrayDeque<>();
-            Map<Point, Point> trace = new HashMap<>();
+        for (Tile start : starts) {
+            Deque<Tile> pointsToVisit = new ArrayDeque<>();
+            Map<Tile, Tile> trace = new HashMap<>();
 
             trace.put(start, null);
 
             pointsToVisit.addLast(start);
 
             while(! pointsToVisit.isEmpty()) {
-                Point current = pointsToVisit.poll();
-                for (Point accessible : board.getAccessiblePositions(current)) {
+                Tile current = pointsToVisit.poll();
+                for (Tile accessible : board.getAccessiblePositions(current)) {
                     if (!trace.containsKey(accessible)) {   // If we didn't visit this vertex already
                         trace.put(accessible, current);     // we say we just did, remembering where we came from
                         pointsToVisit.addLast(accessible);  // and we remember we have to check where we can go from there
@@ -166,7 +165,7 @@ public class PathFinderBot extends Player {
 
             result.put(start, new HashMap<>());
 
-            for (Point point : trace.keySet()) {
+            for (Tile point : trace.keySet()) {
                 result.get(start).put(point, computePath(trace, point));
             }
 
@@ -189,6 +188,21 @@ public class PathFinderBot extends Player {
         }
 
         return result;
+    }
+
+    private List<Tile> computePath(Map<Tile, Tile> trace, Tile arrival) {
+        List<Tile> result = new ArrayList<>();
+
+        Tile current = arrival;
+
+        while (trace.get(current) != null) {
+            result.add(current);
+            current = trace.get(current);
+        }
+
+        return result;
+
+
     }
 
     /*

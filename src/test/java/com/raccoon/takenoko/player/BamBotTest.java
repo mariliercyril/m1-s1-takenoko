@@ -181,6 +181,7 @@ class BamBotTest {
 
 
     @Test
+    @Disabled("Not compliant with the TER version of the game engine")
     void whereToMovePanda() {
         place(0, 1, pink);
         place(1,1, pink);

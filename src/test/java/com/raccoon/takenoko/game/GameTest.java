@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -105,6 +106,7 @@ class GameTest {
     }
 
     @Test
+    @Disabled("Not compliant with the TER version of the game engine")
     void bambooSizeOnTileTest() {
         Tile t = game.getTile();
         game.getBoard().set(new Point(0, 1), t);

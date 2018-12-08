@@ -1,6 +1,7 @@
 package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.tiles.Tile;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -42,14 +43,14 @@ class PathFinderTest {
     @Test
     void pathsTest() {
 
-        Point start = new Point(0,0);
+        Tile start = board.get(new Point(0,0));
 
-        Map<Point, Map<Point, List<Point>>> pathsMatrix = pfb.paths(board, new ArrayList<>(Arrays.asList(start)));
+        Map<Tile, Map<Tile, List<Tile>>> pathsMatrix = pfb.paths(board, new ArrayList<>(Arrays.asList(start)));
 
-        assertEquals(1, pathsMatrix.get(start).get(new Point(-2,0)).size());
-        assertEquals(2, pathsMatrix.get(start).get(new Point(1,2)).size());
+        assertEquals(1, pathsMatrix.get(start).get(board.get(new Point(-2,0))).size());
+        assertEquals(2, pathsMatrix.get(start).get(board.get(new Point(1,2))).size());
 
-        assertEquals(0, pathsMatrix.get(start).get(new Point(0,0)).size());
+        assertEquals(0, pathsMatrix.get(start).get(board.get(new Point(0,0))).size());
 
     }
 }
