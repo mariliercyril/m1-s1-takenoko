@@ -53,4 +53,8 @@ public class Graph {
     public void removeEdge(Edge e) {
         removeEdge(e.getLeft(), e.getRight());
     }
+
+    public List<Edge> getEdges(Tile t) {
+        return adjacency.get(t);
+    }
 }
