@@ -130,7 +130,8 @@ public class PathFinderBot extends Player {
             for (Point accessible : board.getAccessiblePositions(current)) {
                 if (!trace.containsKey(accessible)) {
                     if (accessible.equals(goal)) {
-                        return computePath(trace, current);
+                        trace.put(accessible, current);
+                        return computePath(trace, accessible);
                     }
                     else {
                         trace.put(accessible, current);
@@ -144,12 +145,46 @@ public class PathFinderBot extends Player {
         return null;
     }
 
-    Map<Tile, Map<Tile, List<Tile>>> paths(Board board, List<Tile> starts) {return null;}
+    Map<Tile, Map<Tile, List<Tile>>> paths(Board board, List<Tile> starts) {
 
-    private List<Point> computePath(Map<Point, Point> trace, Point lastParentPoint) {
+        Map<Tile, Map<Tile, List<Tile>>> result = new HashMap<>();
+
+        for (Tile start : starts) {
+            Deque<Tile> pointsToVisit = new ArrayDeque<>();
+            Map<Tile, Tile> trace = new HashMap<>();
+
+            trace.put(start, null);
+
+            pointsToVisit.addLast(start);
+
+            while(! pointsToVisit.isEmpty()) {
+                Tile current = pointsToVisit.poll();
+                for (Tile accessible : board.getAccessiblePositions(current)) {
+                    if (!trace.containsKey(accessible)) {   // If we didn't visit this vertex already
+                        trace.put(accessible, current);     // we say we just did, remembering where we came from
+                        pointsToVisit.addLast(accessible);  // and we remember we have to check where we can go from there
+                    }
+                }
+            }
+
+            result.put(start, new HashMap<>());
+
+            for (Tile point : trace.keySet()) {
+                result.get(start).put(point, computePath(trace, point));
+            }
+
+
+        }
+
+
+        return result;
+    }
+
+
+    private List<Point> computePath(Map<Point, Point> trace, Point arrival) {
         List<Point> result = new ArrayList<>();
 
-        Point current = lastParentPoint;
+        Point current = arrival;
 
         while (trace.get(current) != null) {
             result.add(current);
@@ -157,6 +192,21 @@ public class PathFinderBot extends Player {
         }
 
         return result;
+    }
+
+    private List<Tile> computePath(Map<Tile, Tile> trace, Tile arrival) {
+        List<Tile> result = new ArrayList<>();
+
+        Tile current = arrival;
+
+        while (trace.get(current) != null) {
+            result.add(current);
+            current = trace.get(current);
+        }
+
+        return result;
+
+
     }
 
     protected Graph buildBambooGraph(Game g) {

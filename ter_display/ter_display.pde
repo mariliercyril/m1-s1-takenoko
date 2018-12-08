@@ -5,7 +5,7 @@ String[] currentBoard;
 int currentLine;
 boolean end;
 void setup() {  
-  board = loadStrings("game-0.txt"); 
+  board = loadStrings("savedGames/game-0.txt"); 
   panda = loadImage("pando.png");
   gardener = loadImage("gardener.png");
   imageMode(CENTER);

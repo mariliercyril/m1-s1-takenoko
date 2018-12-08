@@ -19,7 +19,7 @@ public class GameRecorder {
 
     public void startRecording() {
         try {
-            writer = new PrintWriter("ter_display/data/game-" + recordedGames + ".txt", "UTF-8");
+            writer = new PrintWriter("ter_display/data/savedGames/game-" + recordedGames + ".txt", "UTF-8");
             recording = true;
             recordedGames++;
         } catch (FileNotFoundException e) {
