@@ -205,8 +205,6 @@ public class PathFinderBot extends Player {
         }
 
         return result;
-
-
     }
 
     protected Graph buildBambooGraph(Game g) {

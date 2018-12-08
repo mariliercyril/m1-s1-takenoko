@@ -13,6 +13,7 @@ public class Graph {
 
     public Graph() {
         this.adjacency = new HashMap<>();
+        this.edges = new ArrayList<>();
     }
 
     public void addNode(Tile t) {
@@ -29,7 +30,9 @@ public class Graph {
         if (!adjacency.get(t).contains(newEdge)) {
             adjacency.get(t).add(newEdge);
             adjacency.get(n).add(newEdge);
+            edges.add(newEdge)
         }
+
     }
 
     public List<Edge> getEdges() {
