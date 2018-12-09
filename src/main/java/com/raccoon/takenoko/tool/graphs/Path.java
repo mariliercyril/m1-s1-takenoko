@@ -7,29 +7,36 @@ import java.awt.Point;
 import java.util.*;
 
 public class Path {
-    private Queue<Point> steps;
+    private Queue<Tile> steps;
     private Map<Color, Integer> bamboos;
 
     public Path() {
         steps = new ArrayDeque<>();
-        bamboos = new EnumMap<>(Color.class);
-        for (Color c : Color.values()) {
-            bamboos.put(c, 0);
-        }
     }
 
     public void addStep(Tile t) {
-        if (Objects.nonNull(t.getColor()) && t.getBambooSize() > 0) {
-            bamboos.put(t.getColor(), bamboos.get(t.getColor()) + 1);
-        }
-        steps.add(t.getPosition());
+        steps.add(t);
     }
 
-    public Point nextStep() {
+    public Tile nextStep() {
         return steps.poll();
     }
 
     public int length() {
         return steps.size();
+    }
+
+    public Map<Color, Integer> getBambooYield() {
+        Map<Color, Integer> yield = new EnumMap<>(Color.class);
+        for (Color c : Color.values()) {
+            yield.put(c, 0);
+        }
+
+        for (Tile t : steps) {
+            if (t.getBambooSize() > 0) {
+                yield.put(t.getColor(), yield.get(t.getColor())+1);
+            }
+        }
+        return yield;
     }
 }
