@@ -47,4 +47,13 @@ public class Edge {
     public Tile getRight() {
         return right;
     }
+
+    public Tile otherEnd(Tile t) {
+        if (this.left.equals(t)) {
+            return this.right;
+        }
+        else {
+            return this.left;
+        }
+    }
 }

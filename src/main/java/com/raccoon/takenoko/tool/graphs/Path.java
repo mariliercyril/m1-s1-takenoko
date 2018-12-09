@@ -7,11 +7,23 @@ import java.awt.Point;
 import java.util.*;
 
 public class Path {
-    private Queue<Tile> steps;
+    private Deque<Tile> steps;
     private Map<Color, Integer> bamboos;
 
     public Path() {
         steps = new ArrayDeque<>();
+    }
+
+    public Path(Map<Tile, Tile> trace, Tile arrival) {
+
+        this();
+
+        Tile current = arrival;
+
+        while (trace.get(current) != null) {
+            steps.addFirst(current);
+            current = trace.get(current);
+        }
     }
 
     public void addStep(Tile t) {
