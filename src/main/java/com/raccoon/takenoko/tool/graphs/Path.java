@@ -2,8 +2,7 @@ package com.raccoon.takenoko.tool.graphs;
 
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
-
-import java.awt.Point;
+;
 import java.util.*;
 
 public class Path {

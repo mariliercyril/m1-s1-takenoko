@@ -1,12 +1,16 @@
 package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.tool.graphs.Edge;
+import com.raccoon.takenoko.tool.graphs.Graph;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RunWith(JUnitPlatform.class)
 @SpringBootTest
@@ -27,6 +32,9 @@ class PathFinderTest {
 
     @Resource(name="preSetBoard")
     Board board;
+
+    @Autowired
+    Game game;
 
     private PathFinderBot pfb = new PathFinderBot();
 
@@ -52,5 +60,21 @@ class PathFinderTest {
 
         assertEquals(0, pathsMatrix.get(start).get(board.get(new Point(0,0))).size());
 
+    }
+
+    @Test
+    void buildBambooGraphTest() {
+        List<Tile> bambooTiles = game.getBoard().getAllTiles().stream().filter(t -> t.getBambooSize() > 0).collect(Collectors.toList());
+        if (!bambooTiles.contains(game.getBoard().get(game.getPanda().getPosition()))) {
+            bambooTiles.add(game.getBoard().get(game.getPanda().getPosition()));
+        }
+        Graph boardGraph = pfb.buildBambooGraph(game);
+        for (Tile t1 : bambooTiles) {
+            for (Tile t2 : bambooTiles) {
+                if (!t1.equals(t2)) {
+                    assertTrue(boardGraph.getEdges().contains(new Edge(t1, t2, 0)));
+                }
+            }
+        }
     }
 }

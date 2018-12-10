@@ -211,10 +211,11 @@ public class PathFinderBot extends Player {
         List<Tile> bambooTiles = g.getBoard().getAllTiles().stream()
                 .filter(t -> t.getBambooSize() > 0)
                 .collect(Collectors.toList());    // getting all the tiles with bamboo
-        Map<Tile, Map<Tile, List<Tile>>> paths = paths(g.getBoard(), bambooTiles);
         if (!bambooTiles.contains(g.getBoard().get(g.getPanda().getPosition()))) {
             bambooTiles.add(g.getBoard().get(g.getPanda().getPosition()));
         }
+
+        Map<Tile, Map<Tile, List<Tile>>> paths = paths(g.getBoard(), bambooTiles);
 
         Graph graph = new Graph();
 
