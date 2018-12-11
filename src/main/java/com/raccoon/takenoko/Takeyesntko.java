@@ -37,7 +37,8 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory, @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory,
+                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
         return args -> {
 
 
@@ -50,10 +51,12 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
+                //launch1gameNoJutsu(1, pathFinderFactory);
                 launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
-                launchManyGamesNoJutsu(1, pathFinderFactory);
+                launchManyGamesNoJutsu(1, randomTerBotFactory);
+                //launchManyGamesNoJutsu(1, pathFinderFactory);
             }
 
         };
@@ -89,6 +92,9 @@ public class Takeyesntko {
     private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
 
         Takeyesntko.setVerbose(false);
+        int minDuration = 0;
+        int maxDuration = 0;
+        int avgDuration = 0;
 
         Map<Integer, Integer> playerWins = new HashMap<>();
         int[] scores = new int [playerNumber];
@@ -124,6 +130,9 @@ public class Takeyesntko {
                 voidedGames++;
                 continue;
             }
+            minDuration = Math.min(game.getDuration(), minDuration);
+            maxDuration = Math.max(game.getDuration(), maxDuration);
+            avgDuration += game.getDuration();
 
             // increments the wins of the winner
             playerWins.put(game.getWinner().getId(), playerWins.get(game.getWinner().getId()) + 1);
@@ -137,14 +146,28 @@ public class Takeyesntko {
 
         // printing out results
         Takeyesntko.setVerbose(true);
-        List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()); // Sorting the players according to their score
+        List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toList()); // Sorting the players according to their score
+
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
-        print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Avg. Score\t"));
+        print(String.format("| %-8s| %-14s| %-12s| %-9s| %s\t| %s\t| %s\t|", "Player ", "Type","Victories", "Avg. Score\t", "min. duration", "avg. duration", "max. duration"));
+
         for (int i = sortedWinners.size() - 1; i >= 0; i--) {
             int currentPlayer = sortedWinners.get(i).getKey();
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |        %5.2f\t|", currentPlayer, playersTypes[currentPlayer - 1], (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |        %5.2f\t|\t\t%d\t\t|\t%5.1f\t\t|\t\t%d\t\t|",
+                    currentPlayer,
+                    playersTypes[currentPlayer - 1],
+                    (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS),
+                    (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS,
+                    minDuration,
+                    (float)avgDuration / Constants.NUMBER_OF_GAMES_FOR_STATS,
+                    maxDuration));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
+
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)",
+                voidedGames,
+                (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;

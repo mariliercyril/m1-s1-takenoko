@@ -33,6 +33,8 @@ public class Game {
 
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
+    private int duration;
+
     @Resource
     private Panda panda;                    // Probably the panda
 
@@ -62,6 +64,7 @@ public class Game {
     public Game() {
 
         this.players = new ArrayList<>();
+        duration = 0;
         Player.reinitCounter();
 
         initTileDeck();
@@ -176,10 +179,15 @@ public class Game {
                 Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(playerNumber).getId() + "!");
             }
             playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
+            if (turnNumber > 100) { // timeout
+                this.duration = turnNumber;
+                return;
+            }
         }
         recorder.recordStep(this, turnNumber, playerNumber+1);
         recorder.stopRecording();
         printRanking();
+        this.duration = turnNumber;
     }
 
     public Tile getTile() {         //  Takes a tile from the tilesDeck
@@ -270,5 +278,9 @@ public class Game {
             res = res && !isImprovementAvailable(improvement);
         }
         return res;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }
