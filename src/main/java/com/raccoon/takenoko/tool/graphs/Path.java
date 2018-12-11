@@ -6,6 +6,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import java.util.*;
 
 public class Path {
+
     private Deque<Tile> steps;
     private Map<Color, Integer> bamboos;
 
@@ -36,6 +37,10 @@ public class Path {
 
     public int length() {
         return steps.size();
+    }
+
+    public boolean isEmpty() {
+        return steps.isEmpty();
     }
 
     public Map<Color, Integer> getBambooYield() {
