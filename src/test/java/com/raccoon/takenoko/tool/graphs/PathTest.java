@@ -69,4 +69,25 @@ class PathTest {
         yield = p.getBambooYield();
         assertEquals(1, (int)yield.get(Color.PINK));
     }
+
+    @Test
+    void graphLengthTest() {
+        Graph g = new Graph();
+
+        t1.setBambooSize(2);
+        t2.setBambooSize(2);
+        t3.setBambooSize(2);
+        t4.setBambooSize(2);
+
+        g.addEdge(t1,t2, 2);    // the path from t1 to t2 is actually t1 - t0 - t2
+        g.addEdge(t2, t4, 1);
+        g.addEdge(t4, t3, 1);
+
+        p.addStep(t1);
+        p.addStep(t2);
+        p.addStep(t4);
+        p.addStep(t3);
+
+        assertEquals(4, p.graphLength(g));
+    }
 }

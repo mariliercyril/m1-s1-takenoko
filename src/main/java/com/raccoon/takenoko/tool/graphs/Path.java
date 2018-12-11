@@ -31,6 +31,18 @@ public class Path {
         steps.add(t);
     }
 
+    public int graphLength(Graph g) {
+        int res = 0;
+        Tile[] stepList = new Tile[steps.size()];
+        steps.toArray(stepList);
+        Edge current;
+        for (int i = 0; i < steps.size() - 1; i++) {
+            current = g.getEdges().get(g.getEdges().indexOf(new Edge(stepList[i], stepList[i+1], 0)));  // dirty as hell but we need to get the actual edge to know its weight
+            res += current.getWeight();
+        }
+        return res;
+    }
+
     public Tile nextStep() {
         return steps.poll();
     }
