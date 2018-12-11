@@ -45,6 +45,8 @@ public class PathFinderBot extends Player {
 
     private List<Objective> objectivesToValidate;
 
+    private Graph bambooTilesGraph;
+
     public PathFinderBot() {
         super();
         this.objectivesToValidate = new ArrayList<>();
@@ -94,9 +96,9 @@ public class PathFinderBot extends Player {
 
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
-        // TODO : add the logic here, for now just a random Panda mover
 
-        Map<Point, Boolean> visitedPositions = new HashMap<>();
+        //bambooTilesGraph = this.buildBambooGraph(game);
+
 
 
 
@@ -230,7 +232,7 @@ public class PathFinderBot extends Player {
             }
         }
 
-        //graph.clean();
+        graph.clean();
 
         return graph;
     }

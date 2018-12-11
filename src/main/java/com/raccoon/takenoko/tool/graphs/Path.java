@@ -19,7 +19,8 @@ public class Path {
 
         Tile current = arrival;
 
-        while (trace.containsKey(current) && trace.get(current) != null) {
+        // What happens when using get method on a key that doesn't exist ?
+        while (/*trace.containsKey(current) &&*/ trace.get(current) != null) {
             steps.addFirst(current);
             current = trace.get(current);
         }
