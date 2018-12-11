@@ -7,8 +7,7 @@ import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Constants;
-import com.raccoon.takenoko.tool.ForbiddenActionException;
-import com.raccoon.takenoko.tool.graphs.Edge;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.tool.graphs.Graph;
 import com.raccoon.takenoko.tool.graphs.Path;
 
@@ -44,6 +43,7 @@ public class PathFinderBot extends Player {
      */
 
     private List<Objective> objectivesToValidate;
+    private Path path;
 
     private Graph bambooTilesGraph;
 
@@ -99,8 +99,10 @@ public class PathFinderBot extends Player {
 
         //bambooTilesGraph = this.buildBambooGraph(game);
 
-
-
+        if (Objects.nonNull(path) & path.length() > 0) {
+            return path.nextStep().getPosition();
+        }
+        Map<Point, Boolean> visitedPositions = new HashMap<>();
 
         Collections.shuffle(available);
         return available.get(0);
@@ -235,6 +237,33 @@ public class PathFinderBot extends Player {
         graph.clean();
 
         return graph;
+    }
+
+    protected Path mostUsefulPath(Path a, Path b, Map<Color, Integer> goal) {
+        Map<Color, Integer> needed = new EnumMap<>(Color.class);
+        for (Color c : Color.values()) {
+            needed.put(c, Math.max(goal.get(c) - getStomach().get(c), 0)); //   0 if we don't need any more bamboo of color c
+        }
+
+        boolean aCanWork = true;
+        boolean bCanWork = true;
+
+        for (Color c : Color.values()) {    // we check if both path can fill the goal
+            aCanWork = aCanWork && needed.get(c) >= a.getBambooYield().get(c);
+            bCanWork = bCanWork && needed.get(c) >= b.getBambooYield().get(c);
+        }
+
+        if (aCanWork && !bCanWork) {    //  if only one of them works, return the one that works
+            return a;
+        } else if (bCanWork && !aCanWork) {
+            return b;
+        } else {                        // if both or none work, return the shortest one
+            if (a.length() < b.length()) {
+                return a;
+            } else {
+                return b;
+            }
+        }
     }
 
     /*
