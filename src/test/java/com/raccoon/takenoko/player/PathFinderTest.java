@@ -5,6 +5,7 @@ import com.raccoon.takenoko.game.Game;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.graphs.Edge;
 import com.raccoon.takenoko.tool.graphs.Graph;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -36,8 +37,12 @@ class PathFinderTest {
     @Autowired
     Game game;
 
-    private PathFinderBot pfb = new PathFinderBot();
+    private PathFinderBot pfb;
 
+    @BeforeEach
+    void setup() {
+        pfb = new PathFinderBot();
+    }
 
     @Test
     void shortestPathTest() {

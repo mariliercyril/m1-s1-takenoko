@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Graph {
     private Map<Tile, List<Edge>> adjacency;
@@ -72,12 +73,7 @@ public class Graph {
         distance.put(start, 0);
         trace.put(start, null);
 
-        Comparator<Tile> comparator = new Comparator<Tile>() {
-            @Override
-            public int compare(Tile o1, Tile o2) {
-                return distance.get(o1) - distance.get(o2);
-            }
-        };
+        Comparator<Tile> comparator = (Tile o1, Tile o2) -> distance.get(o1) - distance.get(o2);
 
         PriorityQueue<Tile> pointsToVisit = new PriorityQueue<>(this.adjacency.keySet().size(), comparator);
 
@@ -96,11 +92,32 @@ public class Graph {
                 }
             }
         }
-        // If we didn't return anything we are in the case of a non connex component
-        // shouldn't happen in a board
-
-
 
         return new Path(trace, end);
+    }
+
+    public void clean() {
+
+        Comparator<Edge> edgeComparator = (Edge o1, Edge o2) -> o2.getWeight() - o1.getWeight();
+
+        PriorityQueue<Edge> edges = new PriorityQueue<>(500, edgeComparator);
+
+        edges.addAll(this.getEdges().stream().filter(e -> e.getWeight() > 1).collect(Collectors.toList()));
+
+
+        while (! edges.isEmpty()) { // While we have edges to treat
+            Edge edge = edges.poll();
+            this.removeEdge(edge);
+            Path shortestPath = this.shortestPath(edge.getLeft(), edge.getRight());
+
+            int pathLength = shortestPath.length();
+            /* If, when we remove an edge, the two ends of the edge are not connected anymore
+            or the path to go from one to the other is longer  */
+            if (pathLength <= 0 || pathLength > edge.getWeight()) {
+                // We put it back
+                this.addEdge(edge);
+            }
+            // Else we keep it out : no need for it in the graph, and it could lead to avoid eating bamboos
+        }
     }
 }

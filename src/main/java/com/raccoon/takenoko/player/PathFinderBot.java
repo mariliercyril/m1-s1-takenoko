@@ -10,6 +10,7 @@ import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
 import com.raccoon.takenoko.tool.graphs.Edge;
 import com.raccoon.takenoko.tool.graphs.Graph;
+import com.raccoon.takenoko.tool.graphs.Path;
 
 import java.awt.*;
 import java.util.*;
@@ -207,15 +208,19 @@ public class PathFinderBot extends Player {
         return result;
     }
 
-    protected Graph buildBambooGraph(Game g) {
-        List<Tile> bambooTiles = g.getBoard().getAllTiles().stream()
+    protected Graph buildBambooGraph(Game game) {
+
+        Board board = game.getBoard();
+
+        List<Tile> bambooTiles = board.getAllTiles().stream()
                 .filter(t -> t.getBambooSize() > 0)
                 .collect(Collectors.toList());    // getting all the tiles with bamboo
-        if (!bambooTiles.contains(g.getBoard().get(g.getPanda().getPosition()))) {
-            bambooTiles.add(g.getBoard().get(g.getPanda().getPosition()));
+
+        if (!bambooTiles.contains(board.get(game.getPanda().getPosition()))) {
+            bambooTiles.add(board.get(game.getPanda().getPosition()));
         }
 
-        Map<Tile, Map<Tile, List<Tile>>> paths = paths(g.getBoard(), bambooTiles);
+        Map<Tile, Map<Tile, List<Tile>>> paths = paths(board, bambooTiles);
 
         Graph graph = new Graph();
 
@@ -224,6 +229,8 @@ public class PathFinderBot extends Player {
                 graph.addEdge(bambooTiles.get(i), bambooTiles.get(j), paths.get(bambooTiles.get(i)).get(bambooTiles.get(j)).size());
             }
         }
+
+        //graph.clean();
 
         return graph;
     }

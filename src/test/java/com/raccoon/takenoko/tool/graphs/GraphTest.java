@@ -11,13 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class GraphTest {
     private Graph graph;
     private Tile t1, t2, t3, t4;
+
     @BeforeEach
-    public void init() {
+    void init() {
         graph = new Graph();
         t1 = new Tile();
         t2 = new Tile();
         t3 = new Tile();
         t4 = new Tile();
+
+        t1.setPosition(new Point(0,0));
+        t2.setPosition(new Point(0,1));
+        t3.setPosition(new Point(1,0));
+        t4.setPosition(new Point(1,1));
 
     }
 
@@ -53,11 +59,6 @@ class GraphTest {
     @Test
     void shortestPathTest() {
 
-        t1.setPosition(new Point(0,0));
-        t2.setPosition(new Point(0,1));
-        t3.setPosition(new Point(1,0));
-        t4.setPosition(new Point(1,1));
-
         graph.addEdge(t1, t2, 3);
         graph.addEdge(t1, t3, 1);
         graph.addEdge(t1, t4, 2);
@@ -69,7 +70,33 @@ class GraphTest {
 
         Path sp1 = graph.shortestPath(t1, t2);
 
-        assertEquals(2, sp1.length());
+        assertEquals(2, sp1.length(), "Path expected to need on intermediate step, doesn't have a length of 2");
+
+        Tile t5 = new Tile();
+
+        graph.addNode(t5);
+
+        Path sp2 = graph.shortestPath(t1, t5);
+
+        assertEquals(0, sp2.length(), "Path between to non connexe nodes of a graph");
+    }
+
+    @Test
+    void cleanTest() {
+
+        graph.addEdge(t1, t2, 2);
+        graph.addEdge(t1, t3, 1);
+        graph.addEdge(t1, t4, 2);
+
+        graph.addEdge(t2, t3, 1);
+        graph.addEdge(t2, t4, 1);
+
+        graph.addEdge(t3, t4, 2);
+
+        graph.clean();
+
+        assertEquals(4, graph.getEdges().size(), "Not the right number of edges after cleanup");
+
     }
 
 

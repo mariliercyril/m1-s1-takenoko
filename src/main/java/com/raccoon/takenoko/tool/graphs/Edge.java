@@ -56,4 +56,14 @@ public class Edge {
             return this.left;
         }
     }
+
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "left=" + left +
+                ", right=" + right +
+                ", weight=" + weight +
+                '}';
+    }
 }

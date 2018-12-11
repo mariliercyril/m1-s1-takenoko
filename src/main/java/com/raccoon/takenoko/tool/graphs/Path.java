@@ -19,7 +19,7 @@ public class Path {
 
         Tile current = arrival;
 
-        while (trace.get(current) != null) {
+        while (trace.containsKey(current) && trace.get(current) != null) {
             steps.addFirst(current);
             current = trace.get(current);
         }
