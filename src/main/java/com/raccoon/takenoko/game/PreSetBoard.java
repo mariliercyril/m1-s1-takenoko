@@ -58,31 +58,31 @@ public class PreSetBoard extends HashBoard {
         For now we just fill a list with 10 tiles of each colour
         There is a bamboo of size 4 on each of them
          */
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             Tile newTile = new Tile(Color.GREEN);
             newTile.setBambooSize(100);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             Tile newTile = new Tile(Color.PINK);
             newTile.setBambooSize(100);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             Tile newTile = new Tile(Color.YELLOW);
             newTile.setBambooSize(100);
             tiles.add(newTile);
         }
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 6; i++) {
             Tile newTile = new Tile(Color.GREEN);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             Tile newTile = new Tile(Color.PINK);
             tiles.add(newTile);
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 4; i++) {
             Tile newTile = new Tile(Color.YELLOW);
             tiles.add(newTile);
         }
