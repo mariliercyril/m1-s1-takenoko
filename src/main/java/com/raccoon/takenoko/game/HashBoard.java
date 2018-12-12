@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("hashBoard")
 @Scope("prototype")
@@ -202,6 +203,11 @@ public class HashBoard implements Board {
         }
 
         return accessiblePositions;
+    }
+
+    @Override
+    public List<Tile> getAccessiblePositions(Tile initialPosition) {
+        return getAccessiblePositions(initialPosition.getPosition()).stream().map(point -> get(point)).collect(Collectors.toList());
     }
 
     @Override

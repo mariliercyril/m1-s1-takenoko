@@ -8,11 +8,10 @@ import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.ImprovementType;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.player.Player;
-import com.raccoon.takenoko.player.BotFactory;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.tool.ForbiddenActionException;
+import com.raccoon.takenoko.tool.GameRecorder;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -34,21 +33,20 @@ public class Game {
 
     private Map<ImprovementType, Integer> improvements; // The number of improvements of each type available
 
-    @Autowired
-    private Panda panda;                    // Probably the panda
-
-    @Autowired
-    private Gardener gardener;              // The gardener (obviously)
+    private int duration;
 
     /* Spring components */
-    @Autowired
+    @Resource
+    private Panda panda;                    // Probably the panda
+
+    @Resource
+    private Gardener gardener;              // The gardener (obviously)
+
+    @Resource(name = "originalObjectivePool")
     private ObjectivePool objectivePool;    // The pool of objective cards
 
-    @Autowired
+    @Resource(name = "preSetBoard")
     private Board board;                    // The game board, with all the tiles
-
-    @Resource(name = "&everyOther")     // The '&' allows to get the factory and not an object created by it
-    private BotFactory botFactory;
 
     private Player hasEmperor;
 
@@ -66,7 +64,7 @@ public class Game {
     public Game() {
 
         this.players = new ArrayList<>();
-
+        duration = 0;
         Player.reinitCounter();
 
         initTileDeck();
@@ -74,7 +72,7 @@ public class Game {
     }
 
     /**
-     * Constructs a game with a given list of players. Useful to test and give a specific composition of bots to the game.
+     * Constructs a game with a given list of players. Useful to test and give a specific composition of factories to the game.
      *
      * @param players the list of {@code Players} to add to the game
      */
@@ -150,34 +148,30 @@ public class Game {
      *************************************************
      */
 
-    public boolean gameOver() {     // Currently, the game is over as soon as a player reaches a score of 9 or the tilesDeck is empty
-        boolean emperorDistributed = false;
-        if (tilesDeck.isEmpty()) {
-            return true;
-        }
+    public boolean gameOver() {     // The game is over as soon as a player reaches a given score
 
         for (Player p : players) {
-            if (p == this.hasEmperor) { // we compare if the player that has the emperor points to this player
-                return true;
+            if (p.getScore() >= Constants.MAX_SCORE) {  // If a player reached the max score
+                return true;                            // the game is over
             }
-            if (p.getScore() >= 9 && !emperorDistributed) {
-                emperorDistributed = true;
-                p.giveEmperor();
-                Takeyesntko.print(String.format("Player #%d has won the emperor !", p.getId()));
-                this.hasEmperor = p;
-            }
-
         }
-
-        return false;
+        return false;       // Else it's not
     }
 
-    public void start() {           // Starts the game: while the game isn't over, each player plays
-
+    public void start(boolean recording) {           // Starts the game: while the game isn't over, each player plays
+        GameRecorder recorder = new GameRecorder();
+        if (recording) {
+            recorder.startRecording();
+        }
         int playerNumber = 0;
         int turnNumber = 0;
         while (!gameOver()) {
-
+            recorder.recordStep(this, turnNumber, playerNumber+1);
+            if (turnNumber >= Constants.TIMEOUT) { // timeout
+                this.duration = turnNumber;
+                recorder.stopRecording();
+                return;
+            }
             if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
@@ -190,8 +184,12 @@ public class Game {
                 Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(playerNumber).getId() + "!");
             }
             playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
+
         }
+        recorder.recordStep(this, turnNumber, playerNumber+1);
+        recorder.stopRecording();
         printRanking();
+        this.duration = turnNumber;
     }
 
     public Tile getTile() {         //  Takes a tile from the tilesDeck
@@ -269,7 +267,7 @@ public class Game {
         }
     }
 
-    public void initImprovements() {
+    private void initImprovements() {
         this.improvements = new EnumMap<>(ImprovementType.class);
         for (ImprovementType it : ImprovementType.values()) {  // at the beginning, we have two improvements of each type
             improvements.put(it, 2);
@@ -282,5 +280,9 @@ public class Game {
             res = res && !isImprovementAvailable(improvement);
         }
         return res;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

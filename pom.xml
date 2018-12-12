@@ -3,7 +3,7 @@
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
 
-    <version>FINAL-SNAPSHOT</version> <!-- CHANGE ME -->
+    <version>ter-1</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -65,6 +65,41 @@
                             <arguments>
                                 <argument>seeABattle</argument>
                             </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>loadGame</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
+                            <arguments>
+                                <argument>seeABattle</argument>
+                            </arguments>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>boardFile</key>
+                                    <value>ter_display/data/savedGames/game-</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>manyPreset</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>boardFile</key>
+                                    <value>ter_display/data/presets/set1/preset-</value>
+                                </systemProperty>
+                            </systemProperties>
                         </configuration>
                     </execution>
 

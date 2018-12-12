@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.annotation.Resource;
 import java.awt.*;
 import java.util.Set;
 
@@ -33,11 +34,11 @@ class HashBoardTest {
     @Mock
     Tile tile1;
 
+    @Resource(name="hashBoard")
     private Board board;
 
-    private Game g;
-
-    private Game g2;
+    @Resource(name="hashBoard")
+    private Board board1;
 
     private Tile t1;
     private Tile t2;
@@ -50,10 +51,8 @@ class HashBoardTest {
 
 
     @BeforeEach
-    void setUp(@Autowired Game game, @Autowired Game g2) {
-        this.g2 = g2;
-        g = game;
-        board = g.getBoard();
+    void setUp() {
+
         board.set(new Point(0, 1), new Tile(Color.GREEN));
 
         // put down some tiles
@@ -190,27 +189,26 @@ class HashBoardTest {
     void nextNNeighbours() {
         // We just need a set of tiles to test, I will put them here for lisibility
 
-        Board b2 = g2.getBoard();
-        b2.set(new Point(1, 0), new Tile(Color.PINK));
-        b2.set(new Point(0, -1), new Tile(Color.GREEN));
-        b2.set(new Point(1, -1), new Tile(Color.PINK));
-        b2.set(new Point(-1, -1), new Tile(Color.GREEN));
-        b2.set(new Point(2, 1), new Tile(Color.GREEN));
-        b2.set(new Point(-1, -2), new Tile(Color.PINK));
-        b2.set(new Point(0, -2), new Tile(Color.PINK));
-        b2.set(new Point(2, 2), new Tile(Color.YELLOW));
-        b2.set(new Point(3, 2), new Tile(Color.GREEN));
-        b2.set(new Point(3, 1), new Tile(Color.GREEN));
-        b2.set(new Point(3, 3), new Tile(Color.YELLOW));
-        b2.set(new Point(4, 3), new Tile(Color.YELLOW));
+        board1.set(new Point(1, 0), new Tile(Color.PINK));
+        board1.set(new Point(0, -1), new Tile(Color.GREEN));
+        board1.set(new Point(1, -1), new Tile(Color.PINK));
+        board1.set(new Point(-1, -1), new Tile(Color.GREEN));
+        board1.set(new Point(2, 1), new Tile(Color.GREEN));
+        board1.set(new Point(-1, -2), new Tile(Color.PINK));
+        board1.set(new Point(0, -2), new Tile(Color.PINK));
+        board1.set(new Point(2, 2), new Tile(Color.YELLOW));
+        board1.set(new Point(3, 2), new Tile(Color.GREEN));
+        board1.set(new Point(3, 1), new Tile(Color.GREEN));
+        board1.set(new Point(3, 3), new Tile(Color.YELLOW));
+        board1.set(new Point(4, 3), new Tile(Color.YELLOW));
 
-        Set<Tile> dist1 = b2.getAllTilesDistance(new Point(0, 0), 1);
-        assertFalse(dist1.contains(b2.get(new Point(2, 2))), "Tile is too far away to be at distance 1");
-        assertTrue(dist1.contains(b2.get(new Point(1, 1))),"Tile is supposed to be in the list of distances 1");
+        Set<Tile> dist1 = board1.getAllTilesDistance(new Point(0, 0), 1);
+        assertFalse(dist1.contains(board1.get(new Point(2, 2))), "Tile is too far away to be at distance 1");
+        assertTrue(dist1.contains(board1.get(new Point(1, 1))),"Tile is supposed to be in the list of distances 1");
 
-        Set<Tile> dist2 = b2.getAllTilesDistance(new Point(0, 0), 2);
-        assertFalse(dist2.contains(b2.get(new Point(4, 3))), "Tile is too far away to be at distance 2");
-        assertTrue(dist2.contains(b2.get(new Point(2, 1))), "Tile is supposed to be in the list of distance 2");
+        Set<Tile> dist2 = board1.getAllTilesDistance(new Point(0, 0), 2);
+        assertFalse(dist2.contains(board1.get(new Point(4, 3))), "Tile is too far away to be at distance 2");
+        assertTrue(dist2.contains(board1.get(new Point(2, 1))), "Tile is supposed to be in the list of distance 2");
     }
 
 }

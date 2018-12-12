@@ -140,7 +140,7 @@ public class Tile {
         if (!this.irrigated) {  // If we are not yet irrigated
             this.irrigated = true;  // we become irrigated
             // and a bamboo grows
-            this.increaseBambooSize();
+            //this.increaseBambooSize();
         }
 
         // Whether we are irrigated or not, we remember the presence of a new canal :
@@ -180,6 +180,9 @@ public class Tile {
         }
     }
 
+    public void setBambooSize(int bambooSize) {
+        this.bambooSize = bambooSize;
+    }
 
     /**
      * Remove on chunk of bamboo on the {@code Tile}
@@ -199,6 +202,15 @@ public class Tile {
             this.sideIrrigationState.put(direction, IrrigationState.TO_BE_IRRIGABLE);
         }
     }
+
+
+    public boolean samePosition(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return position.equals(tile.position);
+    }
+
 
     @Override
     public String toString() {

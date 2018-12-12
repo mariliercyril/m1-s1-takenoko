@@ -1,5 +1,9 @@
 package com.raccoon.takenoko.tool;
 
+import com.raccoon.takenoko.game.Board;
+import com.raccoon.takenoko.game.tiles.Tile;
+import com.raccoon.takenoko.game.tiles.Color;
+import java.awt.*;
 import java.util.Map;
 
 public final class Tools {
@@ -27,5 +31,25 @@ public final class Tools {
         }
 
         return maxKey;
+    }
+
+    public static void parseLine(String line, Board board) {
+        String[] components = line.split("\t");
+        String code = components[0];
+        Tile tile;
+        Point location;
+        int bambooSize;
+        if (code.equals("TIL")) {
+            bambooSize = Integer.parseInt(components[5]);
+            if (components[3].equals("BLUE")) {
+                tile = new Tile();
+            } else {
+                tile = new Tile(Color.valueOf(Color.class, components[3]));
+            }
+            location = new Point((int)Double.parseDouble(components[1]), (int)Double.parseDouble(components[2]));
+            tile.setBambooSize(bambooSize);
+            tile.setPosition(location);
+            board.set(location, tile);
+        }
     }
 }

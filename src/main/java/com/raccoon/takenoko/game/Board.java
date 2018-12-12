@@ -51,6 +51,8 @@ public interface Board {
      */
     List<Point> getAccessiblePositions(Point initialPosition);
 
+    List<Tile> getAccessiblePositions(Tile initialPosition);
+
     /**
      * Will irrigate the tile concerned by the call, and the tile next to it in the specified direction.
      *

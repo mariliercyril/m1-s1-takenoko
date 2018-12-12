@@ -7,6 +7,7 @@ import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.game.objective.PandaObjective;
 import com.raccoon.takenoko.tool.UnitVector;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -45,7 +46,7 @@ class BamBotTest {
     @Mock
     private PatternObjective aObj1;
 
-    @Resource(name = "&everyOther")
+    @Resource(name = "&botFactory")
     FactoryBean<Player> playerFactory;
 
     private void place(int x, int y, Color c) {
@@ -70,6 +71,7 @@ class BamBotTest {
         // Actually had to be fixed because with a minor change in the code the implementation was different…
     }
 
+    @Disabled("Test not relevant to games with a pre-filled board")
     @Test
     void whereToPutDownTile() {
         place(0,1, yellow);
@@ -179,6 +181,7 @@ class BamBotTest {
 
 
     @Test
+    @Disabled("Not compliant with the TER version of the game engine")
     void whereToMovePanda() {
         place(0, 1, pink);
         place(1,1, pink);

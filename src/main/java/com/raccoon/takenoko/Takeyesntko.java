@@ -1,8 +1,7 @@
 package com.raccoon.takenoko;
 
 import com.raccoon.takenoko.game.Game;
-import com.raccoon.takenoko.player.BamBotFactory;
-import com.raccoon.takenoko.player.BotFactory;
+import com.raccoon.takenoko.player.factories.BamBotFactory;
 import com.raccoon.takenoko.player.Player;
 
 import com.raccoon.takenoko.tool.Constants;
@@ -10,21 +9,23 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class Takeyesntko {
 
+    public static int gameNumber;
+
     private static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
-    private static boolean verbose = true;
+    private static boolean  verbose = true;
 
     @Autowired
     private ObjectFactory<Game> gameObjectFactory;
@@ -38,7 +39,8 @@ public class Takeyesntko {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner() {
+    public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory,
+                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
         return args -> {
 
 
@@ -51,22 +53,17 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu();
+                launch1gameNoJutsu(1, pathFinderFactory);
+                gameNumber = 0;
+                //launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
-                launchManyGamesNoJutsu(1, new BamBotFactory());
+                launchManyGamesNoJutsu(1, randomTerBotFactory);
+                launchManyGamesNoJutsu(1, pathFinderFactory);
             }
 
         };
     }
-
-    @Bean(name = "everyOther")
-    public BotFactory botFactory() {
-        return new BotFactory();
-    }
-    @Bean(name = "giveMeBambots")
-    public BamBotFactory bamBotFactory() {return new BamBotFactory();}
-
 
     /**
      * Allows a conditionnal print
@@ -74,17 +71,22 @@ public class Takeyesntko {
      * @param str The String to be printed.
      */
     public static void print(String str) {
-        if (verbose) {
-            LOGGER.info(str);
+        if (verbose){
+            LOGGER.info(str );
         }
     }
 
     /**
      * Launches the game, verbose mode
      */
-    private void launch1gameNoJutsu() {
+    private void launch1gameNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
         Game game = gameObjectFactory.getObject();
-        game.start();
+        try {
+            game.addPlayers(playerNumber, playerFactory);
+        } catch (Exception e) {
+            print("Something went wrong while adding the players");
+        }
+        game.start(true);
     }
 
     /**
@@ -93,6 +95,9 @@ public class Takeyesntko {
     private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
 
         Takeyesntko.setVerbose(false);
+        int minDuration = 10000;
+        int maxDuration = 0;
+        int avgDuration = 0;
 
         Map<Integer, Integer> playerWins = new HashMap<>();
         int[] scores = new int [playerNumber];
@@ -104,14 +109,18 @@ public class Takeyesntko {
         String[] playersTypes = new String[playerNumber];
 
         for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
+            gameNumber = i;
             Game game = gameObjectFactory.getObject();
             try {
                 game.addPlayers(playerNumber, playerFactory);
             } catch (Exception e) {
                 print("Something went wrong while adding the players");
             }
-            game.start();
-
+            if (i != 100) {
+                game.start(false);
+            } else {
+                game.start(true);
+            }
             // First check that it isn't a void game (all players at 0)
             int numberOfNullResults = 0;
             for (Player pl : game.getPlayers()) {
@@ -125,6 +134,9 @@ public class Takeyesntko {
                 voidedGames++;
                 continue;
             }
+            minDuration = Math.min(game.getDuration(), minDuration);
+            maxDuration = Math.max(game.getDuration(), maxDuration);
+            avgDuration += game.getDuration();
 
             // increments the wins of the winner
             playerWins.put(game.getWinner().getId(), playerWins.get(game.getWinner().getId()) + 1);
@@ -138,14 +150,29 @@ public class Takeyesntko {
 
         // printing out results
         Takeyesntko.setVerbose(true);
-        List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()); // Sorting the players according to their score
+        List<Map.Entry<Integer, Integer>> sortedWinners = playerWins.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toList()); // Sorting the players according to their score
+
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
-        print(String.format("| %-8s| %-14s| %-12s| %-9s|", "Player ", "Type","Victories", "Avg. Score\t"));
+        print(String.format("| %-8s| %-14s| %-12s| %-9s| %s\t| %s\t| %s\t|", "Player ", "Type", "Avg. t./obj.", "Avg. Score\t", "min. duration", "avg. duration", "max. duration"));
+
         for (int i = sortedWinners.size() - 1; i >= 0; i--) {
             int currentPlayer = sortedWinners.get(i).getKey();
-            print(String.format("| #%-7d|  %-13s|     %5.1f %% |        %5.2f\t|", currentPlayer, playersTypes[currentPlayer - 1], (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS), (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS));
+            print(String.format("| #%-7d|  %-13s|     %5.1f %% |        %5.2f\t|\t\t%d\t\t|\t%5.1f\t\t|\t\t%d\t\t|",
+                    currentPlayer,
+                    playersTypes[currentPlayer - 1],
+                    (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS),
+
+                    (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS,
+                    minDuration,
+                    (float)avgDuration / Constants.NUMBER_OF_GAMES_FOR_STATS,
+                    maxDuration));
         }
-        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)", voidedGames, (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
+
+        print(String.format(" -- There has been %d void games where all players' scores were 0 (roughly %3.1f percents)",
+                voidedGames,
+                (voidedGames * 100 / Constants.NUMBER_OF_GAMES_FOR_STATS)));
 
         // Checksum : if the checksum is not nbGames, points were badly distributed
         int totalGames = 0;
@@ -161,7 +188,6 @@ public class Takeyesntko {
      * @param verbose typically a new verbose value
      */
     public static void setVerbose(boolean verbose) {
-
         Takeyesntko.verbose = verbose;
     }
 
