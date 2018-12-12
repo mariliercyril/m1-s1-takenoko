@@ -52,8 +52,10 @@ public class Takeyesntko {
 
             if (args.length > 0) {
                 launch1gameNoJutsu(1, pathFinderFactory);
+                launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
+                launchManyGamesNoJutsu(1, randomTerBotFactory);
                 launchManyGamesNoJutsu(1, pathFinderFactory);
             }
 
@@ -90,7 +92,7 @@ public class Takeyesntko {
     private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
 
         Takeyesntko.setVerbose(false);
-        int minDuration = 0;
+        int minDuration = 10000;
         int maxDuration = 0;
         int avgDuration = 0;
 

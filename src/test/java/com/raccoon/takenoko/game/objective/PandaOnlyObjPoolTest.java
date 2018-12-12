@@ -77,7 +77,7 @@ class PandaOnlyObjPoolTest {
 
         objectivePool.notifyBambooEaten(board, player);
 
-        assertTrue(this.pandaObjective.isCompleted(), "2 bamboos of each kind in the stomach and still not a panda objective completed ?");
+        assertTrue(this.pandaObjective.isCompleted(), "2 bamboos of each kind in the stomach and still not a panda objective completed ?" + pandaObjective);
 
         stomach.put(Color.YELLOW, 0);
         stomach.put(Color.PINK, 0);
