@@ -20,10 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import javax.annotation.Resource;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RunWith(JUnitPlatform.class)
@@ -49,7 +46,7 @@ class PathFinderTest {
     void shortestPathTest() {
         assertEquals(1, pfb.shortestPath(board, new Point(0,0), new Point (2,2)).size());
 
-        List<Point> path = pfb.shortestPath(board, new Point(0,0), new Point (-1,2));
+        Deque<Point> path = pfb.shortestPath(board, new Point(0,0), new Point (-1,2));
 
         assertEquals(2, path.size());
     }

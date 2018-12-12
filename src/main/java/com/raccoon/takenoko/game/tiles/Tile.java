@@ -203,6 +203,15 @@ public class Tile {
         }
     }
 
+
+    public boolean samePosition(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return position.equals(tile.position);
+    }
+
+
     @Override
     public String toString() {
         return "Tile " + this.getColor() + " at " + this.getPosition();

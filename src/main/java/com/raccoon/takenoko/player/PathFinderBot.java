@@ -50,11 +50,11 @@ public class PathFinderBot extends Player {
 
     private Graph bambooTilesGraph;
 
-    Path currentPathInGraph;
+    private Path currentPathInGraph;
 
-    Deque<Point> currentSteps;
+    private Deque<Point> currentSteps;
 
-    Deque<Color> coloursNeeded;
+    private Deque<Color> coloursNeeded;
 
     public PathFinderBot() {
         super();
@@ -120,9 +120,14 @@ public class PathFinderBot extends Player {
             for (Objective objective : sortedObjectives) {
                 coloursNeeded.addAll(bamboosToEatToComplete(objective));
             }
+
+            if (coloursNeeded.isEmpty()) {
+                coloursNeeded.add(Color.YELLOW);
+            }
         }
 
-        if (currentPathInGraph.isEmpty()) { // If the path we are following is empty
+        if (currentPathInGraph.isEmpty() && currentSteps.isEmpty()) { // If the path we are following is empty
+
 
             bambooTilesGraph = buildBambooGraph(game);      // We compute the graph
 
@@ -138,7 +143,10 @@ public class PathFinderBot extends Player {
 
             for(Tile node : bambooTilesGraph.getNodes()) {
                 // If we found a tile of the right colour which is not the one we are on
-                if (! node.equals(pandaTile) && node.getColor().equals(targetColour)) {
+                if(node == pandaTile) {
+                    continue;
+                }
+                if ((!node.equals(pandaTile)) && node.getColor().equals(targetColour)) {
 
                     if (distances.get(node) == minDistanceYet) {  // If we found a path just as long as the others
                         pathsToRightColour.add(new Path(trace, node));  // we simply add it to the list
@@ -165,33 +173,12 @@ public class PathFinderBot extends Player {
             As we don't have an intermediate step to execute, we know we are on one node of this graph.
             Therefor we can just check in the graph the weight of the edge between us and the target to know
             if we need to compute the shortest way to get to our next tile.
-
-            Tile nextTarget = currentPathInGraph.nextStep();
-
-            Edge edgeToNextTarget = null;
-            try {
-                edgeToNextTarget = bambooTilesGraph.getEdge(board.get(panda.getPosition()), nextTarget);
-            } catch (UnexistingEdgeException e) {
-                e.printStackTrace();
-            }
-
-            if (edgeToNextTarget.getWeight() > 1) { // If we need at least one extra step
-                currentSteps.addAll(shortestPath(board, panda.getPosition(), nextTarget.getPosition()));    // We compute it on the board and remember it
-            }
-            else {  // if we only need one simple step, go to the tile :
-                currentSteps.addLast(nextTarget.getPosition());     // we make it
-            }
-
-            THIS DIDN'T WORK : for some reason, we had cases where the panda was on a tile which was not in the current graph
-
             */
+
             Tile nextTarget = currentPathInGraph.nextStep();
             // This should work, we just compute the shortest way to go to our goal, which might be in one step
             try {
-                List<Point> steps = shortestPath(board, panda.getPosition(), nextTarget.getPosition());
-                for (Point step : steps) {
-                    currentSteps.addLast(step);
-                }
+                currentSteps = shortestPath(board, panda.getPosition(), nextTarget.getPosition());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -212,7 +199,7 @@ public class PathFinderBot extends Player {
     *           Internal methods            *
     ****************************************/
 
-    List<Point> shortestPath(Board board, Point start, Point goal) {
+    Deque<Point> shortestPath(Board board, Point start, Point goal) {
 
         Deque<Point> pointsToVisit = new ArrayDeque<>();
 
@@ -239,7 +226,7 @@ public class PathFinderBot extends Player {
         }
         // If we didn't return anything we are in the case of a non connex component
         // shouldn't happen in a board
-        return new ArrayList<>();
+        return new ArrayDeque<>();
     }
 
     Map<Tile, Map<Tile, List<Tile>>> paths(Board board, List<Tile> starts) {
@@ -281,13 +268,13 @@ public class PathFinderBot extends Player {
     }
 
 
-    private List<Point> computePath(Map<Point, Point> trace, Point arrival) {
-        List<Point> result = new ArrayList<>();
+    private Deque<Point> computePath(Map<Point, Point> trace, Point arrival) {
+        Deque<Point> result = new ArrayDeque<>();
 
         Point current = arrival;
 
         while (trace.get(current) != null) {
-            result.add(current);
+            result.addFirst(current);
             current = trace.get(current);
         }
 

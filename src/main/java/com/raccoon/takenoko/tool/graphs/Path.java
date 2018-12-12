@@ -2,7 +2,7 @@ package com.raccoon.takenoko.tool.graphs;
 
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
-;
+
 import java.util.*;
 
 public class Path {
@@ -67,5 +67,15 @@ public class Path {
             }
         }
         return yield;
+    }
+
+
+    /*
+    ********************************************
+    * *******************************************************
+     */
+
+    public Deque<Tile> getSteps() {
+        return steps;
     }
 }

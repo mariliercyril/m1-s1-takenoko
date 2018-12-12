@@ -35,13 +35,13 @@ public class Game {
 
     private int duration;
 
+    /* Spring components */
     @Resource
     private Panda panda;                    // Probably the panda
 
     @Resource
     private Gardener gardener;              // The gardener (obviously)
 
-    /* Spring components */
     @Resource(name = "originalObjectivePool")
     private ObjectivePool objectivePool;    // The pool of objective cards
 
