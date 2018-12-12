@@ -3,7 +3,7 @@
     <groupId>takenoko</groupId>
     <artifactId>takenoko</artifactId>
 
-    <version>POST-FINAL</version> <!-- CHANGE ME -->
+    <version>ter-1</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other: ISO-8859-1 -->
@@ -97,7 +97,7 @@
                             <systemProperties>
                                 <systemProperty>
                                     <key>boardFile</key>
-                                    <value>ter_display/data/presets/set2/preset-</value>
+                                    <value>ter_display/data/presets/set1/preset-</value>
                                 </systemProperty>
                             </systemProperties>
                         </configuration>

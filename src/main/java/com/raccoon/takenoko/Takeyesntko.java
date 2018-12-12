@@ -40,8 +40,7 @@ public class Takeyesntko {
 
     @Bean
     public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory,
-                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory,
-                                               @Autowired @Qualifier("randomishBotFactory") FactoryBean<Player> randomishBotFactory) {
+                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
         return args -> {
 
 
@@ -54,14 +53,13 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                //launch1gameNoJutsu(1, pathFinderFactory);
+                launch1gameNoJutsu(1, pathFinderFactory);
                 gameNumber = 0;
-                launch1gameNoJutsu(1, randomTerBotFactory);
+                //launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
                 launchManyGamesNoJutsu(1, randomTerBotFactory);
                 launchManyGamesNoJutsu(1, pathFinderFactory);
-                launchManyGamesNoJutsu(1, randomishBotFactory);
             }
 
         };
@@ -95,8 +93,6 @@ public class Takeyesntko {
      * Launches 1000 games and prints out the output
     */
     private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
-
-        // TODO : average time per objective
 
         Takeyesntko.setVerbose(false);
         int minDuration = 10000;
