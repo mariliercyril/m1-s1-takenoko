@@ -25,7 +25,7 @@ public class Takeyesntko {
 
     private static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
-    private static boolean verbose = true;
+    private static boolean  verbose = true;
 
     @Autowired
     private ObjectFactory<Game> gameObjectFactory;
@@ -40,7 +40,8 @@ public class Takeyesntko {
 
     @Bean
     public CommandLineRunner commandLineRunner(@Autowired @Qualifier("singlePathBotFactory") FactoryBean<Player> pathFinderFactory,
-                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory) {
+                                               @Autowired @Qualifier("randomTerBotFactory") FactoryBean<Player> randomTerBotFactory,
+                                               @Autowired @Qualifier("randomishBotFactory") FactoryBean<Player> randomishBotFactory) {
         return args -> {
 
 
@@ -60,6 +61,7 @@ public class Takeyesntko {
             else {
                 launchManyGamesNoJutsu(1, randomTerBotFactory);
                 launchManyGamesNoJutsu(1, pathFinderFactory);
+                launchManyGamesNoJutsu(1, randomishBotFactory);
             }
 
         };
@@ -71,8 +73,8 @@ public class Takeyesntko {
      * @param str The String to be printed.
      */
     public static void print(String str) {
-        if (verbose) {
-            LOGGER.info(str);
+        if (verbose){
+            LOGGER.info(str );
         }
     }
 
@@ -93,6 +95,8 @@ public class Takeyesntko {
      * Launches 1000 games and prints out the output
     */
     private void launchManyGamesNoJutsu(int playerNumber, FactoryBean<Player> playerFactory) {
+
+        // TODO : average time per objective
 
         Takeyesntko.setVerbose(false);
         int minDuration = 10000;
@@ -155,7 +159,7 @@ public class Takeyesntko {
                 .collect(Collectors.toList()); // Sorting the players according to their score
 
         print(String.format(" -- Launched %6.0f games!", Constants.NUMBER_OF_GAMES_FOR_STATS));
-        print(String.format("| %-8s| %-14s| %-12s| %-9s| %s\t| %s\t| %s\t|", "Player ", "Type","Victories", "Avg. Score\t", "min. duration", "avg. duration", "max. duration"));
+        print(String.format("| %-8s| %-14s| %-12s| %-9s| %s\t| %s\t| %s\t|", "Player ", "Type", "Avg. t./obj.", "Avg. Score\t", "min. duration", "avg. duration", "max. duration"));
 
         for (int i = sortedWinners.size() - 1; i >= 0; i--) {
             int currentPlayer = sortedWinners.get(i).getKey();
@@ -163,6 +167,7 @@ public class Takeyesntko {
                     currentPlayer,
                     playersTypes[currentPlayer - 1],
                     (float)sortedWinners.get(i).getValue()*100 / (Constants.NUMBER_OF_GAMES_FOR_STATS),
+
                     (float)scores[currentPlayer - 1]/Constants.NUMBER_OF_GAMES_FOR_STATS,
                     minDuration,
                     (float)avgDuration / Constants.NUMBER_OF_GAMES_FOR_STATS,
@@ -187,7 +192,6 @@ public class Takeyesntko {
      * @param verbose typically a new verbose value
      */
     public static void setVerbose(boolean verbose) {
-
         Takeyesntko.verbose = verbose;
     }
 

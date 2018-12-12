@@ -167,7 +167,7 @@ public class Game {
         int turnNumber = 0;
         while (!gameOver()) {
             recorder.recordStep(this, turnNumber, playerNumber+1);
-            if (turnNumber > Constants.TIMEOUT) { // timeout
+            if (turnNumber >= Constants.TIMEOUT) { // timeout
                 this.duration = turnNumber;
                 recorder.stopRecording();
                 return;

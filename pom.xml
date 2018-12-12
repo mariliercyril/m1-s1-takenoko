@@ -97,7 +97,7 @@
                             <systemProperties>
                                 <systemProperty>
                                     <key>boardFile</key>
-                                    <value>ter_display/data/presets/set1/preset-</value>
+                                    <value>ter_display/data/presets/set2/preset-</value>
                                 </systemProperty>
                             </systemProperties>
                         </configuration>

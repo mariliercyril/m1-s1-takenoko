@@ -122,63 +122,75 @@ public class PathFinderBot extends Player {
             }
 
             if (coloursNeeded.isEmpty()) {
-                coloursNeeded.add(Color.YELLOW);
+                coloursNeeded.add(board.getAllTiles().stream().filter(t -> t.getBambooSize() > 0).collect(Collectors.toList()).get(0).getColor());
             }
         }
 
         if (currentPathInGraph.isEmpty() && currentSteps.isEmpty()) { // If the path we are following is empty
 
+            Path bestPath = new Path();
+            bestPath.addStep(board.get(new Point(0,0)));
+
             bambooTilesGraph = buildBambooGraph(game);      // We compute the graph
 
-            List<Path> pathsToRightColour = new ArrayList<>();
+            if (bambooTilesGraph.getNodes().size() > 1) {
 
-            Color targetColour = coloursNeeded.poll();  // MAKE SURE WE HAVE SOMETHING IN THERE
+                List<Path> pathsToRightColour = new ArrayList<>();
 
-            Map[] dijkstra = bambooTilesGraph.shortestPath(pandaTile);
-            Map<Tile, Integer> distances = dijkstra[1];
-            Map<Tile, Tile> trace = dijkstra[0];
+                Color targetColour = coloursNeeded.poll();  // MAKE SURE WE HAVE SOMETHING IN THERE
 
-            int minDistanceYet = 3000;
+                Map[] dijkstra = new Map[0];
 
-            for(Tile node : bambooTilesGraph.getNodes()) {
-                // If we found a tile of the right colour which is not the one we are on
-                if(node == pandaTile) {
-                    continue;
-                }
-                if ((!node.equals(pandaTile)) && node.getColor().equals(targetColour)) {
+                dijkstra = bambooTilesGraph.shortestPath(pandaTile);
 
-                    if (distances.get(node) == minDistanceYet) {  // If we found a path just as long as the others
-                        pathsToRightColour.add(new Path(trace, node));  // we simply add it to the list
+                Map<Tile, Integer> distances = dijkstra[1];
+                Map<Tile, Tile> trace = dijkstra[0];
+
+                int minDistanceYet = 3000;
+
+                for (Tile node : bambooTilesGraph.getNodes()) {
+                    // If we found a tile of the right colour which is not the one we are on
+                    if (node == pandaTile) {
+                        continue;
                     }
+                    if ((!node.equals(pandaTile)) && node.getColor().equals(targetColour)) {
 
-                    if (distances.get(node) < minDistanceYet) { // If we found a shorter path than the one we have already found
-                        minDistanceYet = distances.get(node);   // we update the minimum distance
-                        pathsToRightColour.clear();             // we remove the longer paths we have
-                        pathsToRightColour.add(new Path(trace, node));  // we add the one we found
-                        if (minDistanceYet <= 1) {              // if the path's length is 1, I.E. the shortest possible path
-                            break;                              // we stop searching
+                        if (distances.get(node) == minDistanceYet) {  // If we found a path just as long as the others
+                            pathsToRightColour.add(new Path(trace, node));  // we simply add it to the list
                         }
+
+                        if (distances.get(node) < minDistanceYet) { // If we found a shorter path than the one we have already found
+                            minDistanceYet = distances.get(node);   // we update the minimum distance
+                            pathsToRightColour.clear();             // we remove the longer paths we have
+                            pathsToRightColour.add(new Path(trace, node));  // we add the one we found
+                            if (minDistanceYet <= 1) {              // if the path's length is 1, I.E. the shortest possible path
+                                break;                              // we stop searching
+                            }
+                        }
+
+                    }
+                }
+
+
+                int bestPathScore = 0;
+
+                for (Path path : pathsToRightColour) {
+                    int score = 0;
+                    for (int value : path.getBambooYield().values()) {
+                        score += value;
                     }
 
+                    if (score > bestPathScore) {
+                        bestPath = path;
+                        bestPathScore = score;
+                    }
                 }
             }
 
-            Path bestPath = null;
-            int bestPathScore = 0;
-
-            for (Path path : pathsToRightColour) {
-                int score = 0;
-                for (int value : path.getBambooYield().values()) {
-                    score += value;
-                }
-
-                if (score > bestPathScore) {
-                    bestPath = path;
-                    bestPathScore = score;
-                }
-            }
 
             currentPathInGraph = bestPath;
+
+
 
         }
 
