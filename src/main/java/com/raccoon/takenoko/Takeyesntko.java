@@ -51,8 +51,8 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                launch1gameNoJutsu(1, pathFinderFactory);
-                //launch1gameNoJutsu(1, randomTerBotFactory);
+                //launch1gameNoJutsu(1, pathFinderFactory);
+                launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
                 launchManyGamesNoJutsu(1, randomTerBotFactory);

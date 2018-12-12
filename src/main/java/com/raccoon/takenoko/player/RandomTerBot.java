@@ -21,14 +21,10 @@ public class RandomTerBot extends RandomBot {
 
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
-        Point safetyNet = available.get(0);
-        available.removeIf(p -> game.getBoard().get(p).getBambooSize() == 0);
-        if (available.isEmpty()) {
-            return safetyNet;
-        } else {
-            Collections.shuffle(available);
-            return available.get(0);
-        }
+
+        Collections.shuffle(available);
+        return available.get(0);
+
     }
 
     @Override
