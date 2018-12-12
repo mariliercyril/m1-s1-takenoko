@@ -167,6 +167,11 @@ public class Game {
         int turnNumber = 0;
         while (!gameOver()) {
             recorder.recordStep(this, turnNumber, playerNumber+1);
+            if (turnNumber > Constants.TIMEOUT) { // timeout
+                this.duration = turnNumber;
+                recorder.stopRecording();
+                return;
+            }
             if (playerNumber == 0) {   // If it's the first player turn, I.E. we are at the beginning of a turn
                 Takeyesntko.print("\n######################################################");
                 Takeyesntko.print("Beginning of turn number " + ++turnNumber);    // We print the new turn number
@@ -179,10 +184,7 @@ public class Game {
                 Takeyesntko.print("\nPlayer #" + players.get(playerNumber).getId() + " tried to cheat: " + e.getMessage() + " I can see you, Player #" + players.get(playerNumber).getId() + "!");
             }
             playerNumber = ( playerNumber + 1 ) % players.size();   // To keep playerNumber between 0 and the size of the list of players
-            if (turnNumber > 100) { // timeout
-                this.duration = turnNumber;
-                return;
-            }
+
         }
         recorder.recordStep(this, turnNumber, playerNumber+1);
         recorder.stopRecording();
