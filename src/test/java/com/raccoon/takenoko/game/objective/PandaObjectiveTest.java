@@ -198,7 +198,7 @@ class PandaObjectiveTest {
 		motif.put(Color.YELLOW, 0);
 		motif.put(Color.PINK, 0);
 
-		assertEquals(pandaObjective.getMotifForCompleting(), motif);
+		assertEquals(pandaObjective.getPatternForCompleting(), motif);
     }
 
 	@Test
@@ -213,7 +213,7 @@ class PandaObjectiveTest {
 		motif.put(Color.YELLOW, 1);
 		motif.put(Color.PINK, 1);
 
-		assertEquals(pandaObjective.getMotifForCompleting(), motif);
+		assertEquals(pandaObjective.getPatternForCompleting(), motif);
     }
 
 }

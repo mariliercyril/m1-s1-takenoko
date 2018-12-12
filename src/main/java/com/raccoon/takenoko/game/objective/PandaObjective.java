@@ -34,7 +34,8 @@ public class PandaObjective extends Objective {
         }
     }
 
-    public Map<Color, Integer> getMotifForCompleting() {
+    @Override
+    public Map<Color, Integer> getPatternForCompleting() {
         return this.goal;
     }
 }

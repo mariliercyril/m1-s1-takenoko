@@ -46,8 +46,16 @@ class GraphTest {
     void removeEdge() {
         graph.addEdge(t1, t2, 2);
         graph.addEdge(t2, t3, 0);
-        graph.removeEdge(t1, t2);
-        graph.removeEdge(t2, t3);
+        try {
+            graph.removeEdge(t1, t2);
+        } catch (UnexistingEdgeException e) {
+            e.printStackTrace();
+        }
+        try {
+            graph.removeEdge(t2, t3);
+        } catch (UnexistingEdgeException e) {
+            e.printStackTrace();
+        }
         assertEquals(0, graph.getEdges().size());
         assertFalse(graph.getEdges(t1).contains(new Edge(t1, t2, 2)));
         assertFalse(graph.getEdges(t2).contains(new Edge(t1, t2, 2)));
@@ -68,7 +76,7 @@ class GraphTest {
 
         graph.addEdge(t3, t4, 2);
 
-        Path sp1 = graph.shortestPath(t1, t2);
+        Path sp1 = new Path(graph.shortestPath(t1)[0], t2);
 
         assertEquals(2, sp1.length(), "Path expected to need on intermediate step, doesn't have a length of 2");
 
@@ -76,7 +84,7 @@ class GraphTest {
 
         graph.addNode(t5);
 
-        Path sp2 = graph.shortestPath(t1, t5);
+        Path sp2 = new Path(graph.shortestPath(t1)[0], t5);
 
         assertEquals(0, sp2.length(), "Path between to non connexe nodes of a graph");
     }

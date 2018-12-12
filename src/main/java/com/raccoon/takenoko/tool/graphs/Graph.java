@@ -18,6 +18,24 @@ public class Graph {
         this.edges = new ArrayList<>();
     }
 
+    /*
+     ***********************************
+     *            Accessors            *
+     ***********************************/
+
+    /*
+    Get Edges
+     */
+
+    public Edge getEdge(Tile a, Tile b) throws UnexistingEdgeException {
+        for(Edge edge : edges) {
+            if (edge.equals(new Edge(a, b, 0))) {   // If we have an edge in the graph from the tile a to b
+                return  edge;   // we return it, so we can consult its weight for example
+            }
+        }
+        throw new UnexistingEdgeException("Trying to get un-existing edge");    // If we didn't find any we just return null
+    }
+
     public List<Edge> getEdges() {
         return edges;
     }
@@ -26,9 +44,15 @@ public class Graph {
         return adjacency.get(t);
     }
 
-    public void addNode(Tile t) {
-        if (!adjacency.containsKey(t)) {
-            adjacency.put(t, new ArrayList<>());
+    /*
+    Add Edges
+     */
+
+    public void addEdge(Edge edge) {
+        if (!adjacency.get(edge.getLeft()).contains(edge)) {
+            adjacency.get(edge.getLeft()).add(edge);
+            adjacency.get(edge.getRight()).add(edge);
+            edges.add(edge);
         }
     }
 
@@ -41,27 +65,52 @@ public class Graph {
 
     }
 
-    public void addEdge(Edge edge) {
-        if (!adjacency.get(edge.getLeft()).contains(edge)) {
-            adjacency.get(edge.getLeft()).add(edge);
-            adjacency.get(edge.getRight()).add(edge);
-            edges.add(edge);
+    /*
+    Remove Edge
+     */
+
+    public void removeEdge(Tile a, Tile b) throws UnexistingEdgeException {
+        Edge toRmv = new Edge(a, b, 0);
+        if (edges.contains(toRmv)) {
+            edges.remove(toRmv);
+            adjacency.get(a).remove(toRmv);
+            adjacency.get(b).remove(toRmv);
+        }
+        else {
+            throw new UnexistingEdgeException("Trying to remove un-existing edge");
         }
     }
 
-    public void removeEdge(Tile a, Tile b) {
-        Edge toRmv = new Edge(a, b, 0);
-        edges.remove(toRmv);
-        adjacency.get(a).remove(toRmv);
-        adjacency.get(b).remove(toRmv);
-    }
-
-    public void removeEdge(Edge e) {
+    public void removeEdge(Edge e) throws UnexistingEdgeException {
         removeEdge(e.getLeft(), e.getRight());
     }
 
+    /*
+    Get Nodes
+     */
 
-    public Path shortestPath(Tile start, Tile end) {
+
+    public List<Tile> getNodes() {
+        return new ArrayList<>(adjacency.keySet());
+    }
+
+    /*
+    Add Nodes
+     */
+
+    public void addNode(Tile t) {
+        if (!adjacency.containsKey(t)) {
+            adjacency.put(t, new ArrayList<>());
+        }
+    }
+
+    /*
+    ***********************************
+    *       Graph computation         *
+    ***********************************/
+
+
+    public Map[] shortestPath(Tile start) {
         // Dijkstra algorithm implementation
 
 
@@ -99,7 +148,9 @@ public class Graph {
             }
         }
 
-        return new Path(trace, end);    // This trace allows to compute a the shortest path from the start to any other point
+        Map[] res = {trace, distance};
+
+        return  res;   // This trace allows to compute a the shortest path from the start to any other point
     }
 
 
@@ -114,13 +165,21 @@ public class Graph {
 
         while (! edges.isEmpty()) { // While we have edges to treat
             Edge edge = edges.poll();
-            this.removeEdge(edge);
-            Path shortestPath = this.shortestPath(edge.getLeft(), edge.getRight());
+            try {
+                this.removeEdge(edge);
+            } catch (UnexistingEdgeException e) {
+                e.printStackTrace();
+            }
 
-            int pathLength = shortestPath.length();
+            Map[] dijks = shortestPath(edge.getLeft());
+
+            Map<Tile, Integer> distance = dijks[1];
+            Map<Tile, Tile> trace = dijks[0];
+
+            int pathLength = distance.get(edge.getRight());
             /* If, when we remove an edge, the two ends of the edge are not connected anymore
             or the path to go from one to the other is longer  */
-            if (pathLength <= 0 || pathLength > edge.getWeight()) {
+            if (!trace.containsKey(edge.getRight()) || pathLength > edge.getWeight()) {
                 // We put it back
                 this.addEdge(edge);
             }

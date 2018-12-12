@@ -16,7 +16,7 @@ public final class Constants {
 
 	public static final float NUMBER_OF_GAMES_FOR_STATS = PF_READER.getFloatProperty(FILE_NAME, "number.of.games.for.stats", 1000);
 
-	public static final int MAX_SCORE = 10;
+	public static final int MAX_SCORE = 20;
 
 	public static final int NUMBER_OF_2_GREEN_PANDA_OBJECTIVE = 5;
     public static final int NUMBER_OF_2_PINK_PANDA_OBJECTIVE = 3;

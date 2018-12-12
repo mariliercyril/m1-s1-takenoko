@@ -51,12 +51,10 @@ public class Takeyesntko {
             print("                                                         Presented by angry raccoons\n");
 
             if (args.length > 0) {
-                //launch1gameNoJutsu(1, pathFinderFactory);
-                launch1gameNoJutsu(1, randomTerBotFactory);
+                launch1gameNoJutsu(1, pathFinderFactory);
             }
             else {
-                launchManyGamesNoJutsu(1, randomTerBotFactory);
-                //launchManyGamesNoJutsu(1, pathFinderFactory);
+                launchManyGamesNoJutsu(1, pathFinderFactory);
             }
 
         };

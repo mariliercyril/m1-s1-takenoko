@@ -81,7 +81,7 @@
                             <systemProperties>
                                 <systemProperty>
                                     <key>boardFile</key>
-                                    <value>ter_display/data/game-0.txt</value>
+                                    <value>ter_display/data/savedGames/game-0.txt</value>
                                 </systemProperty>
                             </systemProperties>
                         </configuration>

@@ -2,14 +2,18 @@ package com.raccoon.takenoko.player;
 
 import com.raccoon.takenoko.game.Board;
 import com.raccoon.takenoko.game.Game;
+import com.raccoon.takenoko.game.Panda;
 import com.raccoon.takenoko.game.objective.Objective;
 import com.raccoon.takenoko.game.objective.ObjectivePool;
 import com.raccoon.takenoko.game.objective.ObjectiveType;
+import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Constants;
 import com.raccoon.takenoko.game.tiles.Color;
+import com.raccoon.takenoko.tool.graphs.Edge;
 import com.raccoon.takenoko.tool.graphs.Graph;
 import com.raccoon.takenoko.tool.graphs.Path;
+import com.raccoon.takenoko.tool.graphs.UnexistingEdgeException;
 
 import java.awt.*;
 import java.util.*;
@@ -43,13 +47,21 @@ public class PathFinderBot extends Player {
      */
 
     private List<Objective> objectivesToValidate;
-    private Path path;
 
     private Graph bambooTilesGraph;
+
+    Path currentPathInGraph;
+
+    Deque<Point> currentSteps;
+
+    Deque<Color> coloursNeeded;
 
     public PathFinderBot() {
         super();
         this.objectivesToValidate = new ArrayList<>();
+        this.currentSteps = new ArrayDeque<>();
+        this.currentPathInGraph = new Path();
+        this.coloursNeeded = new ArrayDeque<>();
     }
 
     @Override
@@ -97,15 +109,95 @@ public class PathFinderBot extends Player {
     @Override
     protected Point whereToMovePanda(Game game, List<Point> available) {
 
-        //bambooTilesGraph = this.buildBambooGraph(game);
+        Board board = game.getBoard();
+        Panda panda = game.getPanda();
+        Tile pandaTile = board.get(panda.getPosition());
 
-        if (Objects.nonNull(path) & path.length() > 0) {
-            return path.nextStep().getPosition();
+        if (coloursNeeded.isEmpty()) {  // If we don't have new colours to eat
+
+            List<Objective> sortedObjectives = this.getObjectives().stream().sorted(Comparator.comparing(Objective::getScore).reversed()).collect(Collectors.toList());
+
+            for (Objective objective : sortedObjectives) {
+                coloursNeeded.addAll(bamboosToEatToComplete(objective));
+            }
         }
-        Map<Point, Boolean> visitedPositions = new HashMap<>();
 
-        Collections.shuffle(available);
-        return available.get(0);
+        if (currentPathInGraph.isEmpty()) { // If the path we are following is empty
+
+            bambooTilesGraph = buildBambooGraph(game);      // We compute the graph
+
+            List<Path> pathsToRightColour = new ArrayList<>();
+
+            Color targetColour = coloursNeeded.poll();  // MAKE SURE WE HAVE SOMETHING IN THERE
+
+            Map[] dijkstra = bambooTilesGraph.shortestPath(pandaTile);
+            Map<Tile, Integer> distances = dijkstra[1];
+            Map<Tile, Tile> trace = dijkstra[0];
+
+            int minDistanceYet = 3000;
+
+            for(Tile node : bambooTilesGraph.getNodes()) {
+                // If we found a tile of the right colour which is not the one we are on
+                if (! node.equals(pandaTile) && node.getColor().equals(targetColour)) {
+
+                    if (distances.get(node) == minDistanceYet) {  // If we found a path just as long as the others
+                        pathsToRightColour.add(new Path(trace, node));  // we simply add it to the list
+                    }
+
+                    if (distances.get(node) < minDistanceYet) { // If we found a shorter path than the one we have already found
+                        minDistanceYet = distances.get(node);   // we update the minimum distance
+                        pathsToRightColour.clear();             // we remove the longer paths we have
+                        pathsToRightColour.add(new Path(trace, node));  // we add the one we found
+                        if (minDistanceYet <= 1) {              // if the path's length is 1, I.E. the shortest possible path
+                            break;                              // we stop searching
+                        }
+                    }
+
+                }
+            }
+
+            currentPathInGraph = pathsToRightColour.get(0);
+
+        }
+
+        if (currentSteps.isEmpty()) {   // If we don't have steps we remembered to follow
+            /* If we are there, we already computed a path in the graph.
+            As we don't have an intermediate step to execute, we know we are on one node of this graph.
+            Therefor we can just check in the graph the weight of the edge between us and the target to know
+            if we need to compute the shortest way to get to our next tile.
+
+            Tile nextTarget = currentPathInGraph.nextStep();
+
+            Edge edgeToNextTarget = null;
+            try {
+                edgeToNextTarget = bambooTilesGraph.getEdge(board.get(panda.getPosition()), nextTarget);
+            } catch (UnexistingEdgeException e) {
+                e.printStackTrace();
+            }
+
+            if (edgeToNextTarget.getWeight() > 1) { // If we need at least one extra step
+                currentSteps.addAll(shortestPath(board, panda.getPosition(), nextTarget.getPosition()));    // We compute it on the board and remember it
+            }
+            else {  // if we only need one simple step, go to the tile :
+                currentSteps.addLast(nextTarget.getPosition());     // we make it
+            }
+
+            THIS DIDN'T WORK : for some reason, we had cases where the panda was on a tile which was not in the current graph
+
+            */
+            Tile nextTarget = currentPathInGraph.nextStep();
+            // This should work, we just compute the shortest way to go to our goal, which might be in one step
+            try {
+                List<Point> steps = shortestPath(board, panda.getPosition(), nextTarget.getPosition());
+                for (Point step : steps) {
+                    currentSteps.addLast(step);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return currentSteps.poll();
     }
 
     @Override
@@ -147,10 +239,13 @@ public class PathFinderBot extends Player {
         }
         // If we didn't return anything we are in the case of a non connex component
         // shouldn't happen in a board
-        return null;
+        return new ArrayList<>();
     }
 
     Map<Tile, Map<Tile, List<Tile>>> paths(Board board, List<Tile> starts) {
+        /*
+        Returns the list of steps to get from each tile to another
+         */
 
         Map<Tile, Map<Tile, List<Tile>>> result = new HashMap<>();
 
@@ -162,7 +257,7 @@ public class PathFinderBot extends Player {
 
             pointsToVisit.addLast(start);
 
-            while(! pointsToVisit.isEmpty()) {
+            while (!pointsToVisit.isEmpty()) {
                 Tile current = pointsToVisit.poll();
                 for (Tile accessible : board.getAccessiblePositions(current)) {
                     if (!trace.containsKey(accessible)) {   // If we didn't visit this vertex already
@@ -237,6 +332,37 @@ public class PathFinderBot extends Player {
         graph.clean();
 
         return graph;
+    }
+
+    private List<Color> bamboosToEatToComplete(Objective objective) {
+        /* COULDN'T THIS BE PART OF THE OBJECTIVE INSTEAD ? */
+        /* Computes the difference between our stomach and the goal needed to complete the objective
+         * Returns a list of colors : one for each bamboo we need to eat */
+
+        Map<Color, Integer> goalStomach = objective.getPatternForCompleting();
+
+        // We initialize a "diff" stomach, that will contain the difference between our stomach and the goal
+        Map<Color, Integer> stomachsDiff = new EnumMap<>(Color.class);
+        for (Color color : Color.values()) {
+            stomachsDiff.put(color, 0);
+        }
+
+        goalStomach.forEach((key, value) -> {
+            int difference;
+            if ((difference = value - this.getStomach().get(key)) > 0) {
+                // If we need to eat more bamboo
+                stomachsDiff.put(key, difference); // We remember how many
+            }
+        });
+
+        List<Color> bamboosToEat = new ArrayList<>();
+
+        // For each color, we add as many copy as their value in the list of bamboos to eat
+        stomachsDiff.forEach((key, value) ->
+                bamboosToEat.addAll(Collections.nCopies(value, key))
+        );
+
+        return bamboosToEat;
     }
 
     protected Path mostUsefulPath(Path a, Path b, Map<Color, Integer> goal) {
