@@ -47,7 +47,6 @@ public class PandaOnlyObjPool extends ObjectivePool {
 
         for (int i = 0; i < Constants.NUMBER_OF_2_GREEN_PANDA_OBJECTIVE; i++) {
             pandaObjectives.add(new PandaObjective(2,0,0,3));
-            pandaObjectives.add(new PandaObjective(2,0,4, 0));
             bamboosNeeded.put(Color.GREEN, bamboosNeeded.get(Color.GREEN) + 2);
         }
 
