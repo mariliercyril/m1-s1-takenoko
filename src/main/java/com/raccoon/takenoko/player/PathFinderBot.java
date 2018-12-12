@@ -128,7 +128,6 @@ public class PathFinderBot extends Player {
 
         if (currentPathInGraph.isEmpty() && currentSteps.isEmpty()) { // If the path we are following is empty
 
-
             bambooTilesGraph = buildBambooGraph(game);      // We compute the graph
 
             List<Path> pathsToRightColour = new ArrayList<>();
@@ -164,7 +163,22 @@ public class PathFinderBot extends Player {
                 }
             }
 
-            currentPathInGraph = pathsToRightColour.get(0);
+            Path bestPath = null;
+            int bestPathScore = 0;
+
+            for (Path path : pathsToRightColour) {
+                int score = 0;
+                for (int value : path.getBambooYield().values()) {
+                    score += value;
+                }
+
+                if (score > bestPathScore) {
+                    bestPath = path;
+                    bestPathScore = score;
+                }
+            }
+
+            currentPathInGraph = bestPath;
 
         }
 
