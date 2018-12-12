@@ -81,7 +81,23 @@
                             <systemProperties>
                                 <systemProperty>
                                     <key>boardFile</key>
-                                    <value>ter_display/data/savedGames/game-0.txt</value>
+                                    <value>ter_display/data/savedGames/game-</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>manyPreset</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.raccoon.takenoko.Takeyesntko</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>boardFile</key>
+                                    <value>ter_display/data/presets/preset-</value>
                                 </systemProperty>
                             </systemProperties>
                         </configuration>

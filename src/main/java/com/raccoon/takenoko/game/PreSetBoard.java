@@ -1,5 +1,6 @@
 package com.raccoon.takenoko.game;
 
+import com.raccoon.takenoko.Takeyesntko;
 import com.raccoon.takenoko.game.tiles.Color;
 import com.raccoon.takenoko.game.tiles.Tile;
 import com.raccoon.takenoko.tool.Tools;
@@ -20,15 +21,17 @@ import java.util.Random;
 public class PreSetBoard extends HashBoard {
 
 
-    public PreSetBoard(@Value("#{systemProperties['boardFile']}") String filename) {
+    public PreSetBoard(@Value("#{systemProperties['boardFile']}") String filepath) {
 
 
         super();
 
-        if (filename == null) {
+        if (filepath == null) {
             randomFill();
         }
         else {
+
+            String filename = filepath + Takeyesntko.gameNumber + ".txt";
 
             try(BufferedReader br = new BufferedReader(new FileReader(filename))) { // Try with resources (auto close)
                 String line = br.readLine();

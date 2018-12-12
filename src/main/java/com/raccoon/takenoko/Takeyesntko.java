@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class Takeyesntko {
 
+    public static int gameNumber;
+
     private static final Logger LOGGER = Logger.getLogger(Takeyesntko.class);
 
     private static boolean verbose = true;
@@ -52,6 +54,7 @@ public class Takeyesntko {
 
             if (args.length > 0) {
                 //launch1gameNoJutsu(1, pathFinderFactory);
+                gameNumber = 0;
                 launch1gameNoJutsu(1, randomTerBotFactory);
             }
             else {
@@ -106,6 +109,7 @@ public class Takeyesntko {
         String[] playersTypes = new String[playerNumber];
 
         for (int i = 0; i < Constants.NUMBER_OF_GAMES_FOR_STATS; i++) {
+            gameNumber = i;
             Game game = gameObjectFactory.getObject();
             try {
                 game.addPlayers(playerNumber, playerFactory);
